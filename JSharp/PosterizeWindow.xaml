@@ -1,0 +1,19 @@
+﻿<Window x:Class="JSharp.PosterizeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JSharp"
+		xmlns:resx="clr-namespace:JSharp.Resources"
+        mc:Ignorable="d"
+        Title="PosterizeWindow" Height="175" Width="250">
+    <Grid>
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0">
+			<TextBlock x:Name="PosterizationLevelsValue" Text="{x:Static resx:Strings.ChoosePosterizationLevelsNumber}" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Bottom"/>
+			<Slider x:Name="SliderPosterizationLevels" Minimum="0" Maximum="255" TickFrequency="1" Value="{Binding LevelsNumber, Mode=TwoWay}"
+					HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="120"/>
+			<TextBlock Text="{Binding LevelsNumber}" VerticalAlignment="Bottom"/>
+		</StackPanel>
+		<Button Content="{x:Static resx:Strings.Confirm}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Click="BtnConfirm_Click"/>
+	</Grid>
+</Window>

@@ -1,0 +1,65 @@
+﻿<Window x:Class="JSharp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:resx="clr-namespace:JSharp.Resources"
+        xmlns:local="clr-namespace:JSharp"
+		xmlns:viewModel="clr-namespace:JSharp.ViewModels"
+		xmlns:prism="http://prismlibrary.com/"
+		mc:Ignorable="d"
+        Title="JSharp" Height="450" Width="800" ResizeMode="CanMinimize" Closing="Window_Closing" PreviewKeyDown="Window_PreviewKeyDown">
+
+	<Window.DataContext>
+		<viewModel:MainWindowViewModel/>
+	</Window.DataContext>
+
+	<Grid>
+		<Menu Width="Auto" Height="20" VerticalAlignment="Top">
+			<MenuItem Header="Lab1">
+				<MenuItem x:Name="Open" Header="{x:Static resx:Strings.Open}">
+					<MenuItem x:Name="OpenGray" Header="{x:Static resx:Strings.OpenGray}" Command="{Binding OpenGray_ClickCommand}"/>
+					<MenuItem x:Name="OpenRGB" Header="{x:Static resx:Strings.OpenRGB}" Command="{Binding OpenRgb_ClickCommand}"/>
+				</MenuItem>
+				<MenuItem x:Name="Duplicate" Header="{x:Static resx:Strings.Duplicate}" Command="{Binding Duplicate_CommandClick}"/>
+				<MenuItem x:Name="Save" Header="{x:Static resx:Strings.Save}" Command="{Binding Save_ClickCommand}"/>
+				<MenuItem x:Name="SaveAs" Header="{x:Static resx:Strings.SaveAs}" Command="{Binding SaveAs_ClickCommand}"/>
+				<MenuItem x:Name="SaveAll" Header="{x:Static resx:Strings.SaveAll}" Command="{Binding SaveAll_ClickCommand}"/>
+				<Separator/>
+				<MenuItem x:Name="Convert" Header="{x:Static resx:Strings.Convert}">
+					<MenuItem x:Name="Grayize" Header="{x:Static resx:Strings.Grayize}"  Command="{Binding Grayize_ClickCommand}"/>
+					<MenuItem x:Name="ConvertRgbToHsv" Header="{x:Static resx:Strings.RgbToHsv}" Command="{Binding ConvertRgbToHsv_ClickCommand}"/>
+					<MenuItem x:Name="ConvertRgbToLab" Header="{x:Static resx:Strings.RgbToLab}" Command="{Binding ConvertRgbToLab_ClickCommand}"/>
+				</MenuItem>
+				<MenuItem x:Name="Negate" Header="{x:Static resx:Strings.Negate}" Command="{Binding Negate_ClickCommand}"/>
+				<Separator/>
+				<MenuItem x:Name="ShowHistogram" Header="{x:Static resx:Strings.ShowHistogram}" Command="{Binding ShowHistogram_ClickCommand}"/>
+				<MenuItem x:Name="StretchHistogram" Header="{x:Static resx:Strings.StretchHistogram}" Command="{Binding StretchHistogram_ClickCommand}"/>
+				<MenuItem x:Name="StretchContrast" Header="{x:Static resx:Strings.StretchContrast }" Command="{Binding StretchContrast_ClickCommand}"/>
+				<MenuItem x:Name="EqualizeHistogram" Header="{x:Static resx:Strings.EqualizeHistogram}" Command="{Binding EqualizeHistogram_ClickCommand}" />
+				<Separator/>
+				<MenuItem x:Name="SplitChannels" Header="{x:Static resx:Strings.SplitChannels}" Command="{Binding SplitChannels_ClickCommand}"/>
+				<Separator/>
+				<MenuItem x:Name="Exit" Header="{x:Static resx:Strings.Exit}" Command="{Binding Exit_ClickCommand}"/>
+			</MenuItem>
+			<MenuItem Header="Lab2">
+				<MenuItem Header="{x:Static resx:Strings.Posterize}" Command="{Binding Posterize_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.Filters}">
+					<MenuItem Header="{x:Static resx:Strings.Convolve}" Command="{Binding Convolve_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.Median}" Command="{Binding Median_ClickCommand}"/>
+				</MenuItem>
+				<MenuItem Header="{x:Static resx:Strings.ImageCalculator}" Command="{Binding ImageCalculator_ClickCommand}"/>
+			</MenuItem>
+			<MenuItem Header="Lab3"/>
+			<MenuItem Header="Lab4"/>
+			<MenuItem Header="Lab5"/>
+			<MenuItem Header="{x:Static resx:Strings.Settings}"/>
+			<MenuItem x:Name="Help" Header="{x:Static resx:Strings.Help}">
+				<MenuItem x:Name="About" Header="{x:Static resx:Strings.About}" Click="About_Click"/>
+			</MenuItem>
+		</Menu>
+		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" HorizontalAlignment="Left" Margin="357,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto" RenderTransformOrigin="0.5,0.5">
+		</Label>
+
+	</Grid>
+</Window>
