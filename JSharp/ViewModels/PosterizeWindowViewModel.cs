@@ -12,7 +12,7 @@ namespace JSharp.ViewModels
     {
         public event EventHandler ValueSelected;
 
-        private int _levelsNumber;
+        private int _levelsNumber = 2;
         public int LevelsNumber
         {
             get { return _levelsNumber; }
@@ -21,10 +21,15 @@ namespace JSharp.ViewModels
 
         public DelegateCommand BtnConfirm_ClickCommand { get; }
 
-        public void BtnConfirmLogic_Click(int levelsNumber)
+        public PosterizeWindowViewModel()
         {
-            LevelsNumber = levelsNumber;
+            BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirmLogic_Click);
+        }
+
+        public void BtnConfirmLogic_Click()
+        {
             ValueSelected?.Invoke(this, EventArgs.Empty);
+            (App.Current.Windows.OfType<PosterizeWindow>().FirstOrDefault(w => w.DataContext == this))?.Close();
         }
     }
 }

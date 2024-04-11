@@ -1,5 +1,6 @@
 ﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
+using Emgu.CV.ML;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using JSharp.Utility;
@@ -13,24 +14,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 
 namespace JSharp
 {
     public static class ImageProcessingCore
     {
-        public static Mat ConvertRgb(Mat image, ColorSpace targetColorSpace)
+        public static Mat ConvertRgb(Mat image, ColorSpaceType targetColorSpace)
         {
             Mat convertedImage = new Mat();
 
             switch (targetColorSpace)
             {
-                case ColorSpace.Grayscale:
+                case ColorSpaceType.Grayscale:
                     CvInvoke.CvtColor(image, convertedImage, ColorConversion.Bgr2Gray);
                     break;
-                case ColorSpace.HSV:
+                case ColorSpaceType.HSV:
                     CvInvoke.CvtColor(image, convertedImage, ColorConversion.Bgr2Hsv);
                     break;
-                case ColorSpace.LAB:
+                case ColorSpaceType.LAB:
                     CvInvoke.CvtColor(image, convertedImage, ColorConversion.Bgr2Lab);
                     break;
                 default:
@@ -286,9 +288,14 @@ namespace JSharp
 
             CvInvoke.CopyMakeBorder(inputGrayImage, paddedImage, padding, padding, padding, padding, borderType, new MCvScalar());
 
-            for (int y = padding; y < paddedImage.Rows; y++)
+            int height = paddedImage.Height;
+            int width = paddedImage.Width;
+            int paddedStep = paddedImage.Step;
+            int resultStep = result.Step;
+
+            for (int y = padding; y < height - padding; y++)
             {
-                for (int x = padding; x < paddedImage.Cols; x++)
+                for (int x = padding; x < width - padding; x++)
                 {
                     List<byte> values = new List<byte>();
 
@@ -296,7 +303,7 @@ namespace JSharp
                     {
                         for (int j = -padding; j <= padding; j++)
                         {
-                            IntPtr pixelPtr = paddedImage.GetDataPointer(y + i, x + j);
+                            IntPtr pixelPtr = paddedImage.DataPointer + (y + i) * paddedStep + (x + j) * paddedImage.ElementSize;
                             byte pixelValue = Marshal.ReadByte(pixelPtr);
                             values.Add(pixelValue);
                         }
@@ -305,7 +312,7 @@ namespace JSharp
                     values.Sort();
                     byte medianValue = values[values.Count / 2];
 
-                    IntPtr outputPtr = result.GetDataPointer(y - padding, x - padding);
+                    IntPtr outputPtr = result.DataPointer + (y - padding) * resultStep + (x - padding) * result.ElementSize;
                     Marshal.WriteByte(outputPtr, medianValue);
                 }
             }
@@ -313,11 +320,102 @@ namespace JSharp
             return result;
         }
 
-        public static Mat Add(Mat image1, Mat image2)
+        public static Mat Add(Mat image1, Mat image2, PixelOverflowHandlingType overflowHandling, double weight = 1.0)
         {
-            Mat resultMat = new Mat();
+            Mat resultMat = new Mat(image1.Rows, image1.Cols, image1.Depth, image1.NumberOfChannels);
+
+            IntPtr ptr1 = image1.DataPointer;
+            IntPtr ptr2 = image2.DataPointer;
+            IntPtr resultPtr = resultMat.DataPointer;
+
+            for (int y = 0; y < image1.Rows; y++)
+            {
+                for (int x = 0; x < image1.Cols; x++)
+                {
+                    int offset1 = y * image1.Step + x;
+                    int offset2 = y * image2.Step + x;
+                    int resultOffset = y * resultMat.Step + x;
+
+                    IntPtr currentPtr1 = IntPtr.Add(ptr1, offset1);
+                    IntPtr currentPtr2 = IntPtr.Add(ptr2, offset2);
+                    IntPtr currentResultPtr = IntPtr.Add(resultPtr, resultOffset);
+
+                    byte pixel1 = Marshal.ReadByte(currentPtr1);
+                    byte pixel2 = Marshal.ReadByte(currentPtr2);
+                    byte newPixel = overflowHandling switch
+                    {
+                        PixelOverflowHandlingType.None_Clipping => (byte)Math.Min(255, pixel1 + pixel2),
+                        PixelOverflowHandlingType.Weights => (byte)Math.Min(255, pixel1 + weight * pixel2),
+                        PixelOverflowHandlingType.Modulo => (byte)((pixel1 + pixel2) % 256),
+                        PixelOverflowHandlingType.LinearScaling => (byte)((pixel1 + pixel2) / 2),
+                        PixelOverflowHandlingType.AdaptiveScaling => CalculateAdaptiveScaling(pixel1, pixel2),
+                        _ => throw new ArgumentException("Invalid overflow handling option."),
+                    };
+                    Marshal.WriteByte(currentResultPtr, newPixel);
+                }
+            }
 
             return resultMat;
+        }
+
+        private static byte CalculateAdaptiveScalingSubtraction(byte pixel1, byte pixel2)
+        {
+            int sum = pixel1 + pixel2;
+            double divisor = Math.Max(1, sum / 255.0);
+            return (byte)Math.Floor((sum / divisor));
+        }
+
+        public static Mat Sub(Mat image1, Mat image2, PixelOverflowHandlingType overflowHandling, double weight = 1.0)
+        {
+            Mat resultMat = new Mat(image1.Rows, image1.Cols, image1.Depth, image1.NumberOfChannels);
+
+            IntPtr ptr1 = image1.DataPointer;
+            IntPtr ptr2 = image2.DataPointer;
+            IntPtr resultPtr = resultMat.DataPointer;
+
+            for (int y = 0; y < image1.Rows; y++)
+            {
+                for (int x = 0; x < image1.Cols; x++)
+                {
+                    int offset1 = y * image1.Step + x;
+                    int offset2 = y * image2.Step + x;
+                    int resultOffset = y * resultMat.Step + x;
+
+                    IntPtr currentPtr1 = IntPtr.Add(ptr1, offset1);
+                    IntPtr currentPtr2 = IntPtr.Add(ptr2, offset2);
+                    IntPtr currentResultPtr = IntPtr.Add(resultPtr, resultOffset);
+
+                    byte pixel1 = Marshal.ReadByte(currentPtr1);
+                    byte pixel2 = Marshal.ReadByte(currentPtr2);
+                    byte newPixel = overflowHandling switch
+                    {
+                        PixelOverflowHandlingType.None_Clipping => (byte)Math.Min(0, pixel1 - pixel2),
+                        //PixelOverflowHandlingType.Weights => (byte)Math.Min(0, pixel1 + weight * pixel2),
+                        PixelOverflowHandlingType.Modulo => (byte)((pixel1 - pixel2 + 256) % 256),
+                        PixelOverflowHandlingType.LinearScaling => (byte)Math.Abs(pixel1 - pixel2),
+                        PixelOverflowHandlingType.AdaptiveScaling => CalculateAdaptiveScaling(pixel1, pixel2),
+                        _ => throw new ArgumentException("Invalid overflow handling option."),
+                    };
+                    Marshal.WriteByte(currentResultPtr, newPixel);
+                }
+            }
+
+            return resultMat;
+        }
+
+        private static byte CalculateAdaptiveScaling(byte pixel1, byte pixel2)
+        {
+            int difference = pixel1 - pixel2;
+            int sum = pixel1 + pixel2;
+
+            // Adjust the divisor to prevent division by zero and handle extremes.
+            double divisor = Math.Max(1, sum / 255.0);
+
+            // Scale the difference based on the sum.
+            double scaledDifference = difference / divisor;
+
+            // Ensure the scaled difference falls within the valid intensity range.
+            return (byte)Math.Max(0, Math.Min(255, 128 + scaledDifference));
         }
     }
 }

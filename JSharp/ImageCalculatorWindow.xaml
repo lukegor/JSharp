@@ -8,7 +8,7 @@
 		xmlns:util="clr-namespace:JSharp.Utility"
 		xmlns:viewModel="clr-namespace:JSharp.ViewModels"
         mc:Ignorable="d"
-        Title="ImageCalculatorWindow" ResizeMode="CanMinimize"  Height="282" Width="300">
+        Title="ImageCalculatorWindow" ResizeMode="CanMinimize"  Height="290" Width="300">
 
 	<Window.Resources>
 		<ObjectDataProvider x:Key="Operations" MethodName="GetValues" ObjectType="{x:Type util:OperationType}">
@@ -43,27 +43,31 @@
 						  SelectedValuePath="FileName"
 						  SelectedValue="{Binding SelectedFileName2}"/>
 				<ComboBox x:Name="CbOperation" Margin="0,0,0,8" Width="160"
-						  ItemsSource="{Binding Source={StaticResource Operations}}"/>
+						  ItemsSource="{Binding Source={StaticResource Operations}}"
+						  SelectionChanged="CbOperation_SelectionChanged"/>
+
 			</StackPanel>
 		</Grid>
-
+		<TextBox x:Name="TxtBlendFactor" Margin="188,114,35,110" Height="20" Visibility="Collapsed"
+Text="{Binding BlendFactor, UpdateSourceTrigger=PropertyChanged}"/>
 		<StackPanel Width="230" HorizontalAlignment="Center" Margin="0,70,0,45" Height="30">
-			<CheckBox Content="{x:Static resx:Strings.ChbNewWindow}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+			<CheckBox x:Name="ChkCreateNewWindow" Content="{x:Static resx:Strings.ChbNewWindow}" IsChecked="True"
+					  HorizontalAlignment="Left" VerticalAlignment="Top"/>
 		</StackPanel>
 
 		<Expander x:Name="SettingsExpander" Header="{x:Static resx:Strings.AdvancedSettings}" VerticalAlignment="Top" Margin="25,145,25,0">
-			<Grid x:Name="InternalGrid2">
+			<Grid x:Name="InternalGrid2" Margin="0,5,0,0">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" MinWidth="94"/>
-					<ColumnDefinition/>
+					<ColumnDefinition Width="51*"/>
 				</Grid.ColumnDefinitions>
 
 				<StackPanel Grid.Column="0" Orientation="Vertical">
 					<TextBlock Text="{x:Static resx:Strings.HandleOverflow}"/>
 				</StackPanel>
 
-				<StackPanel Orientation="Vertical" Grid.Column="1">
-					<ComboBox x:Name="CbOverflowHandling" ItemsSource="{Binding ProcessedValues}"
+				<StackPanel Orientation="Vertical" Grid.Column="1" Grid.ColumnSpan="3">
+					<ComboBox x:Name="CbOverflowHandling" ItemsSource="{Binding ProcessedValues}" SelectedIndex="0"
 					Margin="0,0,0,8" Width="130"/>
 				</StackPanel>
 			</Grid>
@@ -72,7 +76,7 @@
 
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="200" Margin="50,0,0,20" Grid.ColumnSpan="2">
 			<Button Content="{x:Static resx:Strings.Confirm}" Margin="45,0,10,0" Click="BtnConfirm_Click" />
-			<Button Content="{x:Static resx:Strings.Cancel}"/>
+			<Button Content="{x:Static resx:Strings.Cancel}" Click="BtnCancel_Click"/>
 		</StackPanel>
 	</Grid>
 </Window>

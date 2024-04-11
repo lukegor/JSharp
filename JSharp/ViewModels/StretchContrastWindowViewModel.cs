@@ -13,6 +13,7 @@ namespace JSharp.ViewModels
     {
         public event EventHandler ValuesSelected;
 
+        #region dual fields/properties
         [Description("Desired value lower bound")]
         private int _q3;
         public int Q3
@@ -52,6 +53,7 @@ namespace JSharp.ViewModels
                 SetProperty(ref _p2, value);
             }
         }
+        #endregion
 
         public DelegateCommand BtnConfirm_ClickCommand { get; }
 

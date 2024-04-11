@@ -21,12 +21,23 @@ namespace JSharp.Utility
             };
         }
 
+        private static Dictionary<string, BorderType> kernelBorderToBorderTypeMapping = new Dictionary<string, BorderType>
+        {
+            { Kernels.BorderTypeIsolated, BorderType.Isolated },
+            { Kernels.BorderTypeReflect, BorderType.Reflect },
+            { Kernels.BorderTypeReplicate, BorderType.Replicate }
+        };
+
         public static BorderType BorderizeLocalizedBorderType(string localizedBorderType)
         {
-            if (localizedBorderType.Equals(Kernels.BorderTypeIsolated)) { return BorderType.Isolated; }
-            if (localizedBorderType.Equals(Kernels.BorderTypeReflect)) { return BorderType.Reflect; }
-            if (localizedBorderType.Equals(Kernels.BorderTypeReplicate)) { return BorderType.Replicate; }
-            else throw new InvalidOperationException();
+            if (kernelBorderToBorderTypeMapping.TryGetValue(localizedBorderType, out BorderType value))
+            {
+                return value;
+            }
+            else
+            {
+                throw new InvalidOperationException("Invalid kernel border type.");
+            }
         }
     }
 }

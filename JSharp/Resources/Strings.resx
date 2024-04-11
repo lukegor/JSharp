@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="AdaptiveScaling" xml:space="preserve">
+    <value>Adaptive Scaling (Experimental)</value>
+  </data>
   <data name="AdvancedSettings" xml:space="preserve">
     <value>Advanced</value>
   </data>
@@ -189,6 +192,9 @@
   <data name="ImageNotGrayscale" xml:space="preserve">
     <value>The selected operation may only be performed on grayscale images.</value>
   </data>
+  <data name="LinearScaling" xml:space="preserve">
+    <value>Linear Scaling</value>
+  </data>
   <data name="LoadingFailed" xml:space="preserve">
     <value>Failed to load image.</value>
   </data>
@@ -206,6 +212,9 @@
   </data>
   <data name="NoImageOpen" xml:space="preserve">
     <value>No image is open</value>
+  </data>
+  <data name="None_Clipping" xml:space="preserve">
+    <value>Clipping</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Open</value>
@@ -236,9 +245,6 @@
   </data>
   <data name="SaveAs" xml:space="preserve">
     <value>Save As</value>
-  </data>
-  <data name="Scaling" xml:space="preserve">
-    <value>Linear Scaling</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>

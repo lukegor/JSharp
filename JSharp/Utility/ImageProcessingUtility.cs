@@ -8,12 +8,12 @@ namespace JSharp.Utility
 {
     public static class ImageProcessingUtility
     {
-        public static ColorSpace OnLoadingDetermineColorspace(int NumberOfChannels)
+        public static ColorSpaceType OnLoadingDetermineColorspace(int NumberOfChannels)
         {
             return NumberOfChannels switch
             {
-                1 => ColorSpace.Grayscale,
-                3 => ColorSpace.RGB,
+                1 => ColorSpaceType.Grayscale,
+                3 => ColorSpaceType.RGB,
                 _ => throw new NotImplementedException()
             };
         }

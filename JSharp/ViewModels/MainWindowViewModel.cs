@@ -13,6 +13,7 @@ using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -95,7 +96,7 @@ namespace JSharp.ViewModels
         private void OpenRgb_Click()
         {
             //BitmapSource source;
-            (Mat matImage, string fileName) = LoadColorImageFromFile(ImreadModes.Color);
+            (Mat matImage, string fileName) = LoadImageFromFile(ImreadModes.Color);
             if (matImage != null)
             {
                 DisplayImage(matImage, fileName);
@@ -105,7 +106,7 @@ namespace JSharp.ViewModels
         private void OpenGray_Click()
         {
             //BitmapSource source;
-            (Mat matImage, string fileName) = LoadColorImageFromFile(ImreadModes.Grayscale);
+            (Mat matImage, string fileName) = LoadImageFromFile(ImreadModes.Grayscale);
             if (matImage != null)
             {
                 DisplayImage(matImage, fileName);
@@ -120,7 +121,7 @@ namespace JSharp.ViewModels
             }
         }
 
-        private (Mat, string) LoadColorImageFromFile(ImreadModes color)
+        private (Mat, string) LoadImageFromFile(ImreadModes color)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.DefaultExt = ".bmp";
@@ -161,6 +162,7 @@ namespace JSharp.ViewModels
             newImageWindow.Show();
         }
 
+        #region event handler methods
         // Event handler for the Closing event from NewImageWindow
         private void OnNewImageWindowClosing(object sender, EventArgs e)
         {
@@ -184,6 +186,19 @@ namespace JSharp.ViewModels
             UpdateLabelContent(newContent);
         }
 
+        private void NewImageWindow_ImageChanged(object sender, Mat newImage)
+        {
+            if (sender is NewImageWindowViewModel newImageViewModel)
+            {
+                //if (newImageViewModel.histogramWindowViewModel != null)
+                //{
+                //    newImageViewModel.histogramWindowViewModel.UpdateHistogram(newImage);
+                //} // exactly the same at the one below
+                newImageViewModel.histogramWindowViewModel?.UpdateHistogram(newImage);
+            }
+        }
+        #endregion
+
         // Method to update the label content based on the new content
         private void UpdateLabelContent(string newContent)
         {
@@ -198,6 +213,7 @@ namespace JSharp.ViewModels
             }
         }
 
+        #region Saves
         internal void Save()
         {
             if (FocusedImage == null)
@@ -207,6 +223,45 @@ namespace JSharp.ViewModels
             }
 
             FocusedImage.SaveChanges();
+        }
+
+        private void SaveAs_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Bitmap Image|*.bmp|JPEG Image|*.jpg|PNG Image|*.png";
+            saveFileDialog.Title = "Save Image As...";
+            saveFileDialog.FileName = FocusedImage.FileName; // Set default file name here if needed
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                // Determine the file format based on the selected filter index
+                string fileName = saveFileDialog.FileName;
+                string fileExtension = System.IO.Path.GetExtension(fileName).ToLower();
+
+                switch (fileExtension)
+                {
+                    case ".bmp":
+                        FocusedImage.MatImage.Save(fileName);
+                        break;
+                    case ".jpg":
+                        // For JPEG format, save the MatImage with JPEG compression quality
+                        CvInvoke.Imwrite(fileName, FocusedImage.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.JpegQuality, 90) });
+                        break;
+                    case ".png":
+                        // For PNG format, save the MatImage with PNG compression level
+                        CvInvoke.Imwrite(fileName, FocusedImage.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.PngCompression, 3) });
+                        break;
+                    default:
+                        MessageBox.Show("Invalid file format selected.", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                }
+            }
         }
 
         private void SaveAll_Click()
@@ -222,6 +277,7 @@ namespace JSharp.ViewModels
                 window.SaveChanges();
             }
         }
+        #endregion
 
         private void Negate_Click()
         {
@@ -253,16 +309,11 @@ namespace JSharp.ViewModels
                 return;
             }
 
-            FocusedImage.ConvertToRgb(ColorSpace.Grayscale);
-            OnConvertionUpdateFocusedTitle(ColorSpace.Grayscale);
+            FocusedImage.ConvertToRgb(ColorSpaceType.Grayscale);
+            OnConvertionUpdateFocusedTitle(ColorSpaceType.Grayscale);
         }
 
-        private void SaveAs_Click()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnConvertionUpdateFocusedTitle(ColorSpace colorSpace)
+        private void OnConvertionUpdateFocusedTitle(ColorSpaceType colorSpace)
         {
             LblFocusedImageContent = $"({colorSpace}) {FocusedImage.FileName}";
         }
@@ -293,18 +344,6 @@ namespace JSharp.ViewModels
             FocusedImage.MakeHistogram();
         }
 
-        private void NewImageWindow_ImageChanged(object sender, Mat newImage)
-        {
-            if (sender is NewImageWindowViewModel newImageViewModel)
-            {
-                //if (newImageViewModel.histogramWindowViewModel != null)
-                //{
-                //    newImageViewModel.histogramWindowViewModel.UpdateHistogram(newImage);
-                //} // exactly the same at the one below
-                newImageViewModel.histogramWindowViewModel?.UpdateHistogram(newImage);
-            }
-        }
-
         private void ConvertRgbToHsv_Click()
         {
             if (FocusedImage == null)
@@ -317,9 +356,9 @@ namespace JSharp.ViewModels
                 MessageBox.Show(Strings.ImageNotColor, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            FocusedImage.ConvertToRgb(ColorSpace.HSV);
-            OnConvertionUpdateFocusedTitle(ColorSpace.HSV);
-            DisplaySplitChannels(ColorSpace.HSV);
+            FocusedImage.ConvertToRgb(ColorSpaceType.HSV);
+            OnConvertionUpdateFocusedTitle(ColorSpaceType.HSV);
+            DisplaySplitChannels(ColorSpaceType.HSV);
         }
 
         private void SplitChannels_Click()
@@ -337,7 +376,7 @@ namespace JSharp.ViewModels
             DisplaySplitChannels(FocusedImage.ColorSpaceType);
         }
 
-        private void DisplaySplitChannels(ColorSpace colorSpace)
+        private void DisplaySplitChannels(ColorSpaceType colorSpace)
         {
             VectorOfMat channels = ImageProcessingCore.SplitChannels(FocusedImage.MatImage);
             string originalName = FocusedImage.FileName;
@@ -355,29 +394,29 @@ namespace JSharp.ViewModels
             }
         }
 
-        private static string ChooseChannelName(ColorSpace colorSpace, int channelNumber)
+        private static string ChooseChannelName(ColorSpaceType colorSpace, int channelNumber)
         {
             string channelName = colorSpace switch
             {
-                ColorSpace.HSV => channelNumber switch
+                ColorSpaceType.HSV => channelNumber switch
                 {
                     0 => "Hue (H)",
                     1 => "Saturation (S)",
                     2 => "Value (V)",
                     _ => throw new InvalidOperationException()
                 },
-                ColorSpace.RGB => channelNumber switch
+                ColorSpaceType.RGB => channelNumber switch
                 {
                     0 => "Blue (B)",
                     1 => "Green (G)",
                     2 => "Red (R)",
                     _ => throw new InvalidOperationException()
                 },
-                ColorSpace.LAB => channelNumber switch
+                ColorSpaceType.LAB => channelNumber switch
                 {
                     0 => "Lightness (L)",
-                    1 => "Green-Red (a)",
-                    2 => "Blue-Yellow (b)",
+                    1 => "Green-Red (A)",
+                    2 => "Blue-Yellow (B)",
                     _ => throw new InvalidOperationException()
                 },
                 _ => throw new NotImplementedException()
@@ -398,9 +437,9 @@ namespace JSharp.ViewModels
                 return;
             }
 
-            FocusedImage.ConvertToRgb(ColorSpace.LAB);
-            OnConvertionUpdateFocusedTitle(ColorSpace.LAB);
-            DisplaySplitChannels(ColorSpace.LAB);
+            FocusedImage.ConvertToRgb(ColorSpaceType.LAB);
+            OnConvertionUpdateFocusedTitle(ColorSpaceType.LAB);
+            DisplaySplitChannels(ColorSpaceType.LAB);
         }
 
         private void StretchHistogram_Click()
@@ -543,13 +582,30 @@ namespace JSharp.ViewModels
             ImageCalculatorWindow imageCalculatorWindow = new ImageCalculatorWindow();
             imageCalculatorWindow.DataContext = imageCalculatorWindowViewModel;
 
+            imageCalculatorWindowViewModel.ParametersSelected += (s, imageCalculatorInfo) =>
+            {
+                Mat image = imageCalculatorInfo.Operation switch
+                {
+                    OperationType.ADD => ImageProcessingCore.Add(imageCalculatorInfo.Image1, imageCalculatorInfo.Image2, imageCalculatorInfo.PixelOverflowHandlingOption),
+                    OperationType.SUB => throw new NotImplementedException(),
+                    OperationType.BLEND => throw new NotImplementedException(),
+                    OperationType.AND => throw new NotImplementedException(),
+                    OperationType.OR => throw new NotImplementedException(),
+                    OperationType.NOT => throw new NotImplementedException(),
+                    OperationType.XOR => throw new NotImplementedException(),
+                };
+                if (imageCalculatorInfo.ShouldCreateNewWindow)
+                {
+                    DisplayImage(image, "Image Calculator Result Window");
+                }
+                else
+                {
+                    FocusedImage.MatImage = image;
+                }
+            };
+
             //ShowDialog() shows the dialog modally, meaning it blocks until the dialog is closed
             imageCalculatorWindow.ShowDialog();
-
-            if (imageCalculatorWindow.DialogResult == true)
-            {
-                //imageCalculatorWindowViewModel
-            }
         }
     }
 }

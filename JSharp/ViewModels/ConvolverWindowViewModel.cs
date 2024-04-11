@@ -56,15 +56,7 @@ namespace JSharp.ViewModels
         {
             Mat focusedImage = MainWindowViewModel.FocusedImage.MatImage;
 
-            BorderType borderType;
-
-            if (this.BorderPixelsOption == Kernels.BorderTypeIsolated)
-                borderType = BorderType.Isolated;
-            else if (this.BorderPixelsOption == Kernels.BorderTypeReflect)
-                borderType = BorderType.Reflect;
-            else if (this.BorderPixelsOption == Kernels.BorderTypeReplicate)
-                borderType = BorderType.Replicate;
-            else throw new InvalidOperationException();
+            BorderType borderType = BorderTypeLocalizationHelper.BorderizeLocalizedBorderType(this.BorderPixelsOption);
 
             KernelAppliable?.Invoke(this, borderType);
         }

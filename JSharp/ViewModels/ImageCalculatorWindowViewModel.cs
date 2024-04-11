@@ -15,6 +15,9 @@ namespace JSharp.ViewModels
 {
     public class ImageCalculatorWindowViewModel : BindableBase
     {
+        public event EventHandler<ImageCalculatorInfo> ParametersSelected;
+
+        #region dual fields/properties
         private string _selectedFileName1;
         public string SelectedFileName1
         {
@@ -53,6 +56,7 @@ namespace JSharp.ViewModels
             get { return _processedValues; }
             set { SetProperty(ref _processedValues, value); }
         }
+        #endregion
 
         public ImageCalculatorWindowViewModel(List<ImageInfo> images)
         {
@@ -60,7 +64,7 @@ namespace JSharp.ViewModels
             ProcessedValues = GetProcessedEnumValues();
         }
 
-        internal void BtnConfirm_Click(string fileName1, string fileName2, OperationType operation, PixelOverflowHandlingType option)
+        internal void BtnConfirm_Click(string fileName1, string fileName2, OperationType operation, PixelOverflowHandlingType option, bool shouldCreateNewWindow)
         {
             this.SelectedFileName1 = fileName1;
             this.SelectedFileName2 = fileName2;
@@ -71,14 +75,10 @@ namespace JSharp.ViewModels
             this.SelectedImage1 = img1;
             this.SelectedImage2 = img2;
 
-            switch (operation)
-            {
-                case OperationType.ADD:
-                    ImageProcessingCore.Add(img1, img2);
-                    break;
-                case OperationType.SUB:
-                    break;
-            }
+            ImageCalculatorInfo imageCalculatorInfo = new ImageCalculatorInfo(img1, img2, operation, option, shouldCreateNewWindow);
+
+            (App.Current.Windows.OfType<ImageCalculatorWindow>().FirstOrDefault(x => x.DataContext == this))?.Close();
+            ParametersSelected?.Invoke(this, imageCalculatorInfo);
         }
 
         public List<string> GetProcessedEnumValues()

@@ -24,12 +24,5 @@ namespace JSharp
         {
             InitializeComponent();
         }
-
-        private void BtnConfirm_Click(object sender, RoutedEventArgs e)
-        {
-            int levelsNumber = Convert.ToInt32(SliderPosterizationLevels.Value);
-            (DataContext as PosterizeWindowViewModel)?.BtnConfirmLogic_Click(levelsNumber);
-            this.Close();
-        }
     }
 }

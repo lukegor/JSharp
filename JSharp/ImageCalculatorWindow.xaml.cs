@@ -1,4 +1,5 @@
-﻿using JSharp.Utility;
+﻿using JSharp.Resources;
+using JSharp.Utility;
 using JSharp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -28,8 +29,8 @@ namespace JSharp
 
         private void BtnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            string? fileName1 = this.CbImage1.SelectedItem.ToString();
-            string? fileName2 = this.CbImage2.SelectedItem.ToString();
+            string? fileName1 = this.CbImage1.SelectedValue.ToString();
+            string? fileName2 = this.CbImage2.SelectedValue.ToString();
 
             string? stringOperation = CbOperation.SelectedItem.ToString();
             string? stringOverflowHandlingMethod = CbOverflowHandling.SelectedItem.ToString();
@@ -40,9 +41,41 @@ namespace JSharp
             }
 
             OperationType operation = (OperationType)Enum.Parse(typeof(OperationType), stringOperation);
-            PixelOverflowHandlingType method = (PixelOverflowHandlingType)Enum.Parse(typeof(PixelOverflowHandlingType), stringOverflowHandlingMethod);
+            //if (operation == OperationType.BLEND)
+            //{
+            //    if (TxtBlendFactor.Text == null || double.TryParse(TxtBlendFactor.Text, out double blendFactor))
+            //    {
 
-            (DataContext as ImageCalculatorWindowViewModel)?.BtnConfirm_Click(fileName1, fileName2, operation, method);
+            //    }
+            //    else
+            //    {
+            //        throw new ArgumentException();
+            //    }
+            //}
+
+            PixelOverflowHandlingType method = PixelOverflowHandlingHelper.GetStringToEnumMapping(stringOverflowHandlingMethod);
+            //method = (PixelOverflowHandlingType)Enum.Parse(typeof(PixelOverflowHandlingType), stringOverflowHandlingMethod);
+
+            bool shouldCreateNewWindow = (bool)ChkCreateNewWindow.IsChecked;
+
+            (DataContext as ImageCalculatorWindowViewModel)?.BtnConfirm_Click(fileName1, fileName2, operation, method, shouldCreateNewWindow);
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void CbOperation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CbOperation.SelectedValue != null && CbOperation.SelectedValue.ToString() == OperationType.BLEND.ToString())
+            {
+                TxtBlendFactor.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtBlendFactor.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>O programie</value>
   </data>
+  <data name="AdaptiveScaling" xml:space="preserve">
+    <value>Skalowanie Adaptacyjne (Eksperymentalne)</value>
+  </data>
   <data name="AdvancedSettings" xml:space="preserve">
     <value>Ustawienia Zaawansowane</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="ImageNotGrayscale" xml:space="preserve">
     <value>Wybrana operacja może być wykonana tylko na obrazach szaroodcieniowych.</value>
   </data>
+  <data name="LinearScaling" xml:space="preserve">
+    <value>Skalowanie Liniowe</value>
+  </data>
   <data name="LoadingFailed" xml:space="preserve">
     <value>Nie udało się załadować obrazu.</value>
   </data>
@@ -203,6 +209,9 @@
   </data>
   <data name="NoImageOpen" xml:space="preserve">
     <value>Żaden obraz nie jest otwarty</value>
+  </data>
+  <data name="None_Clipping" xml:space="preserve">
+    <value>Limitowanie</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Otwórz</value>
@@ -233,9 +242,6 @@
   </data>
   <data name="SaveAs" xml:space="preserve">
     <value>Zapisz jako</value>
-  </data>
-  <data name="Scaling" xml:space="preserve">
-    <value>Skalowanie Liniowe</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Ustawienia</value>

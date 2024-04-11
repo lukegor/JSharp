@@ -25,7 +25,7 @@ namespace JSharp.ViewModels
         public event EventHandler<Mat>? ImageChanged;
         public event EventHandler Closing;
 
-        #region dual field/properties
+        #region dual fields/properties
         private Mat _matImage;
         public Mat MatImage
         {
@@ -64,8 +64,8 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _source, value); }
         }
 
-        private ColorSpace _colorSpaceType;
-        public ColorSpace ColorSpaceType
+        private ColorSpaceType _colorSpaceType;
+        public ColorSpaceType ColorSpaceType
         {
             get { return _colorSpaceType; }
             set { SetProperty(ref _colorSpaceType, value); }
@@ -229,22 +229,22 @@ namespace JSharp.ViewModels
         #endregion
 
         [SuppressMessage("Style", "IDE0010:Add missing cases to switch statement", Justification = "It converts to RGB and there's no converting RGB to itself")]
-        public void ConvertToRgb(ColorSpace space)
+        public void ConvertToRgb(ColorSpaceType space)
         {
             Mat image = this.MatImage;
             switch (space)
             {
-                case ColorSpace.Grayscale:
-                    image = ImageProcessingCore.ConvertRgb(image, ColorSpace.Grayscale);
-                    this.ColorSpaceType = ColorSpace.Grayscale;
+                case ColorSpaceType.Grayscale:
+                    image = ImageProcessingCore.ConvertRgb(image, ColorSpaceType.Grayscale);
+                    this.ColorSpaceType = ColorSpaceType.Grayscale;
                     break;
-                case ColorSpace.HSV:
-                    image = ImageProcessingCore.ConvertRgb(image, ColorSpace.HSV);
-                    this.ColorSpaceType = ColorSpace.HSV;
+                case ColorSpaceType.HSV:
+                    image = ImageProcessingCore.ConvertRgb(image, ColorSpaceType.HSV);
+                    this.ColorSpaceType = ColorSpaceType.HSV;
                     break;
-                case ColorSpace.LAB:
-                    image = ImageProcessingCore.ConvertRgb(image, ColorSpace.LAB);
-                    this.ColorSpaceType = ColorSpace.LAB;
+                case ColorSpaceType.LAB:
+                    image = ImageProcessingCore.ConvertRgb(image, ColorSpaceType.LAB);
+                    this.ColorSpaceType = ColorSpaceType.LAB;
                     break;
                 default:
                     throw new InvalidOperationException();
@@ -256,7 +256,7 @@ namespace JSharp.ViewModels
         {
             Mat image = this.MatImage;
             image = ImageProcessingCore.Negate(image);
-            this.ColorSpaceType = ColorSpace.Grayscale;
+            this.ColorSpaceType = ColorSpaceType.Grayscale;
             UpdateImageSource(image);
         }
 

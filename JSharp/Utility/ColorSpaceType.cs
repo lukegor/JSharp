@@ -9,7 +9,7 @@ using System.Windows.Navigation;
 
 namespace JSharp.Utility
 {
-    public enum ColorSpace
+    public enum ColorSpaceType
     {
         Grayscale,
         RGB,
@@ -19,16 +19,16 @@ namespace JSharp.Utility
 
     public static class ColorSpaceExtensions
     {
-        public static string GetName(this ColorSpace color)
+        public static string GetName(this ColorSpaceType color)
         {
-            return Enum.GetName(typeof(ColorSpace), color);
+            return Enum.GetName(typeof(ColorSpaceType), color);
         }
-        public static ImreadModes ColorSpaceToImreadModes(this ColorSpace mycolorEnum)
+        public static ImreadModes ColorSpaceToImreadModes(this ColorSpaceType mycolorEnum)
         {
             return mycolorEnum switch
             {
-                ColorSpace.Grayscale => ImreadModes.Grayscale,
-                ColorSpace.RGB => ImreadModes.Color,
+                ColorSpaceType.Grayscale => ImreadModes.Grayscale,
+                ColorSpaceType.RGB => ImreadModes.Color,
                 _ => throw new NotImplementedException()
             };
         }

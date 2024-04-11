@@ -70,6 +70,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adaptive Scaling (Experimental).
+        /// </summary>
+        public static string AdaptiveScaling {
+            get {
+                return ResourceManager.GetString("AdaptiveScaling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advanced.
         /// </summary>
         public static string AdvancedSettings {
@@ -277,6 +286,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Linear Scaling.
+        /// </summary>
+        public static string LinearScaling {
+            get {
+                return ResourceManager.GetString("LinearScaling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to load image..
         /// </summary>
         public static string LoadingFailed {
@@ -327,6 +345,15 @@ namespace JSharp.Resources {
         public static string NoImageOpen {
             get {
                 return ResourceManager.GetString("NoImageOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clipping.
+        /// </summary>
+        public static string None_Clipping {
+            get {
+                return ResourceManager.GetString("None_Clipping", resourceCulture);
             }
         }
         
@@ -417,15 +444,6 @@ namespace JSharp.Resources {
         public static string SaveAs {
             get {
                 return ResourceManager.GetString("SaveAs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Linear Scaling.
-        /// </summary>
-        public static string Scaling {
-            get {
-                return ResourceManager.GetString("Scaling", resourceCulture);
             }
         }
         
