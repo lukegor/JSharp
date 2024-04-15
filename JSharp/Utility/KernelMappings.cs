@@ -14,7 +14,8 @@ namespace JSharp.Utility
         {
             {Kernels.BoxBlur, new int[,] { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } }},
             {Kernels.GaussianBlur, new int[,] { { 1, 2, 1 }, { 2, 4, 2 }, { 1, 2, 1 } }},
-            {Kernels.Sobel, new int[,] { { -1, -2, -1 }, { 0, 0, 0 }, { 1, 2, 1 } }},
+            {Kernels.SobelNS, new int[,] { { -1, -2, -1 }, { 0, 0, 0 }, { 1, 2, 1 } }},
+            {Kernels.SobelEW, new int[,] { { -1, 0, 1 }, { -2, 0, 2 }, { -1, 0, 1 } }},
             {Kernels.Laplacian, new int[,] { { 0, 1, 0 }, { 1, -4, 1 }, { 0, 1, 0 } }},
             {Kernels.Canny, new int[,] { { -1, -1, -1 }, { -1, 8, -1 }, { -1, -1, -1 } }},
             {Kernels.SharpenMask1, new int[,] { { 0, -1, 0 }, { -1, 5, -1 }, { 0, -1, 0 } }},

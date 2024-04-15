@@ -138,8 +138,8 @@
   <data name="SharpenMask3" xml:space="preserve">
     <value>Maska Wyostrzająca 3</value>
   </data>
-  <data name="Sobel" xml:space="preserve">
-    <value>Sobel</value>
+  <data name="SobelNS" xml:space="preserve">
+    <value>Pionowy Sobel</value>
   </data>
   <data name="EdgeDetection" xml:space="preserve">
     <value>Detekcja Krawędzi</value>
@@ -176,5 +176,11 @@
   </data>
   <data name="EdgePixelsHandling" xml:space="preserve">
     <value>Obsługa Pikseli Brzegowych</value>
+  </data>
+  <data name="SobelEW" xml:space="preserve">
+    <value>Poziomy Sobel</value>
+  </data>
+  <data name="Sobel" xml:space="preserve">
+    <value>Sobel</value>
   </data>
 </root>

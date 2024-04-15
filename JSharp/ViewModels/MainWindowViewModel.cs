@@ -1,5 +1,6 @@
 ﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using JSharp.Models;
 using JSharp.Resources;
@@ -65,6 +66,10 @@ namespace JSharp.ViewModels
         public DelegateCommand Convolve_ClickCommand { get; }
         public DelegateCommand ImageCalculator_ClickCommand { get; }
         public DelegateCommand Median_ClickCommand { get; }
+        public DelegateCommand Erode_ClickCommand { get; }
+        public DelegateCommand Dilate_ClickCommand { get; }
+        public DelegateCommand MorphologicalOpen_ClickCommand { get; }
+        public DelegateCommand MorphologicalClose_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -90,6 +95,10 @@ namespace JSharp.ViewModels
             Convolve_ClickCommand = new DelegateCommand(Convolve_Click);
             ImageCalculator_ClickCommand = new DelegateCommand(ImageCalculator_Click);
             Median_ClickCommand = new DelegateCommand(Median_Click);
+            Erode_ClickCommand = new DelegateCommand(Erode_Click);
+            Dilate_ClickCommand = new DelegateCommand(Dilate_Click);
+            MorphologicalOpen_ClickCommand = new DelegateCommand(MorphologicalOpen_Click);
+            MorphologicalClose_ClickCommand = new DelegateCommand(MorphologicalOpen_Click);
             #endregion
         }
 
@@ -144,7 +153,7 @@ namespace JSharp.ViewModels
             return (null, null);
         }
 
-        private void DisplayImage(Mat matImage, string fileName)
+        internal void DisplayImage(Mat matImage, string fileName)
         {
             BitmapSource source = matImage.MatToBitmapSource();
 
@@ -584,15 +593,17 @@ namespace JSharp.ViewModels
 
             imageCalculatorWindowViewModel.ParametersSelected += (s, imageCalculatorInfo) =>
             {
-                Mat image = imageCalculatorInfo.Operation switch
+                Mat img1 = imageCalculatorInfo.Image1, img2 = imageCalculatorInfo.Image2;
+
+                Mat image = imageCalculatorInfo.OperationData.Operation switch
                 {
-                    OperationType.ADD => ImageProcessingCore.Add(imageCalculatorInfo.Image1, imageCalculatorInfo.Image2, imageCalculatorInfo.PixelOverflowHandlingOption),
-                    OperationType.SUB => throw new NotImplementedException(),
-                    OperationType.BLEND => throw new NotImplementedException(),
-                    OperationType.AND => throw new NotImplementedException(),
-                    OperationType.OR => throw new NotImplementedException(),
-                    OperationType.NOT => throw new NotImplementedException(),
-                    OperationType.XOR => throw new NotImplementedException(),
+                    OperationType.ADD => ImageProcessingCore.Add(img1, img2),
+                    OperationType.SUB => ImageProcessingCore.Subtract(img1, img2),
+                    OperationType.BLEND => CallBlend(img1, img2, imageCalculatorInfo.OperationData),
+                    OperationType.AND => ImageProcessingCore.BitwiseAnd(img1, img2),
+                    OperationType.OR => ImageProcessingCore.BitwiseOr(img1, img2),
+                    OperationType.NOT => ImageProcessingCore.BitwiseNot(img1),
+                    OperationType.XOR => ImageProcessingCore.BitwiseXor(img1, img2),
                 };
                 if (imageCalculatorInfo.ShouldCreateNewWindow)
                 {
@@ -606,6 +617,59 @@ namespace JSharp.ViewModels
 
             //ShowDialog() shows the dialog modally, meaning it blocks until the dialog is closed
             imageCalculatorWindow.ShowDialog();
+        }
+
+        private Mat CallBlend(Mat img1, Mat img2, OperationData operationData)
+        {
+            return ImageProcessingCore.Blend(img1, img2, (double)operationData.BlendFactor1);
+        }
+
+        private void Erode_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            StandardMorphologicalWindowViewModel standardMorphologicalWindowViewModel = new StandardMorphologicalWindowViewModel();
+            StandardMorphologicalWindow standardMorphologicalWindow = new StandardMorphologicalWindow();
+            standardMorphologicalWindow.DataContext = standardMorphologicalWindowViewModel;
+
+            standardMorphologicalWindow.ShowDialog();
+
+            if (standardMorphologicalWindow.DialogResult == true)
+            {
+                //FocusedImage.Erode(standardMorphologicalWindowViewModel.Shape, standardMorphologicalWindowViewModel.BorderPixelsOption);
+                standardMorphologicalWindow.Close();
+            }
+        }
+
+        private void Dilate_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
+
+        private void MorphologicalOpen_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
+
+        private void MorphologicalClose_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
     }
 }

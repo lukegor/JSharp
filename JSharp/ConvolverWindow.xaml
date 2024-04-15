@@ -28,9 +28,14 @@
 
 			<!-- Kategoria 2 -->
 			<MenuItem Header="{x:Static resx:Kernels.EdgeDetection}">
-				<MenuItem Header="{x:Static resx:Kernels.Sobel}"
-				  Command="{Binding UpdateKernelTextBoxesCommand}"
-				  CommandParameter="{x:Static resx:Kernels.Sobel}"/>
+				<MenuItem Header="{x:Static resx:Kernels.Sobel}">
+					<MenuItem Header="{x:Static resx:Kernels.SobelNS}"
+				          Command="{Binding UpdateKernelTextBoxesCommand}"
+				          CommandParameter="{x:Static resx:Kernels.SobelNS}"/>
+					<MenuItem Header="{x:Static resx:Kernels.SobelEW}"
+			          Command="{Binding UpdateKernelTextBoxesCommand}"
+			          CommandParameter="{x:Static resx:Kernels.SobelEW}"/>
+				</MenuItem>
 				<MenuItem Header="{x:Static resx:Kernels.Laplacian}"
 				  Command="{Binding UpdateKernelTextBoxesCommand}"
 				  CommandParameter="{x:Static resx:Kernels.Laplacian}"/>

@@ -148,10 +148,8 @@ namespace JSharp.ViewModels
 
         public IEnumerable<string> GetEdgePixelsHandlingOptions()
         {
-            var filteredEnumValues = Enum.GetValues(typeof(BorderType))
-                                         .Cast<BorderType>()
-                                         .Where(bt => bt == BorderType.Isolated || bt == BorderType.Reflect || bt == BorderType.Replicate);
-            return filteredEnumValues.Select(bt => BorderTypeLocalizationHelper.LocalizeBorderType(bt));
+            IEnumerable<BorderType> borderTypes = [BorderType.Isolated, BorderType.Reflect, BorderType.Replicate];
+            return BorderTypeLocalizationHelper.GetLocalizedEdgePixelsHandlingOptions(borderTypes);
         }
     }
 }

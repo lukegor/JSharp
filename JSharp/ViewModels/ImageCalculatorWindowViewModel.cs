@@ -49,22 +49,14 @@ namespace JSharp.ViewModels
             get { return _images; }
             set { SetProperty(ref _images, value); }
         }
-
-        private List<string> _processedValues;
-        public List<string> ProcessedValues
-        {
-            get { return _processedValues; }
-            set { SetProperty(ref _processedValues, value); }
-        }
         #endregion
 
         public ImageCalculatorWindowViewModel(List<ImageInfo> images)
         {
             this.Images = images;
-            ProcessedValues = GetProcessedEnumValues();
         }
 
-        internal void BtnConfirm_Click(string fileName1, string fileName2, OperationType operation, PixelOverflowHandlingType option, bool shouldCreateNewWindow)
+        internal void BtnConfirm_Click(string fileName1, string fileName2, OperationData operationData, bool shouldCreateNewWindow)
         {
             this.SelectedFileName1 = fileName1;
             this.SelectedFileName2 = fileName2;
@@ -75,20 +67,10 @@ namespace JSharp.ViewModels
             this.SelectedImage1 = img1;
             this.SelectedImage2 = img2;
 
-            ImageCalculatorInfo imageCalculatorInfo = new ImageCalculatorInfo(img1, img2, operation, option, shouldCreateNewWindow);
+            ImageCalculatorInfo imageCalculatorInfo = new ImageCalculatorInfo(img1, img2, operationData, shouldCreateNewWindow);
 
             (App.Current.Windows.OfType<ImageCalculatorWindow>().FirstOrDefault(x => x.DataContext == this))?.Close();
             ParametersSelected?.Invoke(this, imageCalculatorInfo);
-        }
-
-        public List<string> GetProcessedEnumValues()
-        {
-            List<string> processedValues = new List<string>();
-            foreach (PixelOverflowHandlingType value in Enum.GetValues(typeof(PixelOverflowHandlingType)))
-            {
-                processedValues.Add(PixelOverflowHandlingHelper.GetName(value));
-            }
-            return processedValues;
         }
     }
 }

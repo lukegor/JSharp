@@ -120,12 +120,6 @@
   <data name="About" xml:space="preserve">
     <value>O programie</value>
   </data>
-  <data name="AdaptiveScaling" xml:space="preserve">
-    <value>Skalowanie Adaptacyjne (Eksperymentalne)</value>
-  </data>
-  <data name="AdvancedSettings" xml:space="preserve">
-    <value>Ustawienia Zaawansowane</value>
-  </data>
   <data name="AlreadyGrayscale_Error" xml:space="preserve">
     <value>Obraz jest już szaroodcieniowy</value>
   </data>
@@ -150,11 +144,17 @@
   <data name="Convolve" xml:space="preserve">
     <value>Konwolucja</value>
   </data>
+  <data name="Dilate" xml:space="preserve">
+    <value>Dylacja</value>
+  </data>
   <data name="Duplicate" xml:space="preserve">
     <value>Duplikuj</value>
   </data>
   <data name="EqualizeHistogram" xml:space="preserve">
     <value>Wyrównaj Histogram</value>
+  </data>
+  <data name="Erode" xml:space="preserve">
+    <value>Erozja</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Błąd</value>
@@ -189,17 +189,20 @@
   <data name="ImageNotGrayscale" xml:space="preserve">
     <value>Wybrana operacja może być wykonana tylko na obrazach szaroodcieniowych.</value>
   </data>
-  <data name="LinearScaling" xml:space="preserve">
-    <value>Skalowanie Liniowe</value>
-  </data>
   <data name="LoadingFailed" xml:space="preserve">
     <value>Nie udało się załadować obrazu.</value>
   </data>
   <data name="Median" xml:space="preserve">
     <value>Medianowy</value>
   </data>
-  <data name="Modulo" xml:space="preserve">
-    <value>Modulo</value>
+  <data name="MorphologicalClose" xml:space="preserve">
+    <value>Zamknięcię Morfologiczne</value>
+  </data>
+  <data name="MorphologicalOpen" xml:space="preserve">
+    <value>Otwarcie Morfologiczne</value>
+  </data>
+  <data name="MorphologicalOperations" xml:space="preserve">
+    <value>Podstawowe Operacje Morfologiczne</value>
   </data>
   <data name="Negate" xml:space="preserve">
     <value>Negacja</value>
@@ -209,9 +212,6 @@
   </data>
   <data name="NoImageOpen" xml:space="preserve">
     <value>Żaden obraz nie jest otwarty</value>
-  </data>
-  <data name="None_Clipping" xml:space="preserve">
-    <value>Limitowanie</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Otwórz</value>
@@ -234,6 +234,9 @@
   <data name="RgbToLab" xml:space="preserve">
     <value>Konwertuj RGB do LAB</value>
   </data>
+  <data name="Rhombus" xml:space="preserve">
+    <value>Romb</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Zapisz</value>
   </data>
@@ -252,6 +255,9 @@
   <data name="SplitChannels" xml:space="preserve">
     <value>Rozdziel na kanały</value>
   </data>
+  <data name="Square" xml:space="preserve">
+    <value>Kwadrat</value>
+  </data>
   <data name="StretchContrast" xml:space="preserve">
     <value>Rozciągnij Kontrast</value>
   </data>
@@ -266,8 +272,5 @@
   </data>
   <data name="TextBlockOperation" xml:space="preserve">
     <value>Operacja:</value>
-  </data>
-  <data name="Weights" xml:space="preserve">
-    <value>Wagi</value>
   </data>
 </root>

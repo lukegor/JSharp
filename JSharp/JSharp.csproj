@@ -19,6 +19,7 @@
     <PackageReference Include="Emgu.CV" Version="4.8.1.5350" />
     <PackageReference Include="Emgu.CV.Bitmap" Version="4.8.1.5350" />
     <PackageReference Include="Emgu.CV.runtime.windows" Version="4.8.1.5350" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
     <PackageReference Include="Prism.Unity" Version="8.1.97" />

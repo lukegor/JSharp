@@ -50,7 +50,14 @@
 				</MenuItem>
 				<MenuItem Header="{x:Static resx:Strings.ImageCalculator}" Command="{Binding ImageCalculator_ClickCommand}"/>
 			</MenuItem>
-			<MenuItem Header="Lab3"/>
+			<MenuItem Header="Lab3">
+				<MenuItem Header="{x:Static resx:Strings.MorphologicalOperations}">
+					<MenuItem Header="{x:Static resx:Strings.Erode}" Command="{Binding Erode_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.Dilate}"/>
+					<MenuItem Header="{x:Static resx:Strings.MorphologicalOpen}"/>
+					<MenuItem Header="{x:Static resx:Strings.MorphologicalClose}"/>
+				</MenuItem>
+			</MenuItem>
 			<MenuItem Header="Lab4"/>
 			<MenuItem Header="Lab5"/>
 			<MenuItem Header="{x:Static resx:Strings.Settings}"/>

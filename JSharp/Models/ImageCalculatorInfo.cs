@@ -12,16 +12,14 @@ namespace JSharp.Models
     {
         public Mat Image1 { get; set; }
         public Mat Image2 { get; set; }
-        public OperationType Operation { get; set; }
-        public PixelOverflowHandlingType PixelOverflowHandlingOption { get; set; }
+        public OperationData OperationData { get; set; }
         public bool ShouldCreateNewWindow { get; set; }
 
-        public ImageCalculatorInfo(Mat image1, Mat image2, OperationType operation, PixelOverflowHandlingType pixelOverflowHandlingOption, bool shouldCreateNewWindow)
+        public ImageCalculatorInfo(Mat image1, Mat image2, OperationData operationData, bool shouldCreateNewWindow)
         {
             Image1 = image1;
             Image2 = image2;
-            Operation = operation;
-            PixelOverflowHandlingOption = pixelOverflowHandlingOption;
+            OperationData = operationData;
             ShouldCreateNewWindow = shouldCreateNewWindow;
         }
     }

@@ -17,6 +17,8 @@ namespace JSharp.Utility
                 BorderType.Isolated => Kernels.BorderTypeIsolated,// Assuming you have localized resource strings
                 BorderType.Reflect => Kernels.BorderTypeReflect,
                 BorderType.Replicate => Kernels.BorderTypeReplicate,
+                BorderType.Reflect101 => Kernels.BorderTypeReflect101,
+                BorderType.Wrap => Kernels.BorderTypeWrap,
                 _ => throw new NotImplementedException(),
             };
         }
@@ -38,6 +40,11 @@ namespace JSharp.Utility
             {
                 throw new InvalidOperationException("Invalid kernel border type.");
             }
+        }
+
+        public static IEnumerable<string> GetLocalizedEdgePixelsHandlingOptions(IEnumerable<BorderType> borderTypes)
+        {
+            return borderTypes.Select(bt => BorderTypeLocalizationHelper.LocalizeBorderType(bt));
         }
     }
 }

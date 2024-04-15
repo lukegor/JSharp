@@ -61,6 +61,13 @@ namespace JSharp
                 {
                     (DataContext as NewImageWindowViewModel)?.ScaleZoom(false);
                 }
+                else if ((Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift && e.Key == Key.D)
+                {
+                    MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+
+                    MainWindowViewModel mainWindowViewModel = mainWindow.DataContext as MainWindowViewModel;
+                    mainWindowViewModel?.DisplayImage(MainWindowViewModel.FocusedImage.MatImage, MainWindowViewModel.FocusedImage.FileName);
+                }
             }
         }
 

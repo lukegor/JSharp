@@ -1,4 +1,5 @@
-﻿using JSharp.Resources;
+﻿using JSharp.Models;
+using JSharp.Resources;
 using JSharp.Utility;
 using JSharp.ViewModels;
 using System;
@@ -33,32 +34,36 @@ namespace JSharp
             string? fileName2 = this.CbImage2.SelectedValue.ToString();
 
             string? stringOperation = CbOperation.SelectedItem.ToString();
-            string? stringOverflowHandlingMethod = CbOverflowHandling.SelectedItem.ToString();
 
-            if (fileName1 == null || fileName2 == null || stringOperation == null || stringOverflowHandlingMethod == null)
+            double blendFactor1 = -1;
+            double blendFactor2 = -1;
+
+            if (fileName1 == null || fileName2 == null || stringOperation == null)
             {
                 throw new NullReferenceException("Something is null and it shouldn't");
             }
 
+            OperationData operationData;
             OperationType operation = (OperationType)Enum.Parse(typeof(OperationType), stringOperation);
-            //if (operation == OperationType.BLEND)
-            //{
-            //    if (TxtBlendFactor.Text == null || double.TryParse(TxtBlendFactor.Text, out double blendFactor))
-            //    {
-
-            //    }
-            //    else
-            //    {
-            //        throw new ArgumentException();
-            //    }
-            //}
-
-            PixelOverflowHandlingType method = PixelOverflowHandlingHelper.GetStringToEnumMapping(stringOverflowHandlingMethod);
-            //method = (PixelOverflowHandlingType)Enum.Parse(typeof(PixelOverflowHandlingType), stringOverflowHandlingMethod);
+            if (operation == OperationType.BLEND)
+            {
+                if (TxtBlendFactor.Text != null && double.TryParse(TxtBlendFactor.Text, out blendFactor1))
+                {
+                    operationData = new OperationData(operation, blendFactor1);
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+            else
+            {
+                operationData = new OperationData(operation);
+            }
 
             bool shouldCreateNewWindow = (bool)ChkCreateNewWindow.IsChecked;
 
-            (DataContext as ImageCalculatorWindowViewModel)?.BtnConfirm_Click(fileName1, fileName2, operation, method, shouldCreateNewWindow);
+            (DataContext as ImageCalculatorWindowViewModel)?.BtnConfirm_Click(fileName1, fileName2, operationData, shouldCreateNewWindow);
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -71,10 +76,12 @@ namespace JSharp
             if (CbOperation.SelectedValue != null && CbOperation.SelectedValue.ToString() == OperationType.BLEND.ToString())
             {
                 TxtBlendFactor.Visibility = Visibility.Visible;
+                Txb1.Visibility = Visibility.Visible;
             }
             else
             {
                 TxtBlendFactor.Visibility = Visibility.Collapsed;
+                Txb1.Visibility = Visibility.Collapsed;
             }
         }
     }

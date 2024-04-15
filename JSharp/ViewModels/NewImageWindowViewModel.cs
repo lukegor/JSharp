@@ -86,7 +86,7 @@ namespace JSharp.ViewModels
         public NewImageWindowViewModel(BitmapSource source, Mat matImage, string fileName, int duplicateCount)
         {
             Source = source;
-            this.MatImage = matImage;
+            this.MatImage = matImage.Clone();
 
             HandleNaming(fileName, duplicateCount);
 

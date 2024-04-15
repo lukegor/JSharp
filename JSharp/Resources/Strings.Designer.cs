@@ -70,24 +70,6 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adaptive Scaling (Experimental).
-        /// </summary>
-        public static string AdaptiveScaling {
-            get {
-                return ResourceManager.GetString("AdaptiveScaling", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Advanced.
-        /// </summary>
-        public static string AdvancedSettings {
-            get {
-                return ResourceManager.GetString("AdvancedSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The image is already grayscale.
         /// </summary>
         public static string AlreadyGrayscale_Error {
@@ -160,6 +142,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dylacja.
+        /// </summary>
+        public static string Dilate {
+            get {
+                return ResourceManager.GetString("Dilate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duplicate.
         /// </summary>
         public static string Duplicate {
@@ -174,6 +165,15 @@ namespace JSharp.Resources {
         public static string EqualizeHistogram {
             get {
                 return ResourceManager.GetString("EqualizeHistogram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erode.
+        /// </summary>
+        public static string Erode {
+            get {
+                return ResourceManager.GetString("Erode", resourceCulture);
             }
         }
         
@@ -210,15 +210,6 @@ namespace JSharp.Resources {
         public static string Grayize {
             get {
                 return ResourceManager.GetString("Grayize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Handle overflow:.
-        /// </summary>
-        public static string HandleOverflow {
-            get {
-                return ResourceManager.GetString("HandleOverflow", resourceCulture);
             }
         }
         
@@ -286,15 +277,6 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Linear Scaling.
-        /// </summary>
-        public static string LinearScaling {
-            get {
-                return ResourceManager.GetString("LinearScaling", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Failed to load image..
         /// </summary>
         public static string LoadingFailed {
@@ -313,11 +295,29 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modulo.
+        ///   Looks up a localized string similar to Morphological Closing.
         /// </summary>
-        public static string Modulo {
+        public static string MorphologicalClose {
             get {
-                return ResourceManager.GetString("Modulo", resourceCulture);
+                return ResourceManager.GetString("MorphologicalClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Morphological Opening.
+        /// </summary>
+        public static string MorphologicalOpen {
+            get {
+                return ResourceManager.GetString("MorphologicalOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elementary Morphological Operations.
+        /// </summary>
+        public static string MorphologicalOperations {
+            get {
+                return ResourceManager.GetString("MorphologicalOperations", resourceCulture);
             }
         }
         
@@ -345,15 +345,6 @@ namespace JSharp.Resources {
         public static string NoImageOpen {
             get {
                 return ResourceManager.GetString("NoImageOpen", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clipping.
-        /// </summary>
-        public static string None_Clipping {
-            get {
-                return ResourceManager.GetString("None_Clipping", resourceCulture);
             }
         }
         
@@ -421,6 +412,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rhombus.
+        /// </summary>
+        public static string Rhombus {
+            get {
+                return ResourceManager.GetString("Rhombus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
@@ -475,6 +475,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Square.
+        /// </summary>
+        public static string Square {
+            get {
+                return ResourceManager.GetString("Square", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stretch Contrast.
         /// </summary>
         public static string StretchContrast {
@@ -516,15 +525,6 @@ namespace JSharp.Resources {
         public static string TextBlockOperation {
             get {
                 return ResourceManager.GetString("TextBlockOperation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Weights.
-        /// </summary>
-        public static string Weights {
-            get {
-                return ResourceManager.GetString("Weights", resourceCulture);
             }
         }
     }

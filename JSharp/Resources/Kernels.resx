@@ -123,8 +123,14 @@
   <data name="BorderTypeReflect" xml:space="preserve">
     <value>Reflect</value>
   </data>
+  <data name="BorderTypeReflect101" xml:space="preserve">
+    <value>Reflect101</value>
+  </data>
   <data name="BorderTypeReplicate" xml:space="preserve">
     <value>Replicate</value>
+  </data>
+  <data name="BorderTypeWrap" xml:space="preserve">
+    <value>Wrap</value>
   </data>
   <data name="BoxBlur" xml:space="preserve">
     <value>Box Blur</value>
@@ -201,5 +207,11 @@
   </data>
   <data name="Sobel" xml:space="preserve">
     <value>Sobel</value>
+  </data>
+  <data name="SobelEW" xml:space="preserve">
+    <value>Vertical Sobel</value>
+  </data>
+  <data name="SobelNS" xml:space="preserve">
+    <value>Horizontal Sobel</value>
   </data>
 </root>

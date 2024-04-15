@@ -46,7 +46,8 @@ namespace JSharp.ViewModels
             //assign data to histogram
             var dataSeries = new ColumnSeries<int>
             {
-                Values = histogramData
+                Values = histogramData,
+                YToolTipLabelFormatter = chartPoint => $"{chartPoint.Coordinate}"
             };
             HistogramSeries = new ISeries[] { dataSeries };
 

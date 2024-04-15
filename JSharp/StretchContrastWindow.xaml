@@ -6,8 +6,9 @@
 		xmlns:resx="clr-namespace:JSharp.Resources"
         xmlns:local="clr-namespace:JSharp"
 		xmlns:prism="http://prismlibrary.com/"
+		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="StretchContrastWindow" Height="175" Width="500"
+        Title="StretchContrastWindow" Height="200" Width="500"
 		prism:ViewModelLocator.AutoWireViewModel="True">
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -20,28 +21,32 @@
 			<Slider x:Name="SliderP1" Minimum="0" Maximum="255" Value="{Binding P1, Mode=TwoWay}"
                 Width="200" Height="18" Margin="0,15,0,0"
 				TickFrequency="1"/>
-			<TextBlock Text="{Binding P1}" VerticalAlignment="Center" Height="15"/>
+			<xctk:IntegerUpDown Text="{Binding P1}" Margin="0,3"
+								Minimum="0" Maximum="255" Height="20"/>
 
 			<!-- Upper Limit Slider -->
 			<Slider x:Name="SliderP2" Minimum="0" Maximum="255" Value="{Binding P2, Mode=TwoWay}"
                 Width="200" Height="18" Margin="0,10,0,0"
 				TickFrequency="1"/>
-			<TextBlock Text="{Binding P2}" VerticalAlignment="Center" Height="15"/>
+			<xctk:IntegerUpDown Text="{Binding P2}" Margin="0,3"
+								Minimum="0" Maximum="255" Height="20"/>
 		</StackPanel>
-		<Button Content="{x:Static resx:Strings.Confirm}" HorizontalAlignment="Center" Margin="0,110,0,0" VerticalAlignment="Top" Click="BtnConfirm_Click" Grid.ColumnSpan="2"/>
+		<Button Content="{x:Static resx:Strings.Confirm}" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Click="BtnConfirm_Click" Grid.ColumnSpan="2"/>
 		<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Grid.Column="1">
 			<TextBlock VerticalAlignment="Center" Margin="0,0,0,-10" TextAlignment="Center"><Run Text="R"/><Run Text="ange of pixel values to stretch"/><Run Language="pl-pl" Text=" into"/></TextBlock>
 			<!-- Lower Limit Slider -->
 			<Slider x:Name="SliderQ3" Minimum="0" Maximum="255" Value="{Binding Q3, Mode=TwoWay}"
 		  Width="200" Height="18" Margin="0,15,0,0"
 		  TickFrequency="1"/>
-			<TextBlock Text="{Binding Q3}" VerticalAlignment="Center" Height="15"/>
+			<xctk:IntegerUpDown Text="{Binding Q3, Mode=TwoWay}" Margin="0,3"
+								Minimum="0" Maximum="255" Height="20"/>
 
 			<!-- Upper Limit Slider -->
 			<Slider x:Name="SliderQ4" Minimum="0" Maximum="255" Value="{Binding Q4, Mode=TwoWay}"
 		  Width="200" Height="18" Margin="0,10,0,0"
 		  TickFrequency="1"/>
-			<TextBlock Text="{Binding Q4}" VerticalAlignment="Center" Height="15"/>
+			<xctk:IntegerUpDown Text="{Binding Q4, Mode=TwoWay}" Margin="0,3"
+								Minimum="0" Maximum="255" Height="20"/>
 		</StackPanel>
 	</Grid>
 </Window>

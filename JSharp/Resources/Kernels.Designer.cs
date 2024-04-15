@@ -79,11 +79,29 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reflect101.
+        /// </summary>
+        public static string BorderTypeReflect101 {
+            get {
+                return ResourceManager.GetString("BorderTypeReflect101", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Replicate.
         /// </summary>
         public static string BorderTypeReplicate {
             get {
                 return ResourceManager.GetString("BorderTypeReplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrap.
+        /// </summary>
+        public static string BorderTypeWrap {
+            get {
+                return ResourceManager.GetString("BorderTypeWrap", resourceCulture);
             }
         }
         
@@ -309,6 +327,24 @@ namespace JSharp.Resources {
         public static string Sobel {
             get {
                 return ResourceManager.GetString("Sobel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertical Sobel.
+        /// </summary>
+        public static string SobelEW {
+            get {
+                return ResourceManager.GetString("SobelEW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horizontal Sobel.
+        /// </summary>
+        public static string SobelNS {
+            get {
+                return ResourceManager.GetString("SobelNS", resourceCulture);
             }
         }
     }

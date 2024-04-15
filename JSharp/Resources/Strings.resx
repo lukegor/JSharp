@@ -120,12 +120,6 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="AdaptiveScaling" xml:space="preserve">
-    <value>Adaptive Scaling (Experimental)</value>
-  </data>
-  <data name="AdvancedSettings" xml:space="preserve">
-    <value>Advanced</value>
-  </data>
   <data name="AlreadyGrayscale_Error" xml:space="preserve">
     <value>The image is already grayscale</value>
   </data>
@@ -150,11 +144,17 @@
   <data name="Convolve" xml:space="preserve">
     <value>Convolve</value>
   </data>
+  <data name="Dilate" xml:space="preserve">
+    <value>Dylacja</value>
+  </data>
   <data name="Duplicate" xml:space="preserve">
     <value>Duplicate</value>
   </data>
   <data name="EqualizeHistogram" xml:space="preserve">
     <value>Equalize Histogram</value>
+  </data>
+  <data name="Erode" xml:space="preserve">
+    <value>Erode</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
@@ -167,9 +167,6 @@
   </data>
   <data name="Grayize" xml:space="preserve">
     <value>RGB to Grayscale</value>
-  </data>
-  <data name="HandleOverflow" xml:space="preserve">
-    <value>Handle overflow:</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>Help</value>
@@ -192,17 +189,20 @@
   <data name="ImageNotGrayscale" xml:space="preserve">
     <value>The selected operation may only be performed on grayscale images.</value>
   </data>
-  <data name="LinearScaling" xml:space="preserve">
-    <value>Linear Scaling</value>
-  </data>
   <data name="LoadingFailed" xml:space="preserve">
     <value>Failed to load image.</value>
   </data>
   <data name="Median" xml:space="preserve">
     <value>Median</value>
   </data>
-  <data name="Modulo" xml:space="preserve">
-    <value>Modulo</value>
+  <data name="MorphologicalClose" xml:space="preserve">
+    <value>Morphological Closing</value>
+  </data>
+  <data name="MorphologicalOpen" xml:space="preserve">
+    <value>Morphological Opening</value>
+  </data>
+  <data name="MorphologicalOperations" xml:space="preserve">
+    <value>Elementary Morphological Operations</value>
   </data>
   <data name="Negate" xml:space="preserve">
     <value>Negate</value>
@@ -212,9 +212,6 @@
   </data>
   <data name="NoImageOpen" xml:space="preserve">
     <value>No image is open</value>
-  </data>
-  <data name="None_Clipping" xml:space="preserve">
-    <value>Clipping</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Open</value>
@@ -237,6 +234,9 @@
   <data name="RgbToLab" xml:space="preserve">
     <value>RGB to LAB</value>
   </data>
+  <data name="Rhombus" xml:space="preserve">
+    <value>Rhombus</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -255,6 +255,9 @@
   <data name="SplitChannels" xml:space="preserve">
     <value>Split Channels</value>
   </data>
+  <data name="Square" xml:space="preserve">
+    <value>Square</value>
+  </data>
   <data name="StretchContrast" xml:space="preserve">
     <value>Stretch Contrast</value>
   </data>
@@ -269,8 +272,5 @@
   </data>
   <data name="TextBlockOperation" xml:space="preserve">
     <value>Operation:</value>
-  </data>
-  <data name="Weights" xml:space="preserve">
-    <value>Weights</value>
   </data>
 </root>
