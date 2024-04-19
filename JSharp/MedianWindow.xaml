@@ -14,6 +14,7 @@
                     ObjectType="{x:Type viewModels:ConvolverWindowViewModel}"
                     MethodName="GetEdgePixelsHandlingOptions" />
 		<converters:MatrixSizeConverter x:Key="MatrixSizeConverter"/>
+		<converters:BorderTypeConverter x:Key="BorderTypeConverter"/>
 	</Window.Resources>
 
 	<Grid>
@@ -39,13 +40,13 @@
 
 			<!-- Second Row -->
 			<TextBlock Grid.Row="1" Grid.Column="0" Text="Edge pixels handling" Margin="0,5,0,0"/>
-			<ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Source={StaticResource FilteredLocalizedBorderTypesProvider}}" SelectedItem="{Binding BorderPixelsOption, Mode=TwoWay}" Margin="10,5,0,5" Width="100"/>
+			<ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Source={StaticResource FilteredLocalizedBorderTypesProvider}}" SelectedItem="{Binding BorderPixelsOption, Mode=TwoWay, Converter={StaticResource BorderTypeConverter}}" Margin="10,5,0,5" Width="100"/>
 		</Grid>
 
 
 
 		<DockPanel DockPanel.Dock="Bottom" Margin="5,0,5,5" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-			<Button Content="Apply" Width="100" Margin="5" Command="{Binding BtnApply_ClickCommand}"/>
+			<Button Content="Apply" Width="100" Margin="5" Command="{Binding BtnApply_ClickCommand}" IsDefault="True"/>
 		</DockPanel>
 	</Grid>
 </Window>

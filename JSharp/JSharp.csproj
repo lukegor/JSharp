@@ -38,6 +38,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Kernels.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Project.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Project.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Strings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -54,6 +59,10 @@
     <EmbeddedResource Update="Resources\Kernels.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Kernels.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Project.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Project.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

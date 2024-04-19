@@ -23,8 +23,8 @@ namespace JSharp.ViewModels
             }
         }
 
-        private string _borderPixelsOption;
-        public string BorderPixelsOption
+        private BorderType _borderPixelsOption;
+        public BorderType BorderPixelsOption
         {
             get { return _borderPixelsOption; }
             set { SetProperty(ref _borderPixelsOption, value); }
@@ -36,7 +36,7 @@ namespace JSharp.ViewModels
         {
             BtnApply_ClickCommand = new DelegateCommand(BtnApply_Click);
 
-            this.BorderPixelsOption = Kernels.BorderTypeIsolated;
+            this.BorderPixelsOption = BorderType.Isolated;
         }
 
         private void BtnApply_Click()

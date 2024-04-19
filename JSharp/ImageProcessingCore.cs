@@ -3,6 +3,7 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.ML;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+using JSharp.Resources;
 using JSharp.Utility;
 using System;
 using System.Collections.Generic;
@@ -237,7 +238,7 @@ namespace JSharp
         {
             Mat posterizedImage = image.Clone();
 
-            int divisor = 256 / levels;
+            int divisor = 255 / (levels-1);
 
             IntPtr dataPtr = posterizedImage.DataPointer;
             int totalBytes = posterizedImage.Rows * posterizedImage.Cols;
@@ -256,7 +257,7 @@ namespace JSharp
             return posterizedImage;
         }
 
-        public static Mat ApplyBlur(Mat inputImage, BorderType borderType = BorderType.Isolated, int kernelSize = 3)
+        public static Mat ApplyBlur(Mat inputImage, BorderType borderType, int kernelSize = 3)
         {
             Mat result = new Mat();
             CvInvoke.Blur(inputImage, result, new Size(kernelSize, kernelSize), new Point(-1, -1), borderType);
@@ -267,6 +268,30 @@ namespace JSharp
         {
             Mat result = new Mat();
             CvInvoke.GaussianBlur(inputImage, result, new Size(kernelSize, kernelSize), sigmaX, sigmaY, borderType);
+            return result;
+        }
+
+        public static Mat ApplyEdgeDetectionFilter(Mat inputImage, string currentKernel, BorderType borderType)
+        {
+            Image<Gray, Byte> img = inputImage.ToImage<Gray, Byte>();
+            Mat result = new Mat(new System.Drawing.Size(img.Width, img.Height), DepthType.Cv64F, 1);
+            if (currentKernel == Kernels.SobelNS)
+            {
+                CvInvoke.Sobel(img, result, DepthType.Cv64F, xorder: 1, yorder: 0, 3, 1, 0, borderType);
+            }
+            else if (currentKernel == Kernels.SobelEW)
+            {
+                CvInvoke.Sobel(img, result, DepthType.Cv64F, xorder: 0, yorder: 1, 3, 1, 0, borderType);
+            }
+            //else if (currentKernel == Kernels.Canny)
+            //{
+            //    CvInvoke.Canny(inputImage, result, );
+            //}
+            else if (currentKernel == Kernels.Laplacian)
+            {
+                CvInvoke.Laplacian(img, result, DepthType.Cv64F, 1, 1, 0, borderType);
+            }
+            else throw new InvalidOperationException("Something's wrong");
             return result;
         }
 
@@ -410,35 +435,89 @@ namespace JSharp
         }
 
         // Morphological erosion
-        public static Mat Erode(Mat image, Mat element, BorderType borderType, MCvScalar borderValue)
+        public static Mat Erode(Mat image, ElementShape elementShape, BorderType borderType, MCvScalar borderValue)
         {
             Mat result = new Mat();
+            Mat element = CvInvoke.GetStructuringElement(elementShape, new Size(3, 3), new Point(1, 1));
             CvInvoke.Erode(image, result, element, new Point(-1, -1), 1, borderType, borderValue);
             return result;
         }
 
         // Morphological dilation
-        public static Mat Dilate(Mat image, Mat element, BorderType borderType, MCvScalar borderValue)
+        public static Mat Dilate(Mat image, ElementShape elementShape, BorderType borderType, MCvScalar borderValue)
         {
             Mat result = new Mat();
+            Mat element = CvInvoke.GetStructuringElement(elementShape, new Size(3, 3), new Point(1, 1));
             CvInvoke.Dilate(image, result, element, new Point(-1, -1), 1, borderType, borderValue);
             return result;
         }
 
         // Morphological opening
-        public static Mat MorphologicalOpen(Mat image, Mat element, BorderType borderType, MCvScalar borderValue)
+        public static Mat MorphologicalOpen(Mat image, ElementShape elementShape, BorderType borderType, MCvScalar borderValue)
         {
             Mat result = new Mat();
+            Mat element = CvInvoke.GetStructuringElement(elementShape, new Size(3, 3), new Point(1, 1));
             CvInvoke.MorphologyEx(image, result, MorphOp.Open, element, new Point(-1, -1), 1, borderType, borderValue);
             return result;
         }
 
         // Morphological closing
-        public static Mat MorphologicalClose(Mat image, Mat element, BorderType borderType, MCvScalar borderValue)
+        public static Mat MorphologicalClose(Mat image, ElementShape elementShape, BorderType borderType, MCvScalar borderValue)
         {
             Mat result = new Mat();
+            Mat element = CvInvoke.GetStructuringElement(elementShape, new Size(3, 3), new Point(1, 1));
             CvInvoke.MorphologyEx(image, result, MorphOp.Close, element, new Point(-1, -1), 1, borderType, borderValue);
             return result;
+        }
+
+        public static Mat Threshold(Mat image, int minThreshold, int maxThreshold)
+        {
+            IntPtr imageDataPtr = image.DataPointer;
+
+            // Iterate through each pixel in the image
+            for (int i = 0; i < image.Rows * image.Cols; i++)
+            {
+                // Read the pixel value at the current position
+                byte pixelValue = Marshal.ReadByte(imageDataPtr, i);
+
+                // Apply thresholding
+                if (pixelValue >= minThreshold && pixelValue <= maxThreshold)
+                    Marshal.WriteByte(imageDataPtr, i, 255); // Set pixel to white
+                else
+                    Marshal.WriteByte(imageDataPtr, i, 0);
+            }
+
+            return image;
+        }
+
+        public static Mat InverseThreshold(Mat image, int minThreshold, int maxThreshold)
+        {
+            IntPtr imageDataPtr = image.DataPointer;
+
+            // Iterate through each pixel in the image
+            for (int i = 0; i < image.Rows * image.Cols; i++)
+            {
+                // Read the pixel value at the current position
+                byte pixelValue = Marshal.ReadByte(imageDataPtr, i);
+
+                // Apply inverse thresholding
+                if (pixelValue >= minThreshold && pixelValue <= maxThreshold)
+                    Marshal.WriteByte(imageDataPtr, i, 0); // Set pixel to black
+                else
+                    Marshal.WriteByte(imageDataPtr, i, 255);
+            }
+
+            return image;
+        }
+
+        public static int CountObjectsInImage(Mat image)
+        {
+            Mat labels = new Mat();
+            Mat stats = new Mat();
+            Mat centroids = new Mat();
+            int nLabels = CvInvoke.ConnectedComponentsWithStats(image, labels, stats, centroids);
+
+            return nLabels - 1;
         }
 
         //private static byte CalculateAdaptiveScalingSubtraction(byte pixel1, byte pixel2)

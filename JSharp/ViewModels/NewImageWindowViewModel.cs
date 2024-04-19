@@ -1,9 +1,11 @@
 ﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
 using JSharp;
 using JSharp.Events;
 using JSharp.Resources;
 using JSharp.Utility;
+using LiveChartsCore.Defaults;
 using Prism.Events;
 using Prism.Mvvm;
 using System;
@@ -270,6 +272,7 @@ namespace JSharp.ViewModels
         public void Convolve(string currentKernel, BorderType borderType, IEnumerable<int> TextBoxValues)
         {
             Mat image = this.MatImage;
+            //string[] edgeDetectionCases = { Kernels.SobelEW, Kernels.SobelNS, Kernels.Canny, Kernels.Laplacian };
             if (currentKernel == Kernels.BoxBlur)
             {
                 image = ImageProcessingCore.ApplyBlur(image, borderType, 3);
@@ -278,6 +281,10 @@ namespace JSharp.ViewModels
             {
                 image = ImageProcessingCore.ApplyGaussianBlur(image, borderType, sigmaX: 1.5, sigmaY: 1.5, 3);
             }
+            //else if (edgeDetectionCases.Contains(currentKernel))
+            //{
+            //    image = ImageProcessingCore.ApplyEdgeDetectionFilter(image, currentKernel, borderType);
+            //}
             else
             {
                 float[,] kernel = new float[3, 3];
@@ -292,10 +299,59 @@ namespace JSharp.ViewModels
             UpdateImageSource(image);
         }
 
+        public void DoubleConvolve(IEnumerable<int> resultMatrix, BorderType borderType)
+        {
+            Mat image = this.MatImage;
+
+            float[,] kernel = new float[3, 3];
+            int index = 0;
+            foreach (int value in resultMatrix)
+            {
+                kernel[index / 3, index % 3] = value;
+                index++;
+            }
+
+            image = ImageProcessingCore.ApplyCustomKernel(image, kernel, borderType, 5);
+
+            UpdateImageSource(image);
+        }
+
         public void MedianBlur(int kernelSize, BorderType borderType)
         {
             Mat image = this.MatImage;
             image = ImageProcessingCore.ApplyMedianFilter(image, kernelSize, borderType);
+            UpdateImageSource(image);
+        }
+
+        public void PerformMorpologicalOperation(MorphologicalOperationType morphologicalOperationType, ElementShape elementShape, BorderType borderType, MCvScalar borderValue)
+        {
+            Mat image = this.MatImage;
+
+
+            image = morphologicalOperationType switch
+            {
+                MorphologicalOperationType.Erode => ImageProcessingCore.Erode(image, elementShape, borderType, borderValue),
+                MorphologicalOperationType.Dilate => ImageProcessingCore.Dilate(image, elementShape, borderType, borderValue),
+                MorphologicalOperationType.MorphOpening => ImageProcessingCore.MorphologicalOpen(image, elementShape, borderType, borderValue),
+                MorphologicalOperationType.MorphClosing => ImageProcessingCore.MorphologicalClose(image, elementShape, borderType, borderValue)
+            };
+            UpdateImageSource(image);
+        }
+
+        public void PerformThresholding(Mat img, int minThreshold, int maxThreshold, ThresholdingType thresholdingType)
+        {
+            Mat image = img.Clone();
+
+            image = thresholdingType switch
+            {
+                ThresholdingType.Standard => ImageProcessingCore.Threshold(image, minThreshold, maxThreshold),
+                ThresholdingType.Inverse => ImageProcessingCore.InverseThreshold(image, minThreshold, maxThreshold),
+            };
+            UpdateImageSource(image);
+        }
+
+        public void Restore(Mat image)
+        {
             UpdateImageSource(image);
         }
         #endregion

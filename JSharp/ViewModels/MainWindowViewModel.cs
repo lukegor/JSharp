@@ -70,6 +70,9 @@ namespace JSharp.ViewModels
         public DelegateCommand Dilate_ClickCommand { get; }
         public DelegateCommand MorphologicalOpen_ClickCommand { get; }
         public DelegateCommand MorphologicalClose_ClickCommand { get; }
+        public DelegateCommand DoubleConvolve_ClickCommand { get; }
+        public DelegateCommand Threshold_ClickCommand { get; }
+        public DelegateCommand Analyze_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -98,27 +101,34 @@ namespace JSharp.ViewModels
             Erode_ClickCommand = new DelegateCommand(Erode_Click);
             Dilate_ClickCommand = new DelegateCommand(Dilate_Click);
             MorphologicalOpen_ClickCommand = new DelegateCommand(MorphologicalOpen_Click);
-            MorphologicalClose_ClickCommand = new DelegateCommand(MorphologicalOpen_Click);
+            MorphologicalClose_ClickCommand = new DelegateCommand(MorphologicalClose_Click);
+            DoubleConvolve_ClickCommand = new DelegateCommand(DoubleConvolve_Click);
+            Threshold_ClickCommand = new DelegateCommand(Threshold_Click);
+            Analyze_ClickCommand = new DelegateCommand(Analyze_Click);
             #endregion
         }
 
         private void OpenRgb_Click()
         {
-            //BitmapSource source;
-            (Mat matImage, string fileName) = LoadImageFromFile(ImreadModes.Color);
-            if (matImage != null)
+            (List<Mat> matImages, List<string> fileNames) = LoadImageFromFile(ImreadModes.Color);
+            if (matImages.Count > 0)
             {
-                DisplayImage(matImage, fileName);
+                for (int i = 0; i < matImages.Count; ++i)
+                {
+                    DisplayImage(matImages[i], fileNames[i]);
+                }
             }
         }
 
         private void OpenGray_Click()
         {
-            //BitmapSource source;
-            (Mat matImage, string fileName) = LoadImageFromFile(ImreadModes.Grayscale);
-            if (matImage != null)
+            (List<Mat> matImages, List<string> fileNames) = LoadImageFromFile(ImreadModes.Grayscale);
+            if (matImages.Count > 0)
             {
-                DisplayImage(matImage, fileName);
+                for (int i = 0; i < matImages.Count; ++i)
+                {
+                    DisplayImage(matImages[i], fileNames[i]);
+                }
             }
         }
 
@@ -130,27 +140,33 @@ namespace JSharp.ViewModels
             }
         }
 
-        private (Mat, string) LoadImageFromFile(ImreadModes color)
+        private (List<Mat>, List<string>) LoadImageFromFile(ImreadModes color)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = true;
             openFileDialog.DefaultExt = ".bmp";
             openFileDialog.Filter = Constants.ImageFilterString;
 
+            List<Mat> images = new List<Mat>();
+            List<string> fileNames = new List<string>();
+
             if (openFileDialog.ShowDialog() == true)
             {
-                string fileName = openFileDialog.SafeFileName;
-
-                Mat imageMat = CvInvoke.Imread(openFileDialog.FileName, color);
-                if (!imageMat.IsEmpty && imageMat != null)
+                foreach (string fileName in openFileDialog.FileNames)
                 {
-                    return (imageMat, fileName);
-                }
-                else
-                {
-                    MessageBox.Show(Strings.LoadingFailed);
+                    Mat imageMat = CvInvoke.Imread(fileName, color);
+                    if (!imageMat.IsEmpty && imageMat != null)
+                    {
+                        images.Add(imageMat);
+                        fileNames.Add(Path.GetFileName(fileName));
+                    }
+                    else
+                    {
+                        MessageBox.Show(Strings.LoadingFailed);
+                    }
                 }
             }
-            return (null, null);
+            return (images, fileNames);
         }
 
         internal void DisplayImage(Mat matImage, string fileName)
@@ -570,7 +586,7 @@ namespace JSharp.ViewModels
 
             if (medianWindow.DialogResult == true)
             {
-                FocusedImage.MedianBlur(medianWindowViewModel.MatrixSize, BorderTypeLocalizationHelper.BorderizeLocalizedBorderType(medianWindowViewModel.BorderPixelsOption));
+                FocusedImage.MedianBlur(medianWindowViewModel.MatrixSize, medianWindowViewModel.BorderPixelsOption);
                 medianWindow.Close();
             }
         }
@@ -624,6 +640,20 @@ namespace JSharp.ViewModels
             return ImageProcessingCore.Blend(img1, img2, (double)operationData.BlendFactor1);
         }
 
+        private void DoubleConvolve_Click()
+        {
+            DoubleConvolverWindowViewModel doubleConvolverWindowViewModel = new DoubleConvolverWindowViewModel();
+            DoubleConvolverWindow doubleConvolverWindow = new DoubleConvolverWindow();
+            doubleConvolverWindow.DataContext = doubleConvolverWindowViewModel;
+
+            doubleConvolverWindow.ShowDialog();
+
+            if (doubleConvolverWindow.DialogResult == true)
+            {
+                FocusedImage.DoubleConvolve(doubleConvolverWindowViewModel.ResultMatrix, BorderType.Isolated);
+            }
+        }
+
         private void Erode_Click()
         {
             if (FocusedImage == null)
@@ -640,7 +670,8 @@ namespace JSharp.ViewModels
 
             if (standardMorphologicalWindow.DialogResult == true)
             {
-                //FocusedImage.Erode(standardMorphologicalWindowViewModel.Shape, standardMorphologicalWindowViewModel.BorderPixelsOption);
+                ElementShape elementShape = ImageProcessingUtility.GetStructuringElement(standardMorphologicalWindowViewModel.Shape);
+                FocusedImage.PerformMorpologicalOperation(MorphologicalOperationType.Erode, elementShape, BorderType.Isolated, new MCvScalar());
                 standardMorphologicalWindow.Close();
             }
         }
@@ -652,6 +683,19 @@ namespace JSharp.ViewModels
                 MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+            StandardMorphologicalWindowViewModel standardMorphologicalWindowViewModel = new StandardMorphologicalWindowViewModel();
+            StandardMorphologicalWindow standardMorphologicalWindow = new StandardMorphologicalWindow();
+            standardMorphologicalWindow.DataContext = standardMorphologicalWindowViewModel;
+
+            standardMorphologicalWindow.ShowDialog();
+
+            if (standardMorphologicalWindow.DialogResult == true)
+            {
+                ElementShape elementShape = ImageProcessingUtility.GetStructuringElement(standardMorphologicalWindowViewModel.Shape);
+                FocusedImage.PerformMorpologicalOperation(MorphologicalOperationType.Dilate, elementShape, BorderType.Isolated, new MCvScalar());
+                standardMorphologicalWindow.Close();
+            }
         }
 
         private void MorphologicalOpen_Click()
@@ -660,6 +704,19 @@ namespace JSharp.ViewModels
             {
                 MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
+            }
+
+            StandardMorphologicalWindowViewModel standardMorphologicalWindowViewModel = new StandardMorphologicalWindowViewModel();
+            StandardMorphologicalWindow standardMorphologicalWindow = new StandardMorphologicalWindow();
+            standardMorphologicalWindow.DataContext = standardMorphologicalWindowViewModel;
+
+            standardMorphologicalWindow.ShowDialog();
+
+            if (standardMorphologicalWindow.DialogResult == true)
+            {
+                ElementShape elementShape = ImageProcessingUtility.GetStructuringElement(standardMorphologicalWindowViewModel.Shape);
+                FocusedImage.PerformMorpologicalOperation(MorphologicalOperationType.MorphOpening, elementShape, BorderType.Isolated, new MCvScalar());
+                standardMorphologicalWindow.Close();
             }
         }
 
@@ -670,6 +727,37 @@ namespace JSharp.ViewModels
                 MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+            StandardMorphologicalWindowViewModel standardMorphologicalWindowViewModel = new StandardMorphologicalWindowViewModel();
+            StandardMorphologicalWindow standardMorphologicalWindow = new StandardMorphologicalWindow();
+            standardMorphologicalWindow.DataContext = standardMorphologicalWindowViewModel;
+
+            standardMorphologicalWindow.ShowDialog();
+
+            if (standardMorphologicalWindow.DialogResult == true)
+            {
+                ElementShape elementShape = ImageProcessingUtility.GetStructuringElement(standardMorphologicalWindowViewModel.Shape);
+                FocusedImage.PerformMorpologicalOperation(MorphologicalOperationType.MorphClosing, elementShape, BorderType.Isolated, new MCvScalar());
+                standardMorphologicalWindow.Close();
+            }
+        }
+
+        private void Threshold_Click()
+        {
+            ThresholderWindowViewModel thresholderWindowViewModel = new ThresholderWindowViewModel();
+            ThresholderWindow thresholderWindow = new ThresholderWindow();
+            thresholderWindow.DataContext = thresholderWindowViewModel;
+
+            thresholderWindow.Show();
+        }
+
+        private void Analyze_Click()
+        {
+            SummaryWindowViewModel summaryWindowViewModel = new SummaryWindowViewModel();
+            SummaryWindow summaryWindow = new SummaryWindow();
+            summaryWindow.DataContext = summaryWindowViewModel;
+
+            summaryWindow.Show();
         }
     }
 }

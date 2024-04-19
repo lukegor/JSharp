@@ -14,7 +14,8 @@
 		<TabControl>
 			<TabItem Header="Histogram">
 				<Grid>
-					<lvc:CartesianChart x:Name="Histogram" Series="{Binding HistogramSeries}"/>
+					<lvc:CartesianChart x:Name="Histogram" Series="{Binding HistogramSeries}"
+										ZoomMode="X"/>
 					<Label x:Name="pixelSum" Content="{Binding PixelSum}" HorizontalAlignment="Left" Margin="212,-25,0,0" VerticalAlignment="Top"/>
 				</Grid>
 			</TabItem>

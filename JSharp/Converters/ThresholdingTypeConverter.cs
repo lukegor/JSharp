@@ -1,5 +1,4 @@
 ﻿using Emgu.CV.CvEnum;
-using JSharp.Resources;
 using JSharp.Utility;
 using System;
 using System.Collections.Generic;
@@ -11,15 +10,15 @@ using System.Windows.Data;
 
 namespace JSharp.Converters
 {
-    public class BorderTypeConverter : IValueConverter
+    public class ThresholdingTypeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
                 return null;
 
-            BorderType borderType = (BorderType)value;
-            return BorderTypeHelper.LocalizeBorderType(borderType);
+            ThresholdingType thresholdingType = (ThresholdingType)value;
+            return ThresholdingTypeHelper.MapThresholdingTypeToLocalString(thresholdingType);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -27,8 +26,8 @@ namespace JSharp.Converters
             if (value == null)
                 return null;
 
-            string localizedBorderType = value.ToString();
-            return BorderTypeHelper.BorderizeLocalizedBorderType(localizedBorderType);
+            string localizedThresholdingType = value.ToString();
+            return ThresholdingTypeHelper.MapLocalStringToThresholdingType(localizedThresholdingType);
         }
     }
 }

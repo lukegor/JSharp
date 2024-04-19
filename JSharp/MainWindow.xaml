@@ -47,15 +47,16 @@
 				<MenuItem Header="{x:Static resx:Strings.Filters}">
 					<MenuItem Header="{x:Static resx:Strings.Convolve}" Command="{Binding Convolve_ClickCommand}"/>
 					<MenuItem Header="{x:Static resx:Strings.Median}" Command="{Binding Median_ClickCommand}"/>
+					<MenuItem Header="double convolve" Command="{Binding DoubleConvolve_ClickCommand}"/>
 				</MenuItem>
 				<MenuItem Header="{x:Static resx:Strings.ImageCalculator}" Command="{Binding ImageCalculator_ClickCommand}"/>
 			</MenuItem>
 			<MenuItem Header="Lab3">
 				<MenuItem Header="{x:Static resx:Strings.MorphologicalOperations}">
 					<MenuItem Header="{x:Static resx:Strings.Erode}" Command="{Binding Erode_ClickCommand}"/>
-					<MenuItem Header="{x:Static resx:Strings.Dilate}"/>
-					<MenuItem Header="{x:Static resx:Strings.MorphologicalOpen}"/>
-					<MenuItem Header="{x:Static resx:Strings.MorphologicalClose}"/>
+					<MenuItem Header="{x:Static resx:Strings.Dilate}" Command="{Binding Dilate_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.MorphologicalOpen}" Command="{Binding MorphologicalOpen_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.MorphologicalClose}" Command="{Binding MorphologicalClose_ClickCommand}"/>
 				</MenuItem>
 			</MenuItem>
 			<MenuItem Header="Lab4"/>
@@ -64,8 +65,12 @@
 			<MenuItem x:Name="Help" Header="{x:Static resx:Strings.Help}">
 				<MenuItem x:Name="About" Header="{x:Static resx:Strings.About}" Click="About_Click"/>
 			</MenuItem>
+			<MenuItem Header="Projekt">
+				<MenuItem Header="Threshold" Command="{Binding Threshold_ClickCommand}"/>
+				<MenuItem Header="Analyze" Command="{Binding Analyze_ClickCommand}"/>
+			</MenuItem>
 		</Menu>
-		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" HorizontalAlignment="Left" Margin="357,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto" RenderTransformOrigin="0.5,0.5">
+		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" HorizontalAlignment="Left" Margin="400,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto" RenderTransformOrigin="0.5,0.5">
 		</Label>
 
 	</Grid>

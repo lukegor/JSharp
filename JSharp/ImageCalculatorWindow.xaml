@@ -45,7 +45,6 @@
 				<ComboBox x:Name="CbOperation" Margin="0,0,0,8" Width="160"
 						  ItemsSource="{Binding Source={StaticResource Operations}}"
 						  SelectionChanged="CbOperation_SelectionChanged"/>
-
 			</StackPanel>
 		</Grid>
 		<StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,20,0,0">
@@ -63,8 +62,8 @@
 		</StackPanel>
 
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="200" Margin="50,0,0,20" Grid.ColumnSpan="2">
-			<Button Content="{x:Static resx:Strings.Confirm}" Margin="45,0,10,0" Click="BtnConfirm_Click" />
-			<Button Content="{x:Static resx:Strings.Cancel}" Click="BtnCancel_Click"/>
+			<Button Content="{x:Static resx:Strings.Confirm}" Margin="45,0,10,0" Click="BtnConfirm_Click" IsDefault="True" />
+			<Button Content="{x:Static resx:Strings.Cancel}" Click="BtnCancel_Click" IsCancel="True"/>
 		</StackPanel>
 	</Grid>
 </Window>

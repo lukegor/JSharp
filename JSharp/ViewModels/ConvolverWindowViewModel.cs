@@ -31,8 +31,8 @@ namespace JSharp.ViewModels
             get { return _currentKernel; }
             set { SetProperty(ref _currentKernel, value); }
         }
-        private string _borderPixelsOption;
-        public string BorderPixelsOption
+        private BorderType _borderPixelsOption;
+        public BorderType BorderPixelsOption
         {
             get { return _borderPixelsOption; }
             set { SetProperty(ref _borderPixelsOption, value); }
@@ -49,16 +49,16 @@ namespace JSharp.ViewModels
             this.TextBoxValues = new ObservableCollection<int>(KernelMappings.KernelNameToArray[Kernels.Identity]
                                                                         .Cast<int>()
                                                                         .ToArray());
-            this.BorderPixelsOption = Kernels.BorderTypeIsolated;
+            this.BorderPixelsOption = BorderTypeHelper.BorderizeLocalizedBorderType(Kernels.BorderTypeIsolated);
         }
 
         private void BtnApply_Click()
         {
             Mat focusedImage = MainWindowViewModel.FocusedImage.MatImage;
 
-            BorderType borderType = BorderTypeLocalizationHelper.BorderizeLocalizedBorderType(this.BorderPixelsOption);
+            //BorderType borderType = BorderTypeLocalizationHelper.BorderizeLocalizedBorderType(this.BorderPixelsOption);
 
-            KernelAppliable?.Invoke(this, borderType);
+            KernelAppliable?.Invoke(this, this.BorderPixelsOption);
         }
 
         internal void KernelInputCell_TextChanged()
@@ -149,7 +149,7 @@ namespace JSharp.ViewModels
         public IEnumerable<string> GetEdgePixelsHandlingOptions()
         {
             IEnumerable<BorderType> borderTypes = [BorderType.Isolated, BorderType.Reflect, BorderType.Replicate];
-            return BorderTypeLocalizationHelper.GetLocalizedEdgePixelsHandlingOptions(borderTypes);
+            return BorderTypeHelper.GetLocalizedEdgePixelsHandlingOptions(borderTypes);
         }
     }
 }

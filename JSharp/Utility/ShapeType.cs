@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Emgu.CV.CvEnum;
+using Emgu.CV.Reg;
+using JSharp.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +13,29 @@ namespace JSharp.Utility
     {
         Rhombus,
         Square
+    }
+
+    public static class ShapeTypeHelper
+    {
+        private static readonly Dictionary<string, ShapeType> shapeTypeMapping = new Dictionary<string, ShapeType>
+        {
+            { Strings.Rhombus, ShapeType.Rhombus },
+            { Strings.Square, ShapeType.Square }
+        };
+
+        public static ShapeType MapLocalStringToShapeType(string input)
+        {
+            return EnumHelper.MapLocalStringToEnum(input, shapeTypeMapping);
+        }
+
+        public static string MapShapeTypeToLocalString(ShapeType shape)
+        {
+            return EnumHelper.MapEnumToLocalString(shape, shapeTypeMapping);
+        }
+
+        public static IEnumerable<string> GetLocalizedShapeTypes(IEnumerable<ShapeType> shapeTypes)
+        {
+            return EnumHelper.GetLocalizedOptions(shapeTypes, shapeTypeMapping);
+        }
     }
 }
