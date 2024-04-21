@@ -15,7 +15,7 @@
 			<ColumnDefinition Width="250"/>
 			<ColumnDefinition Width="250"/>
 		</Grid.ColumnDefinitions>
-		<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,10,0,0">
+		<StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
 			<TextBlock VerticalAlignment="Center" Margin="0,0,0,-10" TextAlignment="Center"><Run Text="R"/><Run Text="ange of pixel values to stretch"/><Run Text=" from"/></TextBlock>
 			<!-- Lower Limit Slider -->
 			<Slider x:Name="SliderP1" Minimum="0" Maximum="255" Value="{Binding P1, Mode=TwoWay}"
@@ -31,7 +31,7 @@
 			<xctk:IntegerUpDown Text="{Binding P2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,3"
 								Minimum="0" Maximum="255" Height="20"/>
 		</StackPanel>
-		<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Grid.Column="1">
+		<StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
 			<TextBlock VerticalAlignment="Center" Margin="0,0,0,-10" TextAlignment="Center"><Run Text="R"/><Run Text="ange of pixel values to stretch"/><Run Language="pl-pl" Text=" into"/></TextBlock>
 			<!-- Lower Limit Slider -->
 			<Slider x:Name="SliderQ3" Minimum="0" Maximum="255" Value="{Binding Q3, Mode=TwoWay}"

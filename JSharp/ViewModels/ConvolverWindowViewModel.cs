@@ -1,6 +1,7 @@
 ﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Flann;
+using JSharp.Models;
 using JSharp.Resources;
 using JSharp.Utility;
 using Prism.Commands;
@@ -17,7 +18,7 @@ namespace JSharp.ViewModels
 {
     internal class ConvolverWindowViewModel : BindableBase
     {
-        public event EventHandler<BorderType> KernelAppliable;
+        public event EventHandler<ConvolutionInfo> KernelAppliable;
 
         private ObservableCollection<int> _textBoxValues;
         public ObservableCollection<int> TextBoxValues
@@ -55,10 +56,24 @@ namespace JSharp.ViewModels
         private void BtnApply_Click()
         {
             Mat focusedImage = MainWindowViewModel.FocusedImage.MatImage;
+            ConvolutionInfo convolutionInfo = new ConvolutionInfo(this.BorderPixelsOption);
 
-            //BorderType borderType = BorderTypeLocalizationHelper.BorderizeLocalizedBorderType(this.BorderPixelsOption);
+            if (CurrentKernel == Kernels.Canny)
+            {
+                TwoParamsWindowViewModel twoParamsWindowViewModel = new TwoParamsWindowViewModel();
+                TwoParamsWindow twoParamsWindow = new TwoParamsWindow();
+                twoParamsWindow.DataContext = twoParamsWindowViewModel;
 
-            KernelAppliable?.Invoke(this, this.BorderPixelsOption);
+                twoParamsWindow.ShowDialog();
+
+                if (twoParamsWindow.DialogResult == true)
+                {
+                    convolutionInfo.Min = twoParamsWindowViewModel.Min;
+                    convolutionInfo.Max = twoParamsWindowViewModel.Max;
+                }
+            }
+
+            KernelAppliable?.Invoke(this, convolutionInfo);
         }
 
         internal void KernelInputCell_TextChanged()
@@ -122,9 +137,21 @@ namespace JSharp.ViewModels
 
                 // Check kernel type after all TextBoxes have been updated
                 CurrentKernel = DetectKernelType();
-                // Reset the flag
-                isPredefinedOptionSelected = false;
+                UpdateCellsVisibility();
             }
+            else if (kernelType == Kernels.Canny)
+            {
+                CurrentKernel = Kernels.Canny;
+                UpdateCellsVisibility();
+            }
+            // Reset the flag
+            isPredefinedOptionSelected = false;
+        }
+
+        private void UpdateCellsVisibility()
+        {
+            var window = App.Current.Windows.OfType<ConvolverWindow>().FirstOrDefault(x => x.DataContext == this);
+            window.CurrentKernelText_TextChanged(CurrentKernel);
         }
 
         private void UpdateTextBoxValues(int[,] values)

@@ -68,7 +68,7 @@
 			</MenuItem>
 			<MenuItem Header="Projekt">
 				<MenuItem Header="Threshold" Command="{Binding Threshold_ClickCommand}"/>
-				<MenuItem Header="Simple Analyze" Command="{Binding Analyze_ClickCommand}"/>
+				<MenuItem Header="Simple Analyze" Command="{Binding SimpleAnalyze_ClickCommand}"/>
 				<MenuItem Header="Analyze" Command="{Binding Analyze_ClickCommand}"/>
 			</MenuItem>
 		</Menu>
