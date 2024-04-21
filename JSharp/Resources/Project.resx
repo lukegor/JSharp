@@ -126,6 +126,9 @@
   <data name="ThresholdingPreservingGrayscaleLevels" xml:space="preserve">
     <value>Preserving Grayscale Levels</value>
   </data>
+  <data name="ThresholdingPreservingGrayscaleLevelsNegation" xml:space="preserve">
+    <value>Preserving Grayscale Levels (Negation)</value>
+  </data>
   <data name="ThresholdingStandard" xml:space="preserve">
     <value>Standard</value>
   </data>

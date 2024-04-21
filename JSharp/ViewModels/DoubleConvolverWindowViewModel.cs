@@ -49,49 +49,41 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _matrixSize, value); }
         }
 
-        private bool isPredefinedOptionSelected = false;
-
         public DelegateCommand BtnConfirm_ClickCommand { get; }
         public DoubleConvolverWindowViewModel()
         {
             BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirm_Click);
-            List<int> list = new List<int>()
+            List<int> firstList = new List<int>()
             {
                 // Add your values here
-                1, 2, 3,
-                4, 5, 6,
-                7, 8, 9
+                1, 1, 1,
+                1, 1, 1,
+                1, 1, 1
             };
-
-            List<int> resultList = new List<int>()
+            List<int> secondList = new List<int>()
             {
-                1, 2, 3, 7, 8,
-                4, 5, 6, 9, 10,
-                7, 8, 9, 11, 12,
-                13, 14, 15, 16, 17,
-                18, 19, 20, 21, 22
+                // Add your values here
+                1, -2, 1,
+                -2, 4, -2,
+                1, -2, 1
             };
 
             // Create the ObservableCollection using the list
-            FirstMatrix = new ObservableCollection<int>(list);
-            SecondMatrix = new ObservableCollection<int>(list);
+            FirstMatrix = new ObservableCollection<int>(firstList);
+            SecondMatrix = new ObservableCollection<int>(secondList);
 
-            float[,] kernel1 = new float[3, 3];
-            float[,] kernel2 = new float[3, 3];
-            int index = 0;
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    kernel1[i, j] = list[index];
-                    kernel2[i, j] = list[index];
-                    ++index;
-                }
-            }
+            float[,] kernel5x5 = Generate5x5Kernel(firstList, secondList);
 
+            ResultMatrix = ConvertToObservableCollection(kernel5x5);
+        }
+
+        private float[,] Generate5x5Kernel(List<int> firstList, List<int> secondList)
+        {
+            float[,] kernel1 = ConvertListToMatrix(firstList);
+            float[,] kernel2 = ConvertListToMatrix(secondList);
             float[,] kernel5x5 = new float[5, 5];
 
-            // Wyliczanie kernela 5x5 za pomocą konwolucji dwóch kerneli 3x3
+            // Convolve two 3x3 kernels to generate a 5x5 kernel
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -105,21 +97,41 @@ namespace JSharp.ViewModels
                     }
                 }
             }
-            ResultMatrix = new ObservableCollection<int>();
 
-            // Przypisanie wartości z kernel5x5 do kolekcji ResultMatrix
+            return kernel5x5;
+        }
+
+        private float[,] ConvertListToMatrix(List<int> list)
+        {
+            float[,] matrix = new float[3, 3];
+            int index = 0;
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    matrix[i, j] = list[index++];
+                }
+            }
+            return matrix;
+        }
+
+        private ObservableCollection<int> ConvertToObservableCollection(float[,] kernel)
+        {
+            ObservableCollection<int> collection = new ObservableCollection<int>();
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    ResultMatrix.Add((int)kernel5x5[i, j]);
+                    collection.Add((int)kernel[i, j]);
                 }
             }
+            return collection;
         }
 
         private void BtnConfirm_Click()
         {
-            App.Current.Windows.OfType<DoubleConvolverWindow>().FirstOrDefault(x => x.DataContext == this).Close();
+            var window = App.Current.Windows.OfType<DoubleConvolverWindow>().FirstOrDefault(x => x.DataContext == this);
+            window.DialogResult = true;
         }
 
         //private float[,] Calculate5x5Kernel(float[,] kernel1, float[,] kernel2)

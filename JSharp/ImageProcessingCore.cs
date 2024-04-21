@@ -4,6 +4,7 @@ using Emgu.CV.ML;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using Emgu.CV.XImgproc;
+using JSharp.Models;
 using JSharp.Resources;
 using JSharp.Utility;
 using System;
@@ -272,28 +273,27 @@ namespace JSharp
             return result;
         }
 
-        public static Mat ApplyEdgeDetectionFilter(Mat inputImage, string currentKernel, BorderType borderType)
+        public static Mat ApplyEdgeDetectionFilter(Mat inputImage, string currentKernel, ConvolutionInfo convolutionInfo)
         {
-            // Load the input image
-            Image<Gray, Byte> img = inputImage.ToImage<Gray, Byte>();
+            BorderType borderType = convolutionInfo.BorderPixelsOption;
 
             // Apply the edge detection kernel
             Mat result = new Mat();
             if (currentKernel == Kernels.SobelNS)
             {
-                CvInvoke.Sobel(img, result, DepthType.Cv64F, xorder: 1, yorder: 0, 3, 1, 0, borderType);
+                CvInvoke.Sobel(inputImage, result, DepthType.Cv64F, xorder: 1, yorder: 0, 3, 1, 0, borderType);
             }
             else if (currentKernel == Kernels.SobelEW)
             {
-                CvInvoke.Sobel(img, result, DepthType.Cv64F, xorder: 0, yorder: 1, 3, 1, 0, borderType);
+                CvInvoke.Sobel(inputImage, result, DepthType.Cv64F, xorder: 0, yorder: 1, 3, 1, 0, borderType);
             }
-            //else if (currentKernel == Kernels.Canny)
-            //{
-            //    CvInvoke.Canny(inputImage, result, );
-            //}
+            else if (currentKernel == Kernels.Canny)
+            {
+                CvInvoke.Canny(inputImage, result, (double)convolutionInfo.Min, (double)convolutionInfo.Max);
+            }
             else if (currentKernel == Kernels.Laplacian)
             {
-                CvInvoke.Laplacian(img, result, DepthType.Cv64F, 1, 1, 0, borderType);
+                CvInvoke.Laplacian(inputImage, result, DepthType.Cv64F, 1, 1, 0, borderType);
             }
             else throw new InvalidOperationException("Invalid kernel specified: " + currentKernel);
 
@@ -479,7 +479,7 @@ namespace JSharp
             return result;
         }
 
-        public static Mat Threshold(Mat image, int minThreshold, int maxThreshold)
+        public static Mat Threshold(Mat image, int minThreshold, int maxThreshold, ThresholdingType mode)
         {
             IntPtr imageDataPtr = image.DataPointer;
 
@@ -490,30 +490,31 @@ namespace JSharp
                 byte pixelValue = Marshal.ReadByte(imageDataPtr, i);
 
                 // Apply thresholding
-                if (pixelValue >= minThreshold && pixelValue <= maxThreshold)
-                    Marshal.WriteByte(imageDataPtr, i, 255); // Set pixel to white
-                else
-                    Marshal.WriteByte(imageDataPtr, i, 0);
-            }
-
-            return image;
-        }
-
-        public static Mat InverseThreshold(Mat image, int minThreshold, int maxThreshold)
-        {
-            IntPtr imageDataPtr = image.DataPointer;
-
-            // Iterate through each pixel in the image
-            for (int i = 0; i < image.Rows * image.Cols; i++)
-            {
-                // Read the pixel value at the current position
-                byte pixelValue = Marshal.ReadByte(imageDataPtr, i);
-
-                // Apply inverse thresholding
-                if (pixelValue >= minThreshold && pixelValue <= maxThreshold)
-                    Marshal.WriteByte(imageDataPtr, i, 0); // Set pixel to black
-                else
-                    Marshal.WriteByte(imageDataPtr, i, 255);
+                switch (mode)
+                {
+                    case ThresholdingType.Standard:
+                        Marshal.WriteByte(imageDataPtr, i, (pixelValue >= minThreshold && pixelValue <= maxThreshold) ? (byte)255 : (byte)0);
+                        break;
+                    case ThresholdingType.Inverse:
+                        Marshal.WriteByte(imageDataPtr, i, (pixelValue >= minThreshold && pixelValue <= maxThreshold) ? (byte)0 : (byte)255);
+                        break;
+                    case ThresholdingType.PreservingGrayscaleLevelsIdentity:
+                        if (!(pixelValue >= minThreshold && pixelValue <= maxThreshold))
+                            Marshal.WriteByte(imageDataPtr, i, 0); // Set pixel to black
+                        break;
+                    case ThresholdingType.PreservingGrayscaleLevelsNegation:
+                        if (pixelValue >= minThreshold && pixelValue <= maxThreshold)
+                        {
+                            Marshal.WriteByte(imageDataPtr, i, (byte)((byte)255 - pixelValue));
+                        }
+                        else
+                        {
+                            Marshal.WriteByte(imageDataPtr, i, 0);
+                        }
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(mode), mode, "Invalid threshold mode.");
+                }
             }
 
             return image;

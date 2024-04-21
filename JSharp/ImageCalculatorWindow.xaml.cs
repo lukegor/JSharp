@@ -80,6 +80,8 @@ namespace JSharp
 
                 CbImage2.Visibility = Visibility.Collapsed;
                 TxbImage2.Visibility = Visibility.Collapsed;
+
+                CbImage2.SelectedItem = null;
             }
             else
             {

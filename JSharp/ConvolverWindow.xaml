@@ -100,7 +100,7 @@
 		<StackPanel Width="440" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,123,10,0" Orientation="Horizontal">
 			<TextBlock>
 				<Run Text="Selected: "/>
-				<Run Text="{Binding CurrentKernel}" />
+				<Run x:Name="KernelName" Text="{Binding CurrentKernel}" />
 			</TextBlock>
 		</StackPanel>
 

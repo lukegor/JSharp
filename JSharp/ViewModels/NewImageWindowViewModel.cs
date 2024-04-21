@@ -3,6 +3,7 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using JSharp;
 using JSharp.Events;
+using JSharp.Models;
 using JSharp.Resources;
 using JSharp.Utility;
 using LiveChartsCore.Defaults;
@@ -269,9 +270,10 @@ namespace JSharp.ViewModels
             UpdateImageSource(image);
         }
 
-        public void Convolve(string currentKernel, BorderType borderType, IEnumerable<int> TextBoxValues)
+        public void Convolve(string currentKernel, ConvolutionInfo convolutionInfo, IEnumerable<int> TextBoxValues)
         {
             Mat image = this.MatImage;
+            BorderType borderType = convolutionInfo.BorderPixelsOption;
             string[] edgeDetectionCases = { Kernels.SobelEW, Kernels.SobelNS, Kernels.Canny, Kernels.Laplacian };
             if (currentKernel == Kernels.BoxBlur)
             {
@@ -283,7 +285,7 @@ namespace JSharp.ViewModels
             }
             else if (edgeDetectionCases.Contains(currentKernel))
             {
-                image = ImageProcessingCore.ApplyEdgeDetectionFilter(image, currentKernel, borderType);
+                image = ImageProcessingCore.ApplyEdgeDetectionFilter(image, currentKernel, convolutionInfo);
             }
             else
             {
@@ -303,11 +305,11 @@ namespace JSharp.ViewModels
         {
             Mat image = this.MatImage;
 
-            float[,] kernel = new float[3, 3];
+            float[,] kernel = new float[5, 5];
             int index = 0;
             foreach (int value in resultMatrix)
             {
-                kernel[index / 3, index % 3] = value;
+                kernel[index / 5, index % 5] = value;
                 index++;
             }
 
@@ -342,11 +344,8 @@ namespace JSharp.ViewModels
         {
             Mat image = img.Clone();
 
-            image = thresholdingType switch
-            {
-                ThresholdingType.Standard => ImageProcessingCore.Threshold(image, minThreshold, maxThreshold),
-                ThresholdingType.Inverse => ImageProcessingCore.InverseThreshold(image, minThreshold, maxThreshold),
-            };
+            ImageProcessingCore.Threshold(image, minThreshold, maxThreshold, thresholdingType);
+
             UpdateImageSource(image);
         }
 

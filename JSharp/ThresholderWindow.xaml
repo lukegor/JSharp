@@ -44,7 +44,10 @@
 				</Rectangle>
 
 			</Canvas>
-			<TextBlock Text="{Binding SelectedPixelPercentage}" Width="Auto" />
+			<TextBlock Width="Auto">
+				<Run Text="{Binding SelectedPixelPercentage}" />
+				<Run Text="%"/>
+			</TextBlock>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 				<Slider x:Name="fromSlider" Value="{Binding FromValue, Mode=TwoWay}"
 						Minimum="0" Maximum="255" TickFrequency="1"

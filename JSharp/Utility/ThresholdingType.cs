@@ -12,7 +12,8 @@ namespace JSharp.Utility
         Standard,
         Inverse,
         Negated,
-        PreservingGrayscaleLevsls
+        PreservingGrayscaleLevelsIdentity,
+        PreservingGrayscaleLevelsNegation
     }
 
     public static class ThresholdingTypeHelper
@@ -22,7 +23,8 @@ namespace JSharp.Utility
             { Project.ThresholdingStandard, ThresholdingType.Standard },
             { Project.ThresholdingInverse, ThresholdingType.Inverse },
             { Project.ThresholdingNegated, ThresholdingType.Negated },
-            { Project.ThresholdingPreservingGrayscaleLevels, ThresholdingType.PreservingGrayscaleLevsls },
+            { Project.ThresholdingPreservingGrayscaleLevels, ThresholdingType.PreservingGrayscaleLevelsIdentity },
+            { Project.ThresholdingPreservingGrayscaleLevelsNegation, ThresholdingType.PreservingGrayscaleLevelsNegation }
         };
 
         public static ThresholdingType MapLocalStringToThresholdingType(string input)

@@ -1,6 +1,8 @@
-﻿using JSharp.ViewModels;
+﻿using JSharp.Resources;
+using JSharp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +43,40 @@ namespace JSharp
         private void KernelInputCell_TextChanged(object sender, TextChangedEventArgs e)
         {
             (DataContext as ConvolverWindowViewModel)?.KernelInputCell_TextChanged();
+        }
+
+        internal void CurrentKernelText_TextChanged(string currentKernel)
+        {
+            if (currentKernel == Kernels.Canny)
+            {
+                for (int i = 0; i <= 2; i++)
+                {
+                    for (int j = 0; j <= 2; j++)
+                    {
+                        string cellName = $"Cell{i}{j}";
+                        TextBox tb = FindName(cellName) as TextBox;
+                        if (tb != null)
+                        {
+                            tb.Visibility = Visibility.Hidden;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i <= 2; i++)
+                {
+                    for (int j = 0; j <= 2; j++)
+                    {
+                        string cellName = $"Cell{i}{j}";
+                        TextBox tb = FindName(cellName) as TextBox;
+                        if (tb != null)
+                        {
+                            tb.Visibility = Visibility.Visible;
+                        }
+                    }
+                }
+            }
         }
     }
 }
