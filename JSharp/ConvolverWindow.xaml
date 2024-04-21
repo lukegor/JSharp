@@ -97,8 +97,13 @@
 			</MenuItem>
 		</Menu>
 
-		<TextBlock Text="{Binding CurrentKernel}"
-				   VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,170"/>
+		<StackPanel Width="440" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,123,10,0" Orientation="Horizontal">
+			<TextBlock>
+				<Run Text="Selected: "/>
+				<Run Text="{Binding CurrentKernel}" />
+			</TextBlock>
+		</StackPanel>
+
 
 		<Grid Margin="10,123,476,135">
 			<Grid.RowDefinitions>

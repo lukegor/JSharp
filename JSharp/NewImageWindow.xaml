@@ -10,11 +10,7 @@
 		>
 
 	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="248*"/>
-			<ColumnDefinition Width="553*"/>
-		</Grid.ColumnDefinitions>
-		<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+		<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 			<Image x:Name="imageControl" Source="{Binding Source}" Stretch="Uniform">
 				<Image.LayoutTransform>
 					<ScaleTransform ScaleX="{Binding ZoomScale}" ScaleY="{Binding ZoomScale}"/>

@@ -57,6 +57,7 @@
 					<MenuItem Header="{x:Static resx:Strings.Dilate}" Command="{Binding Dilate_ClickCommand}"/>
 					<MenuItem Header="{x:Static resx:Strings.MorphologicalOpen}" Command="{Binding MorphologicalOpen_ClickCommand}"/>
 					<MenuItem Header="{x:Static resx:Strings.MorphologicalClose}" Command="{Binding MorphologicalClose_ClickCommand}"/>
+					<MenuItem Header="Hough" Command="{Binding Hough_ClickCommand}"/>
 				</MenuItem>
 			</MenuItem>
 			<MenuItem Header="Lab4"/>
@@ -67,6 +68,7 @@
 			</MenuItem>
 			<MenuItem Header="Projekt">
 				<MenuItem Header="Threshold" Command="{Binding Threshold_ClickCommand}"/>
+				<MenuItem Header="Simple Analyze" Command="{Binding Analyze_ClickCommand}"/>
 				<MenuItem Header="Analyze" Command="{Binding Analyze_ClickCommand}"/>
 			</MenuItem>
 		</Menu>

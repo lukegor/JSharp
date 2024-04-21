@@ -272,7 +272,7 @@ namespace JSharp.ViewModels
         public void Convolve(string currentKernel, BorderType borderType, IEnumerable<int> TextBoxValues)
         {
             Mat image = this.MatImage;
-            //string[] edgeDetectionCases = { Kernels.SobelEW, Kernels.SobelNS, Kernels.Canny, Kernels.Laplacian };
+            string[] edgeDetectionCases = { Kernels.SobelEW, Kernels.SobelNS, Kernels.Canny, Kernels.Laplacian };
             if (currentKernel == Kernels.BoxBlur)
             {
                 image = ImageProcessingCore.ApplyBlur(image, borderType, 3);
@@ -281,10 +281,10 @@ namespace JSharp.ViewModels
             {
                 image = ImageProcessingCore.ApplyGaussianBlur(image, borderType, sigmaX: 1.5, sigmaY: 1.5, 3);
             }
-            //else if (edgeDetectionCases.Contains(currentKernel))
-            //{
-            //    image = ImageProcessingCore.ApplyEdgeDetectionFilter(image, currentKernel, borderType);
-            //}
+            else if (edgeDetectionCases.Contains(currentKernel))
+            {
+                image = ImageProcessingCore.ApplyEdgeDetectionFilter(image, currentKernel, borderType);
+            }
             else
             {
                 float[,] kernel = new float[3, 3];
@@ -352,6 +352,13 @@ namespace JSharp.ViewModels
 
         public void Restore(Mat image)
         {
+            UpdateImageSource(image);
+        }
+
+        public void Hough()
+        {
+            Mat image = this.MatImage;
+            image = ImageProcessingCore.Hough(image);
             UpdateImageSource(image);
         }
         #endregion

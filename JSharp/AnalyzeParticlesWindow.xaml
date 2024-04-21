@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JSharp"
+		xmlns:converters="clr-namespace:JSharp.Converters"
         mc:Ignorable="d"
         Title="AnalyzeParticlesWindow" Height="450" Width="400">
 	<Grid>
@@ -14,9 +15,11 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 
-				<TextBlock Text="Size" Grid.Column="0" />
-				<TextBox Text="0-Inf" Grid.Column="1"/>
+				<TextBlock Text="Size" Grid.Column="0" TextAlignment="Center" />
+				<TextBox Text="{Binding SizeText, Mode=TwoWay}" Grid.Column="1"/>
 			</Grid>
 		</StackPanel>
-    </Grid>
+		<Button Content="Confirm" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"
+				IsDefault="True" Command="{Binding BtnConfirm_ClickCommand}"/>
+	</Grid>
 </Window>

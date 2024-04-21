@@ -10,14 +10,15 @@
         Title="PosterizeWindow" Height="175" Width="250">
     <Grid>
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0">
-			<TextBlock x:Name="PosterizationLevelsValue" Text="{x:Static resx:Strings.ChoosePosterizationLevelsNumber}" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Bottom"/>
-			<Slider x:Name="SliderPosterizationLevels" Minimum="2" Maximum="255" TickFrequency="1" Value="{Binding LevelsNumber, Mode=TwoWay}"
+			<TextBlock Text="{x:Static resx:Strings.ChoosePosterizationLevelsNumber}" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Bottom"/>
+			<Slider Minimum="2" Maximum="255" TickFrequency="1" Value="{Binding LevelsNumber, Mode=TwoWay}"
 					HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="120"/>
 			<xctk:IntegerUpDown Value="{Binding LevelsNumber, Mode=TwoWay}"
                         Minimum="2" Maximum="255"
                         VerticalAlignment="Bottom" HorizontalAlignment="Center"
                         Width="60" Margin="0,5,0,0"/>
 		</StackPanel>
-		<Button Content="{x:Static resx:Strings.Confirm}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Command="{Binding BtnConfirm_ClickCommand}" IsDefault="True"/>
+		<Button Content="{x:Static resx:Strings.Confirm}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"
+				Command="{Binding BtnConfirm_ClickCommand}" IsDefault="True"/>
 	</Grid>
 </Window>

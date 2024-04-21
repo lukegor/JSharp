@@ -77,11 +77,17 @@ namespace JSharp
             {
                 TxtBlendFactor.Visibility = Visibility.Visible;
                 Txb1.Visibility = Visibility.Visible;
+
+                CbImage2.Visibility = Visibility.Collapsed;
+                TxbImage2.Visibility = Visibility.Collapsed;
             }
             else
             {
                 TxtBlendFactor.Visibility = Visibility.Collapsed;
                 Txb1.Visibility = Visibility.Collapsed;
+
+                CbImage2.Visibility = Visibility.Visible;
+                TxbImage2.Visibility = Visibility.Visible;
             }
         }
     }

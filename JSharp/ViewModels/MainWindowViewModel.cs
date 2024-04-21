@@ -72,7 +72,9 @@ namespace JSharp.ViewModels
         public DelegateCommand MorphologicalClose_ClickCommand { get; }
         public DelegateCommand DoubleConvolve_ClickCommand { get; }
         public DelegateCommand Threshold_ClickCommand { get; }
+        public DelegateCommand SimpleAnalyze_ClickCommand { get; }
         public DelegateCommand Analyze_ClickCommand { get; }
+        public DelegateCommand Hough_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -104,7 +106,9 @@ namespace JSharp.ViewModels
             MorphologicalClose_ClickCommand = new DelegateCommand(MorphologicalClose_Click);
             DoubleConvolve_ClickCommand = new DelegateCommand(DoubleConvolve_Click);
             Threshold_ClickCommand = new DelegateCommand(Threshold_Click);
+            SimpleAnalyze_ClickCommand = new DelegateCommand(SimpleAnalyze_Click);
             Analyze_ClickCommand = new DelegateCommand(Analyze_Click);
+            Hough_ClickCommand = new DelegateCommand(Hough_Click);
             #endregion
         }
 
@@ -751,13 +755,37 @@ namespace JSharp.ViewModels
             thresholderWindow.Show();
         }
 
-        private void Analyze_Click()
+        private void SimpleAnalyze_Click()
         {
             SummaryWindowViewModel summaryWindowViewModel = new SummaryWindowViewModel();
             SummaryWindow summaryWindow = new SummaryWindow();
             summaryWindow.DataContext = summaryWindowViewModel;
 
             summaryWindow.Show();
+        }
+
+        private void Analyze_Click()
+        {
+            AnalyzeParticlesWindowViewModel analyzeParticlesWindowViewModel = new AnalyzeParticlesWindowViewModel();
+            AnalyzeParticlesWindow analyzeParticlesWindow = new AnalyzeParticlesWindow();
+            analyzeParticlesWindow.DataContext = analyzeParticlesWindowViewModel;
+
+            analyzeParticlesWindow.ShowDialog();
+
+            if (analyzeParticlesWindow.DialogResult == true)
+            {
+                analyzeParticlesWindow.Close();
+                SummaryWindowViewModel summaryWindowViewModel = new SummaryWindowViewModel(analyzeParticlesWindowViewModel.AnalysisSettings);
+                SummaryWindow summaryWindow = new SummaryWindow();
+                summaryWindow.DataContext = summaryWindowViewModel;
+
+                summaryWindow.Show();
+            }
+        }
+
+        private void Hough_Click()
+        {
+            FocusedImage.Hough();
         }
     }
 }

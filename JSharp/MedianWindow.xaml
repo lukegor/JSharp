@@ -45,8 +45,8 @@
 
 
 
-		<DockPanel DockPanel.Dock="Bottom" Margin="5,0,5,5" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-			<Button Content="Apply" Width="100" Margin="5" Command="{Binding BtnApply_ClickCommand}" IsDefault="True"/>
+		<DockPanel DockPanel.Dock="Bottom" Margin="0,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+			<Button Content="Apply" Width="100" Command="{Binding BtnApply_ClickCommand}" IsDefault="True"/>
 		</DockPanel>
 	</Grid>
 </Window>

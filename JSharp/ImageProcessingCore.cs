@@ -3,6 +3,7 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.ML;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+using Emgu.CV.XImgproc;
 using JSharp.Resources;
 using JSharp.Utility;
 using System;
@@ -273,8 +274,11 @@ namespace JSharp
 
         public static Mat ApplyEdgeDetectionFilter(Mat inputImage, string currentKernel, BorderType borderType)
         {
+            // Load the input image
             Image<Gray, Byte> img = inputImage.ToImage<Gray, Byte>();
-            Mat result = new Mat(new System.Drawing.Size(img.Width, img.Height), DepthType.Cv64F, 1);
+
+            // Apply the edge detection kernel
+            Mat result = new Mat();
             if (currentKernel == Kernels.SobelNS)
             {
                 CvInvoke.Sobel(img, result, DepthType.Cv64F, xorder: 1, yorder: 0, 3, 1, 0, borderType);
@@ -291,8 +295,13 @@ namespace JSharp
             {
                 CvInvoke.Laplacian(img, result, DepthType.Cv64F, 1, 1, 0, borderType);
             }
-            else throw new InvalidOperationException("Something's wrong");
-            return result;
+            else throw new InvalidOperationException("Invalid kernel specified: " + currentKernel);
+
+            // Convert to 8-bit unsigned integer
+            Mat result8U = new Mat();
+            CvInvoke.ConvertScaleAbs(result, result8U, 1.0, 1.0);
+
+            return result8U;
         }
 
         public static Mat ApplyCustomKernel(Mat inputImage, float[,] kernel, BorderType borderType, int kernelSize = 3, double delta = 0)
@@ -519,6 +528,73 @@ namespace JSharp
 
             return nLabels - 1;
         }
+
+        public static int CountObjectsInImage(Mat image, int? minSize, int? maxSize)
+        {
+            Mat labels = new Mat();
+            Mat stats = new Mat();
+            Mat centroids = new Mat();
+            int nLabels = CvInvoke.ConnectedComponentsWithStats(image, labels, stats, centroids);
+
+            int countInRange = 0;
+            int[,] areaData = (int[,])stats.GetData(); // Get all data from stats matrix
+
+            for (int label = 1; label < nLabels; label++) // Start from 1 to exclude background
+            {
+                // Retrieve the size of the current object
+                int objSize = areaData[label, 4]; // 4th column represents the area
+
+                // Check if the object size falls within the specified range
+                bool withinRange = true;
+
+                if (minSize.HasValue && objSize < minSize)
+                    withinRange = false;
+
+                if (maxSize.HasValue && objSize > maxSize)
+                    withinRange = false;
+
+                if (withinRange)
+                    countInRange++;
+            }
+
+            return countInRange;
+        }
+
+        public static Mat Hough(Mat image)
+        {
+            Mat linesMat = new Mat();
+
+            double rho = 1; // Distance resolution of the accumulator in pixels
+            double theta = Math.PI / 180; // Angle resolution of the accumulator in radians
+            int threshold = 100;
+            CvInvoke.HoughLines(image, linesMat, rho, theta, threshold);
+
+            LineSegment2D[] linesArray = new LineSegment2D[linesMat.Rows];
+            IntPtr linesData = linesMat.DataPointer;
+            for (int i = 0; i < linesMat.Rows; i++)
+            {
+                // Extracting x1, y1, x2, y2 from the current row
+                float[] data = new float[4];
+                Marshal.Copy(linesData + i * linesMat.Step, data, 0, 4);
+                linesArray[i] = new LineSegment2D(new Point((int)data[0], (int)data[1]), new Point((int)data[2], (int)data[3]));
+                System.Diagnostics.Debug.WriteLine($"Line {i + 1}: ({linesArray[i].P1.X}, {linesArray[i].P1.Y}) - ({linesArray[i].P2.X}, {linesArray[i].P2.Y})");
+            }
+
+            // Draw detected lines on original image
+            foreach (LineSegment2D line in linesArray)
+            {
+                CvInvoke.Line(image, line.P1, line.P2, new MCvScalar(0, 0, 255), 4);
+            }
+
+            CvInvoke.Imshow("Detected Lines", image);
+            CvInvoke.WaitKey(0);
+            return image;
+        }
+
+        //public static Mat Skeletonize(Mat image)
+        //{
+        //    //CvInvoke.(image, image, ThinningType.ZhangSuen);
+        //}
 
         //private static byte CalculateAdaptiveScalingSubtraction(byte pixel1, byte pixel2)
         //{
