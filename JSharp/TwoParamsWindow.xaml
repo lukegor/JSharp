@@ -10,16 +10,21 @@
         Title="TwoParamsWindow" Height="220" Width="300">
     <Grid>
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
-			<TextBlock VerticalAlignment="Center" Margin="0,0,0,-10" TextAlignment="Center" Text="Canny filter thresholds:" />
+			<TextBlock VerticalAlignment="Center" Margin="0,0,0,-10" TextAlignment="Center" Text="{Binding TxbText}" />
 			<!-- Lower Limit Slider -->
-			<Slider Minimum="0" Maximum="255" Value="{Binding Min, Mode=TwoWay}"
+			<Slider Minimum="{Binding SliderPropertiesCollection[0].Item1.MinValue}"
+					Maximum="{Binding SliderPropertiesCollection[0].MaxValue}"
+					Value="{Binding Min, Mode=TwoWay}"
 					Width="200" Height="18" Margin="0,15,0,0"
 					TickFrequency="1"/>
 			<xctk:IntegerUpDown Text="{Binding Min, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,3"
 						Minimum="0" Maximum="255" Height="20"/>
 
 			<!-- Upper Limit Slider -->
-			<Slider x:Name="SliderP2" Minimum="0" Maximum="255" Value="{Binding Max, Mode=TwoWay}"
+			<Slider x:Name="SliderP2"
+					Minimum="{Binding SliderPropertiesCollection[0].Item1.MinValue}"
+					Maximum="{Binding SliderPropertiesCollection[0].MaxValue}"
+					Value="{Binding Max, Mode=TwoWay}"
 					Width="200" Height="18" Margin="0,10,0,0"
 					TickFrequency="1"/>
 			<xctk:IntegerUpDown Text="{Binding Max, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,3"

@@ -10,12 +10,11 @@
 		>
 
 	<Grid>
-		<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-			<Image x:Name="imageControl" Source="{Binding Source}" Stretch="Uniform">
-				<Image.LayoutTransform>
-					<ScaleTransform ScaleX="{Binding ZoomScale}" ScaleY="{Binding ZoomScale}"/>
-				</Image.LayoutTransform>
-			</Image>
-		</ScrollViewer>
+		<Image x:Name="imageControl" Source="{Binding Source}" Stretch="UniformToFill" MouseLeftButtonDown="imageControl_MouseLeftButtonDown">
+			<Image.LayoutTransform>
+				<ScaleTransform ScaleX="{Binding ZoomScale}" ScaleY="{Binding ZoomScale}"/>
+			</Image.LayoutTransform>
+		</Image>
+		<Canvas x:Name="highlightCanvas" />
 	</Grid>
 </Window>

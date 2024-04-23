@@ -394,6 +394,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rectangle.
+        /// </summary>
+        public static string Rectangle {
+            get {
+                return ResourceManager.GetString("Rectangle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RGB to HSV.
         /// </summary>
         public static string RgbToHsv {
@@ -471,15 +480,6 @@ namespace JSharp.Resources {
         public static string SplitChannels {
             get {
                 return ResourceManager.GetString("SplitChannels", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Square.
-        /// </summary>
-        public static string Square {
-            get {
-                return ResourceManager.GetString("Square", resourceCulture);
             }
         }
         

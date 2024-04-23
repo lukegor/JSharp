@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace JSharp.ViewModels
@@ -41,6 +42,10 @@ namespace JSharp.ViewModels
             get => _lblFocusedImageContent;
             set => SetProperty(ref _lblFocusedImageContent, value);
         }
+
+        public static System.Windows.Controls.RadioButton SelectedButton { get; set; }
+
+        internal static ObservableCollection<Point?> points { get; set; } = new ObservableCollection<Point?> { null, null };
 
         private static double zoomChange = 0.2;
         public static double CumulativeZoomChange { get => 1.0 + zoomChange; set => zoomChange = value; }
@@ -75,6 +80,8 @@ namespace JSharp.ViewModels
         public DelegateCommand SimpleAnalyze_ClickCommand { get; }
         public DelegateCommand Analyze_ClickCommand { get; }
         public DelegateCommand Hough_ClickCommand { get; }
+        public DelegateCommand Skeletonize_ClickCommand { get; }
+        public DelegateCommand PlotProfile_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -108,8 +115,15 @@ namespace JSharp.ViewModels
             Threshold_ClickCommand = new DelegateCommand(Threshold_Click);
             SimpleAnalyze_ClickCommand = new DelegateCommand(SimpleAnalyze_Click);
             Analyze_ClickCommand = new DelegateCommand(Analyze_Click);
+            Skeletonize_ClickCommand = new DelegateCommand(Skeletonize_Click);
             Hough_ClickCommand = new DelegateCommand(Hough_Click);
+            PlotProfile_ClickCommand = new DelegateCommand(PlotProfile_Click);
             #endregion
+        }
+
+        internal void UpdateCheckedRadioButton(object sender)
+        {
+            SelectedButton = sender as RadioButton;
         }
 
         private void OpenRgb_Click()
@@ -674,8 +688,13 @@ namespace JSharp.ViewModels
 
             if (standardMorphologicalWindow.DialogResult == true)
             {
-                ElementShape elementShape = ImageProcessingUtility.GetStructuringElement(standardMorphologicalWindowViewModel.Shape);
-                FocusedImage.PerformMorpologicalOperation(MorphologicalOperationType.Erode, elementShape, BorderType.Isolated, new MCvScalar());
+                MorphologicalOperationType operation = MorphologicalOperationType.Erode;
+                ShapeType shape = standardMorphologicalWindowViewModel.Shape;
+                BorderType borderType = standardMorphologicalWindowViewModel.BorderPixelsOption;
+                int? elementSize = standardMorphologicalWindowViewModel.ElementSize;
+                BasicMorphologicalInfo info = new BasicMorphologicalInfo(operation, shape, borderType, elementSize);
+
+                FocusedImage.PerformMorpologicalOperation(info, new MCvScalar());
                 standardMorphologicalWindow.Close();
             }
         }
@@ -696,8 +715,13 @@ namespace JSharp.ViewModels
 
             if (standardMorphologicalWindow.DialogResult == true)
             {
-                ElementShape elementShape = ImageProcessingUtility.GetStructuringElement(standardMorphologicalWindowViewModel.Shape);
-                FocusedImage.PerformMorpologicalOperation(MorphologicalOperationType.Dilate, elementShape, BorderType.Isolated, new MCvScalar());
+                MorphologicalOperationType operation = MorphologicalOperationType.Dilate;
+                ShapeType shape = standardMorphologicalWindowViewModel.Shape;
+                BorderType borderType = standardMorphologicalWindowViewModel.BorderPixelsOption;
+                int? elementSize = standardMorphologicalWindowViewModel.ElementSize;
+                BasicMorphologicalInfo info = new BasicMorphologicalInfo(operation, shape, borderType, elementSize);
+
+                FocusedImage.PerformMorpologicalOperation(info, new MCvScalar());
                 standardMorphologicalWindow.Close();
             }
         }
@@ -718,8 +742,13 @@ namespace JSharp.ViewModels
 
             if (standardMorphologicalWindow.DialogResult == true)
             {
-                ElementShape elementShape = ImageProcessingUtility.GetStructuringElement(standardMorphologicalWindowViewModel.Shape);
-                FocusedImage.PerformMorpologicalOperation(MorphologicalOperationType.MorphOpening, elementShape, BorderType.Isolated, new MCvScalar());
+                MorphologicalOperationType operation = MorphologicalOperationType.MorphOpening;
+                ShapeType shape = standardMorphologicalWindowViewModel.Shape;
+                BorderType borderType = standardMorphologicalWindowViewModel.BorderPixelsOption;
+                int? elementSize = standardMorphologicalWindowViewModel.ElementSize;
+                BasicMorphologicalInfo info = new BasicMorphologicalInfo(operation, shape, borderType, elementSize);
+
+                FocusedImage.PerformMorpologicalOperation(info, new MCvScalar());
                 standardMorphologicalWindow.Close();
             }
         }
@@ -740,8 +769,13 @@ namespace JSharp.ViewModels
 
             if (standardMorphologicalWindow.DialogResult == true)
             {
-                ElementShape elementShape = ImageProcessingUtility.GetStructuringElement(standardMorphologicalWindowViewModel.Shape);
-                FocusedImage.PerformMorpologicalOperation(MorphologicalOperationType.MorphClosing, elementShape, BorderType.Isolated, new MCvScalar());
+                MorphologicalOperationType operation = MorphologicalOperationType.MorphClosing;
+                ShapeType shape = standardMorphologicalWindowViewModel.Shape;
+                BorderType borderType = standardMorphologicalWindowViewModel.BorderPixelsOption;
+                int? elementSize = standardMorphologicalWindowViewModel.ElementSize;
+                BasicMorphologicalInfo info = new BasicMorphologicalInfo(operation, shape, borderType, elementSize);
+
+                FocusedImage.PerformMorpologicalOperation(info, new MCvScalar());
                 standardMorphologicalWindow.Close();
             }
         }
@@ -783,9 +817,29 @@ namespace JSharp.ViewModels
             }
         }
 
+        private void Skeletonize_Click()
+        {
+            FocusedImage.Skeletonize();
+        }
+
         private void Hough_Click()
         {
             FocusedImage.Hough();
+        }
+
+        private void PlotProfile_Click()
+        {
+            if (points[0] == null || points[1] == null)
+            {
+                MessageBox.Show("Select 2 points in image", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            PlotlineGraphWindowViewModel plotlineGraphWindowViewModel = new PlotlineGraphWindowViewModel(points.Where(p => p != null).Select(p => p.Value).ToArray(), FocusedImage.MatImage);
+            PlotlineGraphWindow plotlineGraphWindow = new PlotlineGraphWindow();
+            plotlineGraphWindow.DataContext = plotlineGraphWindowViewModel;
+
+            plotlineGraphWindow.Show();
         }
     }
 }

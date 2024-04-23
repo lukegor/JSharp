@@ -444,37 +444,56 @@ namespace JSharp
         }
 
         // Morphological erosion
-        public static Mat Erode(Mat image, ElementShape elementShape, BorderType borderType, MCvScalar borderValue)
+        public static Mat Erode(Mat image, Mat element, BorderType borderType, MCvScalar borderValue)
         {
             Mat result = new Mat();
-            Mat element = CvInvoke.GetStructuringElement(elementShape, new Size(3, 3), new Point(1, 1));
             CvInvoke.Erode(image, result, element, new Point(-1, -1), 1, borderType, borderValue);
             return result;
         }
 
+        /// <summary>
+        /// Creates Rhombus structuring element
+        /// </summary>
+        /// <param name="r">promień</param>
+        /// <returns></returns>
+        public static Mat Diamond(int r)
+        {
+            Mat diamond = new Mat(new Size(r * 2 + 1, r * 2 + 1), DepthType.Cv8U, 1);
+            byte[,] diamondData = new byte[r * 2 + 1, r * 2 + 1];
+
+            for (int i = 0; i <= r; i++)
+            {
+                for (int j = r - i; j <= r + i; j++)
+                {
+                    diamondData[i, j] = 255;
+                    diamondData[diamondData.GetLength(0) - 1 - i, j] = 255;
+                }
+            }
+
+            Marshal.Copy(diamondData.Cast<byte>().ToArray(), 0, diamond.DataPointer, diamondData.Length);
+            return diamond;
+        }
+
         // Morphological dilation
-        public static Mat Dilate(Mat image, ElementShape elementShape, BorderType borderType, MCvScalar borderValue)
+        public static Mat Dilate(Mat image, Mat element, BorderType borderType, MCvScalar borderValue)
         {
             Mat result = new Mat();
-            Mat element = CvInvoke.GetStructuringElement(elementShape, new Size(3, 3), new Point(1, 1));
             CvInvoke.Dilate(image, result, element, new Point(-1, -1), 1, borderType, borderValue);
             return result;
         }
 
         // Morphological opening
-        public static Mat MorphologicalOpen(Mat image, ElementShape elementShape, BorderType borderType, MCvScalar borderValue)
+        public static Mat MorphologicalOpen(Mat image, Mat element, BorderType borderType, MCvScalar borderValue)
         {
             Mat result = new Mat();
-            Mat element = CvInvoke.GetStructuringElement(elementShape, new Size(3, 3), new Point(1, 1));
             CvInvoke.MorphologyEx(image, result, MorphOp.Open, element, new Point(-1, -1), 1, borderType, borderValue);
             return result;
         }
 
         // Morphological closing
-        public static Mat MorphologicalClose(Mat image, ElementShape elementShape, BorderType borderType, MCvScalar borderValue)
+        public static Mat MorphologicalClose(Mat image, Mat element, BorderType borderType, MCvScalar borderValue)
         {
             Mat result = new Mat();
-            Mat element = CvInvoke.GetStructuringElement(elementShape, new Size(3, 3), new Point(1, 1));
             CvInvoke.MorphologyEx(image, result, MorphOp.Close, element, new Point(-1, -1), 1, borderType, borderValue);
             return result;
         }
@@ -592,17 +611,40 @@ namespace JSharp
             return image;
         }
 
-        //public static Mat Skeletonize(Mat image)
-        //{
-        //    //CvInvoke.(image, image, ThinningType.ZhangSuen);
-        //}
+        public static Mat Skeletonize(Mat inputMat)
+        {
+            // Krok 1: Utworzenie pustego obrazu do przechowania szkieletu
+            Mat skeleton = new Mat(inputMat.Size, DepthType.Cv8U, 1);
+            Mat imCopy = inputMat.Clone();
 
-        //private static byte CalculateAdaptiveScalingSubtraction(byte pixel1, byte pixel2)
-        //{
-        //    int sum = pixel1 + pixel2;
-        //    double divisor = Math.Max(1, sum / 255.0);
-        //    return (byte)Math.Floor((sum / divisor));
-        //}
+            Mat element = CvInvoke.GetStructuringElement(ElementShape.Cross, new Size(3, 3), new Point(-1, -1));
+            BorderType borderType = BorderType.Isolated;
+
+            // Krok 4: Wykonanie operacji erozji na oryginalnym obrazie oraz poprawienie szkieletu
+            while (true)
+            {
+                // Krok 2: Wykonanie operacji otwarcia morfologicznego na obrazie oryginalnym
+                Mat imOpen = new Mat();
+                CvInvoke.MorphologyEx(imCopy, imOpen, MorphOp.Open, element, new Point(1, 1), 1, borderType, new MCvScalar());
+                // Krok 3: Odjęcie im_open od obrazu oryginalnego
+                Mat imTemp = new Mat();
+                CvInvoke.Subtract(imCopy, imOpen, imTemp);
+                // Erozja morfologiczna
+                Mat imEroded = new Mat();
+                CvInvoke.Erode(imCopy, imEroded, element, new Point(1,1), 1, borderType, new MCvScalar());
+                // Aktualizacja szkieletu
+                CvInvoke.BitwiseOr(skeleton, imTemp, skeleton);
+
+                // Aktualizacja obrazu przetwarzanego
+                imCopy = imEroded.Clone();
+
+                // Krok 5: Przerwij pętlę jeśli nie ma już obiektów w obrazie
+                if (CvInvoke.CountNonZero(imCopy) == 0)
+                    break;
+            }
+
+            return skeleton;
+        }
 
         //public static Mat Sub(Mat image1, Mat image2, PixelOverflowHandlingType overflowHandling, double weight = 1.0)
         //{

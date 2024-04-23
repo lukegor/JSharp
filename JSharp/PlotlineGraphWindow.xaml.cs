@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 namespace JSharp
 {
     /// <summary>
-    /// Interaction logic for TwoParamsWindow.xaml
+    /// Interaction logic for PlotlineGraphWindow.xaml
     /// </summary>
-    public partial class TwoParamsWindow : Window
+    public partial class PlotlineGraphWindow : Window
     {
-        public TwoParamsWindow(string title)
+        public PlotlineGraphWindow()
         {
             InitializeComponent();
-            this.Title = title;
         }
     }
 }

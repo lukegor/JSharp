@@ -20,6 +20,7 @@ using System.Globalization;
 using Emgu.Util;
 using Emgu.CV.Util;
 using JSharp.ViewModels;
+using Emgu.CV.Features2D;
 
 namespace JSharp
 {
@@ -56,6 +57,22 @@ namespace JSharp
                     e.Handled = true;
                 }
             }
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            (DataContext as MainWindowViewModel)?.UpdateCheckedRadioButton(sender);
+            var radioButton = sender as RadioButton;
+            System.Windows.Media.Brush brush = radioButton.Background;
+            double reducedOpacity = Math.Max(0, brush.Opacity - 0.7); // Adjust the value as needed
+            // Apply the modified SolidColorBrush as the new background
+            radioButton.Background.Opacity = reducedOpacity;
+        }
+
+        private void RadioButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            var radioButton = sender as RadioButton;
+            radioButton.Background.Opacity = 1.0;
         }
     }
 }

@@ -12,6 +12,7 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -325,17 +326,27 @@ namespace JSharp.ViewModels
             UpdateImageSource(image);
         }
 
-        public void PerformMorpologicalOperation(MorphologicalOperationType morphologicalOperationType, ElementShape elementShape, BorderType borderType, MCvScalar borderValue)
+        public void PerformMorpologicalOperation(BasicMorphologicalInfo basicMorphologicalInfo, MCvScalar borderValue)
         {
             Mat image = this.MatImage;
 
+            MorphologicalOperationType operation = basicMorphologicalInfo.MorphologicalOperationType;
+            ShapeType elementShape = basicMorphologicalInfo.ElementShape;
+            BorderType borderType = basicMorphologicalInfo.BorderType;
+            int size = (int)basicMorphologicalInfo.ElementSize;
 
-            image = morphologicalOperationType switch
+            Mat element = elementShape switch
             {
-                MorphologicalOperationType.Erode => ImageProcessingCore.Erode(image, elementShape, borderType, borderValue),
-                MorphologicalOperationType.Dilate => ImageProcessingCore.Dilate(image, elementShape, borderType, borderValue),
-                MorphologicalOperationType.MorphOpening => ImageProcessingCore.MorphologicalOpen(image, elementShape, borderType, borderValue),
-                MorphologicalOperationType.MorphClosing => ImageProcessingCore.MorphologicalClose(image, elementShape, borderType, borderValue)
+                ShapeType.Rectangle => CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(size, size), new Point(1, 1)),
+                ShapeType.Rhombus => ImageProcessingCore.Diamond(size)
+            };
+
+            image = operation switch
+            {
+                MorphologicalOperationType.Erode => ImageProcessingCore.Erode(image, element, borderType, borderValue),
+                MorphologicalOperationType.Dilate => ImageProcessingCore.Dilate(image, element, borderType, borderValue),
+                MorphologicalOperationType.MorphOpening => ImageProcessingCore.MorphologicalOpen(image, element, borderType, borderValue),
+                MorphologicalOperationType.MorphClosing => ImageProcessingCore.MorphologicalClose(image, element, borderType, borderValue)
             };
             UpdateImageSource(image);
         }
@@ -351,6 +362,15 @@ namespace JSharp.ViewModels
 
         public void Restore(Mat image)
         {
+            UpdateImageSource(image);
+        }
+
+        public void Skeletonize()
+        {
+            Mat image = this.MatImage;
+
+            image = ImageProcessingCore.Skeletonize(image);
+
             UpdateImageSource(image);
         }
 

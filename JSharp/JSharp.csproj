@@ -12,6 +12,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="zzz.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Resources\icon1.ico" />
   </ItemGroup>
 

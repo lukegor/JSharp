@@ -12,7 +12,7 @@ namespace JSharp.Utility
     public enum ShapeType
     {
         Rhombus,
-        Square
+        Rectangle
     }
 
     public static class ShapeTypeHelper
@@ -20,7 +20,7 @@ namespace JSharp.Utility
         private static readonly Dictionary<string, ShapeType> shapeTypeMapping = new Dictionary<string, ShapeType>
         {
             { Strings.Rhombus, ShapeType.Rhombus },
-            { Strings.Square, ShapeType.Square }
+            { Strings.Rectangle, ShapeType.Rectangle }
         };
 
         public static ShapeType MapLocalStringToShapeType(string input)

@@ -60,8 +60,10 @@ namespace JSharp.ViewModels
 
             if (CurrentKernel == Kernels.Canny)
             {
-                TwoParamsWindowViewModel twoParamsWindowViewModel = new TwoParamsWindowViewModel();
-                TwoParamsWindow twoParamsWindow = new TwoParamsWindow();
+                TwoParamsVMInfo vmInfo = new TwoParamsVMInfo(new SliderProperties(0, 255, 100), new SliderProperties(0, 255, 200), "Canny filter thresholds:");
+
+                TwoParamsWindowViewModel twoParamsWindowViewModel = new TwoParamsWindowViewModel(vmInfo);
+                TwoParamsWindow twoParamsWindow = new TwoParamsWindow(Constants.CannySettingsWindowTitle);
                 twoParamsWindow.DataContext = twoParamsWindowViewModel;
 
                 twoParamsWindow.ShowDialog();

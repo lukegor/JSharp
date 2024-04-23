@@ -1,4 +1,4 @@
-﻿<Window x:Class="JSharp.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:JSharp"
 		xmlns:viewModel="clr-namespace:JSharp.ViewModels"
 		xmlns:prism="http://prismlibrary.com/"
+		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="JSharp.MainWindow"
 		mc:Ignorable="d"
         Title="JSharp" Height="450" Width="800" ResizeMode="CanMinimize" Closing="Window_Closing" PreviewKeyDown="Window_PreviewKeyDown">
 
@@ -35,7 +36,7 @@
 				<Separator/>
 				<MenuItem x:Name="ShowHistogram" Header="{x:Static resx:Strings.ShowHistogram}" Command="{Binding ShowHistogram_ClickCommand}"/>
 				<MenuItem x:Name="StretchHistogram" Header="{x:Static resx:Strings.StretchHistogram}" Command="{Binding StretchHistogram_ClickCommand}"/>
-				<MenuItem x:Name="StretchContrast" Header="{x:Static resx:Strings.StretchContrast }" Command="{Binding StretchContrast_ClickCommand}"/>
+				<MenuItem x:Name="StretchContrast" Header="{x:Static resx:Strings.StretchContrast}" Command="{Binding StretchContrast_ClickCommand}"/>
 				<MenuItem x:Name="EqualizeHistogram" Header="{x:Static resx:Strings.EqualizeHistogram}" Command="{Binding EqualizeHistogram_ClickCommand}" />
 				<Separator/>
 				<MenuItem x:Name="SplitChannels" Header="{x:Static resx:Strings.SplitChannels}" Command="{Binding SplitChannels_ClickCommand}"/>
@@ -57,8 +58,11 @@
 					<MenuItem Header="{x:Static resx:Strings.Dilate}" Command="{Binding Dilate_ClickCommand}"/>
 					<MenuItem Header="{x:Static resx:Strings.MorphologicalOpen}" Command="{Binding MorphologicalOpen_ClickCommand}"/>
 					<MenuItem Header="{x:Static resx:Strings.MorphologicalClose}" Command="{Binding MorphologicalClose_ClickCommand}"/>
-					<MenuItem Header="Hough" Command="{Binding Hough_ClickCommand}"/>
 				</MenuItem>
+				<MenuItem Header="Skeletonize" Command="{Binding Skeletonize_ClickCommand}"/>
+				<MenuItem Header="Hough" Command="{Binding Hough_ClickCommand}"/>
+				<Separator/>
+				<MenuItem Header="Plot Profile" Command="{Binding PlotProfile_ClickCommand}"/>
 			</MenuItem>
 			<MenuItem Header="Lab4"/>
 			<MenuItem Header="Lab5"/>
@@ -72,8 +76,18 @@
 				<MenuItem Header="Analyze" Command="{Binding Analyze_ClickCommand}"/>
 			</MenuItem>
 		</Menu>
-		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" HorizontalAlignment="Left" Margin="400,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto" RenderTransformOrigin="0.5,0.5">
-		</Label>
+		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" HorizontalAlignment="Left" Margin="400,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto" RenderTransformOrigin="0.5,0.5"/>
+		<ToolBar HorizontalAlignment="Left" Height="36" Margin="0,25,0,0" VerticalAlignment="Top" Width="140">
+			<xctk:IconButton Width="20"/>
+			<RadioButton x:Name="RadioBtn1" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
+				<RadioButton.Background>
+					<ImageBrush />
+				</RadioButton.Background>
+				<Grid>
+					<Image Width="16" Height="16"/>
+				</Grid>
+			</RadioButton>
+		</ToolBar>
 
 	</Grid>
 </Window>

@@ -228,6 +228,9 @@
   <data name="Posterize" xml:space="preserve">
     <value>Posterize</value>
   </data>
+  <data name="Rectangle" xml:space="preserve">
+    <value>Rectangle</value>
+  </data>
   <data name="RgbToHsv" xml:space="preserve">
     <value>RGB to HSV</value>
   </data>
@@ -254,9 +257,6 @@
   </data>
   <data name="SplitChannels" xml:space="preserve">
     <value>Split Channels</value>
-  </data>
-  <data name="Square" xml:space="preserve">
-    <value>Square</value>
   </data>
   <data name="StretchContrast" xml:space="preserve">
     <value>Stretch Contrast</value>

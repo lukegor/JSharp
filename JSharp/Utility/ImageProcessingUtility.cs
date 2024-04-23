@@ -21,12 +21,12 @@ namespace JSharp.Utility
             };
         }
 
-        public static ElementShape GetStructuringElement(ShapeType shapeType)
+        public static ElementShape GetStructuringElementType(ShapeType shapeType)
         {
             return shapeType switch
             {
                 ShapeType.Rhombus => ElementShape.Cross,
-                ShapeType.Square => ElementShape.Rectangle,
+                ShapeType.Rectangle => ElementShape.Rectangle,
                 _ => throw new NotImplementedException()
             };
         }

@@ -1,7 +1,9 @@
-﻿using Prism.Commands;
+﻿using JSharp.Models;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +12,14 @@ namespace JSharp.ViewModels
 {
     public class TwoParamsWindowViewModel : BindableBase
     {
+        public ObservableCollection<SliderProperties> SliderPropertiesCollection { get; set; } = new ObservableCollection<SliderProperties>();
+        private string _txbText;
+        public string TxbText
+        {
+            get { return _txbText; }
+            set { SetProperty(ref _txbText, value); }
+        }
+
         private int _min;
         public int Min
         {
@@ -25,12 +35,14 @@ namespace JSharp.ViewModels
 
         public DelegateCommand BtnConfirm_ClickCommand { get; }
 
-        public TwoParamsWindowViewModel()
+        public TwoParamsWindowViewModel(TwoParamsVMInfo info)
         {
             BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirm_Click);
 
-            Min = 100;
-            Max = 200;
+            SliderPropertiesCollection.Add(info.Slider1Properties);
+            SliderPropertiesCollection.Add(info.Slider2Properties);
+            Min = info.Slider1Properties.DefaultValue;
+            Max = info.Slider2Properties.DefaultValue;
         }
 
         private void BtnConfirm_Click()

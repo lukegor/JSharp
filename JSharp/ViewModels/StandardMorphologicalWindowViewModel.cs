@@ -20,8 +20,8 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _shape, value); }
         }
 
-        private string _borderPixelsOption;
-        public string BorderPixelsOption
+        private BorderType _borderPixelsOption;
+        public BorderType BorderPixelsOption
         {
             get { return _borderPixelsOption; }
             set { SetProperty(ref _borderPixelsOption, value); }
@@ -34,14 +34,22 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _borderValue, value); }
         }
 
+        private int _elementSize;
+        public int ElementSize
+        {
+            get { return _elementSize; }
+            set { SetProperty(ref _elementSize, value); }
+        }
+
         public DelegateCommand BtnConfirm_ClickCommand { get; }
 
         public StandardMorphologicalWindowViewModel()
         {
             BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirm_Click);
-            _shape = ShapeType.Rhombus;
-            _borderPixelsOption = Kernels.BorderTypeIsolated;
-            _borderValue = 0;
+            Shape = ShapeType.Rhombus;
+            BorderPixelsOption = BorderType.Isolated;
+            BorderValue = 0;
+            ElementSize = 3;
         }
 
         private void BtnConfirm_Click()
@@ -59,7 +67,7 @@ namespace JSharp.ViewModels
 
         public IEnumerable<string> GetShapeTypeOptions()
         {
-            IEnumerable<ShapeType> shapeTypes = [ShapeType.Rhombus, ShapeType.Square];
+            IEnumerable<ShapeType> shapeTypes = [ShapeType.Rhombus, ShapeType.Rectangle];
             return ShapeTypeHelper.GetLocalizedShapeTypes(shapeTypes);
         }
     }

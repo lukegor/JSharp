@@ -90,5 +90,70 @@ namespace JSharp
                 }
             }
         }
+
+        private void imageControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Get the position where the user clicked on the image
+            if (sender is Image image && MainWindowViewModel.SelectedButton != null && MainWindowViewModel.SelectedButton.Name == Constants.RadioBtn1Name)
+            {
+                if (MainWindowViewModel.points[0] != null && MainWindowViewModel.points[1] != null)
+                {
+                    // Reset points if two points are already selected
+                    MainWindowViewModel.points[0] = null;
+                    MainWindowViewModel.points[1] = null;
+
+                    // Clear previous highlights and lines
+                    highlightCanvas.Children.Clear();
+                }
+
+                Point clickedPoint = e.GetPosition(image);
+                if (MainWindowViewModel.points[0] == null)
+                {
+                    MainWindowViewModel.points[0] = clickedPoint;
+                }
+                else if (MainWindowViewModel.points[1] == null)
+                {
+                    MainWindowViewModel.points[1] = clickedPoint;
+                    // Both points are selected, draw line
+                    DrawLine((Point)MainWindowViewModel.points[0], (Point)MainWindowViewModel.points[1]);
+                }
+
+                DrawHighlight(clickedPoint);
+
+                //profileLineButton.Background = Brushes.DarkGray;
+            }
+        }
+
+        private void DrawHighlight(Point point)
+        {
+            // Create a highlight ellipse
+            System.Windows.Shapes.Rectangle highlightEllipse = new System.Windows.Shapes.Rectangle
+            {
+                Width = 10,
+                Height = 10,
+                Stroke = Brushes.Yellow,
+                StrokeThickness = 2,
+                Fill = Brushes.Yellow
+            };
+            // Position the highlight relative to the image
+            Canvas.SetLeft(highlightEllipse, point.X - highlightEllipse.Width / 2);
+            Canvas.SetTop(highlightEllipse, point.Y - highlightEllipse.Height / 2);
+            // Add the highlight to the canvas
+            highlightCanvas.Children.Add(highlightEllipse);
+        }
+
+        private void DrawLine(Point startPoint, Point endPoint)
+        {
+            Line line = new Line
+            {
+                X1 = startPoint.X,
+                Y1 = startPoint.Y,
+                X2 = endPoint.X,
+                Y2 = endPoint.Y,
+                Stroke = Brushes.Red,
+                StrokeThickness = 2
+            };
+            highlightCanvas.Children.Add(line);
+        }
     }
 }
