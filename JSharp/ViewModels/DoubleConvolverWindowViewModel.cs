@@ -16,7 +16,10 @@ namespace JSharp.ViewModels
         public ObservableCollection<int> FirstMatrix
         {
             get { return _firstMatrix; }
-            set { SetProperty(ref _firstMatrix, value); }
+            set
+            {
+                SetProperty(ref _firstMatrix, value);
+            }
         }
         private ObservableCollection<int> _secondMatrix;
         public ObservableCollection<int> SecondMatrix
@@ -49,6 +52,8 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _matrixSize, value); }
         }
 
+        private bool isInitialized = false;
+
         public DelegateCommand BtnConfirm_ClickCommand { get; }
         public DoubleConvolverWindowViewModel()
         {
@@ -72,6 +77,18 @@ namespace JSharp.ViewModels
             FirstMatrix = new ObservableCollection<int>(firstList);
             SecondMatrix = new ObservableCollection<int>(secondList);
 
+            Update5x5Kernel(firstList, secondList);
+            isInitialized = true;
+        }
+
+        internal void KernelInputCell_TextChanged()
+        {
+            if (isInitialized)
+                Update5x5Kernel(FirstMatrix.ToList(), SecondMatrix.ToList());
+        }
+
+        private void Update5x5Kernel(List<int> firstList, List<int> secondList)
+        {
             float[,] kernel5x5 = Generate5x5Kernel(firstList, secondList);
 
             ResultMatrix = ConvertToObservableCollection(kernel5x5);

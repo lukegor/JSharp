@@ -1,5 +1,4 @@
-﻿using Emgu.CV;
-using JSharp.Utility;
+﻿using JSharp.Utility;
 using JSharp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -18,18 +17,14 @@ using System.Windows.Shapes;
 namespace JSharp
 {
     /// <summary>
-    /// Interaction logic for ThresholderWindow.xaml
+    /// Interaction logic for ImageTestWindow.xaml
     /// </summary>
-    public partial class ThresholderWindow : Window
+    public partial class ImageTestWindow : Window
     {
-        public ThresholderWindow()
+        public ImageTestWindow()
         {
             InitializeComponent();
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            (DataContext as ThresholderWindowViewModel)?.OnClosing();
+            this.imageControl.Source = MainWindowViewModel.FocusedImage.MatImage.Clone().MatToBitmapSource();
         }
     }
 }

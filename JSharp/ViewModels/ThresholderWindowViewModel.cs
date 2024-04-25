@@ -1,14 +1,17 @@
 ﻿using Emgu.CV;
+using Emgu.CV.Structure;
 using JSharp.Utility;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace JSharp.ViewModels
 {
@@ -93,21 +96,69 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _origin, value); }
         }
 
+        private BitmapSource _mySource;
+        public BitmapSource MySource
+        {
+            get { return _mySource; }
+            set { SetProperty(ref _mySource, value); }
+        }
+
         private DialogResult dialogResult = new DialogResult(ButtonResult.Cancel);
 
         public DelegateCommand BtnConfirm_ClickCommand { get; }
         public DelegateCommand BtnCancel_ClickCommand { get; }
 
+        // parameterless constructor is necessary for ObjectDataProvider
         public ThresholderWindowViewModel()
         {
             BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirm_Click);
             BtnCancel_ClickCommand = new DelegateCommand(BtnCancel_Click);
-            Origin = MainWindowViewModel.FocusedImage.MatImage.Clone();
+        }
+
+        public ThresholderWindowViewModel(Mat image) : this()
+        {
+            Origin = image;
 
             FromValue = 0;
             ToValue = 255;
             Thresholding = ThresholdingType.Standard;
             UpdatePercentage();
+
+            Mat sizer = new Mat(new Size(256, 1000), image.Depth, image.NumberOfChannels);
+            (int[] histogramData, int pixelCount) = ImageProcessingCore.CalculateHistogramValues(image);
+            DrawHistogram(sizer, histogramData);
+            MySource = sizer.MatToBitmapSource();
+        }
+
+        private void DrawHistogram(Mat image, int[] histogramData)
+        {
+            // Calculate the maximum value in the histogram
+            int maxCount = histogramData.Max();
+
+            // Define the histogram dimensions
+            int histogramWidth = 256; // Fixed width
+            int histogramHeight = 1000; // Fixed height
+            int bottomOffset = 905; // Adjust this value to set the bottom offset
+
+            // Draw the histogram bars directly on the image
+            for (int i = 0; i < histogramData.Length; i++)
+            {
+                // Calculate the height of the bar
+                int barHeight = (int)Math.Round((double)histogramData[i] / maxCount * (histogramHeight - bottomOffset));
+
+                // Ensure that at least one pixel is drawn for very small counts
+                barHeight = Math.Max(barHeight, 1);
+
+                // Calculate the top-left corner of the bar
+                int barX = i * (histogramWidth / histogramData.Length);
+                int barY = histogramHeight - barHeight - bottomOffset;
+
+                // Create a rectangle to represent the bar
+                System.Drawing.Rectangle rect = new System.Drawing.Rectangle(barX, barY, histogramWidth / histogramData.Length, barHeight);
+
+                // Draw filled rectangle
+                CvInvoke.Rectangle(image, rect, new MCvScalar(255, 0, 0), 1);
+            }
         }
 
         private void BtnConfirm_Click()

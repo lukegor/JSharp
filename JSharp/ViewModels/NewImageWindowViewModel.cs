@@ -83,6 +83,20 @@ namespace JSharp.ViewModels
         }
         #endregion
 
+        //private double _height;
+        //public double Height
+        //{
+        //    get { return _height; }
+        //    set { SetProperty(ref _height, value); }
+        //}
+
+        //private double _width;
+        //public double Width
+        //{
+        //    get { return _width; }
+        //    set { SetProperty(ref _width, value); }
+        //}
+
         private int DuplicateCount { get; set; }
 
         internal HistogramWindowViewModel histogramWindowViewModel;
@@ -302,7 +316,7 @@ namespace JSharp.ViewModels
             UpdateImageSource(image);
         }
 
-        public void DoubleConvolve(IEnumerable<int> resultMatrix, BorderType borderType)
+        public void DoubleConvolve5x5(IEnumerable<int> resultMatrix, BorderType borderType)
         {
             Mat image = this.MatImage;
 
@@ -315,6 +329,30 @@ namespace JSharp.ViewModels
             }
 
             image = ImageProcessingCore.ApplyCustomKernel(image, kernel, borderType, 5);
+
+            UpdateImageSource(image);
+        }
+
+        public void DoubleConvolve3x3(IEnumerable<int> firstMatrix, IEnumerable<int> secondMatrix, BorderType borderType)
+        {
+            Mat image = this.MatImage;
+
+            float[,] firstKernel = new float[3, 3];
+            float[,] secondKernel = new float[3, 3];
+            int index = 0;
+            foreach (int value in firstMatrix)
+            {
+                firstKernel[index / 3, index % 3] = value;
+                index++;
+            }
+            index = 0;
+            foreach (int value in secondMatrix)
+            {
+                secondKernel[index / 3, index % 3] = value;
+                index++;
+            }
+
+            image = ImageProcessingCore.FullConvolution(image, firstKernel, secondKernel, 0);
 
             UpdateImageSource(image);
         }

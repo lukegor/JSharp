@@ -304,13 +304,58 @@ namespace JSharp
             return result8U;
         }
 
+        /// <remarks>
+        /// TODO: This method needs to be fixed.
+        /// </remarks>
         public static Mat ApplyCustomKernel(Mat inputImage, float[,] kernel, BorderType borderType, int kernelSize = 3, double delta = 0)
         {
             Mat result = new Mat(inputImage.Size, inputImage.Depth, inputImage.NumberOfChannels);
 
             Matrix<float> kernelMatrix = new Matrix<float>(kernel);
             CvInvoke.Filter2D(inputImage, result, kernelMatrix, new Point(-1, -1), delta, borderType);
+
+            // Normalization - probably doesn't entirely work
+            int kernelSum = 0;
+            for (int i = 0; i < kernelSize; i++)
+            {
+                for (int j = 0; j < kernelSize; j++)
+                {
+                    kernelSum += (int)kernel[i, j];
+                }
+            }
+            if (kernelSum != 0)
+            {
+                result = result / kernelSum;
+            }
+
             return result;
+        }
+
+        /// <remarks>
+        /// TODO: This method needs to be fixed.
+        /// </remarks>
+        public static Mat FullConvolution(Mat inputImage, float[,] kernel1, float[,] kernel2, double delta = 0)
+        {
+            int paddingSize = kernel1.GetLength(0) / 2; // Założenie: oba jądra są kwadratowe i mają nieparzysty rozmiar
+
+            // Dodaj padding do oryginalnego obrazu przed każdą filtracją
+            Mat paddedImage = new Mat();
+            CvInvoke.CopyMakeBorder(inputImage, paddedImage, paddingSize, paddingSize, paddingSize, paddingSize, BorderType.Constant, new MCvScalar(0));
+
+            // Pierwsza filtracja
+            Mat filteredImage1 = new Mat(paddedImage.Size, paddedImage.Depth, paddedImage.NumberOfChannels);
+            Matrix<float> kernelMatrix1 = new Matrix<float>(kernel1);
+            CvInvoke.Filter2D(paddedImage, filteredImage1, kernelMatrix1, new Point(-1, -1), delta);
+
+            Mat paddedImage2 = new Mat();
+            CvInvoke.CopyMakeBorder(filteredImage1, paddedImage2, paddingSize, paddingSize, paddingSize, paddingSize, BorderType.Constant, new MCvScalar(0));
+
+            // Druga filtracja na wyniku pierwszej filtracji
+            Mat filteredImage2 = new Mat(paddedImage2.Size, paddedImage2.Depth, paddedImage2.NumberOfChannels);
+            Matrix<float> kernelMatrix2 = new Matrix<float>(kernel2);
+            CvInvoke.Filter2D(paddedImage2, filteredImage2, kernelMatrix2, new Point(-1, -1), delta);
+
+            return filteredImage2;
         }
 
         public static Mat ApplyMedianFilter(Mat inputGrayImage, int kernelSize, BorderType borderType)

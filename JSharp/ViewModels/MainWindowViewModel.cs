@@ -668,7 +668,12 @@ namespace JSharp.ViewModels
 
             if (doubleConvolverWindow.DialogResult == true)
             {
-                FocusedImage.DoubleConvolve(doubleConvolverWindowViewModel.ResultMatrix, BorderType.Isolated);
+                Mat image = FocusedImage.MatImage.Clone();
+                string fileName = FocusedImage.FileName;
+                FocusedImage.DoubleConvolve5x5(doubleConvolverWindowViewModel.ResultMatrix, BorderType.Isolated);
+
+                DisplayImage(image, fileName);
+                FocusedImage.DoubleConvolve3x3(doubleConvolverWindowViewModel.FirstMatrix, doubleConvolverWindowViewModel.SecondMatrix, BorderType.Isolated);
             }
         }
 
@@ -782,11 +787,14 @@ namespace JSharp.ViewModels
 
         private void Threshold_Click()
         {
-            ThresholderWindowViewModel thresholderWindowViewModel = new ThresholderWindowViewModel();
+            Mat image = FocusedImage.MatImage.Clone();
+            ThresholderWindowViewModel thresholderWindowViewModel = new ThresholderWindowViewModel(image);
             ThresholderWindow thresholderWindow = new ThresholderWindow();
             thresholderWindow.DataContext = thresholderWindowViewModel;
 
             thresholderWindow.Show();
+            //ImageTestWindow imageTestWindow = new ImageTestWindow();
+            //imageTestWindow.ShowDialog();
         }
 
         private void SimpleAnalyze_Click()

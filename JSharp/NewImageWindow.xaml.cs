@@ -32,7 +32,6 @@ namespace JSharp
     {
         public NewImageWindow()
         {
-
             InitializeComponent();
         }
 
@@ -107,6 +106,14 @@ namespace JSharp
                 }
 
                 Point clickedPoint = e.GetPosition(image);
+                //var window = App.Current.Windows.OfType<NewImageWindow>().FirstOrDefault(x => x.DataContext == this);
+                //double scaleX = imageControl.ActualWidth / imageControl.Source.Width;
+                //double scaleY = imageControl.ActualHeight / imageControl.Source.Height;
+                //Point actualClickedPoint = new Point(clickedPoint.X / scaleX, clickedPoint.Y / scaleY);
+                //if (clickedPoint.X != actualClickedPoint.X || clickedPoint.Y != actualClickedPoint.Y)
+                //{
+                //    throw new Exception($"Original clicked point: {clickedPoint.X},{clickedPoint.Y}\nNormalized point: {actualClickedPoint.X},{actualClickedPoint.Y}\n");
+                //}
                 if (MainWindowViewModel.points[0] == null)
                 {
                     MainWindowViewModel.points[0] = clickedPoint;
