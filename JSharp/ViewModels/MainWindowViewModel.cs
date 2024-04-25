@@ -793,8 +793,6 @@ namespace JSharp.ViewModels
             thresholderWindow.DataContext = thresholderWindowViewModel;
 
             thresholderWindow.Show();
-            //ImageTestWindow imageTestWindow = new ImageTestWindow();
-            //imageTestWindow.ShowDialog();
         }
 
         private void SimpleAnalyze_Click()
