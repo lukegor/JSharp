@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -18,6 +19,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
+using static SkiaSharp.HarfBuzz.SKShaper;
 
 namespace JSharp
 {
@@ -543,6 +545,31 @@ namespace JSharp
             return result;
         }
 
+        public static Mat SimpleThreshold(Mat image, int threshold, SimpleThresholdingMethod thresholdingMethod)
+        {
+            Mat result = new Mat();
+
+            ThresholdType thresholdType;
+            switch (thresholdingMethod)
+            {
+                case SimpleThresholdingMethod.Standard:
+                    thresholdType = ThresholdType.Binary;
+                    CvInvoke.Threshold(image, result, threshold, 255, thresholdType);
+                    break;
+                case SimpleThresholdingMethod.Adaptive:
+                    int odd = 11;
+                    int constantSubtracter = 5;
+                    CvInvoke.AdaptiveThreshold(image, result, 255, AdaptiveThresholdType.MeanC, ThresholdType.Binary, odd, constantSubtracter);
+                    break;
+                case SimpleThresholdingMethod.Otsu:
+                    thresholdType = ThresholdType.Otsu;
+                    CvInvoke.Threshold(image, result, 0, 255, thresholdType);
+                    break;
+            };
+
+            return result;
+        }
+
         public static Mat Threshold(Mat image, int minThreshold, int maxThreshold, ThresholdingType mode)
         {
             IntPtr imageDataPtr = image.DataPointer;
@@ -693,6 +720,86 @@ namespace JSharp
 
             return skeleton;
         }
+
+        public static int MyWatershed(Mat image)
+        {
+            Mat imgGray = new Mat();
+            //CvInvoke.CvtColor(image, imgGray, ColorConversion.Bgr2Gray);
+
+            // Progowanie obrazu
+            Mat thresh = new Mat(image.Size, image.Depth, image.NumberOfChannels);
+            CvInvoke.Threshold(image, thresh, 0, 255, ThresholdType.BinaryInv | ThresholdType.Otsu);
+
+            // Odszumianie obrazu przez operacje morfologiczne
+            Mat kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(-1, -1));
+            Mat opening = new Mat();
+            CvInvoke.MorphologyEx(thresh, opening, MorphOp.Open, kernel, new Point(-1, -1), 1, BorderType.Default, new MCvScalar());
+
+            // Wyznaczenie jednoznacznych obszarów tła
+            Mat sureBg = new Mat();
+            CvInvoke.Dilate(opening, sureBg, kernel, new Point(-1, -1), 1, BorderType.Default, new MCvScalar());
+
+            // Transformata odległościowa
+            Mat distTransform = new Mat();
+            CvInvoke.DistanceTransform(opening, distTransform, null, DistType.L2, 5);
+
+            // Określenie jednoznacznych obszarów obiektów przez progowanie obrazu transformaty odległościowej
+            double maxDist = 0, minDist = 0;
+            Point maxLoc = new Point(), minLoc = new Point();
+            CvInvoke.MinMaxLoc(distTransform, ref minDist, ref maxDist, ref minLoc, ref maxLoc);
+            double threshValue = 0.5 * maxDist;
+            Mat sureFg = new Mat();
+            CvInvoke.Threshold(distTransform, sureFg, distTransform, 255, ThresholdType.Binary);
+
+            // Wyznaczenie obszarów "niepewnych"
+            Mat unknown = new Mat(sureBg.Size, sureBg.Depth, sureBg.NumberOfChannels);
+            CvInvoke.Subtract(sureBg, sureFg, unknown);
+
+            // Etykietowanie obiektów
+            Mat markers = new Mat();
+            int nLabels = CvInvoke.ConnectedComponents(sureFg, markers);
+
+            // Dodanie wartości 1 do etykiet
+            markers += 1;
+
+            // Oznaczenie obszarów "niepewnych" jako zero
+            CvInvoke.BitwiseAnd(unknown, new ScalarArray(new MCvScalar(255)), unknown);
+            markers.SetTo(new MCvScalar(0), unknown);
+
+            // Algorytm watershed
+            CvInvoke.Watershed(image, markers);
+
+            Mat mask = new Mat();
+            CvInvoke.Compare(markers, new ScalarArray(new MCvScalar(-1)), mask, CmpType.Equal);
+
+            // Wstawienie linii krawędzi obiektów do obrazu szaroodcieniowego
+            Mat imgGrayData = new Mat();
+            image.ConvertTo(imgGrayData, DepthType.Cv8U);
+            imgGrayData.SetTo(new MCvScalar(255), mask);
+
+            // Wstawienie linii krawędzi obiektów do oryginalnego obrazu kolorowego
+            image.SetTo(new MCvScalar(255, 0, 0), mask);
+
+            Console.WriteLine("Znaleziono " + (nLabels - 1) + " obiektów.");
+
+            // Wizualizacja
+            Mat markersColor = new Mat();
+            CvInvoke.ApplyColorMap(markers * 10, markersColor, Emgu.CV.CvEnum.ColorMapType.Jet);
+            Mat frame = new Mat();
+            CvInvoke.HConcat(image, markersColor, frame);
+            CvInvoke.Imshow("Watershed Result", frame);
+
+            return nLabels;
+        }
+
+        //public static Mat Watershed(Mat inputMat)
+        //{
+        //    //Mat markers = new Mat();
+        //    //CvInvoke.mark(grayImage, markers);
+
+        //    //// Perform watershed segmentation
+        //    //CvInvoke.Watershed(inputImage, markers);
+        //}
 
         //public static Mat Sub(Mat image1, Mat image2, PixelOverflowHandlingType overflowHandling, double weight = 1.0)
         //{

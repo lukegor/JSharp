@@ -403,6 +403,15 @@ namespace JSharp.ViewModels
             UpdateImageSource(image);
         }
 
+        public void PerformSimpleThresholding(Mat img, int threshold, SimpleThresholdingMethod thresholdingMethod)
+        {
+            Mat image = img.Clone();
+
+            image = ImageProcessingCore.SimpleThreshold(image, threshold, thresholdingMethod);
+
+            UpdateImageSource(image);
+        }
+
         public void Restore(Mat image)
         {
             UpdateImageSource(image);

@@ -273,4 +273,10 @@
   <data name="TextBlockOperation" xml:space="preserve">
     <value>Operation:</value>
   </data>
+  <data name="ThresholdingAdaptive" xml:space="preserve">
+    <value>Adaptive</value>
+  </data>
+  <data name="ThresholdingOtsu" xml:space="preserve">
+    <value>Otsu</value>
+  </data>
 </root>

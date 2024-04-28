@@ -84,6 +84,8 @@ namespace JSharp.ViewModels
         public DelegateCommand PlotProfile_ClickCommand { get; }
         public DelegateCommand PyramidUp_ClickCommand { get; }
         public DelegateCommand PyramidDown_ClickCommand { get; }
+        public DelegateCommand SimpleThreshold_ClickCommand { get; }
+        public DelegateCommand Watershed_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -122,6 +124,8 @@ namespace JSharp.ViewModels
             PlotProfile_ClickCommand = new DelegateCommand(PlotProfile_Click);
             PyramidUp_ClickCommand = new DelegateCommand(PyramidUp_Click);
             PyramidDown_ClickCommand = new DelegateCommand(PyramidDown_Click);
+            SimpleThreshold_ClickCommand = new DelegateCommand(SimpleThreshold_Click);
+            Watershed_ClickCommand = new DelegateCommand(Watershed_Click);
             #endregion
         }
 
@@ -800,6 +804,12 @@ namespace JSharp.ViewModels
 
         private void Threshold_Click()
         {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             Mat image = FocusedImage.MatImage.Clone();
             ThresholderWindowViewModel thresholderWindowViewModel = new ThresholderWindowViewModel(image);
             ThresholderWindow thresholderWindow = new ThresholderWindow();
@@ -911,6 +921,33 @@ namespace JSharp.ViewModels
                     FocusedImage.PyramidDown();
                 }
             }
+        }
+
+        private void SimpleThreshold_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            Mat image = FocusedImage.MatImage.Clone();
+            SimpleThresholderWindowViewModel thresholderWindowViewModel = new SimpleThresholderWindowViewModel(image);
+            SimpleThresholderWindow thresholderWindow = new SimpleThresholderWindow();
+            thresholderWindow.DataContext = thresholderWindowViewModel;
+
+            thresholderWindow.Show();
+        }
+
+        private void Watershed_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            ImageProcessingCore.MyWatershed(FocusedImage.MatImage);
         }
     }
 }
