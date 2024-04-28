@@ -663,7 +663,7 @@ namespace JSharp
             Mat imCopy = inputMat.Clone();
 
             Mat element = CvInvoke.GetStructuringElement(ElementShape.Cross, new Size(3, 3), new Point(-1, -1));
-            BorderType borderType = BorderType.Isolated;
+            BorderType borderType = BorderType.Default; // Ustawienie typu brzegu na domyślny
 
             // Krok 4: Wykonanie operacji erozji na oryginalnym obrazie oraz poprawienie szkieletu
             while (true)
@@ -671,12 +671,15 @@ namespace JSharp
                 // Krok 2: Wykonanie operacji otwarcia morfologicznego na obrazie oryginalnym
                 Mat imOpen = new Mat();
                 CvInvoke.MorphologyEx(imCopy, imOpen, MorphOp.Open, element, new Point(1, 1), 1, borderType, new MCvScalar());
+
                 // Krok 3: Odjęcie im_open od obrazu oryginalnego
                 Mat imTemp = new Mat();
                 CvInvoke.Subtract(imCopy, imOpen, imTemp);
+
                 // Erozja morfologiczna
                 Mat imEroded = new Mat();
-                CvInvoke.Erode(imCopy, imEroded, element, new Point(1,1), 1, borderType, new MCvScalar());
+                CvInvoke.Erode(imCopy, imEroded, element, new Point(1, 1), 1, borderType, new MCvScalar());
+
                 // Aktualizacja szkieletu
                 CvInvoke.BitwiseOr(skeleton, imTemp, skeleton);
 

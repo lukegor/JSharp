@@ -45,8 +45,7 @@
 
 			</Canvas>
 			<TextBlock Width="Auto">
-				<Run Text="{Binding SelectedPixelPercentage}" />
-				<Run Text="%"/>
+				<Run Text="{Binding SelectedPixelPercentage, StringFormat={}{0}%}" />
 			</TextBlock>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 				<Slider x:Name="fromSlider" Value="{Binding FromValue, Mode=TwoWay}"
@@ -69,12 +68,13 @@
 					<RowDefinition Height="15*"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="100" />
+					<ColumnDefinition Width="130" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 
-				<TextBlock Text="Thresholding:" TextAlignment="Center" Grid.RowSpan="2"/>
-				<ComboBox Grid.Column="1" ItemsSource="{Binding Source={StaticResource LocalizedThresholdingTypesProvider}}" SelectedItem="{Binding Thresholding, Mode=TwoWay, Converter={StaticResource ThresholdingTypeConverter}}" Grid.RowSpan="2"
+				<TextBlock Text="Thresholding:" TextAlignment="Center" Grid.Row="0"/>
+				<ComboBox Grid.Column="1" Grid.Row="0"
+						  ItemsSource="{Binding Source={StaticResource LocalizedThresholdingTypesProvider}}" SelectedItem="{Binding Thresholding, Mode=TwoWay, Converter={StaticResource ThresholdingTypeConverter}}"
 					/>
 			</Grid>
 

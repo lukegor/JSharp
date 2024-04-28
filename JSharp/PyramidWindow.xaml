@@ -1,0 +1,33 @@
+﻿<Window x:Class="JSharp.PyramidWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:prism="http://prismlibrary.com/"
+        xmlns:local="clr-namespace:JSharp"
+		xmlns:converters="clr-namespace:JSharp.Converters"
+        mc:Ignorable="d"
+        Title="PyramidWindow" Height="150" Width="300">
+	<Grid>
+		<Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<!-- First Row -->
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="Pyramid Scale" Margin="0,0,0,0"/>
+			<ComboBox Grid.Row="0" Grid.Column="1" Margin="10,0,0,5" Width="100"
+					  SelectedValue="{Binding EffectSize, Mode=TwoWay}"
+					  SelectedValuePath="Content">
+				<ComboBoxItem Content="2"/>
+				<ComboBoxItem Content="4"/>
+			</ComboBox>
+		</Grid>
+		<Button Content="Apply" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Command="{Binding BtnConfirm_ClickCommand}"/>
+	</Grid>
+</Window>

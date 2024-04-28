@@ -89,12 +89,12 @@ namespace JSharp.ViewModels
 
         private void Update5x5Kernel(List<int> firstList, List<int> secondList)
         {
-            float[,] kernel5x5 = Generate5x5Kernel(firstList, secondList);
+            float[,] kernel5x5 = Calculate5x5Kernel(firstList, secondList);
 
             ResultMatrix = ConvertToObservableCollection(kernel5x5);
         }
 
-        private float[,] Generate5x5Kernel(List<int> firstList, List<int> secondList)
+        private float[,] Calculate5x5Kernel(List<int> firstList, List<int> secondList)
         {
             float[,] kernel1 = ConvertListToMatrix(firstList);
             float[,] kernel2 = ConvertListToMatrix(secondList);

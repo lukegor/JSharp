@@ -83,19 +83,19 @@ namespace JSharp.ViewModels
         }
         #endregion
 
-        //private double _height;
-        //public double Height
-        //{
-        //    get { return _height; }
-        //    set { SetProperty(ref _height, value); }
-        //}
+        private double _height;
+        public double Height
+        {
+            get { return _height; }
+            set { SetProperty(ref _height, value); }
+        }
 
-        //private double _width;
-        //public double Width
-        //{
-        //    get { return _width; }
-        //    set { SetProperty(ref _width, value); }
-        //}
+        private double _width;
+        public double Width
+        {
+            get { return _width; }
+            set { SetProperty(ref _width, value); }
+        }
 
         private int DuplicateCount { get; set; }
 
@@ -115,8 +115,7 @@ namespace JSharp.ViewModels
             MakeTitleABoundComposite();
             UpdateTitle();
 
-            //BIND this.Width = source.Width;
-            //BIND this.Height = source.Height;
+            UpdateWindowSize();
         }
 
         #region Title/name management
@@ -176,6 +175,12 @@ namespace JSharp.ViewModels
 
             // Trigger the ImageChanged event for histogram to update reactively
             ImageChanged?.Invoke(this, newImage);
+        }
+
+        private void UpdateWindowSize()
+        {
+            this.Width = Source.Width + Constants.WidthAdjustmentConst;
+            this.Height = Source.Height + Constants.HeightAdjustmentConst;
         }
         #endregion
 
@@ -417,6 +422,22 @@ namespace JSharp.ViewModels
             Mat image = this.MatImage;
             image = ImageProcessingCore.Hough(image);
             UpdateImageSource(image);
+        }
+
+        internal void PyramidUp()
+        {
+            Mat image = this.MatImage;
+            CvInvoke.PyrUp(image, image, BorderType.Default);
+            UpdateImageSource(image);
+            UpdateWindowSize();
+        }
+
+        internal void PyramidDown()
+        {
+            Mat image = this.MatImage;
+            CvInvoke.PyrDown(image, image, BorderType.Default);
+            UpdateImageSource(image);
+            UpdateWindowSize();
         }
         #endregion
     }

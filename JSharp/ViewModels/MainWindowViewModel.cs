@@ -82,6 +82,8 @@ namespace JSharp.ViewModels
         public DelegateCommand Hough_ClickCommand { get; }
         public DelegateCommand Skeletonize_ClickCommand { get; }
         public DelegateCommand PlotProfile_ClickCommand { get; }
+        public DelegateCommand PyramidUp_ClickCommand { get; }
+        public DelegateCommand PyramidDown_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -118,6 +120,8 @@ namespace JSharp.ViewModels
             Skeletonize_ClickCommand = new DelegateCommand(Skeletonize_Click);
             Hough_ClickCommand = new DelegateCommand(Hough_Click);
             PlotProfile_ClickCommand = new DelegateCommand(PlotProfile_Click);
+            PyramidUp_ClickCommand = new DelegateCommand(PyramidUp_Click);
+            PyramidDown_ClickCommand = new DelegateCommand(PyramidDown_Click);
             #endregion
         }
 
@@ -277,7 +281,7 @@ namespace JSharp.ViewModels
             }
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Bitmap Image|*.bmp|JPEG Image|*.jpg|PNG Image|*.png";
+            saveFileDialog.Filter = Constants.ImageFilterString;
             saveFileDialog.Title = "Save Image As...";
             saveFileDialog.FileName = FocusedImage.FileName; // Set default file name here if needed
 
@@ -293,12 +297,21 @@ namespace JSharp.ViewModels
                         FocusedImage.MatImage.Save(fileName);
                         break;
                     case ".jpg":
+                    case ".jpeg":
                         // For JPEG format, save the MatImage with JPEG compression quality
                         CvInvoke.Imwrite(fileName, FocusedImage.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.JpegQuality, 90) });
                         break;
                     case ".png":
                         // For PNG format, save the MatImage with PNG compression level
                         CvInvoke.Imwrite(fileName, FocusedImage.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.PngCompression, 3) });
+                        break;
+                    case ".gif":
+                        // For GIF format, save the MatImage with specified parameters
+                        CvInvoke.Imwrite(fileName, FocusedImage.MatImage);
+                        break;
+                    case ".tiff":
+                        // For TIFF format, save the MatImage with specified parameters
+                        CvInvoke.Imwrite(fileName, FocusedImage.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.TiffCompression, (int)ImwriteFlags.TiffCompression) });
                         break;
                     default:
                         MessageBox.Show("Invalid file format selected.", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -846,6 +859,58 @@ namespace JSharp.ViewModels
             plotlineGraphWindow.DataContext = plotlineGraphWindowViewModel;
 
             plotlineGraphWindow.Show();
+        }
+
+        public void PyramidUp_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            PyramidWindowViewModel pyramidWindowViewModel = new PyramidWindowViewModel();
+            PyramidWindow pyramidWindow = new PyramidWindow();
+            pyramidWindow.DataContext = pyramidWindowViewModel;
+
+            if (pyramidWindow.ShowDialog() == true)
+            {
+                int reps = pyramidWindowViewModel.EffectSize switch
+                {
+                    2 => 1,
+                    4 => 2
+                };
+                for (int i = 0; i < reps; ++i)
+                {
+                    FocusedImage.PyramidUp();
+                }
+            }
+        }
+
+        private void PyramidDown_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            PyramidWindowViewModel pyramidWindowViewModel = new PyramidWindowViewModel();
+            PyramidWindow pyramidWindow = new PyramidWindow();
+            pyramidWindow.DataContext = pyramidWindowViewModel;
+
+            if (pyramidWindow.ShowDialog() == true)
+            {
+                int reps = pyramidWindowViewModel.EffectSize switch
+                {
+                    2 => 1,
+                    4 => 2
+                };
+                for (int i = 0; i < reps; ++i)
+                {
+                    FocusedImage.PyramidDown();
+                }
+            }
         }
     }
 }

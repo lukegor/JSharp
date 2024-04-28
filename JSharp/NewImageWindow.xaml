@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:JSharp"
 		xmlns:prism="http://prismlibrary.com/"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800" Closing="Window_Closing" KeyDown="Window_KeyDown" PreviewMouseWheel="Window_PreviewMouseWheel" Activated="Window_Activated"
+        Title="{Binding Title}" Height="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="{Binding Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Closing="Window_Closing" KeyDown="Window_KeyDown" PreviewMouseWheel="Window_PreviewMouseWheel" Activated="Window_Activated"
 		>
 
 	<Grid>
-		<Image x:Name="imageControl" Source="{Binding Source}" Stretch="UniformToFill" MouseLeftButtonDown="imageControl_MouseLeftButtonDown">
+		<Image x:Name="imageControl" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Source}" Stretch="None" MouseLeftButtonDown="imageControl_MouseLeftButtonDown">
 			<Image.LayoutTransform>
 				<ScaleTransform ScaleX="{Binding ZoomScale}" ScaleY="{Binding ZoomScale}"/>
 			</Image.LayoutTransform>
