@@ -12,11 +12,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\ClearCanvas.ico" />
+    <None Remove="Resources\DrawRectangle.ico" />
+    <None Remove="Resources\LineSegment.ico" />
+    <None Remove="Resources\N-A-icon.ico" />
+    <None Remove="Resources\NoneIcon.ico" />
     <None Remove="zzz.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\icon1.ico" />
+    <Resource Include="Resources\ClearCanvas.ico" />
+    <Resource Include="Resources\DrawRectangle.ico" />
+    <Resource Include="Resources\icon1.ico" />
+    <Resource Include="Resources\LineSegment.ico" />
+    <Resource Include="Resources\N-A-icon.ico" />
+    <Resource Include="Resources\NoneIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>

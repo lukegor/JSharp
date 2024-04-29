@@ -12,7 +12,7 @@ namespace JSharp.Utility
         public const int XYZ_ChannelCount = 3;
         public const int Grayscale_ChannelCount = 1;
         public const string CannySettingsWindowTitle = "CannySettingsWindow";
-        public const string RadioBtn1Name = "RadioBtn1";
+        public const string RadioBtn1Name = "RadioBtnProfileLine";
         public const int WidthAdjustmentConst = 16;
         public const int HeightAdjustmentConst = 39;
     }

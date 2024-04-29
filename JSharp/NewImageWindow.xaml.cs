@@ -95,11 +95,13 @@ namespace JSharp
             // Get the position where the user clicked on the image
             if (sender is Image image && MainWindowViewModel.SelectedButton != null && MainWindowViewModel.SelectedButton.Name == Constants.RadioBtn1Name)
             {
-                if (MainWindowViewModel.points[0] != null && MainWindowViewModel.points[1] != null)
+                var vm = (this.DataContext as NewImageWindowViewModel);
+
+                if (vm.points[0] != null && vm.points[1] != null)
                 {
                     // Reset points if two points are already selected
-                    MainWindowViewModel.points[0] = null;
-                    MainWindowViewModel.points[1] = null;
+                    vm.points[0] = null;
+                    vm.points[1] = null;
 
                     // Clear previous highlights and lines
                     highlightCanvas.Children.Clear();
@@ -114,15 +116,15 @@ namespace JSharp
                 //{
                 //    throw new Exception($"Original clicked point: {clickedPoint.X},{clickedPoint.Y}\nNormalized point: {actualClickedPoint.X},{actualClickedPoint.Y}\n");
                 //}
-                if (MainWindowViewModel.points[0] == null)
+                if (vm.points[0] == null)
                 {
-                    MainWindowViewModel.points[0] = clickedPoint;
+                    vm.points[0] = clickedPoint;
                 }
-                else if (MainWindowViewModel.points[1] == null)
+                else if (vm.points[1] == null)
                 {
-                    MainWindowViewModel.points[1] = clickedPoint;
+                    vm.points[1] = clickedPoint;
                     // Both points are selected, draw line
-                    DrawLine((Point)MainWindowViewModel.points[0], (Point)MainWindowViewModel.points[1]);
+                    DrawLine((Point)vm.points[0], (Point)vm.points[1]);
                 }
 
                 DrawHighlight(clickedPoint);

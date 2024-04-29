@@ -83,11 +83,35 @@
 			</MenuItem>
 		</Menu>
 		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" HorizontalAlignment="Left" Margin="400,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto" RenderTransformOrigin="0.5,0.5"/>
-		<ToolBar HorizontalAlignment="Left" Height="36" Margin="0,25,0,0" VerticalAlignment="Top" Width="140">
-			<xctk:IconButton Width="20"/>
-			<RadioButton x:Name="RadioBtn1" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
+		<ToolBar HorizontalAlignment="Left" Height="36" Margin="0,22,0,0" VerticalAlignment="Top" Width="300">
+			<RadioButton x:Name="RadioBtnNone" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
-					<ImageBrush />
+					<ImageBrush ImageSource="/Resources/NoneIcon.ico"/>
+				</RadioButton.Background>
+				<Grid>
+					<Image Width="16" Height="16"/>
+				</Grid>
+			</RadioButton>
+			<RadioButton x:Name="RadioBtnProfileLine" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
+				<RadioButton.Background>
+					<ImageBrush ImageSource="/Resources/LineSegment.ico"/>
+				</RadioButton.Background>
+				<Grid>
+					<Image Width="16" Height="16"/>
+				</Grid>
+			</RadioButton>
+			<RadioButton x:Name="RadioBtnRectangle" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
+				<RadioButton.Background>
+					<ImageBrush ImageSource="/Resources/DrawRectangle.ico"/>
+				</RadioButton.Background>
+				<Grid>
+					<Image Width="16" Height="16"/>
+				</Grid>
+			</RadioButton>
+			<Separator/>
+			<RadioButton Checked="RadioButtonClear_Checked" Unchecked="RadioButton_Unchecked">
+				<RadioButton.Background>
+					<ImageBrush ImageSource="/Resources/ClearCanvas.ico"/>
 				</RadioButton.Background>
 				<Grid>
 					<Image Width="16" Height="16"/>

@@ -11,6 +11,7 @@ using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
@@ -96,7 +97,7 @@ namespace JSharp.ViewModels
             get { return _width; }
             set { SetProperty(ref _width, value); }
         }
-
+        internal ObservableCollection<System.Windows.Point?> points { get; set; } = new ObservableCollection<System.Windows.Point?> { null, null };
         private int DuplicateCount { get; set; }
 
         internal HistogramWindowViewModel histogramWindowViewModel;

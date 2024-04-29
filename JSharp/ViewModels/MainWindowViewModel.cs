@@ -45,8 +45,6 @@ namespace JSharp.ViewModels
 
         public static System.Windows.Controls.RadioButton SelectedButton { get; set; }
 
-        internal static ObservableCollection<Point?> points { get; set; } = new ObservableCollection<Point?> { null, null };
-
         private static double zoomChange = 0.2;
         public static double CumulativeZoomChange { get => 1.0 + zoomChange; set => zoomChange = value; }
 
@@ -858,13 +856,14 @@ namespace JSharp.ViewModels
 
         private void PlotProfile_Click()
         {
+            var points = FocusedImage.points.Select(p => p.Value).ToArray();
             if (points[0] == null || points[1] == null)
             {
                 MessageBox.Show("Select 2 points in image", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            PlotlineGraphWindowViewModel plotlineGraphWindowViewModel = new PlotlineGraphWindowViewModel(points.Where(p => p != null).Select(p => p.Value).ToArray(), FocusedImage.MatImage);
+            PlotlineGraphWindowViewModel plotlineGraphWindowViewModel = new PlotlineGraphWindowViewModel(points, FocusedImage.MatImage);
             PlotlineGraphWindow plotlineGraphWindow = new PlotlineGraphWindow();
             plotlineGraphWindow.DataContext = plotlineGraphWindowViewModel;
 
