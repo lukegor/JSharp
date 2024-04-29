@@ -43,7 +43,19 @@ namespace JSharp.ViewModels
             set => SetProperty(ref _lblFocusedImageContent, value);
         }
 
-        public static System.Windows.Controls.RadioButton SelectedButton { get; set; }
+        private string _descriptor;
+        public string Descriptor
+        {
+            get { return _descriptor; }
+            set { SetProperty(ref _descriptor, value); }
+        }
+
+        private System.Windows.Controls.RadioButton _selectedButton;
+        public System.Windows.Controls.RadioButton SelectedButton
+        {
+            get { return _selectedButton; }
+            set { SetProperty(ref _selectedButton, value); }
+        }
 
         private static double zoomChange = 0.2;
         public static double CumulativeZoomChange { get => 1.0 + zoomChange; set => zoomChange = value; }
@@ -132,6 +144,44 @@ namespace JSharp.ViewModels
             SelectedButton = sender as RadioButton;
         }
 
+        internal void UpdateDescriptor()
+        {
+            if (SelectedButton?.Name == Constants.RadioBtnProfileLine)
+            {
+                StringBuilder sb = new StringBuilder();
+                var focusedImage = FocusedImage;
+
+                if (focusedImage != null)
+                {
+                    sb.Append($"X: {focusedImage.MousePosition.X}, Y: {focusedImage.MousePosition.Y}");
+
+                    System.Windows.Point? point1 = focusedImage.Points[0];
+                    if (point1 != null)
+                    {
+                        sb.Append($", Point 1: ({focusedImage.Points[0]})");
+
+                        System.Windows.Point? point2 = focusedImage.Points[1];
+                        if (point2 != null)
+                        {
+                            sb.Append($", Point 2: ({FocusedImage.Points[1]})");
+                            sb.Append($", Length: {Math.Floor(ImageProcessingUtility.GetDistance((Point)point1, (Point)point2))}");
+                        }
+                    }
+                }
+                else
+                {
+                    //notify to update to empty when window closing
+                    sb.Append(string.Empty);
+                }
+                System.Diagnostics.Debug.WriteLine(sb.ToString());
+                Descriptor = sb.ToString();
+            }
+            else if (SelectedButton?.Name == Constants.RadioBtnNone)
+            {
+                Descriptor = string.Empty;
+            }
+        }
+
         private void OpenRgb_Click()
         {
             (List<Mat> matImages, List<string> fileNames) = LoadImageFromFile(ImreadModes.Color);
@@ -172,7 +222,7 @@ namespace JSharp.ViewModels
             openFileDialog.Filter = Constants.ImageFilterString;
 
             List<Mat> images = new List<Mat>();
-            List<string> fileNames = new List<string>();
+            List<string> fullFilePaths = new List<string>();
 
             if (openFileDialog.ShowDialog() == true)
             {
@@ -182,7 +232,7 @@ namespace JSharp.ViewModels
                     if (!imageMat.IsEmpty && imageMat != null)
                     {
                         images.Add(imageMat);
-                        fileNames.Add(Path.GetFileName(fileName));
+                        fullFilePaths.Add(fileName);
                     }
                     else
                     {
@@ -190,14 +240,14 @@ namespace JSharp.ViewModels
                     }
                 }
             }
-            return (images, fileNames);
+            return (images, fullFilePaths);
         }
 
         internal void DisplayImage(Mat matImage, string fileName)
         {
             BitmapSource source = matImage.MatToBitmapSource();
 
-            int duplicateCount = OpenImageWindows.Count(x => x.CoreName == fileName);
+            int duplicateCount = OpenImageWindows.Count(x => x.CoreName == Path.GetFileName(fileName));
 
             NewImageWindowViewModel imageWindowViewModel = new NewImageWindowViewModel(source, matImage, fileName, duplicateCount);
             NewImageWindow newImageWindow = new NewImageWindow();
@@ -220,6 +270,7 @@ namespace JSharp.ViewModels
             if (closingViewModel != null)
             {
                 MainWindowViewModel.FocusedImage = null;
+                UpdateDescriptor();
                 OpenImageWindows.Remove(closingViewModel);
 
                 //unsubscribe to events
@@ -282,44 +333,7 @@ namespace JSharp.ViewModels
                 return;
             }
 
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = Constants.ImageFilterString;
-            saveFileDialog.Title = "Save Image As...";
-            saveFileDialog.FileName = FocusedImage.FileName; // Set default file name here if needed
-
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                // Determine the file format based on the selected filter index
-                string fileName = saveFileDialog.FileName;
-                string fileExtension = System.IO.Path.GetExtension(fileName).ToLower();
-
-                switch (fileExtension)
-                {
-                    case ".bmp":
-                        FocusedImage.MatImage.Save(fileName);
-                        break;
-                    case ".jpg":
-                    case ".jpeg":
-                        // For JPEG format, save the MatImage with JPEG compression quality
-                        CvInvoke.Imwrite(fileName, FocusedImage.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.JpegQuality, 90) });
-                        break;
-                    case ".png":
-                        // For PNG format, save the MatImage with PNG compression level
-                        CvInvoke.Imwrite(fileName, FocusedImage.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.PngCompression, 3) });
-                        break;
-                    case ".gif":
-                        // For GIF format, save the MatImage with specified parameters
-                        CvInvoke.Imwrite(fileName, FocusedImage.MatImage);
-                        break;
-                    case ".tiff":
-                        // For TIFF format, save the MatImage with specified parameters
-                        CvInvoke.Imwrite(fileName, FocusedImage.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.TiffCompression, (int)ImwriteFlags.TiffCompression) });
-                        break;
-                    default:
-                        MessageBox.Show("Invalid file format selected.", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                }
-            }
+            FocusedImage.SaveAs();
         }
 
         private void SaveAll_Click()
@@ -348,8 +362,6 @@ namespace JSharp.ViewModels
             }
 
             FocusedImage.Negate();
-
-            //OnGrayizationSetMainWindowLabels();
         }
 
         /// <summary>
@@ -856,7 +868,7 @@ namespace JSharp.ViewModels
 
         private void PlotProfile_Click()
         {
-            var points = FocusedImage.points.Select(p => p.Value).ToArray();
+            var points = FocusedImage.Points.Select(p => p.Value).ToArray();
             if (points[0] == null || points[1] == null)
             {
                 MessageBox.Show("Select 2 points in image", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);

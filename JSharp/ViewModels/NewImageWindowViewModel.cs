@@ -7,6 +7,7 @@ using JSharp.Models;
 using JSharp.Resources;
 using JSharp.Utility;
 using LiveChartsCore.Defaults;
+using Microsoft.Win32;
 using Prism.Events;
 using Prism.Mvvm;
 using System;
@@ -14,10 +15,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -29,6 +32,13 @@ namespace JSharp.ViewModels
         public event EventHandler<string>? FocusChanged;
         public event EventHandler<Mat>? ImageChanged;
         public event EventHandler Closing;
+
+        private System.Windows.Point _mousePosition;
+        public System.Windows.Point MousePosition
+        {
+            get { return _mousePosition; }
+            set { SetProperty(ref _mousePosition, value); (App.Current.MainWindow.DataContext as MainWindowViewModel).UpdateDescriptor(); }
+        }
 
         #region dual fields/properties
         private Mat _matImage;
@@ -97,8 +107,10 @@ namespace JSharp.ViewModels
             get { return _width; }
             set { SetProperty(ref _width, value); }
         }
-        internal ObservableCollection<System.Windows.Point?> points { get; set; } = new ObservableCollection<System.Windows.Point?> { null, null };
+
+        internal ObservableCollection<System.Windows.Point?> Points { get; set; } = new ObservableCollection<System.Windows.Point?> { null, null };
         private int DuplicateCount { get; set; }
+        internal string? filePath;
 
         internal HistogramWindowViewModel histogramWindowViewModel;
 
@@ -107,7 +119,14 @@ namespace JSharp.ViewModels
             Source = source;
             this.MatImage = matImage.Clone();
 
-            HandleNaming(fileName, duplicateCount);
+            string saveFileName = Path.GetFileName(fileName);
+
+            if (saveFileName != fileName)
+            {
+                filePath = fileName;
+            }
+
+            HandleNaming(saveFileName, duplicateCount);
 
             //only Grayscale and RGB can be created by constructor (open file), so don't worry about HSV and LAB
             ColorSpaceType = ImageProcessingUtility.OnLoadingDetermineColorspace(matImage.NumberOfChannels);
@@ -188,7 +207,52 @@ namespace JSharp.ViewModels
         #region External-related
         public void SaveChanges()
         {
-            MatImage.Save(FileName);
+            if (!string.IsNullOrEmpty(filePath))
+                MatImage.Save(filePath);
+            else
+                SaveAs();
+        }
+
+        public void SaveAs()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = Constants.ImageFilterString;
+            saveFileDialog.Title = "Save Image As...";
+            saveFileDialog.FileName = this.FileName; // Set default file name here if needed
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                // Determine the file format based on the selected filter index
+                string fileName = saveFileDialog.FileName;
+                string fileExtension = System.IO.Path.GetExtension(fileName).ToLower();
+
+                switch (fileExtension)
+                {
+                    case ".bmp":
+                        this.MatImage.Save(fileName);
+                        break;
+                    case ".jpg":
+                    case ".jpeg":
+                        // For JPEG format, save the MatImage with JPEG compression quality
+                        CvInvoke.Imwrite(fileName, this.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.JpegQuality, 90) });
+                        break;
+                    case ".png":
+                        // For PNG format, save the MatImage with PNG compression level
+                        CvInvoke.Imwrite(fileName, this.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.PngCompression, 3) });
+                        break;
+                    case ".gif":
+                        // For GIF format, save the MatImage with specified parameters
+                        CvInvoke.Imwrite(fileName, this.MatImage);
+                        break;
+                    case ".tiff":
+                        // For TIFF format, save the MatImage with specified parameters
+                        CvInvoke.Imwrite(fileName, this.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.TiffCompression, (int)ImwriteFlags.TiffCompression) });
+                        break;
+                    default:
+                        MessageBox.Show("Invalid file format selected.", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                }
+            }
         }
 
         public void Window_Activated()
@@ -381,7 +445,7 @@ namespace JSharp.ViewModels
 
             Mat element = elementShape switch
             {
-                ShapeType.Rectangle => CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(size, size), new Point(1, 1)),
+                ShapeType.Rectangle => CvInvoke.GetStructuringElement(ElementShape.Rectangle, new System.Drawing.Size(size, size), new System.Drawing.Point(1, 1)),
                 ShapeType.Rhombus => ImageProcessingCore.Diamond(size)
             };
 

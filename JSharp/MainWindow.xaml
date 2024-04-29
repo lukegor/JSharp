@@ -16,7 +16,12 @@
 	</Window.DataContext>
 
 	<Grid>
-		<Menu Width="Auto" Height="20" VerticalAlignment="Top">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Menu Width="Auto" Height="20" VerticalAlignment="Top" Grid.Row="0">
 			<MenuItem Header="Lab1">
 				<MenuItem x:Name="Open" Header="{x:Static resx:Strings.Open}">
 					<MenuItem x:Name="OpenGray" Header="{x:Static resx:Strings.OpenGray}" Command="{Binding OpenGray_ClickCommand}"/>
@@ -71,7 +76,6 @@
 				<MenuItem Header="Thresholding" Command="{Binding SimpleThreshold_ClickCommand}"/>
 				<MenuItem Header="Watershed" Command="{Binding Watershed_ClickCommand}"/>
 			</MenuItem>
-			<MenuItem Header="Lab5"/>
 			<MenuItem Header="{x:Static resx:Strings.Settings}"/>
 			<MenuItem x:Name="Help" Header="{x:Static resx:Strings.Help}">
 				<MenuItem x:Name="About" Header="{x:Static resx:Strings.About}" Click="About_Click"/>
@@ -82,8 +86,8 @@
 				<MenuItem Header="Analyze" Command="{Binding Analyze_ClickCommand}"/>
 			</MenuItem>
 		</Menu>
-		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" HorizontalAlignment="Left" Margin="400,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto" RenderTransformOrigin="0.5,0.5"/>
-		<ToolBar HorizontalAlignment="Left" Height="36" Margin="0,22,0,0" VerticalAlignment="Top" Width="300">
+		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" HorizontalAlignment="Center" Margin="0,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto"/>
+		<ToolBar HorizontalAlignment="Left" Height="36" Margin="0,0,0,0" VerticalAlignment="Top" Width="300" Grid.Row="1">
 			<RadioButton x:Name="RadioBtnNone" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
 					<ImageBrush ImageSource="/Resources/NoneIcon.ico"/>
@@ -118,6 +122,7 @@
 				</Grid>
 			</RadioButton>
 		</ToolBar>
+		<TextBlock Text="{Binding Descriptor}" Grid.Row="2"/>
 
 	</Grid>
 </Window>

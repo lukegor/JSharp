@@ -64,18 +64,23 @@ namespace JSharp
             (DataContext as MainWindowViewModel)?.UpdateCheckedRadioButton(sender);
             var radioButton = sender as RadioButton;
 
-            if (radioButton.Name == "RadioBtnNone")
+            if (radioButton.Name == Constants.RadioBtnNone)
             {
+                //uncheck
                 radioButton.IsChecked = false;
 
                 var window = App.Current.Windows.OfType<NewImageWindow>().FirstOrDefault(x => x.DataContext == MainWindowViewModel.FocusedImage);
+                var vm = window?.DataContext as NewImageWindowViewModel;
 
-                // Reset points
-                (window.DataContext as NewImageWindowViewModel).points[0] = null;
-                (window.DataContext as NewImageWindowViewModel).points[1] = null;
+                if (vm != null)
+                {
+                    // Reset points
+                    vm.Points[0] = null;
+                    vm.Points[1] = null;
 
-                // Clear previous highlights and lines
-                window?.highlightCanvas.Children.Clear();
+                    // Clear previous highlights and lines
+                    window?.highlightCanvas.Children.Clear();
+                }
                 return;
             }
 

@@ -142,7 +142,7 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dylacja.
+        ///   Looks up a localized string similar to Dilate.
         /// </summary>
         public static string Dilate {
             get {

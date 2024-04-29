@@ -145,7 +145,7 @@
     <value>Convolve</value>
   </data>
   <data name="Dilate" xml:space="preserve">
-    <value>Dylacja</value>
+    <value>Dilate</value>
   </data>
   <data name="Duplicate" xml:space="preserve">
     <value>Duplicate</value>

@@ -57,5 +57,20 @@ namespace JSharp.Utility
 
             return percentage;
         }
+
+        /// <summary>
+        /// Calculates Euclidean distance between 2 System.Windows.Point's
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        public static double GetDistance(System.Windows.Point point1, System.Windows.Point point2)
+        {
+            double dx = point2.X - point1.X;
+            double dy = point2.Y - point1.Y;
+
+            // Use Pythagorean theorem to calculate distance
+            return Math.Sqrt(dx * dx + dy * dy);
+        }
     }
 }

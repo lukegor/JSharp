@@ -10,7 +10,7 @@
 		>
 
 	<Grid>
-		<Image x:Name="imageControl" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Source}" Stretch="None" MouseLeftButtonDown="imageControl_MouseLeftButtonDown">
+		<Image x:Name="imageControl" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Source}" Stretch="None" MouseLeftButtonDown="imageControl_MouseLeftButtonDown" MouseMove="imageControl_MouseMove">
 			<Image.LayoutTransform>
 				<ScaleTransform ScaleX="{Binding ZoomScale}" ScaleY="{Binding ZoomScale}"/>
 			</Image.LayoutTransform>

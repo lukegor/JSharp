@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -93,15 +94,15 @@ namespace JSharp
         private void imageControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // Get the position where the user clicked on the image
-            if (sender is Image image && MainWindowViewModel.SelectedButton != null && MainWindowViewModel.SelectedButton.Name == Constants.RadioBtn1Name)
+            if (sender is Image image && (App.Current.MainWindow.DataContext as MainWindowViewModel).SelectedButton != null && (App.Current.MainWindow.DataContext as MainWindowViewModel).SelectedButton.Name == Constants.RadioBtnProfileLine)
             {
                 var vm = (this.DataContext as NewImageWindowViewModel);
 
-                if (vm.points[0] != null && vm.points[1] != null)
+                if (vm.Points[0] != null && vm.Points[1] != null)
                 {
                     // Reset points if two points are already selected
-                    vm.points[0] = null;
-                    vm.points[1] = null;
+                    vm.Points[0] = null;
+                    vm.Points[1] = null;
 
                     // Clear previous highlights and lines
                     highlightCanvas.Children.Clear();
@@ -116,15 +117,17 @@ namespace JSharp
                 //{
                 //    throw new Exception($"Original clicked point: {clickedPoint.X},{clickedPoint.Y}\nNormalized point: {actualClickedPoint.X},{actualClickedPoint.Y}\n");
                 //}
-                if (vm.points[0] == null)
+                if (vm.Points[0] == null)
                 {
-                    vm.points[0] = clickedPoint;
+                    vm.Points[0] = clickedPoint;
+                    (App.Current.MainWindow.DataContext as MainWindowViewModel).UpdateDescriptor();
                 }
-                else if (vm.points[1] == null)
+                else if (vm.Points[1] == null)
                 {
-                    vm.points[1] = clickedPoint;
+                    vm.Points[1] = clickedPoint;
+                    (App.Current.MainWindow.DataContext as MainWindowViewModel).UpdateDescriptor();
                     // Both points are selected, draw line
-                    DrawLine((Point)vm.points[0], (Point)vm.points[1]);
+                    DrawLine((Point)vm.Points[0], (Point)vm.Points[1]);
                 }
 
                 DrawHighlight(clickedPoint);
@@ -163,6 +166,14 @@ namespace JSharp
                 StrokeThickness = 2
             };
             highlightCanvas.Children.Add(line);
+        }
+
+        private void imageControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (sender is Image image)
+            {
+                (this.DataContext as NewImageWindowViewModel).MousePosition = e.GetPosition(image);
+            }
         }
     }
 }
