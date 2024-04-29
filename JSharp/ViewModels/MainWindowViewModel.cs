@@ -96,6 +96,7 @@ namespace JSharp.ViewModels
         public DelegateCommand PyramidDown_ClickCommand { get; }
         public DelegateCommand SimpleThreshold_ClickCommand { get; }
         public DelegateCommand Watershed_ClickCommand { get; }
+        public DelegateCommand Inpaint_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -136,6 +137,7 @@ namespace JSharp.ViewModels
             PyramidDown_ClickCommand = new DelegateCommand(PyramidDown_Click);
             SimpleThreshold_ClickCommand = new DelegateCommand(SimpleThreshold_Click);
             Watershed_ClickCommand = new DelegateCommand(Watershed_Click);
+            Inpaint_ClickCommand = new DelegateCommand(Inpaint_Click);
             #endregion
         }
 
@@ -290,10 +292,6 @@ namespace JSharp.ViewModels
         {
             if (sender is NewImageWindowViewModel newImageViewModel)
             {
-                //if (newImageViewModel.histogramWindowViewModel != null)
-                //{
-                //    newImageViewModel.histogramWindowViewModel.UpdateHistogram(newImage);
-                //} // exactly the same at the one below
                 newImageViewModel.histogramWindowViewModel?.UpdateHistogram(newImage);
             }
         }
@@ -401,11 +399,11 @@ namespace JSharp.ViewModels
                 MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            //else if (FocusedImage.matImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
-            //{
-            //    MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-            //    return;
-            //}
+            else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
+            {
+                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             else if (FocusedImage.histogramWindowViewModel != null)
             {
                 MessageBox.Show(Strings.HistogramAlreadyOpen, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -601,6 +599,11 @@ namespace JSharp.ViewModels
                 MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
+            {
+                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             ConvolverWindowViewModel convolverWindowViewModel = new ConvolverWindowViewModel();
             ConvolverWindow convolverWindow = new ConvolverWindow();
@@ -620,6 +623,11 @@ namespace JSharp.ViewModels
             if (FocusedImage == null)
             {
                 MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
+            {
+                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -656,6 +664,12 @@ namespace JSharp.ViewModels
             {
                 Mat img1 = imageCalculatorInfo.Image1, img2 = imageCalculatorInfo.Image2;
 
+                if (img1.NumberOfChannels != Constants.Grayscale_ChannelCount || img2.NumberOfChannels != Constants.Grayscale_ChannelCount)
+                {
+                    MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 Mat image = imageCalculatorInfo.OperationData.Operation switch
                 {
                     OperationType.ADD => ImageProcessingCore.Add(img1, img2),
@@ -687,6 +701,17 @@ namespace JSharp.ViewModels
 
         private void DoubleConvolve_Click()
         {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
+            {
+                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             DoubleConvolverWindowViewModel doubleConvolverWindowViewModel = new DoubleConvolverWindowViewModel();
             DoubleConvolverWindow doubleConvolverWindow = new DoubleConvolverWindow();
             doubleConvolverWindow.DataContext = doubleConvolverWindowViewModel;
@@ -819,6 +844,11 @@ namespace JSharp.ViewModels
                 MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
+            {
+                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             Mat image = FocusedImage.MatImage.Clone();
             ThresholderWindowViewModel thresholderWindowViewModel = new ThresholderWindowViewModel(image);
@@ -830,6 +860,12 @@ namespace JSharp.ViewModels
 
         private void SimpleAnalyze_Click()
         {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             SummaryWindowViewModel summaryWindowViewModel = new SummaryWindowViewModel();
             SummaryWindow summaryWindow = new SummaryWindow();
             summaryWindow.DataContext = summaryWindowViewModel;
@@ -839,6 +875,12 @@ namespace JSharp.ViewModels
 
         private void Analyze_Click()
         {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             AnalyzeParticlesWindowViewModel analyzeParticlesWindowViewModel = new AnalyzeParticlesWindowViewModel();
             AnalyzeParticlesWindow analyzeParticlesWindow = new AnalyzeParticlesWindow();
             analyzeParticlesWindow.DataContext = analyzeParticlesWindowViewModel;
@@ -858,11 +900,23 @@ namespace JSharp.ViewModels
 
         private void Skeletonize_Click()
         {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             FocusedImage.Skeletonize();
         }
 
         private void Hough_Click()
         {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             FocusedImage.Hough();
         }
 
@@ -872,6 +926,11 @@ namespace JSharp.ViewModels
             if (points[0] == null || points[1] == null)
             {
                 MessageBox.Show("Select 2 points in image", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
+            {
+                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -941,6 +1000,11 @@ namespace JSharp.ViewModels
                 MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
+            {
+                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             Mat image = FocusedImage.MatImage.Clone();
             SimpleThresholderWindowViewModel thresholderWindowViewModel = new SimpleThresholderWindowViewModel(image);
@@ -959,6 +1023,29 @@ namespace JSharp.ViewModels
             }
 
             ImageProcessingCore.MyWatershed(FocusedImage.MatImage);
+        }
+
+        private void Inpaint_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            List<ImageInfo> imageInfoList = OpenImageWindows
+                .Select(vm => new ImageInfo(vm.MatImage, vm.FileName))
+                .ToList();
+
+            InpaintWindowViewModel inpaintWindowViewModel = new InpaintWindowViewModel(imageInfoList);
+            InpaintWindow inpaintWindow = new InpaintWindow();
+            inpaintWindow.DataContext = inpaintWindowViewModel;
+
+            if (inpaintWindow.ShowDialog() == true)
+            {
+                Mat image = ImageProcessingCore.Inpainting(FocusedImage.MatImage, inpaintWindowViewModel.SelectedImage);
+                FocusedImage.UpdateImageSource(image);
+            }
         }
     }
 }

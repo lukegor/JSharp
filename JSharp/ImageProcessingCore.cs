@@ -792,6 +792,13 @@ namespace JSharp
             return nLabels;
         }
 
+        public static Mat Inpainting(Mat image, Mat mask)
+        {
+            Mat result = new Mat(image.Size, image.Depth, image.NumberOfChannels);
+            CvInvoke.Inpaint(image, mask, result, 3, InpaintType.Telea);
+            return result;
+        }
+
         //public static Mat Watershed(Mat inputMat)
         //{
         //    //Mat markers = new Mat();
