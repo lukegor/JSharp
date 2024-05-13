@@ -277,6 +277,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selected.
+        /// </summary>
+        public static string Selected {
+            get {
+                return ResourceManager.GetString("Selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sharpen.
         /// </summary>
         public static string Sharpen {

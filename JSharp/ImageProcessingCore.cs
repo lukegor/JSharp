@@ -611,6 +611,15 @@ namespace JSharp
             return image;
         }
 
+        public static Mat AnalyseImage(Mat image, RetrType retrType, ChainApproxMethod chainApproxMethod)
+        {
+            Mat contours = new Mat();
+            Mat hierarchy = new Mat();
+            CvInvoke.FindContours(image, contours, hierarchy, RetrType.List, ChainApproxMethod.ChainApproxNone);
+
+            return contours;
+        }
+
         public static int CountObjectsInImage(Mat image)
         {
             Mat labels = new Mat();
@@ -654,32 +663,26 @@ namespace JSharp
 
         public static Mat Hough(Mat image)
         {
-            Mat linesMat = new Mat();
+            Mat img = image.Clone();
+
+            Mat edges = new Mat();
+
+            CvInvoke.Canny(img, edges, 50, 100);
 
             double rho = 1; // Distance resolution of the accumulator in pixels
             double theta = Math.PI / 180; // Angle resolution of the accumulator in radians
             int threshold = 100;
-            CvInvoke.HoughLines(image, linesMat, rho, theta, threshold);
+            double minLineLength = 50; // Minimalna długość prostej
+            double maxLineGap = 10; // Maksymalna przerwa między odcinkami, aby były uznane za jedną linię
 
-            LineSegment2D[] linesArray = new LineSegment2D[linesMat.Rows];
-            IntPtr linesData = linesMat.DataPointer;
-            for (int i = 0; i < linesMat.Rows; i++)
-            {
-                // Extracting x1, y1, x2, y2 from the current row
-                float[] data = new float[4];
-                Marshal.Copy(linesData + i * linesMat.Step, data, 0, 4);
-                linesArray[i] = new LineSegment2D(new Point((int)data[0], (int)data[1]), new Point((int)data[2], (int)data[3]));
-                System.Diagnostics.Debug.WriteLine($"Line {i + 1}: ({linesArray[i].P1.X}, {linesArray[i].P1.Y}) - ({linesArray[i].P2.X}, {linesArray[i].P2.Y})");
-            }
+            LineSegment2D[] linesArray = CvInvoke.HoughLinesP(edges, rho, theta, threshold, minLineLength, maxLineGap);
 
             // Draw detected lines on original image
             foreach (LineSegment2D line in linesArray)
             {
-                CvInvoke.Line(image, line.P1, line.P2, new MCvScalar(0, 0, 255), 4);
+                CvInvoke.Line(image, line.P1, line.P2, new MCvScalar(0, 0, 255), 2);
             }
 
-            CvInvoke.Imshow("Detected Lines", image);
-            CvInvoke.WaitKey(0);
             return image;
         }
 
@@ -748,15 +751,15 @@ namespace JSharp
             Point maxLoc = new Point(), minLoc = new Point();
             CvInvoke.MinMaxLoc(distTransform, ref minDist, ref maxDist, ref minLoc, ref maxLoc);
             double threshValue = 0.5 * maxDist;
-            Mat sureFg = new Mat();
+            Mat sureFg = new Mat(distTransform.Size, DepthType.Cv8U, 1);
             CvInvoke.Threshold(distTransform, sureFg, distTransform, 255, ThresholdType.Binary);
 
             // Wyznaczenie obszarów "niepewnych"
             Mat unknown = new Mat(sureBg.Size, sureBg.Depth, sureBg.NumberOfChannels);
-            CvInvoke.Subtract(sureBg, sureFg, unknown);
+            CvInvoke.Subtract(sureBg, sureFg, unknown, null, DepthType.Cv8U);
 
             // Etykietowanie obiektów
-            Mat markers = new Mat();
+            Mat markers = new Mat(sureFg.Size, DepthType.Cv8U, 1);
             int nLabels = CvInvoke.ConnectedComponents(sureFg, markers);
 
             // Dodanie wartości 1 do etykiet
@@ -795,70 +798,128 @@ namespace JSharp
         public static Mat Inpainting(Mat image, Mat mask)
         {
             Mat result = new Mat(image.Size, image.Depth, image.NumberOfChannels);
-            CvInvoke.Inpaint(image, mask, result, 3, InpaintType.Telea);
+            CvInvoke.Inpaint(image, mask, result, inpaintRadius: 3, InpaintType.Telea);
             return result;
         }
 
-        //public static Mat Watershed(Mat inputMat)
-        //{
-        //    //Mat markers = new Mat();
-        //    //CvInvoke.mark(grayImage, markers);
+        public static Mat GrabCut(Mat inputImage, System.Drawing.Rectangle rectangle)
+        {
+            Mat mask = new Mat(inputImage.Size, DepthType.Cv8U, 1);
+            mask.SetTo(new MCvScalar(0));
 
-        //    //// Perform watershed segmentation
-        //    //CvInvoke.Watershed(inputImage, markers);
+            // Create backgroundModel and foregroundModel arrays
+            Mat backgroundModel = new Mat(1, 65, DepthType.Cv64F, 1);
+            Mat foregroundModel = new Mat(1, 65, DepthType.Cv64F, 1);
+
+            // Fill arrays with zeros
+            backgroundModel.SetTo(new MCvScalar(0));
+            foregroundModel.SetTo(new MCvScalar(0));
+
+            CvInvoke.GrabCut(inputImage, mask, rectangle, backgroundModel, foregroundModel, 3, GrabcutInitType.InitWithRect);
+
+            // Create Mat objects for comparison
+            Mat value2 = new Mat(mask.Size, DepthType.Cv8U, 1);
+            value2.SetTo(new MCvScalar(2));
+            Mat value0 = new Mat(mask.Size, DepthType.Cv8U, 1);
+            value0.SetTo(new MCvScalar(0));
+
+            // Create mask2
+            Mat mask2 = new Mat();
+            Mat temp1 = new Mat();
+            Mat temp2 = new Mat();
+            CvInvoke.Compare(mask, value2, dst: temp1, CmpType.Equal);
+            CvInvoke.Compare(mask, value0, dst: temp2, CmpType.Equal);
+            CvInvoke.BitwiseOr(temp1, temp2, mask2);
+
+            // Convert mask2 to uint8
+            mask2.ConvertTo(mask2, DepthType.Cv8U);
+
+            // Create image_segmented
+            Mat image_segmented = new Mat();
+            CvInvoke.Multiply(inputImage, mask2, image_segmented);
+
+            return image_segmented;
+        }
+
+        public static (List<(char, int)>, int) RleEncode(string inputString)
+        {
+            int count = 1;
+            char prev = '\0'; // Initialize to null character
+            var list = new List<(char, int)>();
+
+            foreach (char character in inputString)
+            {
+                if (character != prev)
+                {
+                    if (prev != '\0')
+                    {
+                        var entry = (prev, count);
+                        list.Add(entry);
+                    }
+                    count = 1;
+                    prev = character;
+                }
+                else
+                {
+                    count++;
+                }
+            }
+
+            try
+            {
+                var entry = (prev, count);
+                list.Add(entry);
+                return (list, 0);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Exception encountered: {e.Message}");
+                return (null, 1);
+            }
+        }
+
+        //public static Mat CompressMat(Mat inputMat)
+        //{
+        //    // Convert Mat to string
+        //    string matAsString = MatToString(inputMat);
+
+        //    // Compress the string using RLE
+        //    (List<(char, int)>, int) compressedData = RleEncode(matAsString);
+
+        //    // Store the compressed data back into a Mat or any other suitable format
+        //    // For demonstration purposes, let's just store it as a string
+        //    string compressedString = CompressedDataToString(compressedData);
+
+        //    // Convert the compressed string back to a Mat if needed
+        //    Mat compressedMat = StringToMat(compressedString);
+
+        //    return compressedMat;
         //}
 
-        //public static Mat Sub(Mat image1, Mat image2, PixelOverflowHandlingType overflowHandling, double weight = 1.0)
+        //public static string MatToString(Mat inputMat)
         //{
-        //    Mat resultMat = new Mat(image1.Rows, image1.Cols, image1.Depth, image1.NumberOfChannels);
+        //    if (inputMat.NumberOfChannels != 1)
+        //        throw new ArgumentException("Input Mat must have a single channel (grayscale)");
 
-        //    IntPtr ptr1 = image1.DataPointer;
-        //    IntPtr ptr2 = image2.DataPointer;
-        //    IntPtr resultPtr = resultMat.DataPointer;
+        //    if (inputMat.Depth != DepthType.Cv8U)
+        //        throw new ArgumentException("Input Mat depth must be 8-bit unsigned");
 
-        //    for (int y = 0; y < image1.Rows; y++)
+        //    Image<Gray, byte> image = inputMat.ToImage<Gray, byte>();
+
+        //    StringBuilder stringBuilder = new StringBuilder();
+
+        //    // Assuming inputMat is a grayscale image
+        //    for (int row = 0; row < image.Rows; row++)
         //    {
-        //        for (int x = 0; x < image1.Cols; x++)
+        //        for (int col = 0; col < image.Cols; col++)
         //        {
-        //            int offset1 = y * image1.Step + x;
-        //            int offset2 = y * image2.Step + x;
-        //            int resultOffset = y * resultMat.Step + x;
-
-        //            IntPtr currentPtr1 = IntPtr.Add(ptr1, offset1);
-        //            IntPtr currentPtr2 = IntPtr.Add(ptr2, offset2);
-        //            IntPtr currentResultPtr = IntPtr.Add(resultPtr, resultOffset);
-
-        //            byte pixel1 = Marshal.ReadByte(currentPtr1);
-        //            byte pixel2 = Marshal.ReadByte(currentPtr2);
-        //            byte newPixel = overflowHandling switch
-        //            {
-        //                PixelOverflowHandlingType.None_Clipping => (byte)Math.Min(0, pixel1 - pixel2),
-        //                //PixelOverflowHandlingType.Weights => (byte)Math.Min(0, pixel1 + weight * pixel2),
-        //                PixelOverflowHandlingType.Modulo => (byte)((pixel1 - pixel2 + 256) % 256),
-        //                PixelOverflowHandlingType.LinearScaling => (byte)Math.Abs(pixel1 - pixel2),
-        //                PixelOverflowHandlingType.AdaptiveScaling => CalculateAdaptiveScaling(pixel1, pixel2),
-        //                _ => throw new ArgumentException("Invalid overflow handling option."),
-        //            };
-        //            Marshal.WriteByte(currentResultPtr, newPixel);
+        //            byte pixelValue = (byte)image[row, col].Intensity; // Grayscale pixel value
+        //            stringBuilder.Append(pixelValue.ToString() + " ");
         //        }
+        //        stringBuilder.AppendLine(); // Move to the next row in the string
         //    }
 
-        //    return resultMat;
-        //}
-
-        //private static byte CalculateAdaptiveScaling(byte pixel1, byte pixel2)
-        //{
-        //    int difference = pixel1 - pixel2;
-        //    int sum = pixel1 + pixel2;
-
-        //    // Adjust the divisor to prevent division by zero and handle extremes.
-        //    double divisor = Math.Max(1, sum / 255.0);
-
-        //    // Scale the difference based on the sum.
-        //    double scaledDifference = difference / divisor;
-
-        //    // Ensure the scaled difference falls within the valid intensity range.
-        //    return (byte)Math.Max(0, Math.Min(255, 128 + scaledDifference));
+        //    return stringBuilder.ToString();
         //}
     }
 }

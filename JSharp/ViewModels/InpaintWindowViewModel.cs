@@ -12,23 +12,42 @@ namespace JSharp.ViewModels
 {
     public class InpaintWindowViewModel : BindableBase
     {
-        private string _selectedFileName;
-        public string SelectedFileName
+        private string _selectedFileName1;
+        public string SelectedFileName1
         {
-            get { return _selectedFileName; }
-            set { SetProperty(ref _selectedFileName, value); UpdateSelectedMat(value); }
+            get { return _selectedFileName1; }
+            set { SetProperty(ref _selectedFileName1, value); UpdateSelectedImage(value); }
         }
-        private Mat _selectedImage;
-        public Mat SelectedImage
+        private Mat _selectedImage1;
+        public Mat SelectedImage1
         {
-            get { return _selectedImage; }
-            set { SetProperty(ref _selectedImage, value); }
+            get { return _selectedImage1; }
+            set { SetProperty(ref _selectedImage1, value); }
+        }
+        private string _selectedFileName2;
+        public string SelectedFileName2
+        {
+            get { return _selectedFileName2; }
+            set { SetProperty(ref _selectedFileName2, value); UpdateSelectedMask(value); }
+        }
+        private Mat _selectedImage2;
+        public Mat SelectedImage2
+        {
+            get { return _selectedImage2; }
+            set { SetProperty(ref _selectedImage2, value); }
         }
         private List<ImageInfo> _images;
         public List<ImageInfo> Images
         {
             get { return _images; }
             set { SetProperty(ref _images, value); }
+        }
+
+        private bool isChecked;
+        public bool IsChecked
+        {
+            get { return isChecked; }
+            set { SetProperty(ref isChecked, value); }
         }
 
         public DelegateCommand BtnConfirm_ClickCommand { get; }
@@ -38,13 +57,20 @@ namespace JSharp.ViewModels
             BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirm_Click);
 
             this.Images = images;
+            IsChecked = true;
 
-            SelectedFileName = images[0].FileName;
+            SelectedFileName1 = images[0].FileName;
+            SelectedFileName2 = images[1].FileName;
         }
 
-        private void UpdateSelectedMat(string value)
+        private void UpdateSelectedImage(string value)
         {
-            SelectedImage = Images.FirstOrDefault(x => x.FileName == value).Image;
+            SelectedImage1 = Images.FirstOrDefault(x => x.FileName == value).Image;
+        }
+
+        private void UpdateSelectedMask(string value)
+        {
+            SelectedImage2 = Images.FirstOrDefault(x => x.FileName == value).Image;
         }
 
         private void BtnConfirm_Click()

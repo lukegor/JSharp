@@ -95,7 +95,10 @@ namespace JSharp
             foreach (var window in list)
             {
                 window?.highlightCanvas.Children.Clear();
+                (window?.DataContext as NewImageWindowViewModel).Points[0] = null;
+                (window?.DataContext as NewImageWindowViewModel).Points[1] = null;
             }
+            (this.DataContext as MainWindowViewModel).Descriptor = string.Empty;
 
             //uncheck
             radioButton.IsChecked = false;

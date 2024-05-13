@@ -123,6 +123,9 @@
   <data name="AlreadyGrayscale_Error" xml:space="preserve">
     <value>Obraz jest już szaroodcieniowy</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Zatwierdź</value>
+  </data>
   <data name="Author" xml:space="preserve">
     <value>Autor:</value>
   </data>
@@ -147,8 +150,17 @@
   <data name="Dilate" xml:space="preserve">
     <value>Dylacja</value>
   </data>
+  <data name="DoubleConvolve" xml:space="preserve">
+    <value>Podwójna i Pojedyncza Konwolucja</value>
+  </data>
   <data name="Duplicate" xml:space="preserve">
     <value>Duplikuj</value>
+  </data>
+  <data name="EdgeDetection_Hough" xml:space="preserve">
+    <value>Wykrywanie Krawędzi (Hough)</value>
+  </data>
+  <data name="EdgePixelsHandling" xml:space="preserve">
+    <value>Obsługa pikseli brzegowych</value>
   </data>
   <data name="EqualizeHistogram" xml:space="preserve">
     <value>Wyrównaj Histogram</value>
@@ -189,6 +201,12 @@
   <data name="ImageNotGrayscale" xml:space="preserve">
     <value>Wybrana operacja może być wykonana tylko na obrazach szaroodcieniowych.</value>
   </data>
+  <data name="Inpaint" xml:space="preserve">
+    <value>Inpainting</value>
+  </data>
+  <data name="KernelMaskSize" xml:space="preserve">
+    <value>Rozmiar kernela/maski</value>
+  </data>
   <data name="LoadingFailed" xml:space="preserve">
     <value>Nie udało się załadować obrazu.</value>
   </data>
@@ -196,7 +214,7 @@
     <value>Medianowy</value>
   </data>
   <data name="MorphologicalClose" xml:space="preserve">
-    <value>Zamknięcię Morfologiczne</value>
+    <value>Zamknięcie Morfologiczne</value>
   </data>
   <data name="MorphologicalOpen" xml:space="preserve">
     <value>Otwarcie Morfologiczne</value>
@@ -225,8 +243,17 @@
   <data name="PixelIntensity" xml:space="preserve">
     <value>Intensywność</value>
   </data>
+  <data name="PlotProfile" xml:space="preserve">
+    <value>Linia Profilu</value>
+  </data>
   <data name="Posterize" xml:space="preserve">
     <value>Posteryzuj</value>
+  </data>
+  <data name="PyramidDown" xml:space="preserve">
+    <value>Skaluj w Dół</value>
+  </data>
+  <data name="PyramidUp" xml:space="preserve">
+    <value>Skaluj w Górę</value>
   </data>
   <data name="Rectangle" xml:space="preserve">
     <value>Kwadrat</value>
@@ -255,6 +282,9 @@
   <data name="ShowHistogram" xml:space="preserve">
     <value>Wyświetl Histogram</value>
   </data>
+  <data name="Skeletonize" xml:space="preserve">
+    <value>Szkieletyzacja</value>
+  </data>
   <data name="SplitChannels" xml:space="preserve">
     <value>Rozdziel na kanały</value>
   </data>
@@ -264,6 +294,9 @@
   <data name="StretchHistogram" xml:space="preserve">
     <value>Rozciągnij Histogram</value>
   </data>
+  <data name="StructuringElement" xml:space="preserve">
+    <value>Element strukturalny</value>
+  </data>
   <data name="TextBlockImage1" xml:space="preserve">
     <value>Obraz 1:</value>
   </data>
@@ -272,6 +305,9 @@
   </data>
   <data name="TextBlockOperation" xml:space="preserve">
     <value>Operacja:</value>
+  </data>
+  <data name="Thresholding" xml:space="preserve">
+    <value>Progowanie</value>
   </data>
   <data name="ThresholdingAdaptive" xml:space="preserve">
     <value>Adaptacyjny</value>

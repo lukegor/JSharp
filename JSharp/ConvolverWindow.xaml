@@ -97,15 +97,16 @@
 			</MenuItem>
 		</Menu>
 
-		<StackPanel Width="440" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,123,10,0" Orientation="Horizontal">
+		<StackPanel Width="440" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,140,10,0" Orientation="Horizontal">
 			<TextBlock>
-				<Run Text="Selected: "/>
+				<Run Text="{x:Static resx:Kernels.Selected}"/>
+				<Run Text=": " />
 				<Run x:Name="KernelName" Text="{Binding CurrentKernel}" />
 			</TextBlock>
 		</StackPanel>
 
 
-		<Grid Margin="10,123,476,135">
+		<Grid Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="50"/>
 				<RowDefinition Height="50"/>
@@ -131,22 +132,25 @@
 			<TextBox x:Name="Cell22" Text="{Binding TextBoxValues[8], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="2" Margin="2" TextAlignment="Center" VerticalContentAlignment="Center" PreviewKeyDown="KernelInputCell_PreviewKeyDown" TextChanged="KernelInputCell_TextChanged"/>
 		</Grid>
 
-		<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+		<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100,0,0,0">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 
 			<!-- Content for the first column -->
-			<TextBlock Grid.Column="0" Text="Edge pixels handling" Margin="0,0,5,0"/>
+			<TextBlock Grid.Column="0" Margin="10,0,5,0">
+				<Run Text="{x:Static resx:Kernels.EdgePixelsHandling}"/>
+				<Run Text=":"/>
+			</TextBlock>
 
 			<!-- Content for the second column -->
-			<ComboBox ItemsSource="{Binding Source={StaticResource FilteredLocalizedBorderTypesProvider}}" SelectedItem="{Binding BorderPixelsOption, Mode=TwoWay, Converter={StaticResource BorderConverter}}"
-					  Margin="10,0,-99,0" Grid.Column="1"/>
+			<ComboBox MinWidth="80" ItemsSource="{Binding Source={StaticResource FilteredLocalizedBorderTypesProvider}}" SelectedItem="{Binding BorderPixelsOption, Mode=TwoWay, Converter={StaticResource BorderConverter}}"
+					  Margin="10,0,0,0" Grid.Column="1"/>
 		</Grid>
 
 		<DockPanel DockPanel.Dock="Bottom" Margin="5,0,5,5" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-			<Button Content="Apply" Width="100" Margin="5" Command="{Binding BtnApply_ClickCommand}" IsDefault="True"/>
+			<Button Content="{x:Static resx:Strings.Apply}" Width="100" Margin="5" Command="{Binding BtnApply_ClickCommand}" IsDefault="True"/>
 		</DockPanel>
 	</Grid>
 </Window>

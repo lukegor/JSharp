@@ -190,6 +190,9 @@
   <data name="PrewittW" xml:space="preserve">
     <value>W</value>
   </data>
+  <data name="Selected" xml:space="preserve">
+    <value>Selected</value>
+  </data>
   <data name="Sharpen" xml:space="preserve">
     <value>Sharpen</value>
   </data>

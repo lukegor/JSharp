@@ -10,18 +10,30 @@
         Title="InpaintWindow" Height="150" Width="300">
 	<Grid>
 		<Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 
-			<!-- First Row -->
-			<TextBlock Grid.Column="0" Text="Mask:" Margin="0,0,0,0"/>
-			<ComboBox Grid.Column="1" Margin="10,0,0,5" Width="100"
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="Image:" Margin="0,0,0,0"/>
+			<ComboBox Grid.Row="0" Grid.Column="1" Margin="10,0,0,5" Width="100"
 					  ItemsSource="{Binding Images}"
 					  DisplayMemberPath="FileName"
 					  SelectedValuePath="FileName"
-					  SelectedValue="{Binding SelectedFileName, Mode=TwoWay}">
+					  SelectedValue="{Binding SelectedFileName1, Mode=TwoWay}">
+			</ComboBox>
+
+			<!-- Second Row -->
+			<TextBlock Grid.Row="1" Grid.Column="0" Text="Mask:" Margin="0,0,0,0"/>
+			<ComboBox Grid.Row="1" Grid.Column="1" Margin="10,0,0,5" Width="100"
+					  ItemsSource="{Binding Images}"
+					  DisplayMemberPath="FileName"
+					  SelectedValuePath="FileName"
+					  SelectedValue="{Binding SelectedFileName2, Mode=TwoWay}">
 			</ComboBox>
 		</Grid>
 		<Button Content="Apply" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Command="{Binding BtnConfirm_ClickCommand}"/>

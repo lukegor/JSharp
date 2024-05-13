@@ -123,6 +123,9 @@
   <data name="AlreadyGrayscale_Error" xml:space="preserve">
     <value>The image is already grayscale</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
   <data name="Author" xml:space="preserve">
     <value>Author:</value>
   </data>
@@ -147,8 +150,17 @@
   <data name="Dilate" xml:space="preserve">
     <value>Dilate</value>
   </data>
+  <data name="DoubleConvolve" xml:space="preserve">
+    <value>Double- and Single Convolve</value>
+  </data>
   <data name="Duplicate" xml:space="preserve">
     <value>Duplicate</value>
+  </data>
+  <data name="EdgeDetection_Hough" xml:space="preserve">
+    <value>Edge Detection (Hough)</value>
+  </data>
+  <data name="EdgePixelsHandling" xml:space="preserve">
+    <value>Edge Pixels Handling</value>
   </data>
   <data name="EqualizeHistogram" xml:space="preserve">
     <value>Equalize Histogram</value>
@@ -164,6 +176,9 @@
   </data>
   <data name="Filters" xml:space="preserve">
     <value>Filters</value>
+  </data>
+  <data name="GrabCut" xml:space="preserve">
+    <value>GrabCut</value>
   </data>
   <data name="Grayize" xml:space="preserve">
     <value>RGB to Grayscale</value>
@@ -188,6 +203,12 @@
   </data>
   <data name="ImageNotGrayscale" xml:space="preserve">
     <value>The selected operation may only be performed on grayscale images.</value>
+  </data>
+  <data name="Inpaint" xml:space="preserve">
+    <value>Inpaint</value>
+  </data>
+  <data name="KernelMaskSize" xml:space="preserve">
+    <value>Kernel/Mask Size</value>
   </data>
   <data name="LoadingFailed" xml:space="preserve">
     <value>Failed to load image.</value>
@@ -225,8 +246,17 @@
   <data name="PixelIntensity" xml:space="preserve">
     <value>Brightness</value>
   </data>
+  <data name="PlotProfile" xml:space="preserve">
+    <value>Plot Profile</value>
+  </data>
   <data name="Posterize" xml:space="preserve">
     <value>Posterize</value>
+  </data>
+  <data name="PyramidDown" xml:space="preserve">
+    <value>Scale Down</value>
+  </data>
+  <data name="PyramidUp" xml:space="preserve">
+    <value>Scale Up</value>
   </data>
   <data name="Rectangle" xml:space="preserve">
     <value>Rectangle</value>
@@ -255,6 +285,9 @@
   <data name="ShowHistogram" xml:space="preserve">
     <value>Show Histogram</value>
   </data>
+  <data name="Skeletonize" xml:space="preserve">
+    <value>Skeletonize</value>
+  </data>
   <data name="SplitChannels" xml:space="preserve">
     <value>Split Channels</value>
   </data>
@@ -263,6 +296,9 @@
   </data>
   <data name="StretchHistogram" xml:space="preserve">
     <value>Stretch Histogram</value>
+  </data>
+  <data name="StructuringElement" xml:space="preserve">
+    <value>Structuring Element</value>
   </data>
   <data name="TextBlockImage1" xml:space="preserve">
     <value>Image 1:</value>
@@ -273,10 +309,16 @@
   <data name="TextBlockOperation" xml:space="preserve">
     <value>Operation:</value>
   </data>
+  <data name="Thresholding" xml:space="preserve">
+    <value>Thresholding</value>
+  </data>
   <data name="ThresholdingAdaptive" xml:space="preserve">
     <value>Adaptive</value>
   </data>
   <data name="ThresholdingOtsu" xml:space="preserve">
     <value>Otsu</value>
+  </data>
+  <data name="Watershed" xml:space="preserve">
+    <value>Watershed</value>
   </data>
 </root>

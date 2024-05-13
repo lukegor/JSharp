@@ -6,6 +6,7 @@ using JSharp.Models;
 using JSharp.Resources;
 using JSharp.Utility;
 using JSharp.Validators;
+using LiveChartsCore.Kernel;
 using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Events;
@@ -17,6 +18,7 @@ using System.Collections.ObjectModel;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -97,6 +99,7 @@ namespace JSharp.ViewModels
         public DelegateCommand SimpleThreshold_ClickCommand { get; }
         public DelegateCommand Watershed_ClickCommand { get; }
         public DelegateCommand Inpaint_ClickCommand { get; }
+        public DelegateCommand GrabCut_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -138,6 +141,7 @@ namespace JSharp.ViewModels
             SimpleThreshold_ClickCommand = new DelegateCommand(SimpleThreshold_Click);
             Watershed_ClickCommand = new DelegateCommand(Watershed_Click);
             Inpaint_ClickCommand = new DelegateCommand(Inpaint_Click);
+            GrabCut_ClickCommand = new DelegateCommand(GrabCut_Click);
             #endregion
         }
 
@@ -177,6 +181,45 @@ namespace JSharp.ViewModels
                 }
                 System.Diagnostics.Debug.WriteLine(sb.ToString());
                 Descriptor = sb.ToString();
+            }
+            else if (SelectedButton?.Name == Constants.RadioBtnRectangle)
+            {
+                StringBuilder sb = new StringBuilder();
+                var focusedImage = FocusedImage;
+
+                if (focusedImage != null)
+                {
+                    sb.Append($"X: {focusedImage.MousePosition.X}, Y: {focusedImage.MousePosition.Y}");
+
+                    System.Windows.Point? startPoint = focusedImage.Points[0];
+                    if (startPoint != null)
+                    {
+                        sb.Append($", Top-left Point 1: ({focusedImage.Points[0]})");
+
+                        System.Windows.Point? endPoint = focusedImage.Points[1];
+                        if (endPoint != null)
+                        {
+                            sb.Append($", Bottom-right Point 2: ({FocusedImage.Points[1]})");
+
+                            // Calculate the width and height of the rectangle
+                            double width = Math.Abs(endPoint.Value.X - startPoint.Value.X);
+                            double height = Math.Abs(endPoint.Value.Y - startPoint.Value.Y);
+
+                            // Determine the top-left corner coordinates of the rectangle
+                            double x = Math.Min(startPoint.Value.X, endPoint.Value.X);
+                            double y = Math.Min(startPoint.Value.Y, endPoint.Value.Y);
+
+                            sb.Append(" ").Append($"Rectangle = (x: {x}, y: {y}, width: {width}, height: {height})");
+                        }
+                    }
+                    else
+                    {
+                        //notify to update to empty when window closing
+                        sb.Append(string.Empty);
+                    }
+                    System.Diagnostics.Debug.WriteLine(sb.ToString());
+                    Descriptor = sb.ToString();
+                }
             }
             else if (SelectedButton?.Name == Constants.RadioBtnNone)
             {
@@ -922,6 +965,11 @@ namespace JSharp.ViewModels
 
         private void PlotProfile_Click()
         {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             var points = FocusedImage.Points.Select(p => p.Value).ToArray();
             if (points[0] == null || points[1] == null)
             {
@@ -1027,9 +1075,9 @@ namespace JSharp.ViewModels
 
         private void Inpaint_Click()
         {
-            if (FocusedImage == null)
+            if (OpenImageWindows == null || OpenImageWindows.Count < 2)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Open at least 2 images", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -1043,9 +1091,43 @@ namespace JSharp.ViewModels
 
             if (inpaintWindow.ShowDialog() == true)
             {
-                Mat image = ImageProcessingCore.Inpainting(FocusedImage.MatImage, inpaintWindowViewModel.SelectedImage);
-                FocusedImage.UpdateImageSource(image);
+                Mat image = ImageProcessingCore.Inpainting(inpaintWindowViewModel.SelectedImage1, inpaintWindowViewModel.SelectedImage2);
+                DisplayImage(image, "Inpaint Result Window");
             }
+        }
+
+        private void GrabCut_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var points = FocusedImage.Points.Select(p => p.Value).ToArray();
+            if (points[0] == null || points[1] == null)
+            {
+                MessageBox.Show("Select 2 points in image", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            //else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
+            //{
+            //    MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            //    return;
+            //}
+
+            Point startPoint = (Point)FocusedImage.Points[0];
+            Point endPoint = (Point)FocusedImage.Points[1];
+
+            // Calculate the width and height of the rectangle
+            int width = (int)Math.Abs(endPoint.X - startPoint.X);
+            int height = (int)Math.Abs(endPoint.Y - startPoint.Y);
+
+            // Determine the top-left corner coordinates of the rectangle
+            int x = (int)Math.Min(startPoint.X, endPoint.X);
+            int y = (int)Math.Min(startPoint.Y, endPoint.Y);
+
+            Mat image = ImageProcessingCore.GrabCut(FocusedImage.MatImage, new System.Drawing.Rectangle(x, y, width, height));
+            FocusedImage.UpdateImageSource(image);
         }
     }
 }

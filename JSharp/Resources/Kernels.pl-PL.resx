@@ -183,4 +183,7 @@
   <data name="Sobel" xml:space="preserve">
     <value>Sobel</value>
   </data>
+  <data name="Selected" xml:space="preserve">
+    <value>Wybrano</value>
+  </data>
 </root>

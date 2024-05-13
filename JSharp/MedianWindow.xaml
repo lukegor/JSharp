@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JSharp"
+		xmlns:resx="clr-namespace:JSharp.Resources"
 		xmlns:viewModels="clr-namespace:JSharp.ViewModels"
         xmlns:converters="clr-namespace:JSharp.Converters"
 		mc:Ignorable="d"
@@ -29,7 +30,7 @@
 			</Grid.ColumnDefinitions>
 
 			<!-- First Row -->
-			<TextBlock Grid.Row="0" Grid.Column="0" Text="Kernel/matrix/mask size" Margin="0,0,0,0"/>
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static resx:Strings.KernelMaskSize}" Margin="0,0,0,0"/>
 			<ComboBox Grid.Row="0" Grid.Column="1" Margin="10,0,0,5" Width="100"
 					  SelectedValue="{Binding MatrixSize, Converter={StaticResource MatrixSizeConverter}, Mode=TwoWay}"
 					  SelectedValuePath="Content">
@@ -39,14 +40,14 @@
 			</ComboBox>
 
 			<!-- Second Row -->
-			<TextBlock Grid.Row="1" Grid.Column="0" Text="Edge pixels handling" Margin="0,5,0,0"/>
+			<TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static resx:Strings.EdgePixelsHandling}" Margin="0,5,0,0"/>
 			<ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Source={StaticResource FilteredLocalizedBorderTypesProvider}}" SelectedItem="{Binding BorderPixelsOption, Mode=TwoWay, Converter={StaticResource BorderTypeConverter}}" Margin="10,5,0,5" Width="100"/>
 		</Grid>
 
 
 
 		<DockPanel DockPanel.Dock="Bottom" Margin="0,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-			<Button Content="Apply" Width="100" Command="{Binding BtnApply_ClickCommand}" IsDefault="True"/>
+			<Button Content="{x:Static resx:Strings.Apply}" Width="100" Command="{Binding BtnApply_ClickCommand}" IsDefault="True"/>
 		</DockPanel>
 	</Grid>
 </Window>

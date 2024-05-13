@@ -22,7 +22,7 @@ namespace JSharp.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Project {
+    public class Project {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace JSharp.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JSharp.Resources.Project", typeof(Project).Assembly);
@@ -51,7 +51,7 @@ namespace JSharp.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,18 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        public static string ProjectStr {
+            get {
+                return ResourceManager.GetString("ProjectStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inverse.
         /// </summary>
-        internal static string ThresholdingInverse {
+        public static string ThresholdingInverse {
             get {
                 return ResourceManager.GetString("ThresholdingInverse", resourceCulture);
             }
@@ -72,7 +81,7 @@ namespace JSharp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Negated.
         /// </summary>
-        internal static string ThresholdingNegated {
+        public static string ThresholdingNegated {
             get {
                 return ResourceManager.GetString("ThresholdingNegated", resourceCulture);
             }
@@ -81,7 +90,7 @@ namespace JSharp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Preserving Grayscale Levels.
         /// </summary>
-        internal static string ThresholdingPreservingGrayscaleLevels {
+        public static string ThresholdingPreservingGrayscaleLevels {
             get {
                 return ResourceManager.GetString("ThresholdingPreservingGrayscaleLevels", resourceCulture);
             }
@@ -90,7 +99,7 @@ namespace JSharp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Preserving Grayscale Levels (Negation).
         /// </summary>
-        internal static string ThresholdingPreservingGrayscaleLevelsNegation {
+        public static string ThresholdingPreservingGrayscaleLevelsNegation {
             get {
                 return ResourceManager.GetString("ThresholdingPreservingGrayscaleLevelsNegation", resourceCulture);
             }
@@ -99,7 +108,7 @@ namespace JSharp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Standard.
         /// </summary>
-        internal static string ThresholdingStandard {
+        public static string ThresholdingStandard {
             get {
                 return ResourceManager.GetString("ThresholdingStandard", resourceCulture);
             }

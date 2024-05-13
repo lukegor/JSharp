@@ -79,6 +79,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply.
+        /// </summary>
+        public static string Apply {
+            get {
+                return ResourceManager.GetString("Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Author:.
         /// </summary>
         public static string Author {
@@ -151,11 +160,38 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Double- and Single Convolve.
+        /// </summary>
+        public static string DoubleConvolve {
+            get {
+                return ResourceManager.GetString("DoubleConvolve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duplicate.
         /// </summary>
         public static string Duplicate {
             get {
                 return ResourceManager.GetString("Duplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edge Detection (Hough).
+        /// </summary>
+        public static string EdgeDetection_Hough {
+            get {
+                return ResourceManager.GetString("EdgeDetection_Hough", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edge Pixels Handling.
+        /// </summary>
+        public static string EdgePixelsHandling {
+            get {
+                return ResourceManager.GetString("EdgePixelsHandling", resourceCulture);
             }
         }
         
@@ -201,6 +237,15 @@ namespace JSharp.Resources {
         public static string Filters {
             get {
                 return ResourceManager.GetString("Filters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GrabCut.
+        /// </summary>
+        public static string GrabCut {
+            get {
+                return ResourceManager.GetString("GrabCut", resourceCulture);
             }
         }
         
@@ -273,6 +318,24 @@ namespace JSharp.Resources {
         public static string ImageNotGrayscale {
             get {
                 return ResourceManager.GetString("ImageNotGrayscale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inpaint.
+        /// </summary>
+        public static string Inpaint {
+            get {
+                return ResourceManager.GetString("Inpaint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kernel/Mask Size.
+        /// </summary>
+        public static string KernelMaskSize {
+            get {
+                return ResourceManager.GetString("KernelMaskSize", resourceCulture);
             }
         }
         
@@ -385,11 +448,38 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Plot Profile.
+        /// </summary>
+        public static string PlotProfile {
+            get {
+                return ResourceManager.GetString("PlotProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Posterize.
         /// </summary>
         public static string Posterize {
             get {
                 return ResourceManager.GetString("Posterize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scale Down.
+        /// </summary>
+        public static string PyramidDown {
+            get {
+                return ResourceManager.GetString("PyramidDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scale Up.
+        /// </summary>
+        public static string PyramidUp {
+            get {
+                return ResourceManager.GetString("PyramidUp", resourceCulture);
             }
         }
         
@@ -475,6 +565,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skeletonize.
+        /// </summary>
+        public static string Skeletonize {
+            get {
+                return ResourceManager.GetString("Skeletonize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Split Channels.
         /// </summary>
         public static string SplitChannels {
@@ -498,6 +597,15 @@ namespace JSharp.Resources {
         public static string StretchHistogram {
             get {
                 return ResourceManager.GetString("StretchHistogram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Structuring Element.
+        /// </summary>
+        public static string StructuringElement {
+            get {
+                return ResourceManager.GetString("StructuringElement", resourceCulture);
             }
         }
         
@@ -529,6 +637,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thresholding.
+        /// </summary>
+        public static string Thresholding {
+            get {
+                return ResourceManager.GetString("Thresholding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adaptive.
         /// </summary>
         public static string ThresholdingAdaptive {
@@ -543,6 +660,15 @@ namespace JSharp.Resources {
         public static string ThresholdingOtsu {
             get {
                 return ResourceManager.GetString("ThresholdingOtsu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watershed.
+        /// </summary>
+        public static string Watershed {
+            get {
+                return ResourceManager.GetString("Watershed", resourceCulture);
             }
         }
     }

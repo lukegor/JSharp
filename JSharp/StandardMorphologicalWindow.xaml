@@ -34,7 +34,10 @@
 			</Grid.ColumnDefinitions>
 
 			<!-- First Row -->
-			<TextBlock Grid.Row="0" Grid.Column="0" Text="Structuring Element:" Margin="0,0,0,0"/>
+			<TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,0,0">
+				<Run Text="{x:Static resx:Strings.EdgePixelsHandling}"/>
+				<Run Text=":"/>
+			</TextBlock>
 			<ComboBox Grid.Row="0" Grid.Column="1" Margin="10,0,0,5" Width="100"
 					  ItemsSource="{Binding Source={StaticResource FilteredLocalizedShapeTypesProvider}}"
 		              SelectedValue="{Binding Shape, Mode=TwoWay}"
@@ -42,7 +45,10 @@
 			</ComboBox>
 
 			<!-- Second Row -->
-			<TextBlock Grid.Row="1" Grid.Column="0" Text="Edge pixels handling:" Margin="0,5,0,0"/>
+			<TextBlock Grid.Row="1" Grid.Column="0" Margin="0,5,0,0">
+				<Run Text="{x:Static resx:Strings.EdgePixelsHandling}"/>
+				<Run Text=":"/>
+			</TextBlock>
 			<ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Source={StaticResource FilteredLocalizedBorderTypesProvider}}" SelectedItem="{Binding BorderPixelsOption, Mode=TwoWay, Converter={StaticResource BorderTypeConverter}}" Margin="10,5,0,5" Width="100"/>
 		</Grid>
 

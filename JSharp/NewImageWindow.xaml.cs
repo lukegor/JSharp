@@ -93,47 +93,104 @@ namespace JSharp
 
         private void imageControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // Get the position where the user clicked on the image
-            if (sender is Image image && (App.Current.MainWindow.DataContext as MainWindowViewModel).SelectedButton != null && (App.Current.MainWindow.DataContext as MainWindowViewModel).SelectedButton.Name == Constants.RadioBtnProfileLine)
+            if (sender is Image image)
             {
-                var vm = (this.DataContext as NewImageWindowViewModel);
-
-                if (vm.Points[0] != null && vm.Points[1] != null)
+                // Get the position where the user clicked on the image
+                if ((App.Current.MainWindow.DataContext as MainWindowViewModel).SelectedButton != null && (App.Current.MainWindow.DataContext as MainWindowViewModel).SelectedButton.Name == Constants.RadioBtnProfileLine)
                 {
-                    // Reset points if two points are already selected
-                    vm.Points[0] = null;
-                    vm.Points[1] = null;
+                    var vm = (this.DataContext as NewImageWindowViewModel);
 
-                    // Clear previous highlights and lines
-                    highlightCanvas.Children.Clear();
+                    if (vm.Points[0] != null && vm.Points[1] != null)
+                    {
+                        // Reset points if two points are already selected
+                        vm.Points[0] = null;
+                        vm.Points[1] = null;
+
+                        // Clear previous highlights and lines
+                        highlightCanvas.Children.Clear();
+                    }
+
+                    Point clickedPoint = e.GetPosition(image);
+                    //var window = App.Current.Windows.OfType<NewImageWindow>().FirstOrDefault(x => x.DataContext == this);
+                    //double scaleX = imageControl.ActualWidth / imageControl.Source.Width;
+                    //double scaleY = imageControl.ActualHeight / imageControl.Source.Height;
+                    //Point actualClickedPoint = new Point(clickedPoint.X / scaleX, clickedPoint.Y / scaleY);
+                    //if (clickedPoint.X != actualClickedPoint.X || clickedPoint.Y != actualClickedPoint.Y)
+                    //{
+                    //    throw new Exception($"Original clicked point: {clickedPoint.X},{clickedPoint.Y}\nNormalized point: {actualClickedPoint.X},{actualClickedPoint.Y}\n");
+                    //}
+                    if (vm.Points[0] == null)
+                    {
+                        vm.Points[0] = clickedPoint;
+                        (App.Current.MainWindow.DataContext as MainWindowViewModel).UpdateDescriptor();
+                    }
+                    else if (vm.Points[1] == null)
+                    {
+                        vm.Points[1] = clickedPoint;
+                        (App.Current.MainWindow.DataContext as MainWindowViewModel).UpdateDescriptor();
+                        // Both points are selected, draw line
+                        DrawLine((Point)vm.Points[0], (Point)vm.Points[1]);
+                    }
+
+                    DrawHighlight(clickedPoint);
+
+                    //profileLineButton.Background = Brushes.DarkGray;
                 }
-
-                Point clickedPoint = e.GetPosition(image);
-                //var window = App.Current.Windows.OfType<NewImageWindow>().FirstOrDefault(x => x.DataContext == this);
-                //double scaleX = imageControl.ActualWidth / imageControl.Source.Width;
-                //double scaleY = imageControl.ActualHeight / imageControl.Source.Height;
-                //Point actualClickedPoint = new Point(clickedPoint.X / scaleX, clickedPoint.Y / scaleY);
-                //if (clickedPoint.X != actualClickedPoint.X || clickedPoint.Y != actualClickedPoint.Y)
-                //{
-                //    throw new Exception($"Original clicked point: {clickedPoint.X},{clickedPoint.Y}\nNormalized point: {actualClickedPoint.X},{actualClickedPoint.Y}\n");
-                //}
-                if (vm.Points[0] == null)
+                else if ((App.Current.MainWindow.DataContext as MainWindowViewModel).SelectedButton != null && (App.Current.MainWindow.DataContext as MainWindowViewModel).SelectedButton.Name == Constants.RadioBtnRectangle)
                 {
-                    vm.Points[0] = clickedPoint;
-                    (App.Current.MainWindow.DataContext as MainWindowViewModel).UpdateDescriptor();
-                }
-                else if (vm.Points[1] == null)
-                {
-                    vm.Points[1] = clickedPoint;
-                    (App.Current.MainWindow.DataContext as MainWindowViewModel).UpdateDescriptor();
-                    // Both points are selected, draw line
-                    DrawLine((Point)vm.Points[0], (Point)vm.Points[1]);
-                }
+                    var vm = (this.DataContext as NewImageWindowViewModel);
 
-                DrawHighlight(clickedPoint);
+                    if (vm.Points[0] != null && vm.Points[1] != null)
+                    {
+                        // Reset points if two points are already selected
+                        vm.Points[0] = null;
+                        vm.Points[1] = null;
 
-                //profileLineButton.Background = Brushes.DarkGray;
+                        // Clear previous highlights and lines
+                        highlightCanvas.Children.Clear();
+                    }
+
+                    Point clickedPoint = e.GetPosition(image);
+
+                    if (vm.Points[0] == null)
+                    {
+                        vm.Points[0] = clickedPoint;
+                        (App.Current.MainWindow.DataContext as MainWindowViewModel).UpdateDescriptor();
+                    }
+                    else if (vm.Points[1] == null)
+                    {
+                        vm.Points[1] = clickedPoint;
+                        (App.Current.MainWindow.DataContext as MainWindowViewModel).UpdateDescriptor();
+                        // Both points are selected, draw line
+                        DrawRectangle((Point)vm.Points[0], (Point)vm.Points[1]);
+                    }
+                    DrawHighlight(clickedPoint);
+                }
             }
+        }
+
+        private void DrawRectangle(Point startPoint, Point endPoint)
+        {
+            // Calculate the width and height of the rectangle
+            double width = Math.Abs(endPoint.X - startPoint.X);
+            double height = Math.Abs(endPoint.Y - startPoint.Y);
+
+            // Determine the top-left corner coordinates of the rectangle
+            double x = Math.Min(startPoint.X, endPoint.X);
+            double y = Math.Min(startPoint.Y, endPoint.Y);
+
+            Rectangle rectangle = new Rectangle()
+            {
+                Width = width,
+                Height = height,
+                Stroke = Brushes.Black, // Set the stroke color
+                StrokeThickness = 2,   // Set the thickness of the stroke
+                Fill = Brushes.Transparent, // Set the fill color (or use Brushes.Transparent for no fill)
+                Margin = new Thickness(x, y, 0, 0) // Set the margin to position the rectangle
+            };
+
+            // Add the rectangle to the canvas or any other container
+            highlightCanvas.Children.Add(rectangle);
         }
 
         private void DrawHighlight(Point point)

@@ -37,6 +37,7 @@
 					<MenuItem x:Name="ConvertRgbToHsv" Header="{x:Static resx:Strings.RgbToHsv}" Command="{Binding ConvertRgbToHsv_ClickCommand}"/>
 					<MenuItem x:Name="ConvertRgbToLab" Header="{x:Static resx:Strings.RgbToLab}" Command="{Binding ConvertRgbToLab_ClickCommand}"/>
 				</MenuItem>
+				<Separator/>
 				<MenuItem x:Name="Negate" Header="{x:Static resx:Strings.Negate}" Command="{Binding Negate_ClickCommand}"/>
 				<Separator/>
 				<MenuItem x:Name="ShowHistogram" Header="{x:Static resx:Strings.ShowHistogram}" Command="{Binding ShowHistogram_ClickCommand}"/>
@@ -53,7 +54,7 @@
 				<MenuItem Header="{x:Static resx:Strings.Filters}">
 					<MenuItem Header="{x:Static resx:Strings.Convolve}" Command="{Binding Convolve_ClickCommand}"/>
 					<MenuItem Header="{x:Static resx:Strings.Median}" Command="{Binding Median_ClickCommand}"/>
-					<MenuItem Header="double convolve" Command="{Binding DoubleConvolve_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.DoubleConvolve}" Command="{Binding DoubleConvolve_ClickCommand}"/>
 				</MenuItem>
 				<MenuItem Header="{x:Static resx:Strings.ImageCalculator}" Command="{Binding ImageCalculator_ClickCommand}"/>
 			</MenuItem>
@@ -64,31 +65,32 @@
 					<MenuItem Header="{x:Static resx:Strings.MorphologicalOpen}" Command="{Binding MorphologicalOpen_ClickCommand}"/>
 					<MenuItem Header="{x:Static resx:Strings.MorphologicalClose}" Command="{Binding MorphologicalClose_ClickCommand}"/>
 				</MenuItem>
-				<MenuItem Header="Skeletonize" Command="{Binding Skeletonize_ClickCommand}"/>
-				<MenuItem Header="Hough" Command="{Binding Hough_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.Skeletonize}" Command="{Binding Skeletonize_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.EdgeDetection_Hough}" Command="{Binding Hough_ClickCommand}"/>
 				<Separator/>
-				<MenuItem Header="Plot Profile" Command="{Binding PlotProfile_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.PlotProfile}" Command="{Binding PlotProfile_ClickCommand}"/>
 				<Separator/>
-				<MenuItem Header="Pyramid Up" Command="{Binding PyramidUp_ClickCommand}"/>
-				<MenuItem Header="Pyramid Down" Command="{Binding PyramidDown_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.PyramidUp}" Command="{Binding PyramidUp_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.PyramidDown}" Command="{Binding PyramidDown_ClickCommand}"/>
 			</MenuItem>
 			<MenuItem Header="Lab4">
-				<MenuItem Header="Thresholding" Command="{Binding SimpleThreshold_ClickCommand}"/>
-				<MenuItem Header="Watershed" Command="{Binding Watershed_ClickCommand}"/>
-				<MenuItem Header="Inpaint" Command="{Binding Inpaint_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.Thresholding}" Command="{Binding SimpleThreshold_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.Watershed}" Command="{Binding Watershed_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.Inpaint}" Command="{Binding Inpaint_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.GrabCut}" Command="{Binding GrabCut_ClickCommand}"/>
 			</MenuItem>
 			<MenuItem Header="{x:Static resx:Strings.Settings}"/>
 			<MenuItem x:Name="Help" Header="{x:Static resx:Strings.Help}">
 				<MenuItem x:Name="About" Header="{x:Static resx:Strings.About}" Click="About_Click"/>
 			</MenuItem>
-			<MenuItem Header="Projekt">
+			<MenuItem Header="{x:Static resx:Project.ProjectStr}">
 				<MenuItem Header="Threshold" Command="{Binding Threshold_ClickCommand}"/>
 				<MenuItem Header="Simple Analyze" Command="{Binding SimpleAnalyze_ClickCommand}"/>
 				<MenuItem Header="Analyze" Command="{Binding Analyze_ClickCommand}"/>
 			</MenuItem>
 		</Menu>
-		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" HorizontalAlignment="Center" Margin="0,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto"/>
-		<ToolBar HorizontalAlignment="Left" Height="36" Margin="0,0,0,0" VerticalAlignment="Top" Width="300" Grid.Row="1">
+		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" HorizontalAlignment="Center" Margin="100,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto"/>
+		<ToolBar HorizontalAlignment="Left" Height="36" Margin="-3,0,0,0" VerticalAlignment="Top" Width="300" Grid.Row="1" ToolBarTray.IsLocked="True">
 			<RadioButton x:Name="RadioBtnNone" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
 					<ImageBrush ImageSource="/Resources/NoneIcon.ico"/>
