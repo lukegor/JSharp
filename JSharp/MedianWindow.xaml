@@ -8,7 +8,7 @@
 		xmlns:viewModels="clr-namespace:JSharp.ViewModels"
         xmlns:converters="clr-namespace:JSharp.Converters"
 		mc:Ignorable="d"
-        Title="MedianWindow" Height="155" Width="270">
+        Title="MedianWindow" Height="155" Width="290">
 
 	<Window.Resources>
 		<ObjectDataProvider x:Key="FilteredLocalizedBorderTypesProvider"
@@ -19,7 +19,7 @@
 	</Window.Resources>
 
 	<Grid>
-		<Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0">
+		<Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5,20,5,0">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>

@@ -78,8 +78,9 @@
 				<MenuItem Header="{x:Static resx:Strings.Watershed}" Command="{Binding Watershed_ClickCommand}"/>
 				<MenuItem Header="{x:Static resx:Strings.Inpaint}" Command="{Binding Inpaint_ClickCommand}"/>
 				<MenuItem Header="{x:Static resx:Strings.GrabCut}" Command="{Binding GrabCut_ClickCommand}"/>
+				<MenuItem Header="Analyze" Command="{Binding DetailedAnalyze_ClickCommand}"/>
 			</MenuItem>
-			<MenuItem Header="{x:Static resx:Strings.Settings}"/>
+			<!--<MenuItem Header="{x:Static resx:Strings.Settings}"/>-->
 			<MenuItem x:Name="Help" Header="{x:Static resx:Strings.Help}">
 				<MenuItem x:Name="About" Header="{x:Static resx:Strings.About}" Click="About_Click"/>
 			</MenuItem>

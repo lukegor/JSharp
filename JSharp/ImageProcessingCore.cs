@@ -611,14 +611,65 @@ namespace JSharp
             return image;
         }
 
-        public static Mat AnalyseImage(Mat image, RetrType retrType, ChainApproxMethod chainApproxMethod)
+        public static VectorOfVectorOfPoint AnalyseImage(Mat image, RetrType retrType, ChainApproxMethod chainApproxMethod)
         {
-            Mat contours = new Mat();
+            VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
             Mat hierarchy = new Mat();
             CvInvoke.FindContours(image, contours, hierarchy, RetrType.List, ChainApproxMethod.ChainApproxNone);
 
             return contours;
         }
+
+        //public static (double[,] moments, double[] area, double[] perimeter, double[] aspectRatio, double[] extent) AnalyzeContours(VectorOfVectorOfPoint contours)
+        //{
+        //    // Initialize lists to store features
+        //    List<double[]> momentsList = new List<double[]>();
+        //    List<double> areaList = new List<double>();
+        //    List<double> perimeterList = new List<double>();
+        //    List<double> aspectRatioList = new List<double>();
+        //    List<double> extentList = new List<double>();
+
+        //    foreach (var contour in contours.ToArrayOfArray())
+        //    {
+        //        // Moments
+        //        Moments m = CvInvoke.Moments(contour);
+
+        //        // Calculate Hu moments from central moments
+        //        //double[] huMoments = new double[7];
+        //        //CvInvoke.HuMoments(m, huMoments);
+
+        //        // Store Hu moments
+        //        //momentsList.Add(huMoments);
+
+        //        // Area and perimeter
+        //        double area = CvInvoke.ContourArea(contour as VectorOfPoint);
+        //        double perimeter = CvInvoke.ArcLength(contour, true);
+
+        //        areaList.Add(area);
+        //        perimeterList.Add(perimeter);
+
+        //        // Bounding box
+        //        Rectangle boundingBox = CvInvoke.BoundingRectangle(contour);
+        //        double boundingBoxArea = boundingBox.Width * boundingBox.Height;
+
+        //        // Aspect ratio
+        //        double aspectRatio = boundingBox.Width / (double)boundingBox.Height;
+        //        aspectRatioList.Add(aspectRatio);
+
+        //        // Extent
+        //        double extent = area / boundingBoxArea;
+        //        extentList.Add(extent);
+        //    }
+
+            // Convert lists to arrays
+        //    double[,] moments = momentsList.ToArray();
+        //    double[] area = areaList.ToArray();
+        //    double[] perimeter = perimeterList.ToArray();
+        //    double[] aspectRatio = aspectRatioList.ToArray();
+        //    double[] extent = extentList.ToArray();
+
+        //    return (moments, area, perimeter, aspectRatio, extent);
+        //}
 
         public static int CountObjectsInImage(Mat image)
         {

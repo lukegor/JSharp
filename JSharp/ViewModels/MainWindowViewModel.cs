@@ -100,6 +100,7 @@ namespace JSharp.ViewModels
         public DelegateCommand Watershed_ClickCommand { get; }
         public DelegateCommand Inpaint_ClickCommand { get; }
         public DelegateCommand GrabCut_ClickCommand { get; }
+        public DelegateCommand DetailedAnalyze_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -142,6 +143,7 @@ namespace JSharp.ViewModels
             Watershed_ClickCommand = new DelegateCommand(Watershed_Click);
             Inpaint_ClickCommand = new DelegateCommand(Inpaint_Click);
             GrabCut_ClickCommand = new DelegateCommand(GrabCut_Click);
+            DetailedAnalyze_ClickCommand = new DelegateCommand(DetailedAnalyze_Click);
             #endregion
         }
 
@@ -1128,6 +1130,20 @@ namespace JSharp.ViewModels
 
             Mat image = ImageProcessingCore.GrabCut(FocusedImage.MatImage, new System.Drawing.Rectangle(x, y, width, height));
             FocusedImage.UpdateImageSource(image);
+        }
+
+        private void DetailedAnalyze_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var data = ImageProcessingCore.AnalyseImage(FocusedImage.MatImage, RetrType.List, ChainApproxMethod.ChainApproxNone);
+            double[,] moments; double[] area; double[] perimeter; double[] aspectRatio; double[] extent;
+
+            //(moments, area, perimeter, aspectRatio, extent) = ImageProcessingCore.AnalyzeContours(data);
         }
     }
 }
