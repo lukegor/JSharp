@@ -3,9 +3,11 @@
 ## Technologies
 [<img align="left" alt="Csharp" width="36px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" style="padding-right:10px;"/>][csharp]
 [<img align="left" alt="dotnet" width="36px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Microsoft_.NET_logo.svg/2048px-Microsoft_.NET_logo.svg.png" style="padding-right:10px;"/>][dotnet]
+[<img align="left" alt="wpf" width="36px" src="https://dotnetexpertshome.files.wordpress.com/2019/07/wpf.png" style="padding-right:10px;"/>][wpf]
 
 [csharp]: https://en.wikipedia.org/wiki/C_Sharp_(programming_language)
 [dotnet]: https://en.wikipedia.org/wiki/.NET
+[wpf]: https://en.wikipedia.org/wiki/Windows_Presentation_Foundation
 
 <br>
 
