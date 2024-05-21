@@ -11,6 +11,12 @@ namespace JSharp.Utility
 {
     public static class ImageProcessingUtility
     {
+        /// <summary>
+        /// Determines the color space based on the number of channels.
+        /// </summary>
+        /// <param name="NumberOfChannels">The number of channels in the image.</param>
+        /// <returns>The detected color space.</returns>
+        /// <exception cref="NotImplementedException"></exception>
         public static ColorSpaceType OnLoadingDetermineColorspace(int NumberOfChannels)
         {
             return NumberOfChannels switch
@@ -21,6 +27,12 @@ namespace JSharp.Utility
             };
         }
 
+        /// <summary>
+        /// Gets the corresponding element shape for the given shape type.
+        /// </summary>
+        /// <param name="shapeType">The type of shape.</param>
+        /// <returns>The corresponding element shape.</returns>
+        /// <exception cref="NotImplementedException"></exception>
         public static ElementShape GetStructuringElementType(ShapeType shapeType)
         {
             return shapeType switch
@@ -31,6 +43,13 @@ namespace JSharp.Utility
             };
         }
 
+        /// <summary>
+        /// Calculates the percentage of pixels within the specified threshold range in the image.
+        /// </summary>
+        /// <param name="image">The input image.</param>
+        /// <param name="minThreshold">The minimum threshold value.</param>
+        /// <param name="maxThreshold">The maximum threshold value.</param>
+        /// <returns>The percentage of selected pixels.</returns>
         public static double GetSelectedPixelPercentage(Mat image, int minThreshold, int maxThreshold)
         {
             int totalPixels = image.Rows * image.Cols;
@@ -59,11 +78,11 @@ namespace JSharp.Utility
         }
 
         /// <summary>
-        /// Calculates Euclidean distance between 2 System.Windows.Point's
+        /// Calculates the Euclidean distance between two System.Windows.Point instances.
         /// </summary>
         /// <param name="point1"></param>
         /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <returns>The Euclidean distance between the two points.</returns>
         public static double GetDistance(System.Windows.Point point1, System.Windows.Point point2)
         {
             double dx = point2.X - point1.X;

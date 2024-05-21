@@ -25,6 +25,13 @@ namespace JSharp
 {
     public static class ImageProcessingCore
     {
+        /// <summary>
+        /// Converts an RGB image to a specified color space.
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="targetColorSpace"></param>
+        /// <returns>The converted image in the target color space.</returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public static Mat ConvertRgb(Mat image, ColorSpaceType targetColorSpace)
         {
             Mat convertedImage = new Mat();
@@ -47,6 +54,11 @@ namespace JSharp
             return convertedImage;
         }
 
+        /// <summary>
+        /// Negates a grayscale image by inverting its pixel values.
+        /// </summary>
+        /// <param name="image">The input grayscale image.</param>
+        /// <returns>The negated grayscale image.</returns>
         public static Mat Negate(Mat image)
         {
             Image<Gray, byte> gray = image.ToImage<Gray, byte>();
@@ -69,6 +81,11 @@ namespace JSharp
             return gray.Mat;
         }
 
+        /// <summary>
+        /// Splits an RGB image into its three separate channels.
+        /// </summary>
+        /// <param name="rgbMat">The input RGB image.</param>
+        /// <returns>A vector of matrices containing the separate channels.</returns>
         public static VectorOfMat SplitChannels(Mat rgbMat)
         {
             VectorOfMat channels = new VectorOfMat();
@@ -76,6 +93,11 @@ namespace JSharp
             return channels;
         }
 
+        /// <summary>
+        /// Calculates the histogram values for a grayscale image.
+        /// </summary>
+        /// <param name="image">The input grayscale image.</param>
+        /// <returns>A tuple containing the histogram data and the total pixel count.</returns>
         public static (int[] histogramData, int pixelCount) CalculateHistogramValues(Mat image)
         {
             int[] histogramData = new int[256];
@@ -96,12 +118,22 @@ namespace JSharp
             return (histogramData, sum);
         }
 
+        /// <summary>
+        /// Gets the minimum and maximum pixel values in an image.
+        /// </summary>
+        /// <param name="image">The input image.</param>
+        /// <returns>A tuple containing the minimum and maximum pixel values.</returns>
         private static (int min, int max) GetMinMaxPixelValuesInImage(Mat image)
         {
             CvInvoke.MinMaxIdx(image, out double min, out double max, null, null);
             return (Convert.ToInt32(min), Convert.ToInt32(max));
         }
 
+        /// <summary>
+        /// Stretches the histogram of a grayscale image.
+        /// </summary>
+        /// <param name="image">The input grayscale image.</param>
+        /// <returns>The image with stretched histogram.</returns>
         public static Mat StretchHistogram(Mat image)
         {
             CvInvoke.MinMaxIdx(image, out double min, out double max, null, null);
@@ -110,14 +142,14 @@ namespace JSharp
         }
 
         /// <summary>
-        ///
+        /// Stretches the contrast of an image within specified brightness bounds.
         /// </summary>
         /// <param name="image"></param>
         /// <param name="p1">The lower bound of brightness within which contrast stretching will be applied</param>
         /// <param name="p2">The upper bound of brightness within which contrast stretching will be applied</param>
         /// <param name="q3">The lower bound of brightness into which stretching will be applied</param>
         /// <param name="q4">The upper bound of brightness into which stretching will be applied</param>
-        /// <returns></returns>
+        /// <returns>The image with stretched contrast.</returns>
         public static Mat StretchContrast(Mat image, int p1, int p2, int q3, int q4)
         {
             IntPtr dataPtr = image.DataPointer;
@@ -164,43 +196,12 @@ namespace JSharp
             return image;
         }
 
-        //public static Mat EqualizeHistogram(Mat image, List<object> histogramData)
-        //{
-        //    int[] cdf = new int[256];
-        //    int sum = 0;
-
-        //    // Calculate cumulative distribution function (CDF)
-        //    foreach (var data in histogramData)
-        //    {
-        //        int pixelCount = (int)data.GetType().GetProperty("PixelCount").GetValue(data);
-        //        sum += pixelCount;
-        //        int lightnessLevel = (int)data.GetType().GetProperty("LightnessLevel").GetValue(data);
-        //        cdf[lightnessLevel] = sum;
-        //    }
-
-        //    // Normalize CDF
-        //    double[] cdfNormalized = new double[256];
-        //    for (int i = 0; i < 256; i++)
-        //    {
-        //        cdfNormalized[i] = (double)cdf[i] / sum * 255;
-        //    }
-
-        //    // Map intensity values using normalized CDF
-        //    Mat outputImage = new Mat(image.Size, image.Depth, image.NumberOfChannels);
-        //    for (int y = 0; y < image.Rows; ++y)
-        //    {
-        //        for (int x = 0; x < image.Cols; ++x)
-        //        {
-        //            IntPtr dataPtr = image.GetDataPointer(y, x);
-        //            byte pixelValue = Marshal.ReadByte(dataPtr);
-        //            byte newIntensity = (byte)cdfNormalized[pixelValue];
-        //            Marshal.WriteByte(dataPtr, newIntensity);
-        //        }
-        //    }
-
-        //    return outputImage;
-        //}
-
+        /// <summary>
+        /// Equalizes the histogram of a grayscale image.
+        /// </summary>
+        /// <param name="image">The input grayscale image.</param>
+        /// <param name="histogramData">The histogram data of the image.</param>
+        /// <returns>The image with equalized histogram.</returns>
         public static Mat EqualizeHistogram(Mat image, List<object> histogramData)
         {
             int total = image.Width * image.Height;
@@ -238,6 +239,12 @@ namespace JSharp
             return equalizedImage;
         }
 
+        /// <summary>
+        /// Posterizes a grayscale image by reducing the number of intensity levels.
+        /// </summary>
+        /// <param name="image">The input grayscale image.</param>
+        /// <param name="levels">The number of intensity levels to reduce to.</param>
+        /// <returns>The posterized image.</returns>
         public static Mat Posterize(Mat image, int levels)
         {
             Mat posterizedImage = image.Clone();
@@ -261,6 +268,13 @@ namespace JSharp
             return posterizedImage;
         }
 
+        /// <summary>
+        /// Applies a blur filter to an image.
+        /// </summary>
+        /// <param name="inputImage">The input image.</param>
+        /// <param name="borderType">The border type for handling image borders.</param>
+        /// <param name="kernelSize">The size of the kernel to use for blurring.</param>
+        /// <returns>The blurred image.</returns>
         public static Mat ApplyBlur(Mat inputImage, BorderType borderType, int kernelSize = 3)
         {
             Mat result = new Mat();
@@ -268,6 +282,15 @@ namespace JSharp
             return result;
         }
 
+        /// <summary>
+        /// Applies a Gaussian blur filter to an image.
+        /// </summary>
+        /// <param name="inputImage">The input image.</param>
+        /// <param name="borderType">The border type for handling image borders.</param>
+        /// <param name="sigmaX">The Gaussian kernel standard deviation in the X direction.</param>
+        /// <param name="sigmaY">The Gaussian kernel standard deviation in the Y direction.</param>
+        /// <param name="kernelSize">The size of the kernel to use for blurring.</param>
+        /// <returns>The blurred image.</returns>
         public static Mat ApplyGaussianBlur(Mat inputImage, BorderType borderType, double sigmaX, double sigmaY, int kernelSize = 3)
         {
             Mat result = new Mat();
@@ -360,84 +383,22 @@ namespace JSharp
             return filteredImage2;
         }
 
+        /// <summary>
+        /// Applies a median filter to a grayscale image.
+        /// </summary>
+        /// <param name="inputGrayImage">The input grayscale image.</param>
+        /// <param name="kernelSize">The size of the median filter kernel.</param>
+        /// <param name="borderType">The border type for handling image borders.</param>
+        /// <returns>The image after applying the median filter.</returns>
         public static Mat ApplyMedianFilter(Mat inputGrayImage, int kernelSize, BorderType borderType)
         {
             Mat result = new Mat(inputGrayImage.Size, DepthType.Cv8U, Constants.Grayscale_ChannelCount);
             Mat paddedImage = new Mat();
 
-            int padding = kernelSize / 2;
-
-            CvInvoke.CopyMakeBorder(inputGrayImage, paddedImage, padding, padding, padding, padding, borderType, new MCvScalar());
             CvInvoke.MedianBlur(paddedImage, result, kernelSize);
-            //int height = paddedImage.Height;
-            //int width = paddedImage.Width;
-            //int paddedStep = paddedImage.Step;
-            //int resultStep = result.Step;
-
-            //for (int y = padding; y < height - padding; y++)
-            //{
-            //    for (int x = padding; x < width - padding; x++)
-            //    {
-            //        List<byte> values = new List<byte>();
-
-            //        for (int i = -padding; i <= padding; i++)
-            //        {
-            //            for (int j = -padding; j <= padding; j++)
-            //            {
-            //                IntPtr pixelPtr = paddedImage.DataPointer + (y + i) * paddedStep + (x + j) * paddedImage.ElementSize;
-            //                byte pixelValue = Marshal.ReadByte(pixelPtr);
-            //                values.Add(pixelValue);
-            //            }
-            //        }
-
-            //        values.Sort();
-            //        byte medianValue = values[values.Count / 2];
-
-            //        IntPtr outputPtr = result.DataPointer + (y - padding) * resultStep + (x - padding) * result.ElementSize;
-            //        Marshal.WriteByte(outputPtr, medianValue);
-            //    }
-            //}
 
             return result;
         }
-
-        //public static Mat Add(Mat image1, Mat image2, PixelOverflowHandlingType overflowHandling, double weight = 1.0)
-        //{
-        //    Mat resultMat = new Mat(image1.Rows, image1.Cols, image1.Depth, image1.NumberOfChannels);
-
-        //    IntPtr ptr1 = image1.DataPointer;
-        //    IntPtr ptr2 = image2.DataPointer;
-        //    IntPtr resultPtr = resultMat.DataPointer;
-
-        //    for (int y = 0; y < image1.Rows; y++)
-        //    {
-        //        for (int x = 0; x < image1.Cols; x++)
-        //        {
-        //            int offset1 = y * image1.Step + x;
-        //            int offset2 = y * image2.Step + x;
-        //            int resultOffset = y * resultMat.Step + x;
-
-        //            IntPtr currentPtr1 = IntPtr.Add(ptr1, offset1);
-        //            IntPtr currentPtr2 = IntPtr.Add(ptr2, offset2);
-        //            IntPtr currentResultPtr = IntPtr.Add(resultPtr, resultOffset);
-
-        //            byte pixel1 = Marshal.ReadByte(currentPtr1);
-        //            byte pixel2 = Marshal.ReadByte(currentPtr2);
-        //            byte newPixel = overflowHandling switch
-        //            {
-        //                PixelOverflowHandlingType.None_Clipping => (byte)Math.Min(255, pixel1 + pixel2),
-        //                PixelOverflowHandlingType.Weights => (byte)Math.Min(255, pixel1 + weight * pixel2),
-        //                PixelOverflowHandlingType.Modulo => (byte)((pixel1 + pixel2) % 256),
-        //                PixelOverflowHandlingType.LinearScaling => (byte)((pixel1 + pixel2) / 2),
-        //                PixelOverflowHandlingType.AdaptiveScaling => CalculateAdaptiveScaling(pixel1, pixel2),
-        //                _ => throw new ArgumentException("Invalid overflow handling option."),
-        //            };
-        //            Marshal.WriteByte(currentResultPtr, newPixel);
-        //        }
-        //    }
-
-        //    return resultMat;
-        //}
 
         public static Mat Add(Mat image1, Mat image2)
         {
@@ -462,6 +423,12 @@ namespace JSharp
             return resultMat;
         }
 
+        /// <summary>
+        /// Performs a bitwise AND operation between two images.
+        /// </summary>
+        /// <param name="image1">The first input image.</param>
+        /// <param name="image2">The second input image.</param>
+        /// <returns>The result of the bitwise AND operation.</returns>
         public static Mat BitwiseAnd(Mat image1, Mat image2)
         {
             Mat result = new Mat();
@@ -469,6 +436,12 @@ namespace JSharp
             return result;
         }
 
+        /// <summary>
+        /// Performs a bitwise OR operation between two images.
+        /// </summary>
+        /// <param name="image1">The first input image.</param>
+        /// <param name="image2">The second input image.</param>
+        /// <returns>The result of the bitwise OR operation.</returns>
         public static Mat BitwiseOr(Mat image1, Mat image2)
         {
             Mat result = new Mat();
@@ -476,6 +449,11 @@ namespace JSharp
             return result;
         }
 
+        /// <summary>
+        /// Performs a bitwise NOT operation on an image.
+        /// </summary>
+        /// <param name="image1">The input image.</param>
+        /// <returns>The result of the bitwise NOT operation.</returns>
         public static Mat BitwiseNot(Mat image1)
         {
             Mat result = new Mat();
@@ -483,6 +461,12 @@ namespace JSharp
             return result;
         }
 
+        /// <summary>
+        /// Performs a bitwise XOR operation between two images.
+        /// </summary>
+        /// <param name="image1">The first input image.</param>
+        /// <param name="image2">The second input image.</param>
+        /// <returns>The result of the bitwise XOR operation.</returns>
         public static Mat BitwiseXor(Mat image1, Mat image2)
         {
             Mat result = new Mat();
@@ -490,7 +474,14 @@ namespace JSharp
             return result;
         }
 
-        // Morphological erosion
+        /// <summary>
+        /// Applies morphological erosion to an image.
+        /// </summary>
+        /// <param name="image">The input image.</param>
+        /// <param name="element">The structuring element for erosion.</param>
+        /// <param name="borderType">The border type for handling image borders.</param>
+        /// <param name="borderValue">The value to use for pixels beyond the image boundaries.</param>
+        /// <returns>The image after applying morphological erosion.</returns>
         public static Mat Erode(Mat image, Mat element, BorderType borderType, MCvScalar borderValue)
         {
             Mat result = new Mat();
@@ -501,8 +492,8 @@ namespace JSharp
         /// <summary>
         /// Creates Rhombus structuring element
         /// </summary>
-        /// <param name="r">promień</param>
-        /// <returns></returns>
+        /// <param name="r">The radius of the diamond.</param>
+        /// <returns>The diamond-shaped structuring element.</returns>
         public static Mat Diamond(int r)
         {
             Mat diamond = new Mat(new Size(r * 2 + 1, r * 2 + 1), DepthType.Cv8U, 1);
@@ -521,7 +512,14 @@ namespace JSharp
             return diamond;
         }
 
-        // Morphological dilation
+        /// <summary>
+        /// Applies morphological dilation to an image.
+        /// </summary>
+        /// <param name="image">The input image.</param>
+        /// <param name="element">The structuring element for dilation.</param>
+        /// <param name="borderType">The border type for handling image borders.</param>
+        /// <param name="borderValue">The value to use for pixels beyond the image boundaries.</param>
+        /// <returns>The image after applying morphological dilation.</returns>
         public static Mat Dilate(Mat image, Mat element, BorderType borderType, MCvScalar borderValue)
         {
             Mat result = new Mat();
@@ -529,7 +527,14 @@ namespace JSharp
             return result;
         }
 
-        // Morphological opening
+        /// <summary>
+        /// Performs morphological opening on an image.
+        /// </summary>
+        /// <param name="image">The input image.</param>
+        /// <param name="element">The structuring element for the morphological operation.</param>
+        /// <param name="borderType">Type of border to add.</param>
+        /// <param name="borderValue">Value used in case of a constant border.</param>
+        /// <returns>The result of morphological opening on the input image.</returns>
         public static Mat MorphologicalOpen(Mat image, Mat element, BorderType borderType, MCvScalar borderValue)
         {
             Mat result = new Mat();
@@ -537,7 +542,14 @@ namespace JSharp
             return result;
         }
 
-        // Morphological closing
+        /// <summary>
+        /// Performs morphological closing on an image.
+        /// </summary>
+        /// <param name="image">The input image.</param>
+        /// <param name="element">The structuring element for the morphological operation.</param>
+        /// <param name="borderType">Type of border to add.</param>
+        /// <param name="borderValue">Value used in case of a constant border.</param>
+        /// <returns>The result of morphological closing on the input image.</returns>
         public static Mat MorphologicalClose(Mat image, Mat element, BorderType borderType, MCvScalar borderValue)
         {
             Mat result = new Mat();
@@ -545,6 +557,13 @@ namespace JSharp
             return result;
         }
 
+        /// <summary>
+        /// Applies simple thresholding to the input image.
+        /// </summary>
+        /// <param name="image">The input image.</param>
+        /// <param name="threshold">The threshold value.</param>
+        /// <param name="thresholdingMethod">The method of thresholding to apply.</param>
+        /// <returns>The result of thresholding applied to the input image.</returns>
         public static Mat SimpleThreshold(Mat image, int threshold, SimpleThresholdingMethod thresholdingMethod)
         {
             Mat result = new Mat();
@@ -570,6 +589,14 @@ namespace JSharp
             return result;
         }
 
+        /// <summary>
+        /// Applies thresholding to the input image based on given thresholds and mode.
+        /// </summary>
+        /// <param name="image">The input image.</param>
+        /// <param name="minThreshold">The minimum threshold value.</param>
+        /// <param name="maxThreshold">The maximum threshold value.</param>
+        /// <param name="mode">The mode of thresholding to apply.</param>
+        /// <returns>The result of thresholding applied to the input image.</returns>
         public static Mat Threshold(Mat image, int minThreshold, int maxThreshold, ThresholdingType mode)
         {
             IntPtr imageDataPtr = image.DataPointer;
@@ -611,6 +638,13 @@ namespace JSharp
             return image;
         }
 
+        /// <summary>
+        /// Analyzes the input image and detects contours.
+        /// </summary>
+        /// <param name="image">The input image.</param>
+        /// <param name="retrType">The retrieval mode.</param>
+        /// <param name="chainApproxMethod">The method for approximating contour chains.</param>
+        /// <returns>A vector of vector of points representing contours found in the image.</returns>
         public static VectorOfVectorOfPoint AnalyseImage(Mat image, RetrType retrType, ChainApproxMethod chainApproxMethod)
         {
             VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
@@ -712,6 +746,11 @@ namespace JSharp
             return countInRange;
         }
 
+        /// <summary>
+        /// Detects lines in the input image using the probabilistic Hough transform.
+        /// </summary>
+        /// <param name="image">The input image.</param>
+        /// <returns>An image with detected lines drawn on it.</returns>
         public static Mat Hough(Mat image)
         {
             Mat img = image.Clone();
@@ -737,6 +776,11 @@ namespace JSharp
             return image;
         }
 
+        /// <summary>
+        /// Skeletonize the input binary image using the Zhang-Suen algorithm.
+        /// </summary>
+        /// <param name="inputMat">The input binary image to be skeletonized.</param>
+        /// <returns>The skeletonized binary image.</returns>
         public static Mat Skeletonize(Mat inputMat)
         {
             // Krok 1: Utworzenie pustego obrazu do przechowania szkieletu
@@ -846,6 +890,12 @@ namespace JSharp
             return nLabels;
         }
 
+        /// <summary>
+        /// Perform inpainting on the input image using the provided mask.
+        /// </summary>
+        /// <param name="image">The input image.</param>
+        /// <param name="mask">The mask specifying the areas to be inpainted.</param>
+        /// <returns>The inpainted image.</returns>
         public static Mat Inpainting(Mat image, Mat mask)
         {
             Mat result = new Mat(image.Size, image.Depth, image.NumberOfChannels);

@@ -123,9 +123,6 @@
   <data name="ThresholdingInverse" xml:space="preserve">
     <value>Odwrotne</value>
   </data>
-  <data name="ThresholdingNegated" xml:space="preserve">
-    <value>Zanegowane</value>
-  </data>
   <data name="ThresholdingPreservingGrayscaleLevels" xml:space="preserve">
     <value>Z zachowaniem poziomów szarości</value>
   </data>

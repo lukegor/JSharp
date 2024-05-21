@@ -28,13 +28,17 @@ namespace JSharp
         }
 
         /// <summary>
-        /// Enable entering only numbers and like backspacing
+        /// Enable entering only numbers, minus '-', and like backspacing
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void KernelInputCell_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (!((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Delete))
+            System.Diagnostics.Debug.WriteLine(e.Key.ToString());
+            if (!((e.Key >= Key.D0 && e.Key <= Key.D9) ||
+                (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) ||
+                e.Key == Key.Back || e.Key == Key.Delete ||
+                e.Key == Key.Subtract || e.Key == Key.OemMinus))
             {
                 e.Handled = true;
             }

@@ -11,7 +11,6 @@ namespace JSharp.Utility
     {
         Standard,
         Inverse,
-        Negated,
         PreservingGrayscaleLevelsIdentity,
         PreservingGrayscaleLevelsNegation
     }
@@ -22,7 +21,6 @@ namespace JSharp.Utility
         {
             { Project.ThresholdingStandard, ThresholdingType.Standard },
             { Project.ThresholdingInverse, ThresholdingType.Inverse },
-            { Project.ThresholdingNegated, ThresholdingType.Negated },
             { Project.ThresholdingPreservingGrayscaleLevels, ThresholdingType.PreservingGrayscaleLevelsIdentity },
             { Project.ThresholdingPreservingGrayscaleLevelsNegation, ThresholdingType.PreservingGrayscaleLevelsNegation }
         };

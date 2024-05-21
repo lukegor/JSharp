@@ -559,7 +559,6 @@ namespace JSharp.ViewModels
         {
             var validationManager = new ValidationManager();
             validationManager.AddValidator(new ImageFocusedValidator(FocusedImage));
-            validationManager.AddValidator(new HistogramOpenValidator(FocusedImage?.histogramWindowViewModel));
             validationManager.AddValidator(new ImageGrayScaleValidator(FocusedImage?.MatImage.NumberOfChannels));
 
             foreach (var errorMessage in validationManager.ValidateAll())
@@ -575,7 +574,6 @@ namespace JSharp.ViewModels
         {
             var validationManager = new ValidationManager();
             validationManager.AddValidator(new ImageFocusedValidator(FocusedImage));
-            validationManager.AddValidator(new HistogramOpenValidator(FocusedImage?.histogramWindowViewModel));
             validationManager.AddValidator(new ImageGrayScaleValidator(FocusedImage?.MatImage.NumberOfChannels));
 
             foreach (var errorMessage in validationManager.ValidateAll())
@@ -601,7 +599,6 @@ namespace JSharp.ViewModels
             var validationManager = new ValidationManager();
             validationManager.AddValidator(new ImageFocusedValidator(FocusedImage));
             validationManager.AddValidator(new ImageGrayScaleValidator(FocusedImage?.MatImage.NumberOfChannels));
-            validationManager.AddValidator(new HistogramOpenValidator(FocusedImage?.histogramWindowViewModel));
 
             foreach (var errorMessage in validationManager.ValidateAll())
             {

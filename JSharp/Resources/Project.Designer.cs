@@ -79,15 +79,6 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Negated.
-        /// </summary>
-        public static string ThresholdingNegated {
-            get {
-                return ResourceManager.GetString("ThresholdingNegated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Preserving Grayscale Levels.
         /// </summary>
         public static string ThresholdingPreservingGrayscaleLevels {
