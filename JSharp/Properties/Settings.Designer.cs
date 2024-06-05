@@ -22,5 +22,17 @@ namespace JSharp.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LanguageVersion {
+            get {
+                return ((string)(this["LanguageVersion"]));
+            }
+            set {
+                this["LanguageVersion"] = value;
+            }
+        }
     }
 }

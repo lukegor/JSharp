@@ -75,9 +75,9 @@
 			</MenuItem>
 			<MenuItem Header="Lab4">
 				<MenuItem Header="{x:Static resx:Strings.Thresholding}" Command="{Binding SimpleThreshold_ClickCommand}"/>
-				<MenuItem Header="{x:Static resx:Strings.Watershed}" Command="{Binding Watershed_ClickCommand}"/>
+				<!--<MenuItem Header="{x:Static resx:Strings.Watershed}" Command="{Binding Watershed_ClickCommand}"/>-->
 				<MenuItem Header="{x:Static resx:Strings.Inpaint}" Command="{Binding Inpaint_ClickCommand}"/>
-				<MenuItem Header="{x:Static resx:Strings.GrabCut}" Command="{Binding GrabCut_ClickCommand}"/>
+				<!--<MenuItem Header="{x:Static resx:Strings.GrabCut}" Command="{Binding GrabCut_ClickCommand}"/>-->
 				<MenuItem Header="Analyze" Command="{Binding DetailedAnalyze_ClickCommand}"/>
 			</MenuItem>
 			<!--<MenuItem Header="{x:Static resx:Strings.Settings}"/>-->

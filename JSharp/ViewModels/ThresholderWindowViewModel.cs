@@ -1,6 +1,7 @@
 ﻿using Emgu.CV;
 using Emgu.CV.Structure;
 using JSharp.Utility;
+using LiveChartsCore.Measure;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
@@ -125,6 +126,10 @@ namespace JSharp.ViewModels
             UpdatePercentage();
 
             Mat sizer = new Mat(new Size(256, 1000), image.Depth, image.NumberOfChannels);
+
+            // Set the background to black
+            sizer.SetTo(new MCvScalar(0, 0, 0));
+
             (int[] histogramData, int pixelCount) = ImageProcessingCore.CalculateHistogramValues(image);
             DrawHistogram(sizer, histogramData);
             MySource = sizer.MatToBitmapSource();
@@ -137,8 +142,8 @@ namespace JSharp.ViewModels
 
             // Define the histogram dimensions
             int histogramWidth = 256; // Fixed width
-            int histogramHeight = 1000; // Fixed height
-            int bottomOffset = 905; // Adjust this value to set the bottom offset
+            int histogramHeight = 256; // Fixed height
+            int bottomOffset = 159; // Adjust this value to set the bottom offset
 
             // Draw the histogram bars directly on the image
             for (int i = 0; i < histogramData.Length; i++)
@@ -180,6 +185,9 @@ namespace JSharp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Keeps upper slider's value below lower slider's value and vice-versa
+        /// </summary>
         private void AdjustSliderValues()
         {
             if (FromValue > ToValue)
