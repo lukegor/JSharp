@@ -607,7 +607,7 @@ namespace JSharp
                 // Read the pixel value at the current position
                 byte pixelValue = Marshal.ReadByte(imageDataPtr, i);
 
-                // Apply thresholding
+                // Apply thresholding with selected method
                 switch (mode)
                 {
                     case ThresholdingType.Standard:
@@ -618,7 +618,7 @@ namespace JSharp
                         break;
                     case ThresholdingType.PreservingGrayscaleLevelsIdentity:
                         if (!(pixelValue >= minThreshold && pixelValue <= maxThreshold))
-                            Marshal.WriteByte(imageDataPtr, i, 0); // Set pixel to black
+                            Marshal.WriteByte(imageDataPtr, i, 0);
                         break;
                     case ThresholdingType.PreservingGrayscaleLevelsNegation:
                         if (pixelValue >= minThreshold && pixelValue <= maxThreshold)
@@ -631,7 +631,7 @@ namespace JSharp
                         }
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException(nameof(mode), mode, "Invalid threshold mode.");
+                        throw new NotSupportedException($"Invalid threshold mode: {mode}");
                 }
             }
 
@@ -639,82 +639,25 @@ namespace JSharp
         }
 
         /// <summary>
-        /// Analyzes the input image and detects contours.
+        /// Counts the number of connected components (objects) in the given image.
         /// </summary>
-        /// <param name="image">The input image.</param>
-        /// <param name="retrType">The retrieval mode.</param>
-        /// <param name="chainApproxMethod">The method for approximating contour chains.</param>
-        /// <returns>A vector of vector of points representing contours found in the image.</returns>
-        public static VectorOfVectorOfPoint AnalyseImage(Mat image, RetrType retrType, ChainApproxMethod chainApproxMethod)
-        {
-            VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
-            Mat hierarchy = new Mat();
-            CvInvoke.FindContours(image, contours, hierarchy, RetrType.List, ChainApproxMethod.ChainApproxNone);
-
-            return contours;
-        }
-
-        //public static (double[,] moments, double[] area, double[] perimeter, double[] aspectRatio, double[] extent) AnalyzeContours(VectorOfVectorOfPoint contours)
-        //{
-        //    // Initialize lists to store features
-        //    List<double[]> momentsList = new List<double[]>();
-        //    List<double> areaList = new List<double>();
-        //    List<double> perimeterList = new List<double>();
-        //    List<double> aspectRatioList = new List<double>();
-        //    List<double> extentList = new List<double>();
-
-        //    foreach (var contour in contours.ToArrayOfArray())
-        //    {
-        //        // Moments
-        //        Moments m = CvInvoke.Moments(contour);
-
-        //        // Calculate Hu moments from central moments
-        //        //double[] huMoments = new double[7];
-        //        //CvInvoke.HuMoments(m, huMoments);
-
-        //        // Store Hu moments
-        //        //momentsList.Add(huMoments);
-
-        //        // Area and perimeter
-        //        double area = CvInvoke.ContourArea(contour as VectorOfPoint);
-        //        double perimeter = CvInvoke.ArcLength(contour, true);
-
-        //        areaList.Add(area);
-        //        perimeterList.Add(perimeter);
-
-        //        // Bounding box
-        //        Rectangle boundingBox = CvInvoke.BoundingRectangle(contour);
-        //        double boundingBoxArea = boundingBox.Width * boundingBox.Height;
-
-        //        // Aspect ratio
-        //        double aspectRatio = boundingBox.Width / (double)boundingBox.Height;
-        //        aspectRatioList.Add(aspectRatio);
-
-        //        // Extent
-        //        double extent = area / boundingBoxArea;
-        //        extentList.Add(extent);
-        //    }
-
-            // Convert lists to arrays
-        //    double[,] moments = momentsList.ToArray();
-        //    double[] area = areaList.ToArray();
-        //    double[] perimeter = perimeterList.ToArray();
-        //    double[] aspectRatio = aspectRatioList.ToArray();
-        //    double[] extent = extentList.ToArray();
-
-        //    return (moments, area, perimeter, aspectRatio, extent);
-        //}
-
+        /// <param name="image">The input image in which to count objects.</param>
+        /// <returns>The number of connected components (objects) in the image, excluding the background.</returns>
         public static int CountObjectsInImage(Mat image)
         {
             Mat labels = new Mat();
-            Mat stats = new Mat();
-            Mat centroids = new Mat();
-            int nLabels = CvInvoke.ConnectedComponentsWithStats(image, labels, stats, centroids);
+            int nLabels = CvInvoke.ConnectedComponents(image, labels);
 
-            return nLabels - 1;
+            return nLabels - 1; // number of objects excluding background
         }
 
+        /// <summary>
+        /// Counts the number of connected components (objects) in the given image that fulfill the specified criteria.
+        /// </summary>
+        /// <param name="image">The input image in which to count objects.</param>
+        /// <param name="minSize">The minimum size of the objects to count. If null, no minimum size is applied.</param>
+        /// <param name="maxSize">The maximum size of the objects to count. If null, no maximum size is applied.</param>
+        /// <returns>The number of connected components (objects) within the specified criteria, excluding the background.</returns>
         public static int CountObjectsInImage(Mat image, int? minSize, int? maxSize)
         {
             Mat labels = new Mat();
@@ -735,6 +678,8 @@ namespace JSharp
 
                 if (minSize.HasValue && objSize < minSize)
                     withinRange = false;
+                else if (maxSize.HasValue && objSize > maxSize)
+                    withinRange = false;
 
                 if (maxSize.HasValue && objSize > maxSize)
                     withinRange = false;
@@ -744,6 +689,22 @@ namespace JSharp
             }
 
             return countInRange;
+        }
+
+        /// <summary>
+        /// Analyzes the input image and detects contours.
+        /// </summary>
+        /// <param name="image">The input image.</param>
+        /// <param name="retrType">The retrieval mode.</param>
+        /// <param name="chainApproxMethod">The method for approximating contour chains.</param>
+        /// <returns>A vector of vector of points representing contours found in the image.</returns>
+        public static VectorOfVectorOfPoint AnalyseImage(Mat image, RetrType retrType, ChainApproxMethod chainApproxMethod)
+        {
+            VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
+            Mat hierarchy = new Mat();
+            CvInvoke.FindContours(image, contours, hierarchy, RetrType.List, ChainApproxMethod.ChainApproxNone);
+
+            return contours;
         }
 
         /// <summary>
@@ -941,86 +902,5 @@ namespace JSharp
 
             return image_segmented;
         }
-
-        public static (List<(char, int)>, int) RleEncode(string inputString)
-        {
-            int count = 1;
-            char prev = '\0'; // Initialize to null character
-            var list = new List<(char, int)>();
-
-            foreach (char character in inputString)
-            {
-                if (character != prev)
-                {
-                    if (prev != '\0')
-                    {
-                        var entry = (prev, count);
-                        list.Add(entry);
-                    }
-                    count = 1;
-                    prev = character;
-                }
-                else
-                {
-                    count++;
-                }
-            }
-
-            try
-            {
-                var entry = (prev, count);
-                list.Add(entry);
-                return (list, 0);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Exception encountered: {e.Message}");
-                return (null, 1);
-            }
-        }
-
-        //public static Mat CompressMat(Mat inputMat)
-        //{
-        //    // Convert Mat to string
-        //    string matAsString = MatToString(inputMat);
-
-        //    // Compress the string using RLE
-        //    (List<(char, int)>, int) compressedData = RleEncode(matAsString);
-
-        //    // Store the compressed data back into a Mat or any other suitable format
-        //    // For demonstration purposes, let's just store it as a string
-        //    string compressedString = CompressedDataToString(compressedData);
-
-        //    // Convert the compressed string back to a Mat if needed
-        //    Mat compressedMat = StringToMat(compressedString);
-
-        //    return compressedMat;
-        //}
-
-        //public static string MatToString(Mat inputMat)
-        //{
-        //    if (inputMat.NumberOfChannels != 1)
-        //        throw new ArgumentException("Input Mat must have a single channel (grayscale)");
-
-        //    if (inputMat.Depth != DepthType.Cv8U)
-        //        throw new ArgumentException("Input Mat depth must be 8-bit unsigned");
-
-        //    Image<Gray, byte> image = inputMat.ToImage<Gray, byte>();
-
-        //    StringBuilder stringBuilder = new StringBuilder();
-
-        //    // Assuming inputMat is a grayscale image
-        //    for (int row = 0; row < image.Rows; row++)
-        //    {
-        //        for (int col = 0; col < image.Cols; col++)
-        //        {
-        //            byte pixelValue = (byte)image[row, col].Intensity; // Grayscale pixel value
-        //            stringBuilder.Append(pixelValue.ToString() + " ");
-        //        }
-        //        stringBuilder.AppendLine(); // Move to the next row in the string
-        //    }
-
-        //    return stringBuilder.ToString();
-        //}
     }
 }

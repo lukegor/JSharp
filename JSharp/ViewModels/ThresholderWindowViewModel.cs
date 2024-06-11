@@ -19,6 +19,9 @@ namespace JSharp.ViewModels
     public class ThresholderWindowViewModel : BindableBase
     {
         private int _fromValue;
+        /// <summary>
+        /// The starting value of the threshold range.
+        /// </summary>
         public int FromValue
         {
             get { return _fromValue; }
@@ -32,6 +35,9 @@ namespace JSharp.ViewModels
         }
 
         private int _toValue;
+        /// <summary>
+        /// The ending value of the threshold range.
+        /// </summary>
         public int ToValue
         {
             get { return _toValue; }
@@ -73,6 +79,12 @@ namespace JSharp.ViewModels
         #endregion
 
         private string _selectedPixelPercentage;
+        /// <summary>
+        /// The percentage of pixels in the image that are within the selected range.
+        /// </summary>
+        /// <remarks>
+        /// Displayed in the user interface.
+        /// </remarks>
         public string SelectedPixelPercentage
         {
             get { return _selectedPixelPercentage; }
@@ -80,6 +92,9 @@ namespace JSharp.ViewModels
         }
 
         private ThresholdingType _thresholding;
+        /// <summary>
+        /// The selected thresholding method.
+        /// </summary>
         public ThresholdingType Thresholding
         {
             get { return _thresholding; }
@@ -91,6 +106,9 @@ namespace JSharp.ViewModels
         }
 
         private Mat _origin;
+        /// <summary>
+        /// Original image
+        /// </summary>
         public Mat Origin
         {
             get { return _origin; }
@@ -125,12 +143,12 @@ namespace JSharp.ViewModels
             Thresholding = ThresholdingType.Standard;
             UpdatePercentage();
 
-            Mat sizer = new Mat(new Size(256, 1000), image.Depth, image.NumberOfChannels);
+            Mat sizer = new Mat(new Size(256, 256), image.Depth, image.NumberOfChannels);
 
             // Set the background to black
             sizer.SetTo(new MCvScalar(0, 0, 0));
 
-            (int[] histogramData, int pixelCount) = ImageProcessingCore.CalculateHistogramValues(image);
+            (int[] histogramData, _) = ImageProcessingCore.CalculateHistogramValues(image);
             DrawHistogram(sizer, histogramData);
             MySource = sizer.MatToBitmapSource();
         }
@@ -220,6 +238,13 @@ namespace JSharp.ViewModels
             MainWindowViewModel.FocusedImage.PerformThresholding(Origin, FromValue, ToValue, Thresholding);
         }
 
+        /// <summary>
+        /// Retrieves the available thresholding types.
+        /// </summary>
+        /// <returns>An IEnumerable of strings representing the available thresholding types.</returns>
+        /// <remarks>
+        /// This method is primarily used in XAML to populate UI elements with available thresholding types.
+        /// </remarks>
         public IEnumerable<string> GetThresholdingTypes()
         {
             ThresholdingType[] thresholdingTypes = (ThresholdingType[])Enum.GetValues(typeof(ThresholdingType));
