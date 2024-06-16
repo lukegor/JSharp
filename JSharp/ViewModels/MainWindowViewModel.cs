@@ -947,6 +947,12 @@ namespace JSharp.ViewModels
                 MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            (int[] data, _) = ImageProcessingCore.CalculateHistogramValues(FocusedImage.MatImage);
+            if (!ImageProcessingUtility.IsBinaryImage(data))
+            {
+                MessageBox.Show("Obraz poddany szkieletyzacji musi być obrazem binarnym. Sposteryzuj obraz do 2 poziomów szarości lub przeprowadź progowanie.", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             FocusedImage.Skeletonize();
         }

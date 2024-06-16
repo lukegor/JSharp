@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:resx="clr-namespace:JSharp.Resources"
         xmlns:local="clr-namespace:JSharp"
 		xmlns:prism="http://prismlibrary.com/"
 		xmlns:viewModels="clr-namespace:JSharp.ViewModels"
@@ -72,15 +73,18 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 
-				<TextBlock Text="Thresholding:" TextAlignment="Center" Grid.Row="0"/>
+				<TextBlock TextAlignment="Center" Grid.Row="0">
+					<Run Text="{x:Static resx:Project.Thresholding}"/>
+					<Run Text=":"/>
+				</TextBlock>
 				<ComboBox Grid.Column="1" Grid.Row="0"
 						  ItemsSource="{Binding Source={StaticResource LocalizedThresholdingTypesProvider}}" SelectedItem="{Binding Thresholding, Mode=TwoWay, Converter={StaticResource ThresholdingTypeConverter}}"
 					/>
 			</Grid>
 
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-				<Button Content="Confirm" IsDefault="True" Command="{Binding BtnConfirm_ClickCommand}"/>
-				<Button Content="Cancel" Margin="10,0,0,0" IsCancel="True" Command="{Binding BtnCancel_ClickCommand}"/>
+				<Button Content="{x:Static resx:Project.Confirm}" IsDefault="True" Command="{Binding BtnConfirm_ClickCommand}"/>
+				<Button Content="{x:Static resx:Project.Cancel}" Margin="10,0,0,0" IsCancel="True" Command="{Binding BtnCancel_ClickCommand}"/>
 			</StackPanel>
 		</StackPanel>
 	</Grid>

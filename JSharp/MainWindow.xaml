@@ -78,16 +78,16 @@
 				<!--<MenuItem Header="{x:Static resx:Strings.Watershed}" Command="{Binding Watershed_ClickCommand}"/>-->
 				<MenuItem Header="{x:Static resx:Strings.Inpaint}" Command="{Binding Inpaint_ClickCommand}"/>
 				<!--<MenuItem Header="{x:Static resx:Strings.GrabCut}" Command="{Binding GrabCut_ClickCommand}"/>-->
-				<MenuItem Header="Analyze" Command="{Binding DetailedAnalyze_ClickCommand}"/>
+				<!--<MenuItem Header="Analyze" Command="{Binding DetailedAnalyze_ClickCommand}"/>-->
 			</MenuItem>
 			<!--<MenuItem Header="{x:Static resx:Strings.Settings}"/>-->
 			<MenuItem x:Name="Help" Header="{x:Static resx:Strings.Help}">
 				<MenuItem x:Name="About" Header="{x:Static resx:Strings.About}" Click="About_Click"/>
 			</MenuItem>
 			<MenuItem Header="{x:Static resx:Project.ProjectStr}">
-				<MenuItem Header="Threshold" Command="{Binding Threshold_ClickCommand}"/>
-				<MenuItem Header="Simple Analyze" Command="{Binding SimpleAnalyze_ClickCommand}"/>
-				<MenuItem Header="Analyze" Command="{Binding Analyze_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Project.Thresholding}" Command="{Binding Threshold_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Project.SimpleAnalyze}" Command="{Binding SimpleAnalyze_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Project.Analyze}" Command="{Binding Analyze_ClickCommand}"/>
 			</MenuItem>
 		</Menu>
 		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" HorizontalAlignment="Center" Margin="100,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto"/>

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:resx="clr-namespace:JSharp.Resources"
         xmlns:local="clr-namespace:JSharp"
 		xmlns:prism="http://prismlibrary.com/"
         mc:Ignorable="d"
@@ -11,8 +12,8 @@
 		<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 			<DataGrid ItemsSource="{Binding Data}" AutoGenerateColumns="False">
 				<DataGrid.Columns>
-					<DataGridTextColumn Header="Image" Binding="{Binding Image}"/>
-					<DataGridTextColumn Header="Count" Binding="{Binding Count}"/>
+					<DataGridTextColumn Header="{x:Static resx:Project.Image}" Binding="{Binding Image}"/>
+					<DataGridTextColumn Header="{x:Static resx:Project.Count}" Binding="{Binding Count}"/>
 				</DataGrid.Columns>
 			</DataGrid>
 		</ScrollViewer>

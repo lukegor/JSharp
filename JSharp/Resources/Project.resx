@@ -117,8 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Analyze" xml:space="preserve">
+    <value>Analyze</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
   <data name="ProjectStr" xml:space="preserve">
     <value>Project</value>
+  </data>
+  <data name="SimpleAnalyze" xml:space="preserve">
+    <value>Simple Analyze</value>
+  </data>
+  <data name="Thresholding" xml:space="preserve">
+    <value>Thresholding</value>
   </data>
   <data name="ThresholdingInverse" xml:space="preserve">
     <value>Inverse</value>

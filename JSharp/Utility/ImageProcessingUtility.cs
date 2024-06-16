@@ -91,5 +91,17 @@ namespace JSharp.Utility
             // Use Pythagorean theorem to calculate distance
             return Math.Sqrt(dx * dx + dy * dy);
         }
+
+        public static bool IsBinaryImage(int[] histogramData)
+        {
+            int nonZeroCount = 0;
+
+            // Check the specific brightness levels 0 and 255
+            if (histogramData[0] > 0) nonZeroCount++; // Check brightness level 0
+            if (histogramData[255] > 0) nonZeroCount++; // Check brightness level 255
+
+            // Return true if exactly two brightness levels are non-zero
+            return nonZeroCount == 2;
+        }
     }
 }
