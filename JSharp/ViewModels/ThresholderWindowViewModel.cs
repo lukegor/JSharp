@@ -122,6 +122,7 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _mySource, value); }
         }
 
+        private readonly NewImageWindowViewModel _windowToBeModified;
         private DialogResult dialogResult = new DialogResult(ButtonResult.Cancel);
 
         public DelegateCommand BtnConfirm_ClickCommand { get; }
@@ -134,9 +135,10 @@ namespace JSharp.ViewModels
             BtnCancel_ClickCommand = new DelegateCommand(BtnCancel_Click);
         }
 
-        public ThresholderWindowViewModel(Mat image) : this()
+        public ThresholderWindowViewModel(Mat image, NewImageWindowViewModel windowToBeModified) : this()
         {
             Origin = image;
+            _windowToBeModified = windowToBeModified;
 
             FromValue = 0;
             ToValue = 255;
@@ -199,7 +201,7 @@ namespace JSharp.ViewModels
         {
             if (dialogResult.Result == ButtonResult.Cancel)
             {
-                MainWindowViewModel.FocusedImage.Restore(Origin);
+                _windowToBeModified.Restore(Origin);
             }
         }
 
@@ -235,7 +237,7 @@ namespace JSharp.ViewModels
 
         private void UpdateImage()
         {
-            MainWindowViewModel.FocusedImage.PerformThresholding(Origin, FromValue, ToValue, Thresholding);
+            _windowToBeModified.PerformThresholding(Origin, FromValue, ToValue, Thresholding);
         }
 
         /// <summary>

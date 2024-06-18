@@ -21,7 +21,7 @@ namespace JSharp
 #if DEBUG
             CultureInfo culture = CultureInfo.InvariantCulture; // Force invariant culture for debugging
 #else
-            CultureInfo culture = CultureInfo.CurrentCulture; // Use the current culture in release mode
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("pl-PL"); // Use the current culture in release mode
 #endif
             // Set default culture for the application - seems unnecessary
             CultureInfo.DefaultThreadCurrentCulture = culture;

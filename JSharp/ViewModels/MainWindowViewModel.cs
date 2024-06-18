@@ -893,7 +893,7 @@ namespace JSharp.ViewModels
             }
 
             Mat image = FocusedImage.MatImage.Clone();
-            ThresholderWindowViewModel thresholderWindowViewModel = new ThresholderWindowViewModel(image);
+            ThresholderWindowViewModel thresholderWindowViewModel = new ThresholderWindowViewModel(image, FocusedImage);
             ThresholderWindow thresholderWindow = new ThresholderWindow();
             thresholderWindow.DataContext = thresholderWindowViewModel;
 
