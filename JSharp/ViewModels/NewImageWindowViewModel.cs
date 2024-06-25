@@ -459,11 +459,11 @@ namespace JSharp.ViewModels
             UpdateImageSource(image);
         }
 
-        public void PerformThresholding(Mat img, int minThreshold, int maxThreshold, ThresholdingType thresholdingType)
+        public void PerformThresholding(Mat img, int minThreshold, int maxThreshold, ThresholdingType thresholdingType, bool enableContrastMode)
         {
             Mat image = img.Clone();
 
-            ImageProcessingCore.Threshold(image, minThreshold, maxThreshold, thresholdingType);
+            ImageProcessingCore.Threshold(image, minThreshold, maxThreshold, thresholdingType, enableContrastMode);
 
             UpdateImageSource(image);
         }

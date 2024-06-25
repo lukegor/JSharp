@@ -50,34 +50,6 @@ namespace JSharp.ViewModels
             }
         }
 
-        #region alternatives working for slider behavior
-        //public double FromValue
-        //{
-        //    get { return _fromValue; }
-        //    set
-        //    {
-        //        SetProperty(ref _fromValue, value);
-        //        if (_fromValue > _toValue)
-        //        {
-        //            ToValue = _fromValue;
-        //        }
-        //    }
-        //}
-
-        //public double ToValue
-        //{
-        //    get { return _toValue; }
-        //    set
-        //    {
-        //        SetProperty(ref _toValue, value);
-        //        if (_toValue < _fromValue)
-        //        {
-        //            FromValue = _toValue;
-        //        }
-        //    }
-        //}
-        #endregion
-
         private string _selectedPixelPercentage;
         /// <summary>
         /// The percentage of pixels in the image that are within the selected range.
@@ -105,9 +77,23 @@ namespace JSharp.ViewModels
             }
         }
 
+        private bool _enableContrastMode;
+        /// <summary>
+        /// Flag indicating whether contrast mode is enabled
+        /// </summary>
+        public bool EnableContrastMode
+        {
+            get { return _enableContrastMode; }
+            set
+            {
+                SetProperty(ref _enableContrastMode, value);
+                UpdateImage();
+            }
+        }
+
         private Mat _origin;
         /// <summary>
-        /// Original image
+        /// Original input image
         /// </summary>
         public Mat Origin
         {
@@ -116,13 +102,18 @@ namespace JSharp.ViewModels
         }
 
         private BitmapSource _mySource;
+        /// <summary>
+        /// Image (exactly what is displayed in UI)
+        /// </summary>
         public BitmapSource MySource
         {
             get { return _mySource; }
             set { SetProperty(ref _mySource, value); }
         }
 
+        // window containing image to be modified
         private readonly NewImageWindowViewModel _windowToBeModified;
+        // result of dialog (successful or canceled)
         private DialogResult dialogResult = new DialogResult(ButtonResult.Cancel);
 
         public DelegateCommand BtnConfirm_ClickCommand { get; }
@@ -143,6 +134,7 @@ namespace JSharp.ViewModels
             FromValue = 0;
             ToValue = 255;
             Thresholding = ThresholdingType.Standard;
+            EnableContrastMode = false;
             UpdatePercentage();
 
             Mat sizer = new Mat(new Size(256, 256), image.Depth, image.NumberOfChannels);
@@ -155,6 +147,11 @@ namespace JSharp.ViewModels
             MySource = sizer.MatToBitmapSource();
         }
 
+        /// <summary>
+        /// Draws a small histogram of input image.
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="histogramData"></param>
         private void DrawHistogram(Mat image, int[] histogramData)
         {
             // Calculate the maximum value in the histogram
@@ -197,6 +194,10 @@ namespace JSharp.ViewModels
             (App.Current.Windows.OfType<ThresholderWindow>().FirstOrDefault(x => x.DataContext == this)).Close();
         }
 
+        /// <summary>
+        /// Brings back the original input image to its NewImageWindow.
+        /// </summary>
+        /// <remarks>Used if image isn't closed due to user confirming his choices but for some other reason.</remarks>
         internal void OnClosing()
         {
             if (dialogResult.Result == ButtonResult.Cancel)
@@ -224,6 +225,9 @@ namespace JSharp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Updates selected pixels percentage.
+        /// </summary>
         private void UpdatePercentage()
         {
             Mat image = Origin;
@@ -235,9 +239,12 @@ namespace JSharp.ViewModels
             SelectedPixelPercentage = percentage.ToString();
         }
 
+        /// <summary>
+        /// Performs thresholding.
+        /// </summary>
         private void UpdateImage()
         {
-            _windowToBeModified.PerformThresholding(Origin, FromValue, ToValue, Thresholding);
+            _windowToBeModified.PerformThresholding(Origin, FromValue, ToValue, Thresholding, EnableContrastMode);
         }
 
         /// <summary>

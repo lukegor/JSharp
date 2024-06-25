@@ -82,7 +82,9 @@
 					/>
 			</Grid>
 
-			<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+			<CheckBox Content="Uaktywnij tryb kontrastu" IsChecked="{Binding EnableContrastMode}"/>
+
+			<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,20,0,0">
 				<Button Content="{x:Static resx:Project.Confirm}" IsDefault="True" Command="{Binding BtnConfirm_ClickCommand}"/>
 				<Button Content="{x:Static resx:Project.Cancel}" Margin="10,0,0,0" IsCancel="True" Command="{Binding BtnCancel_ClickCommand}"/>
 			</StackPanel>
