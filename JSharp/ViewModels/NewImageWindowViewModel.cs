@@ -2,7 +2,6 @@
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using JSharp;
-using JSharp.Events;
 using JSharp.Models;
 using JSharp.Resources;
 using JSharp.Utility;
