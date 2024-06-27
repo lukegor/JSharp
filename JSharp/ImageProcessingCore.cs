@@ -637,8 +637,6 @@ namespace JSharp
             return image;
         }
 
-        // Helper methods
-
         /// <summary>
         /// Stosuje progowanie z dwoma progami w wersji standardowej do pojedynczego piksela.
         /// </summary>

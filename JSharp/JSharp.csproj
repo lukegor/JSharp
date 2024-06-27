@@ -9,7 +9,6 @@
     <Authors>Łukasz Górski</Authors>
 	<Copyright>Copyright © 2024 Łukasz Górski</Copyright>
 	<ApplicationIcon>Resources\icon1.ico</ApplicationIcon>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<RepositoryUrl>https://github.com/lukegor/JSharp</RepositoryUrl>
 	<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PublishSingleFile>true</PublishSingleFile>
@@ -25,13 +24,6 @@
     <None Remove="Resources\N-A-icon.ico" />
     <None Remove="Resources\NoneIcon.ico" />
     <None Remove="zzz.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -110,6 +102,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Events\" />
   </ItemGroup>
 
 </Project>

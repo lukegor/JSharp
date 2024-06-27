@@ -282,6 +282,9 @@
   <data name="ShowHistogram" xml:space="preserve">
     <value>Wyświetl Histogram</value>
   </data>
+  <data name="Size" xml:space="preserve">
+    <value>Rozmiar</value>
+  </data>
   <data name="Skeletonize" xml:space="preserve">
     <value>Szkieletyzacja</value>
   </data>
