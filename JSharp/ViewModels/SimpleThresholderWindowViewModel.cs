@@ -29,33 +29,6 @@ namespace JSharp.ViewModels
 
         private const int MaxThreshold = 255;
 
-        #region alternatives working for slider behavior
-        //public double FromValue
-        //{
-        //    get { return _fromValue; }
-        //    set
-        //    {
-        //        SetProperty(ref _fromValue, value);
-        //        if (_fromValue > _toValue)
-        //        {
-        //            ToValue = _fromValue;
-        //        }
-        //    }
-        //}
-
-        //public double ToValue
-        //{
-        //    get { return _toValue; }
-        //    set
-        //    {
-        //        SetProperty(ref _toValue, value);
-        //        if (_toValue < _fromValue)
-        //        {
-        //            FromValue = _toValue;
-        //        }
-        //    }
-        //}
-        #endregion
 
         private string _selectedPixelPercentage;
         public string SelectedPixelPercentage
@@ -89,6 +62,9 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _mySource, value); }
         }
 
+        // window containing image to be modified
+        private readonly NewImageWindowViewModel _windowToBeModified;
+        // result of dialog (successful or canceled)
         private DialogResult dialogResult = new DialogResult(ButtonResult.Cancel);
 
         public DelegateCommand BtnConfirm_ClickCommand { get; }
@@ -101,29 +77,38 @@ namespace JSharp.ViewModels
             BtnCancel_ClickCommand = new DelegateCommand(BtnCancel_Click);
         }
 
-        public SimpleThresholderWindowViewModel(Mat image) : this()
+        public SimpleThresholderWindowViewModel(Mat image, NewImageWindowViewModel windowToBeModified) : this()
         {
             Origin = image;
+            _windowToBeModified = windowToBeModified;
 
             FromValue = 0;
             Thresholding = SimpleThresholdingMethod.Standard;
             UpdatePercentage();
 
-            Mat sizer = new Mat(new System.Drawing.Size(256, 1000), image.Depth, image.NumberOfChannels);
-            (int[] histogramData, int pixelCount) = ImageProcessingCore.CalculateHistogramValues(image);
+            Mat sizer = new Mat(new System.Drawing.Size(256, 256), image.Depth, image.NumberOfChannels);
+            // Set the background to black
+            sizer.SetTo(new MCvScalar(0, 0, 0));
+
+            (int[] histogramData, _) = ImageProcessingCore.CalculateHistogramValues(image);
             DrawHistogram(sizer, histogramData);
             MySource = sizer.MatToBitmapSource();
         }
 
+        /// <summary>
+        /// Draws a small histogram of input image.
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="histogramData"></param>
         private void DrawHistogram(Mat image, int[] histogramData)
         {
             // Calculate the maximum value in the histogram
             int maxCount = histogramData.Max();
 
             // Define the histogram dimensions
-            const int histogramWidth = 256; // Fixed width
-            const int histogramHeight = 1000; // Fixed height
-            const int bottomOffset = 905; // Adjust this value to set the bottom offset
+            int histogramWidth = 256; // Fixed width
+            int histogramHeight = 256; // Fixed height
+            int bottomOffset = 159; // Adjust this value to set the bottom offset
 
             // Draw the histogram bars directly on the image
             for (int i = 0; i < histogramData.Length; i++)
@@ -161,7 +146,7 @@ namespace JSharp.ViewModels
         {
             if (dialogResult.Result == ButtonResult.Cancel)
             {
-                MainWindowViewModel.FocusedImage.Restore(Origin);
+                _windowToBeModified.Restore(Origin);
             }
         }
 
@@ -178,7 +163,7 @@ namespace JSharp.ViewModels
 
         private void UpdateImage()
         {
-            MainWindowViewModel.FocusedImage.PerformSimpleThresholding(Origin, FromValue, Thresholding);
+            _windowToBeModified.PerformSimpleThresholding(Origin, FromValue, Thresholding);
         }
 
         public IEnumerable<string> GetThresholdingTypes()

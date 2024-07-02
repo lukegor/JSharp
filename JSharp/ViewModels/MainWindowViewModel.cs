@@ -101,6 +101,7 @@ namespace JSharp.ViewModels
         public DelegateCommand Inpaint_ClickCommand { get; }
         public DelegateCommand GrabCut_ClickCommand { get; }
         public DelegateCommand DetailedAnalyze_ClickCommand { get; }
+        public DelegateCommand OpenSettings_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -144,6 +145,7 @@ namespace JSharp.ViewModels
             Inpaint_ClickCommand = new DelegateCommand(Inpaint_Click);
             GrabCut_ClickCommand = new DelegateCommand(GrabCut_Click);
             DetailedAnalyze_ClickCommand = new DelegateCommand(DetailedAnalyze_Click);
+            OpenSettings_ClickCommand = new DelegateCommand(OpenSettings_Click);
             #endregion
         }
 
@@ -265,7 +267,7 @@ namespace JSharp.ViewModels
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
-            openFileDialog.DefaultExt = ".bmp";
+            openFileDialog.DefaultExt = Properties.Settings.Default.saveFileExtension;
             openFileDialog.Filter = Constants.ImageFilterString;
 
             List<Mat> images = new List<Mat>();
@@ -1060,7 +1062,7 @@ namespace JSharp.ViewModels
             }
 
             Mat image = FocusedImage.MatImage.Clone();
-            SimpleThresholderWindowViewModel thresholderWindowViewModel = new SimpleThresholderWindowViewModel(image);
+            SimpleThresholderWindowViewModel thresholderWindowViewModel = new SimpleThresholderWindowViewModel(image, FocusedImage);
             SimpleThresholderWindow thresholderWindow = new SimpleThresholderWindow();
             thresholderWindow.DataContext = thresholderWindowViewModel;
 
@@ -1133,6 +1135,17 @@ namespace JSharp.ViewModels
 
             Mat image = ImageProcessingCore.GrabCut(FocusedImage.MatImage, new System.Drawing.Rectangle(x, y, width, height));
             FocusedImage.UpdateImageSource(image);
+        }
+
+        public void OpenSettings_Click()
+        {
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.ShowDialog();
+
+            if (settingsWindow.DialogResult == true)
+            {
+
+            }
         }
 
         private void DetailedAnalyze_Click()

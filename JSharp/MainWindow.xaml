@@ -22,34 +22,39 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<Menu Width="Auto" Height="20" VerticalAlignment="Top" Grid.Row="0">
-			<MenuItem Header="Lab1">
+			<MenuItem Header="File">
 				<MenuItem x:Name="Open" Header="{x:Static resx:Strings.Open}">
 					<MenuItem x:Name="OpenGray" Header="{x:Static resx:Strings.OpenGray}" Command="{Binding OpenGray_ClickCommand}"/>
 					<MenuItem x:Name="OpenRGB" Header="{x:Static resx:Strings.OpenRGB}" Command="{Binding OpenRgb_ClickCommand}"/>
 				</MenuItem>
-				<MenuItem x:Name="Duplicate" Header="{x:Static resx:Strings.Duplicate}" Command="{Binding Duplicate_CommandClick}"/>
 				<MenuItem x:Name="Save" Header="{x:Static resx:Strings.Save}" Command="{Binding Save_ClickCommand}"/>
 				<MenuItem x:Name="SaveAs" Header="{x:Static resx:Strings.SaveAs}" Command="{Binding SaveAs_ClickCommand}"/>
 				<MenuItem x:Name="SaveAll" Header="{x:Static resx:Strings.SaveAll}" Command="{Binding SaveAll_ClickCommand}"/>
 				<Separator/>
+				<MenuItem x:Name="Exit" Header="{x:Static resx:Strings.Exit}" Command="{Binding Exit_ClickCommand}"/>
+			</MenuItem>
+			<MenuItem Header="Image">
+				<MenuItem x:Name="Duplicate" Header="{x:Static resx:Strings.Duplicate}" Command="{Binding Duplicate_CommandClick}"/>
 				<MenuItem x:Name="Convert" Header="{x:Static resx:Strings.Convert}">
 					<MenuItem x:Name="Grayize" Header="{x:Static resx:Strings.Grayize}"  Command="{Binding Grayize_ClickCommand}"/>
 					<MenuItem x:Name="ConvertRgbToHsv" Header="{x:Static resx:Strings.RgbToHsv}" Command="{Binding ConvertRgbToHsv_ClickCommand}"/>
 					<MenuItem x:Name="ConvertRgbToLab" Header="{x:Static resx:Strings.RgbToLab}" Command="{Binding ConvertRgbToLab_ClickCommand}"/>
 				</MenuItem>
 				<Separator/>
-				<MenuItem x:Name="Negate" Header="{x:Static resx:Strings.Negate}" Command="{Binding Negate_ClickCommand}"/>
-				<Separator/>
-				<MenuItem x:Name="ShowHistogram" Header="{x:Static resx:Strings.ShowHistogram}" Command="{Binding ShowHistogram_ClickCommand}"/>
-				<MenuItem x:Name="StretchHistogram" Header="{x:Static resx:Strings.StretchHistogram}" Command="{Binding StretchHistogram_ClickCommand}"/>
-				<MenuItem x:Name="StretchContrast" Header="{x:Static resx:Strings.StretchContrast}" Command="{Binding StretchContrast_ClickCommand}"/>
-				<MenuItem x:Name="EqualizeHistogram" Header="{x:Static resx:Strings.EqualizeHistogram}" Command="{Binding EqualizeHistogram_ClickCommand}" />
+				<MenuItem Header="Histogram">
+					<MenuItem x:Name="ShowHistogram" Header="{x:Static resx:Strings.ShowHistogram}" Command="{Binding ShowHistogram_ClickCommand}"/>
+					<MenuItem x:Name="StretchHistogram" Header="{x:Static resx:Strings.StretchHistogram}" Command="{Binding StretchHistogram_ClickCommand}"/>
+					<MenuItem x:Name="StretchContrast" Header="{x:Static resx:Strings.StretchContrast}" Command="{Binding StretchContrast_ClickCommand}"/>
+					<MenuItem x:Name="EqualizeHistogram" Header="{x:Static resx:Strings.EqualizeHistogram}" Command="{Binding EqualizeHistogram_ClickCommand}" />
+				</MenuItem>
 				<Separator/>
 				<MenuItem x:Name="SplitChannels" Header="{x:Static resx:Strings.SplitChannels}" Command="{Binding SplitChannels_ClickCommand}"/>
 				<Separator/>
-				<MenuItem x:Name="Exit" Header="{x:Static resx:Strings.Exit}" Command="{Binding Exit_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.PyramidUp}" Command="{Binding PyramidUp_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.PyramidDown}" Command="{Binding PyramidDown_ClickCommand}"/>
 			</MenuItem>
-			<MenuItem Header="Lab2">
+			<MenuItem Header="Basic operations">
+				<MenuItem x:Name="Negate" Header="{x:Static resx:Strings.Negate}" Command="{Binding Negate_ClickCommand}"/>
 				<MenuItem Header="{x:Static resx:Strings.Posterize}" Command="{Binding Posterize_ClickCommand}"/>
 				<MenuItem Header="{x:Static resx:Strings.Filters}">
 					<MenuItem Header="{x:Static resx:Strings.Convolve}" Command="{Binding Convolve_ClickCommand}"/>
@@ -58,7 +63,7 @@
 				</MenuItem>
 				<MenuItem Header="{x:Static resx:Strings.ImageCalculator}" Command="{Binding ImageCalculator_ClickCommand}"/>
 			</MenuItem>
-			<MenuItem Header="Lab3">
+			<MenuItem Header="Process">
 				<MenuItem Header="{x:Static resx:Strings.MorphologicalOperations}">
 					<MenuItem Header="{x:Static resx:Strings.Erode}" Command="{Binding Erode_ClickCommand}"/>
 					<MenuItem Header="{x:Static resx:Strings.Dilate}" Command="{Binding Dilate_ClickCommand}"/>
@@ -69,29 +74,27 @@
 				<MenuItem Header="{x:Static resx:Strings.EdgeDetection_Hough}" Command="{Binding Hough_ClickCommand}"/>
 				<Separator/>
 				<MenuItem Header="{x:Static resx:Strings.PlotProfile}" Command="{Binding PlotProfile_ClickCommand}"/>
-				<Separator/>
-				<MenuItem Header="{x:Static resx:Strings.PyramidUp}" Command="{Binding PyramidUp_ClickCommand}"/>
-				<MenuItem Header="{x:Static resx:Strings.PyramidDown}" Command="{Binding PyramidDown_ClickCommand}"/>
 			</MenuItem>
-			<MenuItem Header="Lab4">
+			<MenuItem Header="Advanced operations">
 				<MenuItem Header="{x:Static resx:Strings.Thresholding}" Command="{Binding SimpleThreshold_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Project.Thresholding}" Command="{Binding Threshold_ClickCommand}"/>
 				<!--<MenuItem Header="{x:Static resx:Strings.Watershed}" Command="{Binding Watershed_ClickCommand}"/>-->
 				<MenuItem Header="{x:Static resx:Strings.Inpaint}" Command="{Binding Inpaint_ClickCommand}"/>
 				<!--<MenuItem Header="{x:Static resx:Strings.GrabCut}" Command="{Binding GrabCut_ClickCommand}"/>-->
 				<!--<MenuItem Header="Analyze" Command="{Binding DetailedAnalyze_ClickCommand}"/>-->
 			</MenuItem>
 			<!--<MenuItem Header="{x:Static resx:Strings.Settings}"/>-->
-			<MenuItem x:Name="Help" Header="{x:Static resx:Strings.Help}">
-				<MenuItem x:Name="About" Header="{x:Static resx:Strings.About}" Click="About_Click"/>
-			</MenuItem>
-			<MenuItem Header="{x:Static resx:Project.ProjectStr}">
-				<MenuItem Header="{x:Static resx:Project.Thresholding}" Command="{Binding Threshold_ClickCommand}"/>
+			<MenuItem Header="Analyze">
 				<MenuItem Header="{x:Static resx:Project.SimpleAnalyze}" Command="{Binding SimpleAnalyze_ClickCommand}"/>
 				<MenuItem Header="{x:Static resx:Project.Analyze}" Command="{Binding Analyze_ClickCommand}"/>
 			</MenuItem>
+			<MenuItem Header="Settings" Command="{Binding OpenSettings_ClickCommand}"/>
+			<MenuItem x:Name="Help" Header="{x:Static resx:Strings.Help}">
+				<MenuItem x:Name="About" Header="{x:Static resx:Strings.About}" Click="About_Click"/>
+			</MenuItem>
 		</Menu>
-		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" HorizontalAlignment="Center" Margin="100,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto"/>
-		<ToolBar HorizontalAlignment="Left" Height="36" Margin="-3,0,0,0" VerticalAlignment="Top" Width="300" Grid.Row="1" ToolBarTray.IsLocked="True">
+		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" Grid.Row="1" HorizontalAlignment="Left" Margin="0,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto"/>
+		<ToolBar HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="300" Grid.Row="2" ToolBarTray.IsLocked="True">
 			<RadioButton x:Name="RadioBtnNone" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
 					<ImageBrush ImageSource="/Resources/NoneIcon.ico"/>

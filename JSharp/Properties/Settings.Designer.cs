@@ -34,5 +34,29 @@ namespace JSharp.Properties {
                 this["LanguageVersion"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".bmp")]
+        public string saveFileExtension {
+            get {
+                return ((string)(this["saveFileExtension"]));
+            }
+            set {
+                this["saveFileExtension"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("90")]
+        public byte jpqSaveQuality {
+            get {
+                return ((byte)(this["jpqSaveQuality"]));
+            }
+            set {
+                this["jpqSaveQuality"] = value;
+            }
+        }
     }
 }

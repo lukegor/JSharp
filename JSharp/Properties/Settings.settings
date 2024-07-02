@@ -5,5 +5,11 @@
     <Setting Name="LanguageVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="saveFileExtension" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.bmp</Value>
+    </Setting>
+    <Setting Name="jpqSaveQuality" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">90</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

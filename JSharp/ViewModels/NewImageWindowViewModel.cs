@@ -233,7 +233,7 @@ namespace JSharp.ViewModels
                     case ".jpg":
                     case ".jpeg":
                         // For JPEG format, save the MatImage with JPEG compression quality
-                        CvInvoke.Imwrite(fileName, this.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.JpegQuality, 90) });
+                        CvInvoke.Imwrite(fileName, this.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.JpegQuality, Properties.Settings.Default.jpqSaveQuality) });
                         break;
                     case ".png":
                         // For PNG format, save the MatImage with PNG compression level
