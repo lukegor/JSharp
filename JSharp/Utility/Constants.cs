@@ -15,7 +15,5 @@ namespace JSharp.Utility
         public const string RadioBtnProfileLine = "RadioBtnProfileLine";
         public const string RadioBtnNone = "RadioBtnNone";
         public const string RadioBtnRectangle = "RadioBtnRectangle";
-        public const int WidthAdjustmentConst = 16;
-        public const int HeightAdjustmentConst = 39;
     }
 }

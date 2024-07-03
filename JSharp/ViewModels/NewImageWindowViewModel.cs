@@ -28,6 +28,9 @@ namespace JSharp.ViewModels
 {
     public class NewImageWindowViewModel : BindableBase
     {
+        private const int widthAdjustmentConst = 16;
+        private const int heightAdjustmentConst = 39;
+
         public event EventHandler<string>? FocusChanged;
         public event EventHandler<Mat>? ImageChanged;
         public event EventHandler Closing;
@@ -91,7 +94,6 @@ namespace JSharp.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        #endregion
 
         private double _height;
         public double Height
@@ -106,6 +108,7 @@ namespace JSharp.ViewModels
             get { return _width; }
             set { SetProperty(ref _width, value); }
         }
+        #endregion
 
         internal ObservableCollection<System.Windows.Point?> Points { get; set; } = new ObservableCollection<System.Windows.Point?> { null, null };
         private int DuplicateCount { get; set; }
@@ -198,8 +201,8 @@ namespace JSharp.ViewModels
 
         private void UpdateWindowSize()
         {
-            this.Width = Source.Width + Constants.WidthAdjustmentConst;
-            this.Height = Source.Height + Constants.HeightAdjustmentConst;
+            this.Width = Source.Width + widthAdjustmentConst;
+            this.Height = Source.Height + heightAdjustmentConst;
         }
         #endregion
 

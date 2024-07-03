@@ -47,7 +47,7 @@
 
 
 		<DockPanel DockPanel.Dock="Bottom" Margin="0,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-			<Button Content="{x:Static resx:Strings.Apply}" Width="100" Command="{Binding BtnApply_ClickCommand}" IsDefault="True"/>
+			<Button Content="{x:Static resx:UIStrings.Apply}" Width="100" Command="{Binding BtnApply_ClickCommand}" IsDefault="True"/>
 		</DockPanel>
 	</Grid>
 </Window>

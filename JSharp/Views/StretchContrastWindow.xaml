@@ -48,7 +48,7 @@
 								Minimum="0" Maximum="255" Height="20"/>
 		</StackPanel>
 
-		<Button Content="{x:Static resx:Strings.Confirm}"
+		<Button Content="{x:Static resx:UIStrings.Confirm}"
 		HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Grid.ColumnSpan="2"
 		Click="BtnConfirm_Click" IsDefault="True"/>
 	</Grid>

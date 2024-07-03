@@ -75,7 +75,7 @@
 			</Grid>
 		</Expander>
 
-		<Button Content="{x:Static resx:Strings.Confirm}" Command="{Binding BtnConfirm_ClickCommand}" IsDefault="True"
+		<Button Content="{x:Static resx:UIStrings.Confirm}" Command="{Binding BtnConfirm_ClickCommand}" IsDefault="True"
 				HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom"/>
 	</Grid>
 </Window>

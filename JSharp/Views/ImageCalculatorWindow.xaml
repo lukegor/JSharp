@@ -62,8 +62,8 @@
 		</StackPanel>
 
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="200" Margin="50,0,0,20" Grid.ColumnSpan="2">
-			<Button Content="{x:Static resx:Strings.Confirm}" Margin="45,0,10,0" Click="BtnConfirm_Click" IsDefault="True" />
-			<Button Content="{x:Static resx:Strings.Cancel}" Click="BtnCancel_Click" IsCancel="True"/>
+			<Button Content="{x:Static resx:UIStrings.Confirm}" Margin="45,0,10,0" Click="BtnConfirm_Click" IsDefault="True" />
+			<Button Content="{x:Static resx:UIStrings.Cancel}" Click="BtnCancel_Click" IsCancel="True"/>
 		</StackPanel>
 	</Grid>
 </Window>

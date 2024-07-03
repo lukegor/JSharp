@@ -117,29 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
-    <value>O programie</value>
-  </data>
   <data name="AlreadyGrayscale_Error" xml:space="preserve">
     <value>Obraz jest już szaroodcieniowy</value>
   </data>
-  <data name="Apply" xml:space="preserve">
-    <value>Zatwierdź</value>
-  </data>
   <data name="Author" xml:space="preserve">
     <value>Autor:</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Anuluj</value>
   </data>
   <data name="ChbNewWindow" xml:space="preserve">
     <value>Utwórz nowe okno</value>
   </data>
   <data name="ChoosePosterizationLevelsNumber" xml:space="preserve">
     <value>Wybierz liczbę poziomów posteryzacji</value>
-  </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>Zatwierdź</value>
   </data>
   <data name="Convert" xml:space="preserve">
     <value>Konwertuj</value>
@@ -171,17 +159,11 @@
   <data name="Error" xml:space="preserve">
     <value>Błąd</value>
   </data>
-  <data name="Exit" xml:space="preserve">
-    <value>Zamknij</value>
-  </data>
   <data name="Filters" xml:space="preserve">
     <value>Filtry</value>
   </data>
   <data name="Grayize" xml:space="preserve">
     <value>Konwertuj RGB na Szaroodcieniowy</value>
-  </data>
-  <data name="Help" xml:space="preserve">
-    <value>Pomoc</value>
   </data>
   <data name="HistogramAlreadyOpen" xml:space="preserve">
     <value>Histogram wybranego obrazu jest już otwarty</value>

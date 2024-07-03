@@ -36,7 +36,7 @@ namespace JSharp
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"JSharp{Environment.NewLine}{Strings.Image_Processing_Program}{Environment.NewLine}{Environment.NewLine}{Strings.Author}{Environment.NewLine}Łukasz Górski{Environment.NewLine}{Environment.NewLine}Copyright © 2024 Łukasz Górski", $"{Strings.About}", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"JSharp{Environment.NewLine}{Strings.Image_Processing_Program}{Environment.NewLine}{Environment.NewLine}{Strings.Author}{Environment.NewLine}Łukasz Górski{Environment.NewLine}{Environment.NewLine}Copyright © 2024 Łukasz Górski", $"{UIStrings.About}", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

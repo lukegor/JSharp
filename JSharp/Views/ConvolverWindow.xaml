@@ -150,7 +150,7 @@
 		</Grid>
 
 		<DockPanel DockPanel.Dock="Bottom" Margin="5,0,5,5" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-			<Button Content="{x:Static resx:Strings.Apply}" Width="100" Margin="5" Command="{Binding BtnApply_ClickCommand}" IsDefault="True"/>
+			<Button Content="{x:Static resx:UIStrings.Apply}" Width="100" Margin="5" Command="{Binding BtnApply_ClickCommand}" IsDefault="True"/>
 		</DockPanel>
 	</Grid>
 </Window>

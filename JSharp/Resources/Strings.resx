@@ -117,29 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
-    <value>About</value>
-  </data>
   <data name="AlreadyGrayscale_Error" xml:space="preserve">
     <value>The image is already grayscale</value>
   </data>
-  <data name="Apply" xml:space="preserve">
-    <value>Apply</value>
-  </data>
   <data name="Author" xml:space="preserve">
     <value>Author:</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
   </data>
   <data name="ChbNewWindow" xml:space="preserve">
     <value>Create New Window</value>
   </data>
   <data name="ChoosePosterizationLevelsNumber" xml:space="preserve">
     <value>Choose number of posterization levels</value>
-  </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>Confirm</value>
   </data>
   <data name="Convert" xml:space="preserve">
     <value>Convert</value>
@@ -171,9 +159,6 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
-  <data name="Exit" xml:space="preserve">
-    <value>Exit</value>
-  </data>
   <data name="Filters" xml:space="preserve">
     <value>Filters</value>
   </data>
@@ -182,9 +167,6 @@
   </data>
   <data name="Grayize" xml:space="preserve">
     <value>RGB to Grayscale</value>
-  </data>
-  <data name="Help" xml:space="preserve">
-    <value>Help</value>
   </data>
   <data name="HistogramAlreadyOpen" xml:space="preserve">
     <value>Histogram for the image is already open.</value>

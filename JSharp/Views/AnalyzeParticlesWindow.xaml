@@ -20,7 +20,7 @@
 				<TextBox Text="{Binding SizeText, Mode=TwoWay}" Grid.Column="1"/>
 			</Grid>
 		</StackPanel>
-		<Button Content="{x:Static resx:Strings.Confirm}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"
+		<Button Content="{x:Static resx:UIStrings.Confirm}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"
 				IsDefault="True" Command="{Binding BtnConfirm_ClickCommand}"/>
 	</Grid>
 </Window>

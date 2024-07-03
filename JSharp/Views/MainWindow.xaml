@@ -31,7 +31,7 @@
 				<MenuItem x:Name="SaveAs" Header="{x:Static resx:Strings.SaveAs}" Command="{Binding SaveAs_ClickCommand}"/>
 				<MenuItem x:Name="SaveAll" Header="{x:Static resx:Strings.SaveAll}" Command="{Binding SaveAll_ClickCommand}"/>
 				<Separator/>
-				<MenuItem x:Name="Exit" Header="{x:Static resx:Strings.Exit}" Command="{Binding Exit_ClickCommand}"/>
+				<MenuItem x:Name="Exit" Header="{x:Static resx:UIStrings.Exit}" Command="{Binding Exit_ClickCommand}"/>
 			</MenuItem>
 			<MenuItem Header="Image">
 				<MenuItem x:Name="Duplicate" Header="{x:Static resx:Strings.Duplicate}" Command="{Binding Duplicate_CommandClick}"/>
@@ -89,15 +89,15 @@
 				<MenuItem Header="{x:Static resx:Project.Analyze}" Command="{Binding Analyze_ClickCommand}"/>
 			</MenuItem>
 			<MenuItem Header="Settings" Command="{Binding OpenSettings_ClickCommand}"/>
-			<MenuItem x:Name="Help" Header="{x:Static resx:Strings.Help}">
-				<MenuItem x:Name="About" Header="{x:Static resx:Strings.About}" Click="About_Click"/>
+			<MenuItem x:Name="Help" Header="{x:Static resx:UIStrings.Help}">
+				<MenuItem x:Name="About" Header="{x:Static resx:UIStrings.About}" Click="About_Click"/>
 			</MenuItem>
 		</Menu>
 		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" Grid.Row="1" HorizontalAlignment="Left" Margin="0,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto"/>
 		<ToolBar HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="300" Grid.Row="2" ToolBarTray.IsLocked="True">
 			<RadioButton x:Name="RadioBtnNone" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
-					<ImageBrush ImageSource="/Resources/NoneIcon.ico"/>
+					<ImageBrush ImageSource="/Resources/Icons/NoneIcon.ico"/>
 				</RadioButton.Background>
 				<Grid>
 					<Image Width="16" Height="16"/>
@@ -105,7 +105,7 @@
 			</RadioButton>
 			<RadioButton x:Name="RadioBtnProfileLine" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
-					<ImageBrush ImageSource="/Resources/LineSegment.ico"/>
+					<ImageBrush ImageSource="/Resources/Icons/LineSegment.ico"/>
 				</RadioButton.Background>
 				<Grid>
 					<Image Width="16" Height="16"/>
@@ -113,7 +113,7 @@
 			</RadioButton>
 			<RadioButton x:Name="RadioBtnRectangle" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
-					<ImageBrush ImageSource="/Resources/DrawRectangle.ico"/>
+					<ImageBrush ImageSource="/Resources/Icons/DrawRectangle.ico"/>
 				</RadioButton.Background>
 				<Grid>
 					<Image Width="16" Height="16"/>
@@ -122,7 +122,7 @@
 			<Separator/>
 			<RadioButton Checked="RadioButtonClear_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
-					<ImageBrush ImageSource="/Resources/ClearCanvas.ico"/>
+					<ImageBrush ImageSource="/Resources/Icons/ClearCanvas.ico"/>
 				</RadioButton.Background>
 				<Grid>
 					<Image Width="16" Height="16"/>
