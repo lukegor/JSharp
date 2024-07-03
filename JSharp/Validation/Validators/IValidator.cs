@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JSharp.Validators
+namespace JSharp.Validation.Validators
 {
     public interface IValidator
     {

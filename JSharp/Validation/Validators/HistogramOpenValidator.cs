@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JSharp.Validators
+namespace JSharp.Validation.Validators
 {
     internal class HistogramOpenValidator : IValidator
     {
@@ -20,7 +20,7 @@ namespace JSharp.Validators
 
         public string Validate()
         {
-            if (this.histogramWindowViewModel == null)
+            if (histogramWindowViewModel == null)
             {
                 return Strings.HistogramNotOpen;
             }

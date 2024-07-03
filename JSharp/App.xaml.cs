@@ -1,4 +1,5 @@
-﻿using JSharp.ViewModels;
+﻿using JSharp.Properties;
+using JSharp.ViewModels;
 using Prism;
 using Prism.Ioc;
 using Prism.Regions;
@@ -21,6 +22,8 @@ namespace JSharp
 #if DEBUG
             CultureInfo culture = CultureInfo.InvariantCulture; // Force invariant culture for debugging
 #else
+            //if (!string.IsNullOrEmpty(Settings.Default.LanguageVersion))
+
             CultureInfo culture = CultureInfo.CurrentCulture; // Use the current culture in release mode
 #endif
             // Set default culture for the application - seems unnecessary

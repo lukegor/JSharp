@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JSharp.Validators
+namespace JSharp.Validation.Validators
 {
     public class ImageFocusedValidator : IValidator
     {
@@ -19,7 +19,7 @@ namespace JSharp.Validators
 
         public string Validate()
         {
-            if (this.focusedImage == null)
+            if (focusedImage == null)
             {
                 return Strings.NoImageFocused;
             }

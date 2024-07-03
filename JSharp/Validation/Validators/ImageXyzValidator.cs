@@ -6,20 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JSharp.Validators
+namespace JSharp.Validation.Validators
 {
-    public class ImageNotGrayScaleValidator : IValidator
+    public class ImageXyzValidator
     {
-        private readonly int? numberOfChannels;
-
-        public ImageNotGrayScaleValidator(int? numberOfChannels)
+        private readonly int numberOfChannels;
+        public ImageXyzValidator(int numberOfChannels)
         {
             this.numberOfChannels = numberOfChannels;
         }
 
         public string Validate()
         {
-            if (numberOfChannels == Constants.Grayscale_ChannelCount)
+            if (numberOfChannels == Constants.XYZ_ChannelCount)
             {
                 return Strings.AlreadyGrayscale_Error;
             }

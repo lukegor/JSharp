@@ -14,7 +14,7 @@ namespace JSharp.ViewModels
 
         public IEnumerable<string> GetFileExtensionTypes()
         {
-            IEnumerable<string> types = new List<string>() { ".bmp", ".jpg", ".jpeg", ".tiff", ".png" };
+            IEnumerable<string> types = new string[] { ".bmp", ".jpg", ".jpeg", ".tiff", ".png" };
             return types;
         }
     }

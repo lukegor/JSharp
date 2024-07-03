@@ -5,7 +5,7 @@ using Emgu.CV.Util;
 using JSharp.Models;
 using JSharp.Resources;
 using JSharp.Utility;
-using JSharp.Validators;
+using JSharp.Validation.Validators;
 using LiveChartsCore.Kernel;
 using Microsoft.Win32;
 using Prism.Commands;

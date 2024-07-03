@@ -6,19 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JSharp.Validators
+namespace JSharp.Validation.Validators
 {
-    public class ImageXyzValidator
+    public class AlreadyGrayscaleErrorValidator
     {
         private readonly int numberOfChannels;
-        public ImageXyzValidator(int numberOfChannels)
+        public AlreadyGrayscaleErrorValidator(int numberOfChannels)
         {
             this.numberOfChannels = numberOfChannels;
         }
 
         public string Validate()
         {
-            if (this.numberOfChannels == Constants.XYZ_ChannelCount)
+            if (numberOfChannels == Constants.Grayscale_ChannelCount)
             {
                 return Strings.AlreadyGrayscale_Error;
             }

@@ -4,9 +4,9 @@ using JSharp;
 using JSharp.Utility;
 using System.Runtime.InteropServices;
 
-namespace JSharp_Tests
+namespace JSharp_Tests.Algorithms_Tests
 {
-    public class ThresholdTests
+    public class ThresholdingTests
     {
         [Theory]
         [InlineData(50, 200, false, new byte[] { 10, 50, 100, 150, 200, 250, 0, 128, 255 }, 3, 3, new byte[] { 0, 255, 255, 255, 255, 0, 0, 255, 0 })]

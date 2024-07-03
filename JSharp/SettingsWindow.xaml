@@ -6,13 +6,14 @@
         xmlns:local="clr-namespace:JSharp"
 		xmlns:properties="clr-namespace:JSharp.Properties"
 		xmlns:viewModels="clr-namespace:JSharp.ViewModels"
+		xmlns:validation="clr-namespace:JSharp.Validation.Validation_rules"
         mc:Ignorable="d"
         Title="SettingsWindow" Height="450" Width="800">
 	<Window.Resources>
 		<ObjectDataProvider x:Key="FileExtensionTypesProvider"
 							ObjectType="{x:Type viewModels:SettingsWindowViewModel}"
 							MethodName="GetFileExtensionTypes"/>
-		</Window.Resources>
+	</Window.Resources>
 	<Grid Background="#F7F9FA">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
@@ -28,8 +29,16 @@
 
 		<ComboBox Name="LanguageCombobox" Padding="10,8" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="5,-168,5,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
 		<ComboBox Name="ThemesCombobox" Padding="10,8" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="5,-68,5,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
-		<TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=jpqSaveQuality, Mode=OneTime}" Grid.Column="1" Padding="10,8" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="5,32,5,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
-		<ComboBox ItemsSource="{Binding Source={StaticResource FileExtensionTypesProvider}}" SelectedValue="{Binding Source={x:Static properties:Settings.Default}, Path=saveFileExtension, Mode=OneTime}" Grid.Column="1" Padding="10,8" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="5,132,5,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
+		<TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path= jpqSaveQuality, Mode=OneTime}" Grid.Column="1" Padding="10,8" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="5,32,5,0" FontSize="16" FontFamily="Segoe UI Semibold">
+			<!--
+			  <Binding Source="{x:Static properties:Settings.Default}" Path="jpqSaveQuality" Mode="OneTime">
+				<Binding.ValidationRules>
+				  <validation:RangeValidationRule Min="1" Max="100" />
+				</Binding.ValidationRules>
+			  </Binding>
+			-->
+		</TextBox>
+		<ComboBox x:Name="CbFileExtension" ItemsSource="{Binding Source={StaticResource FileExtensionTypesProvider}}" SelectedValue="{Binding Source={x:Static properties:Settings.Default}, Path=saveFileExtension, Mode=OneTime}" Grid.Column="1" Padding="10,8" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="5,132,5,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
 
 
 		<Button FontSize="20" Grid.ColumnSpan="2" Content="Save" HorizontalAlignment="Center" Margin="0,0,0,25" VerticalAlignment="Bottom" Height="30" Width="50" Click="Button_Click" />
