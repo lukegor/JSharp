@@ -1077,7 +1077,7 @@ namespace JSharp.ViewModels
                 return;
             }
 
-            ImageProcessingCore.MyWatershed(FocusedImage.MatImage);
+            FocusedImage.Watershed();
         }
 
         private void Inpaint_Click()

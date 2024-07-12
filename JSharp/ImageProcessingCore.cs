@@ -897,75 +897,54 @@ namespace JSharp
             return skeleton;
         }
 
-        public static int MyWatershed(Mat image)
+        public static Mat Watershed(Mat img)
         {
-            Mat imgGray = new Mat();
-            //CvInvoke.CvtColor(image, imgGray, ColorConversion.Bgr2Gray);
+            // Convert to grayscale
+            Image<Gray, byte> gray = img.ToImage<Gray, byte>();
+            Image<Gray, byte> thresh = gray.CopyBlank();
+            CvInvoke.Threshold(gray, thresh, 0, 255, ThresholdType.BinaryInv | ThresholdType.Otsu);
 
-            // Progowanie obrazu
-            Mat thresh = new Mat(image.Size, image.Depth, image.NumberOfChannels);
-            CvInvoke.Threshold(image, thresh, 0, 255, ThresholdType.BinaryInv | ThresholdType.Otsu);
+            // Noise removal
+            Matrix<byte> kernel = new Matrix<byte>(new Byte[3, 3] { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } });
+            Image<Gray, Byte> opening = thresh.MorphologyEx(MorphOp.Open, kernel, new Point(-1, -1), 2, BorderType.Default, new MCvScalar());
+            Image<Gray, Byte> sureBg = opening.Dilate(3);
 
-            // Odszumianie obrazu przez operacje morfologiczne
-            Mat kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(-1, -1));
-            Mat opening = new Mat();
-            CvInvoke.MorphologyEx(thresh, opening, MorphOp.Open, kernel, new Point(-1, -1), 1, BorderType.Default, new MCvScalar());
+            // Finding sure foreground area
+            Mat distanceTransform = new Mat();
+            CvInvoke.DistanceTransform(opening, distanceTransform, null, DistType.L2, 5);
+            double minVal = 0, maxVal = 0;
+            Point minLoc = new Point(), maxLoc = new Point();
+            CvInvoke.MinMaxLoc(distanceTransform, ref minVal, ref maxVal, ref minLoc, ref maxLoc); // Find distanceTransform.max()
 
-            // Wyznaczenie jednoznacznych obszarów tła
-            Mat sureBg = new Mat();
-            CvInvoke.Dilate(opening, sureBg, kernel, new Point(-1, -1), 1, BorderType.Default, new MCvScalar());
+            Mat sureFg0 = new Mat();
+            CvInvoke.Threshold(distanceTransform, sureFg0, 0.7 * maxVal, 255, ThresholdType.Binary);
+            Mat sureFg = new Mat();
+            sureFg0.ConvertTo(sureFg, DepthType.Cv8U); // Convert from float to Byte
 
-            // Transformata odległościowa
-            Mat distTransform = new Mat();
-            CvInvoke.DistanceTransform(opening, distTransform, null, DistType.L2, 5);
+            Mat unknown = new Mat();
+            CvInvoke.Subtract(sureBg, sureFg, unknown);
 
-            // Określenie jednoznacznych obszarów obiektów przez progowanie obrazu transformaty odległościowej
-            double maxDist = 0, minDist = 0;
-            Point maxLoc = new Point(), minLoc = new Point();
-            CvInvoke.MinMaxLoc(distTransform, ref minDist, ref maxDist, ref minLoc, ref maxLoc);
-            double threshValue = 0.5 * maxDist;
-            Mat sureFg = new Mat(distTransform.Size, DepthType.Cv8U, 1);
-            CvInvoke.Threshold(distTransform, sureFg, distTransform, 255, ThresholdType.Binary);
+            // Marker labelling
+            Mat markers = new Mat();
+            CvInvoke.ConnectedComponents(sureFg, markers);
+            markers = markers + 1;
 
-            // Wyznaczenie obszarów "niepewnych"
-            Mat unknown = new Mat(sureBg.Size, sureBg.Depth, sureBg.NumberOfChannels);
-            CvInvoke.Subtract(sureBg, sureFg, unknown, null, DepthType.Cv8U);
+            Mat zeros = markers - markers; // Create a matrix of zeros (with same type as markers).
+            zeros.CopyTo(markers, unknown); // markers[unknown==255] = 0
 
-            // Etykietowanie obiektów
-            Mat markers = new Mat(sureFg.Size, DepthType.Cv8U, 1);
-            int nLabels = CvInvoke.ConnectedComponents(sureFg, markers);
+            // Apply watershed
+            CvInvoke.Watershed(img, markers);
 
-            // Dodanie wartości 1 do etykiet
-            markers += 1;
-
-            // Oznaczenie obszarów "niepewnych" jako zero
-            CvInvoke.BitwiseAnd(unknown, new ScalarArray(new MCvScalar(255)), unknown);
-            markers.SetTo(new MCvScalar(0), unknown);
-
-            // Algorytm watershed
-            CvInvoke.Watershed(image, markers);
-
+            // Create mask for watershed result
             Mat mask = new Mat();
-            CvInvoke.Compare(markers, new ScalarArray(new MCvScalar(-1)), mask, CmpType.Equal);
+            zeros.SetTo(new MCvScalar(-1)); // Reuse zeros matrix - fill with (-1) values.
+            CvInvoke.Compare(markers, zeros, mask, CmpType.Equal);
+            mask.ConvertTo(mask, DepthType.Cv8U); // Convert from mask to Byte
+            Mat blue = new Mat(img.Rows, img.Cols, DepthType.Cv8U, 3);
+            blue.SetTo(new MCvScalar(255, 0, 0)); // Make blue image
+            blue.CopyTo(img, mask);
 
-            // Wstawienie linii krawędzi obiektów do obrazu szaroodcieniowego
-            Mat imgGrayData = new Mat();
-            image.ConvertTo(imgGrayData, DepthType.Cv8U);
-            imgGrayData.SetTo(new MCvScalar(255), mask);
-
-            // Wstawienie linii krawędzi obiektów do oryginalnego obrazu kolorowego
-            image.SetTo(new MCvScalar(255, 0, 0), mask);
-
-            Console.WriteLine("Znaleziono " + (nLabels - 1) + " obiektów.");
-
-            // Wizualizacja
-            Mat markersColor = new Mat();
-            CvInvoke.ApplyColorMap(markers * 10, markersColor, Emgu.CV.CvEnum.ColorMapType.Jet);
-            Mat frame = new Mat();
-            CvInvoke.HConcat(image, markersColor, frame);
-            CvInvoke.Imshow("Watershed Result", frame);
-
-            return nLabels;
+            return img;
         }
 
         /// <summary>

@@ -240,7 +240,7 @@ namespace JSharp.ViewModels
                         break;
                     case ".png":
                         // For PNG format, save the MatImage with PNG compression level
-                        CvInvoke.Imwrite(fileName, this.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.PngCompression, 3) });
+                        CvInvoke.Imwrite(fileName, this.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.PngCompression, Properties.Settings.Default.pngCompressionLevel) });
                         break;
                     case ".gif":
                         // For GIF format, save the MatImage with specified parameters
@@ -497,6 +497,14 @@ namespace JSharp.ViewModels
         {
             Mat image = this.MatImage;
             image = ImageProcessingCore.Hough(image);
+            UpdateImageSource(image);
+        }
+
+        public void Watershed()
+        {
+            Mat image = this.MatImage;
+
+            image = ImageProcessingCore.Watershed(image);
             UpdateImageSource(image);
         }
 
