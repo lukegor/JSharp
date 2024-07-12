@@ -11,5 +11,8 @@
     <Setting Name="jpqSaveQuality" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">90</Value>
     </Setting>
+    <Setting Name="pngCompressionLevel" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

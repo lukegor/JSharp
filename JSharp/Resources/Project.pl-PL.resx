@@ -120,18 +120,6 @@
   <data name="Analyze" xml:space="preserve">
     <value>Przeprowadź Analizę</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Anuluj</value>
-  </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>Zatwierdź</value>
-  </data>
-  <data name="Count" xml:space="preserve">
-    <value>Zliczenie</value>
-  </data>
-  <data name="Image" xml:space="preserve">
-    <value>Obraz</value>
-  </data>
   <data name="ProjectStr" xml:space="preserve">
     <value>Projekt</value>
   </data>

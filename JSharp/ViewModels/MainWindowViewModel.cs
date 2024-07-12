@@ -1140,6 +1140,8 @@ namespace JSharp.ViewModels
         public void OpenSettings_Click()
         {
             SettingsWindow settingsWindow = new SettingsWindow();
+            SettingsWindowViewModel settingsWindowViewModel = new SettingsWindowViewModel();
+            settingsWindow.DataContext = settingsWindowViewModel;
             settingsWindow.ShowDialog();
 
             if (settingsWindow.DialogResult == true)

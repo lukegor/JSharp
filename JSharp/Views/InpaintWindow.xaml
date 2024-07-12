@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:prism="http://prismlibrary.com/"
         xmlns:local="clr-namespace:JSharp"
+		xmlns:resx="clr-namespace:JSharp.Resources"
 		xmlns:converters="clr-namespace:JSharp.Converters"
         mc:Ignorable="d"
         Title="InpaintWindow" Height="150" Width="300">
@@ -19,8 +20,10 @@
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 
-			<TextBlock Grid.Row="0" Grid.Column="0" Text="Image:" Margin="0,0,0,0"/>
-			<ComboBox Grid.Row="0" Grid.Column="1" Margin="10,0,0,5" Width="100"
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static resx:Strings.Image}" Margin="0,0,0,0">
+				<Run Text=":"/>
+			</TextBlock>
+			<ComboBox Grid.Row="0" Grid.Column="1" Margin="10,0,0,5" Width="120"
 					  ItemsSource="{Binding Images}"
 					  DisplayMemberPath="FileName"
 					  SelectedValuePath="FileName"
@@ -28,8 +31,10 @@
 			</ComboBox>
 
 			<!-- Second Row -->
-			<TextBlock Grid.Row="1" Grid.Column="0" Text="Mask:" Margin="0,0,0,0"/>
-			<ComboBox Grid.Row="1" Grid.Column="1" Margin="10,0,0,5" Width="100"
+			<TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static resx:Strings.Mask}" Margin="0,0,0,0">
+				<Run Text=":"/>
+			</TextBlock>
+			<ComboBox Grid.Row="1" Grid.Column="1" Margin="10,0,0,5" Width="120"
 					  ItemsSource="{Binding Images}"
 					  DisplayMemberPath="FileName"
 					  SelectedValuePath="FileName"

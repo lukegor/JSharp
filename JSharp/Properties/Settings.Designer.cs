@@ -58,5 +58,17 @@ namespace JSharp.Properties {
                 this["jpqSaveQuality"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public byte pngCompressionLevel {
+            get {
+                return ((byte)(this["pngCompressionLevel"]));
+            }
+            set {
+                this["pngCompressionLevel"] = value;
+            }
+        }
     }
 }

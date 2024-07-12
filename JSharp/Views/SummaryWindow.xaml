@@ -12,8 +12,8 @@
 		<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 			<DataGrid ItemsSource="{Binding Data}" AutoGenerateColumns="False">
 				<DataGrid.Columns>
-					<DataGridTextColumn Header="{x:Static resx:Project.Image}" Binding="{Binding Image}"/>
-					<DataGridTextColumn Header="{x:Static resx:Project.Count}" Binding="{Binding Count}"/>
+					<DataGridTextColumn Header="{x:Static resx:Strings.Image}" Binding="{Binding Image}"/>
+					<DataGridTextColumn Header="{x:Static resx:Strings.Count}" Binding="{Binding Count}"/>
 				</DataGrid.Columns>
 			</DataGrid>
 		</ScrollViewer>

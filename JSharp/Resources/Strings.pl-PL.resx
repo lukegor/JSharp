@@ -135,6 +135,9 @@
   <data name="Convolve" xml:space="preserve">
     <value>Konwolucja</value>
   </data>
+  <data name="Count" xml:space="preserve">
+    <value>Liczba</value>
+  </data>
   <data name="Dilate" xml:space="preserve">
     <value>Dylacja</value>
   </data>
@@ -171,6 +174,9 @@
   <data name="HistogramNotOpen" xml:space="preserve">
     <value>Wybrana operacja wymaga żeby histogram wybranego obrazu był otwarty.</value>
   </data>
+  <data name="Image" xml:space="preserve">
+    <value>Obraz</value>
+  </data>
   <data name="Image Processing Program" xml:space="preserve">
     <value>Program do Przetwarzania Obrazów</value>
   </data>
@@ -191,6 +197,9 @@
   </data>
   <data name="LoadingFailed" xml:space="preserve">
     <value>Nie udało się załadować obrazu.</value>
+  </data>
+  <data name="Mask" xml:space="preserve">
+    <value>Maska</value>
   </data>
   <data name="Median" xml:space="preserve">
     <value>Medianowy</value>
@@ -258,9 +267,6 @@
   <data name="SaveAs" xml:space="preserve">
     <value>Zapisz jako</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Ustawienia</value>
-  </data>
   <data name="ShowHistogram" xml:space="preserve">
     <value>Wyświetl Histogram</value>
   </data>
@@ -296,5 +302,8 @@
   </data>
   <data name="ThresholdingAdaptive" xml:space="preserve">
     <value>Adaptacyjny</value>
+  </data>
+  <data name="Watershed" xml:space="preserve">
+    <value>Wododział</value>
   </data>
 </root>

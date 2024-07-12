@@ -27,8 +27,7 @@ namespace JSharp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Settings.Default.saveFileExtension = CbFileExtension.SelectedValue.ToString();
-            Settings.Default.Save();
+            DialogResult = true;
         }
     }
 }

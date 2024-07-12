@@ -115,6 +115,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Count.
+        /// </summary>
+        public static string Count {
+            get {
+                return ResourceManager.GetString("Count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dilate.
         /// </summary>
         public static string Dilate {
@@ -232,6 +241,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image.
+        /// </summary>
+        public static string Image {
+            get {
+                return ResourceManager.GetString("Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Image Processing Program.
         /// </summary>
         public static string Image_Processing_Program {
@@ -291,6 +309,15 @@ namespace JSharp.Resources {
         public static string LoadingFailed {
             get {
                 return ResourceManager.GetString("LoadingFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mask.
+        /// </summary>
+        public static string Mask {
+            get {
+                return ResourceManager.GetString("Mask", resourceCulture);
             }
         }
         
@@ -489,15 +516,6 @@ namespace JSharp.Resources {
         public static string SaveAs {
             get {
                 return ResourceManager.GetString("SaveAs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings.
-        /// </summary>
-        public static string Settings {
-            get {
-                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         

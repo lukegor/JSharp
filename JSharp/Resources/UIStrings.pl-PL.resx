@@ -132,7 +132,13 @@
   <data name="Exit" xml:space="preserve">
     <value>Zamknij</value>
   </data>
+  <data name="File" xml:space="preserve">
+    <value>Plik</value>
+  </data>
   <data name="Help" xml:space="preserve">
     <value>Pomoc</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ustawienia</value>
   </data>
 </root>

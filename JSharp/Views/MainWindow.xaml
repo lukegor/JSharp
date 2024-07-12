@@ -20,9 +20,10 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<Menu Width="Auto" Height="20" VerticalAlignment="Top" Grid.Row="0">
-			<MenuItem Header="File">
+			<MenuItem Header="{x:Static resx:UIStrings.File}">
 				<MenuItem x:Name="Open" Header="{x:Static resx:Strings.Open}">
 					<MenuItem x:Name="OpenGray" Header="{x:Static resx:Strings.OpenGray}" Command="{Binding OpenGray_ClickCommand}"/>
 					<MenuItem x:Name="OpenRGB" Header="{x:Static resx:Strings.OpenRGB}" Command="{Binding OpenRgb_ClickCommand}"/>
@@ -33,7 +34,7 @@
 				<Separator/>
 				<MenuItem x:Name="Exit" Header="{x:Static resx:UIStrings.Exit}" Command="{Binding Exit_ClickCommand}"/>
 			</MenuItem>
-			<MenuItem Header="Image">
+			<MenuItem Header="{x:Static resx:Strings.Image}">
 				<MenuItem x:Name="Duplicate" Header="{x:Static resx:Strings.Duplicate}" Command="{Binding Duplicate_CommandClick}"/>
 				<MenuItem x:Name="Convert" Header="{x:Static resx:Strings.Convert}">
 					<MenuItem x:Name="Grayize" Header="{x:Static resx:Strings.Grayize}"  Command="{Binding Grayize_ClickCommand}"/>
@@ -78,9 +79,9 @@
 			<MenuItem Header="Advanced operations">
 				<MenuItem Header="{x:Static resx:Strings.Thresholding}" Command="{Binding SimpleThreshold_ClickCommand}"/>
 				<MenuItem Header="{x:Static resx:Project.Thresholding}" Command="{Binding Threshold_ClickCommand}"/>
-				<!--<MenuItem Header="{x:Static resx:Strings.Watershed}" Command="{Binding Watershed_ClickCommand}"/>-->
+				<MenuItem Header="{x:Static resx:Strings.Watershed}" Command="{Binding Watershed_ClickCommand}"/>
 				<MenuItem Header="{x:Static resx:Strings.Inpaint}" Command="{Binding Inpaint_ClickCommand}"/>
-				<!--<MenuItem Header="{x:Static resx:Strings.GrabCut}" Command="{Binding GrabCut_ClickCommand}"/>-->
+				<MenuItem Header="{x:Static resx:Strings.GrabCut}" Command="{Binding GrabCut_ClickCommand}"/>
 				<!--<MenuItem Header="Analyze" Command="{Binding DetailedAnalyze_ClickCommand}"/>-->
 			</MenuItem>
 			<!--<MenuItem Header="{x:Static resx:Strings.Settings}"/>-->
@@ -88,12 +89,12 @@
 				<MenuItem Header="{x:Static resx:Project.SimpleAnalyze}" Command="{Binding SimpleAnalyze_ClickCommand}"/>
 				<MenuItem Header="{x:Static resx:Project.Analyze}" Command="{Binding Analyze_ClickCommand}"/>
 			</MenuItem>
-			<MenuItem Header="Settings" Command="{Binding OpenSettings_ClickCommand}"/>
+			<MenuItem Header="{x:Static resx:UIStrings.Settings}" Command="{Binding OpenSettings_ClickCommand}"/>
 			<MenuItem x:Name="Help" Header="{x:Static resx:UIStrings.Help}">
 				<MenuItem x:Name="About" Header="{x:Static resx:UIStrings.About}" Click="About_Click"/>
 			</MenuItem>
 		</Menu>
-		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" Grid.Row="1" HorizontalAlignment="Left" Margin="0,-3,0,0" VerticalAlignment="Top" Height="31" Width="Auto"/>
+		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" Grid.Row="1" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" Height="31" Width="Auto"/>
 		<ToolBar HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="300" Grid.Row="2" ToolBarTray.IsLocked="True">
 			<RadioButton x:Name="RadioBtnNone" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
@@ -129,7 +130,7 @@
 				</Grid>
 			</RadioButton>
 		</ToolBar>
-		<TextBlock Text="{Binding Descriptor}" Grid.Row="2"/>
+		<TextBlock Text="{Binding Descriptor}" Grid.Row="3"/>
 
 	</Grid>
 </Window>

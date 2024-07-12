@@ -12,20 +12,20 @@
 		prism:ViewModelLocator.AutoWireViewModel="True">
 	<Grid>
 		<TabControl>
-			<TabItem Header="Histogram">
+			<TabItem Header="{x:Static resx:Histogram.Histogram_Word}">
 				<Grid>
 					<lvc:CartesianChart x:Name="Histogram" Series="{Binding HistogramSeries}"
 										ZoomMode="X"/>
 					<Label x:Name="pixelSum" Content="{Binding PixelSum}" HorizontalAlignment="Left" Margin="212,-25,0,0" VerticalAlignment="Top"/>
 				</Grid>
 			</TabItem>
-			<TabItem Header="Table Histogram">
+			<TabItem Header="{x:Static resx:Histogram.Table_Histogram}">
 				<Grid Background="#FFE5E5E5">
 					<ScrollViewer VerticalScrollBarVisibility="Auto">
 						<DataGrid x:Name="HistogramDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding HistogramData}">
 							<DataGrid.Columns>
 								<DataGridTextColumn Header="{x:Static resx:Strings.PixelIntensity}" Binding="{Binding LightnessLevel}"/>
-								<DataGridTextColumn Header="Pixel Count" Binding="{Binding PixelCount}"/>
+								<DataGridTextColumn Header="{x:Static resx:Histogram.Pixel_Count}" Binding="{Binding PixelCount}"/>
 							</DataGrid.Columns>
 						</DataGrid>
 					</ScrollViewer>
