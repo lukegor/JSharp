@@ -1,4 +1,5 @@
 ﻿using JSharp.Properties;
+using JSharp.Utility;
 using JSharp.ViewModels;
 using Prism;
 using Prism.Ioc;
@@ -17,14 +18,17 @@ namespace JSharp
     /// </summary>
     public partial class App : PrismApplication
     {
+        public LanguageDictionary Languages = new LanguageDictionary();
         protected override void OnStartup(StartupEventArgs e)
         {
+            CultureInfo culture;
 #if DEBUG
-            CultureInfo culture = CultureInfo.InvariantCulture; // Force invariant culture for debugging
+            culture = CultureInfo.InvariantCulture; // Force invariant culture for debugging
 #else
-            //if (!string.IsNullOrEmpty(Settings.Default.LanguageVersion))
-
-            CultureInfo culture = CultureInfo.CurrentCulture; // Use the current culture in release mode
+            if (!string.IsNullOrEmpty(Settings.Default.LanguageVersion))
+                culture = Languages[key: Settings.Default.LanguageVersion];
+            else
+                culture = CultureInfo.CurrentCulture; // Use the current culture in release mode
 #endif
             // Set default culture for the application - seems unnecessary
             CultureInfo.DefaultThreadCurrentCulture = culture;

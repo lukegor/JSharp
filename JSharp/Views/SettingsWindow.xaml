@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JSharp"
+		xmlns:util="clr-namespace:JSharp.Utility"
 		xmlns:properties="clr-namespace:JSharp.Properties"
 		xmlns:viewModels="clr-namespace:JSharp.ViewModels"
 		xmlns:validation="clr-namespace:JSharp.Validation.Validation_rules"
@@ -36,9 +37,9 @@
 		<Label Content="Default File Saving Extension :" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Semibold" Foreground="#FF5E6366"/>
 
 
-		<ComboBox Name="LanguageCombobox" Padding="10,8" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
+		<ComboBox Name="LanguageCombobox" ItemsSource="{x:Static util:LanguageDictionary.KeysList}" SelectedValue="{Binding Language}" Padding="10,8" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
 		<ComboBox Name="ThemesCombobox" Padding="10,8" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
-		<TextBox Text="{Binding JpgSaveQuality, Mode=OneWay}" Grid.Column="1" Grid.Row="2" Padding="10,8" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold">
+		<TextBox Text="{Binding JpgSaveQuality, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" Padding="10,8" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold">
 			<!--
 			  <Binding Source="{x:Static properties:Settings.Default}" Path="jpqSaveQuality" Mode="OneTime">
 				<Binding.ValidationRules>
@@ -47,8 +48,8 @@
 			  </Binding>
 			-->
 		</TextBox>
-		<TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=pngCompressionLevel, Mode=OneTime}" Grid.Column="1" Grid.Row="3" Padding="10,8" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
-		<ComboBox x:Name="CbFileExtension" ItemsSource="{Binding Source={StaticResource FileExtensionTypesProvider}}" SelectedValue="{Binding Source={x:Static properties:Settings.Default}, Path=saveFileExtension, Mode=OneTime}" Grid.Column="1" Grid.Row="4" Padding="10,8" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
+		<TextBox Text="{Binding PngCompressionLevel, Mode=TwoWay}" Grid.Column="1" Grid.Row="3" Padding="10,8" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
+		<ComboBox x:Name="CbFileExtension" ItemsSource="{Binding Source={StaticResource FileExtensionTypesProvider}}" SelectedValue="{Binding SaveFileExtension, Mode=TwoWay}" Grid.Column="1" Grid.Row="4" Padding="10,8" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
 
 		<Button FontSize="20" Grid.ColumnSpan="2" Grid.Row="6" Content="Save" HorizontalAlignment="Center" Margin="0,0,0,25" VerticalAlignment="Bottom" Height="30" Width="50" Command="{Binding SaveSettingsCommand}" Click="Button_Click" />
 	</Grid>

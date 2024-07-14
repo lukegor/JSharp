@@ -82,10 +82,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Strings.pl-PL.Designer.cs">
+    <Compile Update="Resources\Strings.pl.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Strings.pl-PL.resx</DependentUpon>
+      <DependentUpon>Strings.pl.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\UIStrings.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -115,9 +115,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Strings.pl-PL.resx">
+    <EmbeddedResource Update="Resources\Strings.pl.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.pl-PL.Designer.cs</LastGenOutput>
+      <LastGenOutput>Strings.pl.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\UIStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

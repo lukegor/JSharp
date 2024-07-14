@@ -33,6 +33,13 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _saveFileExtension, value); }
         }
 
+        private string language;
+        public string Language
+        {
+            get { return language; }
+            set { SetProperty(ref language, value); }
+        }
+
         public DelegateCommand SaveSettingsCommand { get; }
 
         public SettingsWindowViewModel()
@@ -42,6 +49,9 @@ namespace JSharp.ViewModels
             PngCompressionLevel = Settings.Default.pngCompressionLevel;
             JpgSaveQuality = Settings.Default.jpqSaveQuality;
             SaveFileExtension = Settings.Default.saveFileExtension;
+            if (string.IsNullOrEmpty(Settings.Default.LanguageVersion))
+                Language = "English";
+            else Language = Settings.Default.LanguageVersion;
         }
 
         public void SaveCommand()
@@ -49,6 +59,7 @@ namespace JSharp.ViewModels
             Settings.Default.pngCompressionLevel = PngCompressionLevel;
             Settings.Default.jpqSaveQuality = JpgSaveQuality;
             Settings.Default.saveFileExtension = SaveFileExtension;
+            Settings.Default.LanguageVersion = Language;
             Settings.Default.Save();
         }
 
