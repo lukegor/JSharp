@@ -118,13 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Author" xml:space="preserve">
-    <value>Author:</value>
-  </data>
-  <data name="ChbNewWindow" xml:space="preserve">
-    <value>Create New Window</value>
-  </data>
-  <data name="ChoosePosterizationLevelsNumber" xml:space="preserve">
-    <value>Choose number of posterization levels</value>
+    <value>Author</value>
   </data>
   <data name="Convert" xml:space="preserve">
     <value>Convert</value>
@@ -270,23 +264,8 @@
   <data name="StructuringElement" xml:space="preserve">
     <value>Structuring Element</value>
   </data>
-  <data name="TextBlockImage1" xml:space="preserve">
-    <value>Image 1:</value>
-  </data>
-  <data name="TextBlockImage2" xml:space="preserve">
-    <value>Image 2:</value>
-  </data>
-  <data name="TextBlockOperation" xml:space="preserve">
-    <value>Operation:</value>
-  </data>
   <data name="Thresholding" xml:space="preserve">
     <value>Thresholding</value>
-  </data>
-  <data name="ThresholdingAdaptive" xml:space="preserve">
-    <value>Adaptive</value>
-  </data>
-  <data name="ThresholdingOtsu" xml:space="preserve">
-    <value>Otsu</value>
   </data>
   <data name="Watershed" xml:space="preserve">
     <value>Watershed</value>

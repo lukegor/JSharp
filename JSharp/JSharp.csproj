@@ -92,6 +92,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>UIStrings.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\WindowSpecific.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WindowSpecific.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -122,6 +127,10 @@
     <EmbeddedResource Update="Resources\UIStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UIStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\WindowSpecific.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WindowSpecific.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

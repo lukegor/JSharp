@@ -59,8 +59,15 @@ namespace JSharp.ViewModels
             Settings.Default.pngCompressionLevel = PngCompressionLevel;
             Settings.Default.jpqSaveQuality = JpgSaveQuality;
             Settings.Default.saveFileExtension = SaveFileExtension;
+            var tmp = Settings.Default.LanguageVersion;
             Settings.Default.LanguageVersion = Language;
             Settings.Default.Save();
+
+            if (tmp != Language)
+            {
+                App current = (App)App.Current;
+                current.Restart();
+            }
         }
 
         public IEnumerable<string> GetFileExtensionTypes()

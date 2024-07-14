@@ -61,29 +61,11 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Author:.
+        ///   Looks up a localized string similar to Author.
         /// </summary>
         public static string Author {
             get {
                 return ResourceManager.GetString("Author", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create New Window.
-        /// </summary>
-        public static string ChbNewWindow {
-            get {
-                return ResourceManager.GetString("ChbNewWindow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose number of posterization levels.
-        /// </summary>
-        public static string ChoosePosterizationLevelsNumber {
-            get {
-                return ResourceManager.GetString("ChoosePosterizationLevelsNumber", resourceCulture);
             }
         }
         
@@ -520,56 +502,11 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Image 1:.
-        /// </summary>
-        public static string TextBlockImage1 {
-            get {
-                return ResourceManager.GetString("TextBlockImage1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Image 2:.
-        /// </summary>
-        public static string TextBlockImage2 {
-            get {
-                return ResourceManager.GetString("TextBlockImage2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Operation:.
-        /// </summary>
-        public static string TextBlockOperation {
-            get {
-                return ResourceManager.GetString("TextBlockOperation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Thresholding.
         /// </summary>
         public static string Thresholding {
             get {
                 return ResourceManager.GetString("Thresholding", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adaptive.
-        /// </summary>
-        public static string ThresholdingAdaptive {
-            get {
-                return ResourceManager.GetString("ThresholdingAdaptive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Otsu.
-        /// </summary>
-        public static string ThresholdingOtsu {
-            get {
-                return ResourceManager.GetString("ThresholdingOtsu", resourceCulture);
             }
         }
         

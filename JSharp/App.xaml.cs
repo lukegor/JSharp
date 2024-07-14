@@ -58,6 +58,13 @@ namespace JSharp
             base.ConfigureRegionAdapterMappings(regionAdapterMappings);
             // Configure region adapters if necessary
         }
+
+        public void Restart()
+        {
+            var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
+            Process.Start(currentExecutablePath);
+            Application.Current.Shutdown();
+        }
     }
 
 }

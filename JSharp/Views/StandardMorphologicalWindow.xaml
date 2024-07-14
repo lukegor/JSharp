@@ -35,7 +35,7 @@
 
 			<!-- First Row -->
 			<TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,0,0">
-				<Run Text="{x:Static resx:Strings.EdgePixelsHandling}"/>
+				<Run Text="{x:Static resx:Strings.StructuringElement}"/>
 				<Run Text=":"/>
 			</TextBlock>
 			<ComboBox Grid.Row="0" Grid.Column="1" Margin="10,0,0,5" Width="100"

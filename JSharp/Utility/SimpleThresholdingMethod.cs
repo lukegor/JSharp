@@ -19,8 +19,8 @@ namespace JSharp.Utility
         private static readonly Dictionary<string, SimpleThresholdingMethod> thresholdingTypeMapping = new Dictionary<string, SimpleThresholdingMethod>()
         {
             { Project.ThresholdingStandard, SimpleThresholdingMethod.Standard },
-            { Strings.ThresholdingAdaptive, SimpleThresholdingMethod.Adaptive },
-            { Strings.ThresholdingOtsu, SimpleThresholdingMethod.Otsu },
+            { WindowSpecific.ThresholdingAdaptive, SimpleThresholdingMethod.Adaptive },
+            { WindowSpecific.ThresholdingOtsu, SimpleThresholdingMethod.Otsu },
         };
 
         public static SimpleThresholdingMethod MapLocalStringToThresholdingType(string input)
