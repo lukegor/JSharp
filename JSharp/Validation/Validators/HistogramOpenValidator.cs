@@ -22,7 +22,7 @@ namespace JSharp.Validation.Validators
         {
             if (histogramWindowViewModel == null)
             {
-                return Strings.HistogramNotOpen;
+                return Errors.HistogramNotOpen;
             }
             return null; // No error message if condition is met
         }

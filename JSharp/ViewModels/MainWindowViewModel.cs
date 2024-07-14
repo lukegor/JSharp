@@ -102,6 +102,7 @@ namespace JSharp.ViewModels
         public DelegateCommand GrabCut_ClickCommand { get; }
         public DelegateCommand DetailedAnalyze_ClickCommand { get; }
         public DelegateCommand OpenSettings_ClickCommand { get; }
+        public DelegateCommand Rotate_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -146,6 +147,7 @@ namespace JSharp.ViewModels
             GrabCut_ClickCommand = new DelegateCommand(GrabCut_Click);
             DetailedAnalyze_ClickCommand = new DelegateCommand(DetailedAnalyze_Click);
             OpenSettings_ClickCommand = new DelegateCommand(OpenSettings_Click);
+            Rotate_ClickCommand = new DelegateCommand(Rotate_Click);
             #endregion
         }
 
@@ -285,7 +287,7 @@ namespace JSharp.ViewModels
                     }
                     else
                     {
-                        MessageBox.Show(Strings.LoadingFailed);
+                        MessageBox.Show(Errors.LoadingFailed);
                     }
                 }
             }
@@ -363,7 +365,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -374,7 +376,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -385,7 +387,7 @@ namespace JSharp.ViewModels
         {
             if (OpenImageWindows == null || OpenImageWindows.Count == 0)
             {
-                MessageBox.Show(Strings.NoImageOpen, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageOpen, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -399,7 +401,7 @@ namespace JSharp.ViewModels
         private void Negate_Click()
         {
             Func<bool> condition = () => FocusedImage == null ? false : true;
-            string? errorMessage = ValidationManager.ValidateCondition(Strings.NoImageFocused, condition);
+            string? errorMessage = ValidationManager.ValidateCondition(Errors.NoImageFocused, condition);
             if (errorMessage != null)
             {
                 MessageBox.Show(errorMessage, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -443,17 +445,17 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
             {
-                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else if (FocusedImage.histogramWindowViewModel != null)
             {
-                MessageBox.Show(Strings.HistogramAlreadyOpen, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.HistogramAlreadyOpen, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             FocusedImage.MakeHistogram();
@@ -463,12 +465,12 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else if (FocusedImage.MatImage.NumberOfChannels != Constants.XYZ_ChannelCount)
             {
-                MessageBox.Show(Strings.ImageNotColor, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.ImageNotColor, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             FocusedImage.ConvertToRgb(ColorSpaceType.HSV);
@@ -480,12 +482,12 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else if (FocusedImage.MatImage.NumberOfChannels != Constants.XYZ_ChannelCount)
             {
-                MessageBox.Show(Strings.ImageNotColor, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.ImageNotColor, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             DisplaySplitChannels(FocusedImage.ColorSpaceType);
@@ -543,12 +545,12 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else if (FocusedImage.MatImage.NumberOfChannels != Constants.XYZ_ChannelCount)
             {
-                MessageBox.Show(Strings.ImageNotColor, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.ImageNotColor, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -615,12 +617,12 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
             {
-                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -640,12 +642,12 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
             {
-                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -666,12 +668,12 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
             {
-                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -692,7 +694,7 @@ namespace JSharp.ViewModels
         {
             if (OpenImageWindows == null || OpenImageWindows.Count == 0)
             {
-                MessageBox.Show(Strings.NoImageOpen, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageOpen, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -710,7 +712,7 @@ namespace JSharp.ViewModels
 
                 if (img1.NumberOfChannels != Constants.Grayscale_ChannelCount || img2.NumberOfChannels != Constants.Grayscale_ChannelCount)
                 {
-                    MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Errors.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -747,12 +749,12 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
             {
-                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -777,7 +779,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -804,7 +806,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -831,7 +833,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -858,7 +860,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -885,12 +887,12 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
             {
-                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -906,7 +908,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -921,7 +923,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -946,7 +948,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             (int[] data, _) = ImageProcessingCore.CalculateHistogramValues(FocusedImage.MatImage);
@@ -963,7 +965,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -974,7 +976,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             var points = FocusedImage.Points.Select(p => p.Value).ToArray();
@@ -985,7 +987,7 @@ namespace JSharp.ViewModels
             }
             else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
             {
-                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -1000,7 +1002,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -1026,7 +1028,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -1048,16 +1050,27 @@ namespace JSharp.ViewModels
             }
         }
 
+        private void Rotate_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            FocusedImage.Rotate();
+        }
+
         private void SimpleThreshold_Click()
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
             {
-                MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -1073,7 +1086,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -1107,7 +1120,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             var points = FocusedImage.Points.Select(p => p.Value).ToArray();
@@ -1118,7 +1131,7 @@ namespace JSharp.ViewModels
             }
             //else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
             //{
-            //    MessageBox.Show(Strings.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            //    MessageBox.Show(Errors.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             //    return;
             //}
 
@@ -1154,7 +1167,7 @@ namespace JSharp.ViewModels
         {
             if (FocusedImage == null)
             {
-                MessageBox.Show(Strings.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 

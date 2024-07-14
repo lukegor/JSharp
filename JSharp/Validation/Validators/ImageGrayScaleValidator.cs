@@ -21,7 +21,7 @@ namespace JSharp.Validation.Validators
         {
             if (numberOfChannels != Constants.Grayscale_ChannelCount)
             {
-                return Strings.ImageNotGrayscale;
+                return Errors.ImageNotGrayscale;
             }
             return null; // No error message if condition is met
         }

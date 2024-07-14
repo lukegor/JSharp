@@ -49,6 +49,7 @@
 					<MenuItem x:Name="EqualizeHistogram" Header="{x:Static resx:Strings.EqualizeHistogram}" Command="{Binding EqualizeHistogram_ClickCommand}" />
 				</MenuItem>
 				<Separator/>
+				<MenuItem Header="{x:Static resx:Strings.Rotate}" Command="{Binding Rotate_ClickCommand}"/>
 				<MenuItem x:Name="SplitChannels" Header="{x:Static resx:Strings.SplitChannels}" Command="{Binding SplitChannels_ClickCommand}"/>
 				<Separator/>
 				<MenuItem Header="{x:Static resx:Strings.PyramidUp}" Command="{Binding PyramidUp_ClickCommand}"/>
@@ -98,7 +99,7 @@
 		<ToolBar HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="300" Grid.Row="2" ToolBarTray.IsLocked="True">
 			<RadioButton x:Name="RadioBtnNone" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
-					<ImageBrush ImageSource="/Resources/Icons/NoneIcon.ico"/>
+					<ImageBrush ImageSource="/Resources/Icons/ToolBar_Icons/NoneIcon.ico"/>
 				</RadioButton.Background>
 				<Grid>
 					<Image Width="16" Height="16"/>
@@ -106,7 +107,7 @@
 			</RadioButton>
 			<RadioButton x:Name="RadioBtnProfileLine" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
-					<ImageBrush ImageSource="/Resources/Icons/LineSegment.ico"/>
+					<ImageBrush ImageSource="/Resources/Icons/ToolBar_Icons/LineSegment.ico"/>
 				</RadioButton.Background>
 				<Grid>
 					<Image Width="16" Height="16"/>
@@ -114,7 +115,7 @@
 			</RadioButton>
 			<RadioButton x:Name="RadioBtnRectangle" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
-					<ImageBrush ImageSource="/Resources/Icons/DrawRectangle.ico"/>
+					<ImageBrush ImageSource="/Resources/Icons/ToolBar_Icons/DrawRectangle.ico"/>
 				</RadioButton.Background>
 				<Grid>
 					<Image Width="16" Height="16"/>
@@ -123,7 +124,7 @@
 			<Separator/>
 			<RadioButton Checked="RadioButtonClear_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
-					<ImageBrush ImageSource="/Resources/Icons/ClearCanvas.ico"/>
+					<ImageBrush ImageSource="/Resources/Icons/ToolBar_Icons/ClearCanvas.ico"/>
 				</RadioButton.Background>
 				<Grid>
 					<Image Width="16" Height="16"/>

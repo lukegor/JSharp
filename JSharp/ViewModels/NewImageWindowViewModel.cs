@@ -188,6 +188,8 @@ namespace JSharp.ViewModels
                 ZoomScale *= MainWindowViewModel.CumulativeZoomChange;
             else
                 ZoomScale /= MainWindowViewModel.CumulativeZoomChange;
+
+            UpdateWindowSize();
         }
 
         public void UpdateImageSource(Mat newImage)
@@ -201,8 +203,8 @@ namespace JSharp.ViewModels
 
         private void UpdateWindowSize()
         {
-            this.Width = Source.Width + widthAdjustmentConst;
-            this.Height = Source.Height + heightAdjustmentConst;
+            this.Width = (Source.Width * ZoomScale) + widthAdjustmentConst;
+            this.Height = (Source.Height * ZoomScale) + heightAdjustmentConst;
         }
         #endregion
 
@@ -520,6 +522,14 @@ namespace JSharp.ViewModels
         {
             Mat image = this.MatImage;
             CvInvoke.PyrDown(image, image, BorderType.Default);
+            UpdateImageSource(image);
+            UpdateWindowSize();
+        }
+
+        internal void Rotate()
+        {
+            Mat image = this.MatImage;
+            CvInvoke.Rotate(image, image, RotateFlags.Rotate90Clockwise);
             UpdateImageSource(image);
             UpdateWindowSize();
         }

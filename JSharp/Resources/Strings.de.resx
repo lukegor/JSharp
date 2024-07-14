@@ -118,177 +118,177 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Author" xml:space="preserve">
-    <value>Author:</value>
+    <value>Autor:</value>
   </data>
   <data name="ChbNewWindow" xml:space="preserve">
-    <value>Create New Window</value>
+    <value>Neues Fenster erstellen</value>
   </data>
   <data name="ChoosePosterizationLevelsNumber" xml:space="preserve">
-    <value>Choose number of posterization levels</value>
+    <value>Wählen Sie die Anzahl der Posterisierungsstufen</value>
   </data>
   <data name="Convert" xml:space="preserve">
-    <value>Convert</value>
+    <value>Konvertieren</value>
   </data>
   <data name="Convolve" xml:space="preserve">
-    <value>Convolve</value>
+    <value>Konvolvieren</value>
   </data>
   <data name="Count" xml:space="preserve">
-    <value>Count</value>
+    <value>Zählen</value>
   </data>
   <data name="Dilate" xml:space="preserve">
-    <value>Dilate</value>
+    <value>Dilatieren</value>
   </data>
   <data name="DoubleConvolve" xml:space="preserve">
-    <value>Double- and Single Convolve</value>
+    <value>Doppel- und Einzelfaltung</value>
   </data>
   <data name="Duplicate" xml:space="preserve">
-    <value>Duplicate</value>
+    <value>Duplikatieren</value>
   </data>
   <data name="EdgeDetection_Hough" xml:space="preserve">
-    <value>Edge Detection (Hough)</value>
+    <value>Kantenerkennung (Hough)</value>
   </data>
   <data name="EdgePixelsHandling" xml:space="preserve">
-    <value>Edge Pixels Handling</value>
+    <value>Umgang mit Kantenpixeln</value>
   </data>
   <data name="EqualizeHistogram" xml:space="preserve">
-    <value>Equalize Histogram</value>
+    <value>Histogramm äqualisieren</value>
   </data>
   <data name="Erode" xml:space="preserve">
-    <value>Erode</value>
+    <value>Erodieren</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Error</value>
+    <value>Fehler</value>
   </data>
   <data name="Filters" xml:space="preserve">
-    <value>Filters</value>
+    <value>Filter</value>
   </data>
   <data name="GrabCut" xml:space="preserve">
     <value>GrabCut</value>
   </data>
   <data name="Grayize" xml:space="preserve">
-    <value>RGB to Grayscale</value>
+    <value>RGB zu Graustufen</value>
   </data>
   <data name="Image" xml:space="preserve">
-    <value>Image</value>
+    <value>Bild</value>
   </data>
   <data name="Image Processing Program" xml:space="preserve">
-    <value>Image Processing Program</value>
+    <value>Bildverarbeitungsprogramm</value>
   </data>
   <data name="ImageCalculator" xml:space="preserve">
-    <value>Image Calculator</value>
+    <value>Bildrechner</value>
   </data>
   <data name="Inpaint" xml:space="preserve">
     <value>Inpaint</value>
   </data>
   <data name="KernelMaskSize" xml:space="preserve">
-    <value>Kernel/Mask Size</value>
+    <value>Kernel-/Maskengröße</value>
   </data>
   <data name="Mask" xml:space="preserve">
-    <value>Mask</value>
+    <value>Maske</value>
   </data>
   <data name="Median" xml:space="preserve">
     <value>Median</value>
   </data>
   <data name="MorphologicalClose" xml:space="preserve">
-    <value>Morphological Closing</value>
+    <value>Morphologisches Öffnen</value>
   </data>
   <data name="MorphologicalOpen" xml:space="preserve">
-    <value>Morphological Opening</value>
+    <value>Morphologische Schließen</value>
   </data>
   <data name="MorphologicalOperations" xml:space="preserve">
-    <value>Elementary Morphological Operations</value>
+    <value>Elementare morphologische Operationen</value>
   </data>
   <data name="Negate" xml:space="preserve">
-    <value>Negate</value>
+    <value>Negieren</value>
   </data>
   <data name="Open" xml:space="preserve">
-    <value>Open</value>
+    <value>Öffnen</value>
   </data>
   <data name="OpenGray" xml:space="preserve">
-    <value>Open Grayscale</value>
+    <value>Graustufen Öffnen</value>
   </data>
   <data name="OpenRGB" xml:space="preserve">
-    <value>Open RGB</value>
+    <value>RGB Öffnen</value>
   </data>
   <data name="PixelIntensity" xml:space="preserve">
-    <value>Brightness</value>
+    <value>Helligkeit</value>
   </data>
   <data name="PlotProfile" xml:space="preserve">
-    <value>Plot Profile</value>
+    <value>Handlungsprofil</value>
   </data>
   <data name="Posterize" xml:space="preserve">
-    <value>Posterize</value>
+    <value>Posterisieren</value>
   </data>
   <data name="PyramidDown" xml:space="preserve">
-    <value>Scale Down</value>
+    <value>Herunterskalieren</value>
   </data>
   <data name="PyramidUp" xml:space="preserve">
-    <value>Scale Up</value>
+    <value>Vergrößern</value>
   </data>
   <data name="Rectangle" xml:space="preserve">
-    <value>Rectangle</value>
+    <value>Rechteck</value>
   </data>
   <data name="RgbToHsv" xml:space="preserve">
-    <value>RGB to HSV</value>
+    <value>RGB zu HSV</value>
   </data>
   <data name="RgbToLab" xml:space="preserve">
-    <value>RGB to LAB</value>
+    <value>RGB zu LAB</value>
   </data>
   <data name="Rhombus" xml:space="preserve">
     <value>Rhombus</value>
   </data>
   <data name="Rotate" xml:space="preserve">
-    <value>Rotate</value>
+    <value>Drehen</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Speichern</value>
   </data>
   <data name="SaveAll" xml:space="preserve">
-    <value>Save All</value>
+    <value>Alles Speichern</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
-    <value>Save As</value>
+    <value>Speichern als...</value>
   </data>
   <data name="ShowHistogram" xml:space="preserve">
-    <value>Show Histogram</value>
+    <value>Histogramm anzeigen</value>
   </data>
   <data name="Size" xml:space="preserve">
-    <value>Size</value>
+    <value>Größe</value>
   </data>
   <data name="Skeletonize" xml:space="preserve">
-    <value>Skeletonize</value>
+    <value>Skelettieren</value>
   </data>
   <data name="SplitChannels" xml:space="preserve">
-    <value>Split Channels</value>
+    <value>Kanäle teilen</value>
   </data>
   <data name="StretchContrast" xml:space="preserve">
-    <value>Stretch Contrast</value>
+    <value>Stretch-Kontrast</value>
   </data>
   <data name="StretchHistogram" xml:space="preserve">
-    <value>Stretch Histogram</value>
+    <value>Dehnungshistogramm</value>
   </data>
   <data name="StructuringElement" xml:space="preserve">
-    <value>Structuring Element</value>
+    <value>Strukturierendes Element</value>
   </data>
   <data name="TextBlockImage1" xml:space="preserve">
-    <value>Image 1:</value>
+    <value>Bild 1:</value>
   </data>
   <data name="TextBlockImage2" xml:space="preserve">
-    <value>Image 2:</value>
+    <value>Bild 2:</value>
   </data>
   <data name="TextBlockOperation" xml:space="preserve">
-    <value>Operation:</value>
+    <value>Betrieb:</value>
   </data>
   <data name="Thresholding" xml:space="preserve">
-    <value>Thresholding</value>
+    <value>Schwellenwertverfahren</value>
   </data>
   <data name="ThresholdingAdaptive" xml:space="preserve">
-    <value>Adaptive</value>
+    <value>Adaptiv</value>
   </data>
   <data name="ThresholdingOtsu" xml:space="preserve">
     <value>Otsu</value>
   </data>
   <data name="Watershed" xml:space="preserve">
-    <value>Watershed</value>
+    <value>Wasserscheide</value>
   </data>
 </root>

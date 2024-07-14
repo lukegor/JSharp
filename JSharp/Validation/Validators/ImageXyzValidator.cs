@@ -20,7 +20,7 @@ namespace JSharp.Validation.Validators
         {
             if (numberOfChannels == Constants.XYZ_ChannelCount)
             {
-                return Strings.AlreadyGrayscale_Error;
+                return Errors.AlreadyGrayscale_Error;
             }
             return null; // No error message if condition is met
         }

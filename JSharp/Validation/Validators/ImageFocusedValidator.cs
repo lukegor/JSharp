@@ -21,7 +21,7 @@ namespace JSharp.Validation.Validators
         {
             if (focusedImage == null)
             {
-                return Strings.NoImageFocused;
+                return Errors.NoImageFocused;
             }
             return null; // No error message if condition is met
         }

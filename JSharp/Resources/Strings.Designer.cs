@@ -61,15 +61,6 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The image is already grayscale.
-        /// </summary>
-        public static string AlreadyGrayscale_Error {
-            get {
-                return ResourceManager.GetString("AlreadyGrayscale_Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Author:.
         /// </summary>
         public static string Author {
@@ -223,24 +214,6 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Histogram for the image is already open..
-        /// </summary>
-        public static string HistogramAlreadyOpen {
-            get {
-                return ResourceManager.GetString("HistogramAlreadyOpen", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The operation requires for the histogram of the selected image to be open..
-        /// </summary>
-        public static string HistogramNotOpen {
-            get {
-                return ResourceManager.GetString("HistogramNotOpen", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Image.
         /// </summary>
         public static string Image {
@@ -268,24 +241,6 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The selected operation may only be performed on color images..
-        /// </summary>
-        public static string ImageNotColor {
-            get {
-                return ResourceManager.GetString("ImageNotColor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The selected operation may only be performed on grayscale images..
-        /// </summary>
-        public static string ImageNotGrayscale {
-            get {
-                return ResourceManager.GetString("ImageNotGrayscale", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Inpaint.
         /// </summary>
         public static string Inpaint {
@@ -300,15 +255,6 @@ namespace JSharp.Resources {
         public static string KernelMaskSize {
             get {
                 return ResourceManager.GetString("KernelMaskSize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to load image..
-        /// </summary>
-        public static string LoadingFailed {
-            get {
-                return ResourceManager.GetString("LoadingFailed", resourceCulture);
             }
         }
         
@@ -363,24 +309,6 @@ namespace JSharp.Resources {
         public static string Negate {
             get {
                 return ResourceManager.GetString("Negate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No image is focused.
-        /// </summary>
-        public static string NoImageFocused {
-            get {
-                return ResourceManager.GetString("NoImageFocused", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No image is open.
-        /// </summary>
-        public static string NoImageOpen {
-            get {
-                return ResourceManager.GetString("NoImageOpen", resourceCulture);
             }
         }
         
@@ -489,6 +417,15 @@ namespace JSharp.Resources {
         public static string Rhombus {
             get {
                 return ResourceManager.GetString("Rhombus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotate.
+        /// </summary>
+        public static string Rotate {
+            get {
+                return ResourceManager.GetString("Rotate", resourceCulture);
             }
         }
         

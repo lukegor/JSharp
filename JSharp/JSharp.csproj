@@ -8,7 +8,7 @@
     <UseWPF>true</UseWPF>
     <Authors>Łukasz Górski</Authors>
 	<Copyright>Copyright © 2024 Łukasz Górski</Copyright>
-	<ApplicationIcon>Resources\Icons\icon1.ico</ApplicationIcon>
+	<ApplicationIcon>Resources\Icons\ToolBar_Icons\JSharp.ico</ApplicationIcon>
 	<RepositoryUrl>https://github.com/lukegor/JSharp</RepositoryUrl>
 	<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PublishSingleFile>true</PublishSingleFile>
@@ -18,25 +18,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\ClearCanvas.ico" />
-    <None Remove="Resources\DrawRectangle.ico" />
-    <None Remove="Resources\LineSegment.ico" />
-    <None Remove="Resources\N-A-icon.ico" />
-    <None Remove="Resources\NoneIcon.ico" />
-    <None Remove="zzz.jpg" />
+    <None Remove="Resources\Icons\ToolBar_Icons\ClearCanvas.ico" />
+    <None Remove="Resources\Icons\ToolBar_Icons\DrawRectangle.ico" />
+    <None Remove="Resources\Icons\ToolBar_Icons\LineSegment.ico" />
+    <None Remove="Resources\Icons\ToolBar_Icons\N-A-icon.ico" />
+    <None Remove="Resources\Icons\ToolBar_Icons\NoneIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Icons\icon1.ico" />
+    <Content Include="Resources\Icons\ToolBar_Icons\JSharp.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Icons\ClearCanvas.ico" />
-    <Resource Include="Resources\Icons\DrawRectangle.ico" />
-    <Resource Include="Resources\Icons\icon1.ico" />
-    <Resource Include="Resources\Icons\LineSegment.ico" />
-    <Resource Include="Resources\Icons\N-A-icon.ico" />
-    <Resource Include="Resources\Icons\NoneIcon.ico" />
+    <Resource Include="Resources\Icons\ToolBar_Icons\ClearCanvas.ico" />
+    <Resource Include="Resources\Icons\ToolBar_Icons\DrawRectangle.ico" />
+    <Resource Include="Resources\Icons\ToolBar_Icons\JSharp.ico" />
+    <Resource Include="Resources\Icons\ToolBar_Icons\LineSegment.ico" />
+    <Resource Include="Resources\Icons\ToolBar_Icons\N-A-icon.ico" />
+    <Resource Include="Resources\Icons\ToolBar_Icons\NoneIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +56,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Errors.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Errors.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Histogram.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -91,6 +95,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Errors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Errors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Histogram.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Histogram.Designer.cs</LastGenOutput>
@@ -125,6 +133,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Icons\Menu_Icons\" />
   </ItemGroup>
 
 </Project>
