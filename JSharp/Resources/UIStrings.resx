@@ -129,6 +129,9 @@
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
+  <data name="EdgePixelsHandling" xml:space="preserve">
+    <value>Edge Pixels Handling</value>
+  </data>
   <data name="Exit" xml:space="preserve">
     <value>Exit</value>
   </data>

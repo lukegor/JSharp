@@ -133,15 +133,6 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edge Pixels Handling.
-        /// </summary>
-        public static string EdgePixelsHandling {
-            get {
-                return ResourceManager.GetString("EdgePixelsHandling", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Equalize Histogram.
         /// </summary>
         public static string EqualizeHistogram {
@@ -178,6 +169,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flip.
+        /// </summary>
+        public static string Flip {
+            get {
+                return ResourceManager.GetString("Flip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GrabCut.
         /// </summary>
         public static string GrabCut {
@@ -192,6 +192,15 @@ namespace JSharp.Resources {
         public static string Grayize {
             get {
                 return ResourceManager.GetString("Grayize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Histogram.
+        /// </summary>
+        public static string Histogram {
+            get {
+                return ResourceManager.GetString("Histogram", resourceCulture);
             }
         }
         
@@ -507,6 +516,15 @@ namespace JSharp.Resources {
         public static string Thresholding {
             get {
                 return ResourceManager.GetString("Thresholding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transform.
+        /// </summary>
+        public static string Transform {
+            get {
+                return ResourceManager.GetString("Transform", resourceCulture);
             }
         }
         

@@ -148,9 +148,6 @@
   <data name="EdgeDetection" xml:space="preserve">
     <value>Edge Detection</value>
   </data>
-  <data name="EdgePixelsHandling" xml:space="preserve">
-    <value>Edge Pixels Handling</value>
-  </data>
   <data name="GaussianBlur" xml:space="preserve">
     <value>Gaussian Blur</value>
   </data>

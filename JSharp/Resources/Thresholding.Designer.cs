@@ -22,14 +22,14 @@ namespace JSharp.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Project {
+    public class Thresholding {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Project() {
+        internal Thresholding() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace JSharp.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JSharp.Resources.Project", typeof(Project).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JSharp.Resources.Thresholding", typeof(Thresholding).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -88,11 +88,11 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thresholding.
+        ///   Looks up a localized string similar to Adaptive.
         /// </summary>
-        public static string Thresholding {
+        public static string ThresholdingAdaptive {
             get {
-                return ResourceManager.GetString("Thresholding", resourceCulture);
+                return ResourceManager.GetString("ThresholdingAdaptive", resourceCulture);
             }
         }
         
@@ -102,6 +102,15 @@ namespace JSharp.Resources {
         public static string ThresholdingInverse {
             get {
                 return ResourceManager.GetString("ThresholdingInverse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Otsu.
+        /// </summary>
+        public static string ThresholdingOtsu {
+            get {
+                return ResourceManager.GetString("ThresholdingOtsu", resourceCulture);
             }
         }
         
@@ -129,6 +138,15 @@ namespace JSharp.Resources {
         public static string ThresholdingStandard {
             get {
                 return ResourceManager.GetString("ThresholdingStandard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thresholding.
+        /// </summary>
+        public static string ThresholdingStr {
+            get {
+                return ResourceManager.GetString("ThresholdingStr", resourceCulture);
             }
         }
     }

@@ -35,7 +35,7 @@ namespace JSharp
         {
             if (sender is ComboBox cb)
             {
-                if (cb.SelectedValue == WindowSpecific.ThresholdingAdaptive || cb.SelectedValue == WindowSpecific.ThresholdingOtsu)
+                if (cb.SelectedValue == Thresholding.ThresholdingAdaptive || cb.SelectedValue == Thresholding.ThresholdingOtsu)
                 {
                     SliderContainer.Visibility = Visibility.Collapsed;
                 }

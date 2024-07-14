@@ -590,21 +590,21 @@ namespace JSharp
         }
 
         /// <summary>
-        /// Zastosowuje progowanie do obrazu wejściowego na podstawie podanych progów i trybu.
+        /// Applies thresholding to the input image based on the given thresholds and mode.
         /// </summary>
-        /// <param name="image">Obraz wejściowy.</param>
-        /// <param name="minThreshold">Wartość progu dolnego T1.</param>
-        /// <param name="maxThreshold">Wartość progu górnego T2.</param>
-        /// <param name="mode">Tryb progowania do zastosowania.</param>
-        /// <param name="enableContrastMode">Czy włączyć tryb kontrastu.</param>
-        /// <returns>Wynik zastosowanego progowania do obrazu wejściowego.</returns>
+        /// <param name="image">Input image.</param>
+        /// <param name="minThreshold">Lower threshold value T1.</param>
+        /// <param name="maxThreshold">Upper threshold value T2.</param>
+        /// <param name="mode">Thresholding mode to apply.</param>
+        /// <param name="enableContrastMode">Whether to enable contrast mode.</param>
+        /// <returns>Result of the applied thresholding to the input image.</returns>
         public static Mat Threshold(Mat image, int minThreshold, int maxThreshold, ThresholdingType mode, bool enableContrastMode)
         {
-            // wskaźnik do danych obrazu
+            // pointer to image data
             IntPtr imageDataPtr = image.DataPointer;
 
-            // delegat Func przechowuje referencję to funkcji
-            // wybór funkcji progującej
+            // delegate Func stores a reference to the function
+            // choosing the thresholding function
             Func<byte, byte> thresholdFunction = mode switch
             {
                 ThresholdingType.Standard => enableContrastMode
@@ -619,17 +619,17 @@ namespace JSharp
                 ThresholdingType.PreservingGrayscaleLevelsNegation => enableContrastMode
                     ? new Func<byte, byte>((pixelValue) => PreserveNegationContrastThreshold(pixelValue, minThreshold, maxThreshold))
                     : new Func<byte, byte>((pixelValue) => PreserveNegationThreshold(pixelValue, minThreshold, maxThreshold)),
-                // Zgłoszenie wyjątku, jeśli wybrany tryb progowania jest nieobsługiwany
+                // throw an exception if the selected thresholding mode is not supported
                 _ => throw new NotSupportedException($"Invalid threshold mode: {mode}"),
             };
 
-            // Iteracja przez każdy piksel w obrazie
+            // iterate through each pixel in the image
             for (int i = 0; i < image.Rows * image.Cols; i++)
             {
-                // Odczytanie wartości piksela na bieżącej pozycji
+                // read the pixel value at the current position
                 byte pixelValue = Marshal.ReadByte(imageDataPtr, i);
 
-                // Zastosowanie progowania wybraną metodą na konkretnym pikselu
+                // apply thresholding using the selected method to the specific pixel
                 byte newPixelValue = thresholdFunction(pixelValue);
                 Marshal.WriteByte(imageDataPtr, i, newPixelValue);
             }
@@ -638,60 +638,60 @@ namespace JSharp
         }
 
         /// <summary>
-        /// Stosuje progowanie z dwoma progami w wersji standardowej do pojedynczego piksela.
+        /// Applies standard thresholding with two thresholds to a single pixel.
         /// </summary>
-        /// <param name="pixelValue">Wartość piksela do progowania.</param>
-        /// <param name="minThreshold">Wartość progu dolnego T1.</param>
-        /// <param name="maxThreshold">Wartość progu górnego T2.</param>
-        /// <returns>Wartość piksela po zastosowaniu progowania.</returns>
+        /// <param name="pixelValue">Pixel value to be thresholded.</param>
+        /// <param name="minThreshold">Lower threshold value T1.</param>
+        /// <param name="maxThreshold">Upper threshold value T2.</param>
+        /// <returns>Pixel value after thresholding.</returns>
         private static byte StandardThreshold(byte pixelValue, int minThreshold, int maxThreshold)
         {
             return (pixelValue >= minThreshold && pixelValue <= maxThreshold) ? (byte)255 : (byte)0;
         }
 
         /// <summary>
-        /// Stosuje progowanie z dwoma progami w wersji odwrotnej do pojedynczego piksela.
+        /// Applies inverse thresholding with two thresholds to a single pixel.
         /// </summary>
-        /// <param name="pixelValue">Wartość piksela do progowania.</param>
-        /// <param name="minThreshold">Wartość progu dolnego T1.</param>
-        /// <param name="maxThreshold">Wartość progu górnego T2.</param>
-        /// <returns>Wartość piksela po zastosowaniu progowania.</returns>
+        /// <param name="pixelValue">Pixel value to be thresholded.</param>
+        /// <param name="minThreshold">Lower threshold value T1.</param>
+        /// <param name="maxThreshold">Upper threshold value T2.</param>
+        /// <returns>Pixel value after thresholding.</returns>
         private static byte InverseThreshold(byte pixelValue, int minThreshold, int maxThreshold)
         {
             return (pixelValue >= minThreshold && pixelValue <= maxThreshold) ? (byte)0 : (byte)255;
         }
 
         /// <summary>
-        /// Stosuje progowanie z dwoma progami z zachowaniem poziomów szarości (z zachowaniem identyczności) do pojedynczego piksela.
+        /// Applies thresholding with two thresholds while preserving grayscale levels (identity preservation) to a single pixel.
         /// </summary>
-        /// <param name="pixelValue">Wartość piksela do progowania.</param>
-        /// <param name="minThreshold">Wartość progu dolnego T1.</param>
-        /// <param name="maxThreshold">Wartość progu górnego T2.</param>
-        /// <returns>Wartość piksela po zastosowaniu progowania.</returns>
+        /// <param name="pixelValue">Pixel value to be thresholded.</param>
+        /// <param name="minThreshold">Lower threshold value T1.</param>
+        /// <param name="maxThreshold">Upper threshold value T2.</param>
+        /// <returns>Pixel value after thresholding.</returns>
         private static byte PreserveIdentityThreshold(byte pixelValue, int minThreshold, int maxThreshold)
         {
             return (pixelValue >= minThreshold && pixelValue <= maxThreshold) ? pixelValue : (byte)0;
         }
 
         /// <summary>
-        /// Stosuje progowanie z dwoma progami z zachowaniem poziomów szarości i negacją do pojedynczego piksela.
+        /// Applies thresholding with two thresholds while preserving grayscale levels and negation to a single pixel.
         /// </summary>
-        /// <param name="pixelValue">Wartość piksela do progowania.</param>
-        /// <param name="minThreshold">Wartość progu dolnego T1.</param>
-        /// <param name="maxThreshold">Wartość progu górnego T2.</param>
-        /// <returns>Wartość piksela po zastosowaniu progowania.</returns>
+        /// <param name="pixelValue">Pixel value to be thresholded.</param>
+        /// <param name="minThreshold">Lower threshold value T1.</param>
+        /// <param name="maxThreshold">Upper threshold value T2.</param>
+        /// <returns>Pixel value after thresholding.</returns>
         private static byte PreserveNegationThreshold(byte pixelValue, int minThreshold, int maxThreshold)
         {
             return (pixelValue >= minThreshold && pixelValue <= maxThreshold) ? (byte)(255 - pixelValue) : (byte)0;
         }
 
         /// <summary>
-        /// Stosuje kontrastowe progowanie z dwoma progami w wersji standardowej, w trybie kontrastu do pojedynczego piksela.
+        /// Applies contrast thresholding with two thresholds in standard mode to a single pixel.
         /// </summary>
-        /// <param name="pixelValue">Wartość piksela do progowania.</param>
-        /// <param name="minThreshold">Wartość progu dolnego T1.</param>
-        /// <param name="maxThreshold">Wartość progu górnego T2.</param>
-        /// <returns>Wartość piksela po zastosowaniu progowania.</returns>
+        /// <param name="pixelValue">Pixel value to be thresholded.</param>
+        /// <param name="minThreshold">Lower threshold value T1.</param>
+        /// <param name="maxThreshold">Upper threshold value T2.</param>
+        /// <returns>Pixel value after thresholding.</returns>
         private static byte StandardContrastThreshold(byte pixelValue, int minThreshold, int maxThreshold)
         {
             if (pixelValue < minThreshold)
@@ -702,12 +702,12 @@ namespace JSharp
         }
 
         /// <summary>
-        /// Stosuje progowanie z dwoma progami w wersji odwrotnej, w trybie kontrastu do pojedynczego piksela.
+        /// Applies inverse thresholding with two thresholds in contrast mode to a single pixel.
         /// </summary>
-        /// <param name="pixelValue">Wartość piksela do progowania.</param>
-        /// <param name="minThreshold">Wartość progu dolnego T1.</param>
-        /// <param name="maxThreshold">Wartość progu górnego T2.</param>
-        /// <returns>Wartość piksela po zastosowaniu progowania.</returns>
+        /// <param name="pixelValue">Pixel value to be thresholded.</param>
+        /// <param name="minThreshold">Lower threshold value T1.</param>
+        /// <param name="maxThreshold">Upper threshold value T2.</param>
+        /// <returns>Pixel value after thresholding.</returns>
         private static byte InverseContrastThreshold(byte pixelValue, int minThreshold, int maxThreshold)
         {
             if (pixelValue < minThreshold)
@@ -718,12 +718,12 @@ namespace JSharp
         }
 
         /// <summary>
-        /// Stosuje progowanie z dwoma progami z zachowaniem poziomów szarości (z zachowaniem identyczności), w trybie kontrastu do pojedynczego piksela.
+        /// Applies thresholding with two thresholds while preserving grayscale levels (identity preservation) in contrast mode to a single pixel.
         /// </summary>
-        /// <param name="pixelValue">Wartość piksela do progowania.</param>
-        /// <param name="minThreshold">Wartość progu dolnego T1.</param>
-        /// <param name="maxThreshold">Wartość progu górnego T2.</param>
-        /// <returns>Wartość piksela po zastosowaniu progowania.</returns>
+        /// <param name="pixelValue">Pixel value to be thresholded.</param>
+        /// <param name="minThreshold">Lower threshold value T1.</param>
+        /// <param name="maxThreshold">Upper threshold value T2.</param>
+        /// <returns>Pixel value after thresholding.</returns>
         private static byte PreserveIdentityContrastThreshold(byte pixelValue, int minThreshold, int maxThreshold)
         {
             if (pixelValue < minThreshold)
@@ -734,12 +734,12 @@ namespace JSharp
         }
 
         /// <summary>
-        /// Stosuje progowanie z dwoma progami w wersji zanegowowanej zanegowane (czyli z zachowaniem poziomów szarości, z zachowaniem negacji), w trybie kontrastu do pojedynczego piksela.
+        /// Applies thresholding with two thresholds in negation mode (preserving grayscale levels with negation) in contrast mode to a single pixel.
         /// </summary>
-        /// <param name="pixelValue">Wartość piksela do progowania.</param>
-        /// <param name="minThreshold">Wartość progu dolnego T1.</param>
-        /// <param name="maxThreshold">Wartość progu górnego T2.</param>
-        /// <returns>Wartość piksela po zastosowaniu progowania.</returns>
+        /// <param name="pixelValue">Pixel value to be thresholded.</param>
+        /// <param name="minThreshold">Lower threshold value T1.</param>
+        /// <param name="maxThreshold">Upper threshold value T2.</param>
+        /// <returns>Pixel value after thresholding.</returns>
         private static byte PreserveNegationContrastThreshold(byte pixelValue, int minThreshold, int maxThreshold)
         {
             if (pixelValue < minThreshold)
@@ -751,48 +751,48 @@ namespace JSharp
 
 
         /// <summary>
-        /// Zlicza liczbę połączonych komponentów (obiektów) na danym obrazie.
+        /// Counts the number of connected components (objects) in the given image.
         /// </summary>
-        /// <param name="image">Obraz wejściowy, na którym zliczane są obiekty.</param>
-        /// <returns>Liczba połączonych komponentów (obiektów) na obrazie, z wyłączeniem tła.</returns>
+        /// <param name="image">Input image on which objects are counted.</param>
+        /// <returns>Number of connected components (objects) in the image, excluding the background.</returns>
         public static int CountObjectsInImage(Mat image)
         {
-            // obraz zetykietowanych obiektów
+            // labeled image
             Mat labels = new Mat();
 
-            //zastosowanie metody ConnectedComponents z EmguCv, która odnosi się do metody z OpenCv
+            // applying the ConnectedComponents method from EmguCv, which refers to the method from OpenCv
             int nLabels = CvInvoke.ConnectedComponents(image, labels);
 
-            return nLabels - 1; // liczba obiektów z wyłączeniem tła
+            return nLabels - 1; // number of objects excluding the background
         }
 
         /// <summary>
-        /// Zlicza liczbę połączonych komponentów (obiektów) na danym obrazie, które spełniają określone kryteria.
+        /// Counts the number of connected components (objects) in the given image that meet specified criteria.
         /// </summary>
-        /// <param name="image">Obraz wejściowy, na którym zliczane są obiekty.</param>
-        /// <param name="minSize">Minimalny rozmiar obiektów do zliczenia. Jeśli null, nie stosuje się minimalnego rozmiaru.</param>
-        /// <param name="maxSize">Maksymalny rozmiar obiektów do zliczenia. Jeśli null, nie stosuje się maksymalnego rozmiaru.</param>
-        /// <returns>Liczba połączonych komponentów (obiektów) w określonych kryteriach, z wyłączeniem tła.</returns>
+        /// <param name="image">Input image on which objects are counted.</param>
+        /// <param name="minSize">Minimum size of objects to be counted. If null, no minimum size is applied.</param>
+        /// <param name="maxSize">Maximum size of objects to be counted. If null, no maximum size is applied.</param>
+        /// <returns>Number of connected components (objects) that meet the specified criteria, excluding the background.</returns>
         public static int CountObjectsInImage(Mat image, int? minSize, int? maxSize)
         {
-            // obraz zetykietowanych obiektów
+            // labeled image
             Mat labels = new Mat();
-            // statystyki obiektów
+            // object statistics
             Mat stats = new Mat();
-            // centroidy obiektów
+            // object centroids
             Mat centroids = new Mat();
-            // liczba obiektów
+            // number of objects
             int nLabels = CvInvoke.ConnectedComponentsWithStats(image, labels, stats, centroids);
 
             int countInRange = 0;
-            int[,] areaData = (int[,])stats.GetData(); // Pobierz wszystkie dane z macierzy stats
+            int[,] areaData = (int[,])stats.GetData(); // Get all data from the stats matrix
 
-            for (int label = 1; label < nLabels; label++) // Zaczynamy od 1, aby wykluczyć tło
+            for (int label = 1; label < nLabels; label++) // Start from 1 to exclude the background
             {
-                // Pobranie rozmiaru bieżącego obiektu
-                int objSize = areaData[label, 4]; // 4 kolumna reprezentuje pole powierzchni
+                // Get the size of the current object
+                int objSize = areaData[label, 4]; // 4th column represents the area
 
-                // Sprawdzenie, czy rozmiar obiektu mieści się w określonym zakresie
+                // Check if the object size is within the specified range
                 bool withinRange = true;
 
                 if (minSize.HasValue && objSize < minSize)
@@ -800,7 +800,7 @@ namespace JSharp
                 else if (maxSize.HasValue && objSize > maxSize)
                     withinRange = false;
 
-                // Zliczenie obiektów spełniających kryterium rozmiaru
+                // Count objects that meet the size criteria
                 if (withinRange)
                     countInRange++;
             }

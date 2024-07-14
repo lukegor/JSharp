@@ -49,7 +49,10 @@
 					<MenuItem x:Name="EqualizeHistogram" Header="{x:Static resx:Strings.EqualizeHistogram}" Command="{Binding EqualizeHistogram_ClickCommand}" />
 				</MenuItem>
 				<Separator/>
-				<MenuItem Header="{x:Static resx:Strings.Rotate}" Command="{Binding Rotate_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.Transform}">
+					<MenuItem Header="{x:Static resx:Strings.Rotate}" Command="{Binding Rotate_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.Flip}" Command="{Binding Flip_ClickCommand}"/>
+				</MenuItem>
 				<MenuItem x:Name="SplitChannels" Header="{x:Static resx:Strings.SplitChannels}" Command="{Binding SplitChannels_ClickCommand}"/>
 				<Separator/>
 				<MenuItem Header="{x:Static resx:Strings.PyramidUp}" Command="{Binding PyramidUp_ClickCommand}"/>
@@ -79,7 +82,7 @@
 			</MenuItem>
 			<MenuItem Header="Advanced operations">
 				<MenuItem Header="{x:Static resx:Strings.Thresholding}" Command="{Binding SimpleThreshold_ClickCommand}"/>
-				<MenuItem Header="{x:Static resx:Project.Thresholding}" Command="{Binding Threshold_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Thresholding.ThresholdingStr}" Command="{Binding Threshold_ClickCommand}"/>
 				<MenuItem Header="{x:Static resx:Strings.Watershed}" Command="{Binding Watershed_ClickCommand}"/>
 				<MenuItem Header="{x:Static resx:Strings.Inpaint}" Command="{Binding Inpaint_ClickCommand}"/>
 				<MenuItem Header="{x:Static resx:Strings.GrabCut}" Command="{Binding GrabCut_ClickCommand}"/>
@@ -87,8 +90,8 @@
 			</MenuItem>
 			<!--<MenuItem Header="{x:Static resx:Strings.Settings}"/>-->
 			<MenuItem Header="Analyze">
-				<MenuItem Header="{x:Static resx:Project.SimpleAnalyze}" Command="{Binding SimpleAnalyze_ClickCommand}"/>
-				<MenuItem Header="{x:Static resx:Project.Analyze}" Command="{Binding Analyze_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Thresholding.SimpleAnalyze}" Command="{Binding SimpleAnalyze_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Thresholding.Analyze}" Command="{Binding Analyze_ClickCommand}"/>
 			</MenuItem>
 			<MenuItem Header="{x:Static resx:UIStrings.Settings}" Command="{Binding OpenSettings_ClickCommand}"/>
 			<MenuItem x:Name="Help" Header="{x:Static resx:UIStrings.Help}">

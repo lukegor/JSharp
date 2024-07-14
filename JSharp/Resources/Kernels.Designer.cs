@@ -151,15 +151,6 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edge Pixels Handling.
-        /// </summary>
-        public static string EdgePixelsHandling {
-            get {
-                return ResourceManager.GetString("EdgePixelsHandling", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gaussian Blur.
         /// </summary>
         public static string GaussianBlur {

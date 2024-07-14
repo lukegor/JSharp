@@ -132,10 +132,4 @@
   <data name="TextBlockOperation" xml:space="preserve">
     <value>Operacja:</value>
   </data>
-  <data name="Thresholding" xml:space="preserve">
-    <value>Progowanie</value>
-  </data>
-  <data name="ThresholdingAdaptive" xml:space="preserve">
-    <value>Adaptacyjny</value>
-  </data>
 </root>

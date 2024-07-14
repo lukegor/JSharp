@@ -40,7 +40,7 @@
 			</ComboBox>
 
 			<!-- Second Row -->
-			<TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static resx:Strings.EdgePixelsHandling}" Margin="0,5,0,0"/>
+			<TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static resx:UIStrings.EdgePixelsHandling}" Margin="0,5,0,0"/>
 			<ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Source={StaticResource FilteredLocalizedBorderTypesProvider}}" SelectedItem="{Binding BorderPixelsOption, Mode=TwoWay, Converter={StaticResource BorderTypeConverter}}" Margin="10,5,0,5" Width="100"/>
 		</Grid>
 

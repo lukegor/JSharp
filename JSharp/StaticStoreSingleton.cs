@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace JSharp
 {
+    [Obsolete("Not in use")]
     internal class StaticStoreSingleton
     {
         private static StaticStoreSingleton _instance;

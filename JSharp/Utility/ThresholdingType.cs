@@ -19,10 +19,10 @@ namespace JSharp.Utility
     {
         private static readonly Dictionary<string, ThresholdingType> thresholdingTypeMapping = new Dictionary<string, ThresholdingType>()
         {
-            { Project.ThresholdingStandard, ThresholdingType.Standard },
-            { Project.ThresholdingInverse, ThresholdingType.Inverse },
-            { Project.ThresholdingPreservingGrayscaleLevels, ThresholdingType.PreservingGrayscaleLevelsIdentity },
-            { Project.ThresholdingPreservingGrayscaleLevelsNegation, ThresholdingType.PreservingGrayscaleLevelsNegation }
+            { Thresholding.ThresholdingStandard, ThresholdingType.Standard },
+            { Thresholding.ThresholdingInverse, ThresholdingType.Inverse },
+            { Thresholding.ThresholdingPreservingGrayscaleLevels, ThresholdingType.PreservingGrayscaleLevelsIdentity },
+            { Thresholding.ThresholdingPreservingGrayscaleLevelsNegation, ThresholdingType.PreservingGrayscaleLevelsNegation }
         };
 
         public static ThresholdingType MapLocalStringToThresholdingType(string input)

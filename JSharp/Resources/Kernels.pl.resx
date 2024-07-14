@@ -174,9 +174,6 @@
   <data name="BorderTypeReplicate" xml:space="preserve">
     <value>Replikacja</value>
   </data>
-  <data name="EdgePixelsHandling" xml:space="preserve">
-    <value>Obsługa Pikseli Brzegowych</value>
-  </data>
   <data name="SobelEW" xml:space="preserve">
     <value>Poziomy Sobel</value>
   </data>

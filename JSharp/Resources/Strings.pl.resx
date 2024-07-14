@@ -156,8 +156,14 @@
   <data name="Filters" xml:space="preserve">
     <value>Filtry</value>
   </data>
+  <data name="Flip" xml:space="preserve">
+    <value>Odwróć</value>
+  </data>
   <data name="Grayize" xml:space="preserve">
     <value>Konwertuj RGB na Szaroodcieniowy</value>
+  </data>
+  <data name="Histogram" xml:space="preserve">
+    <value>Histogram</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>Obraz</value>
@@ -260,6 +266,9 @@
   </data>
   <data name="StructuringElement" xml:space="preserve">
     <value>Element strukturalny</value>
+  </data>
+  <data name="Transform" xml:space="preserve">
+    <value>Przekształć</value>
   </data>
   <data name="Watershed" xml:space="preserve">
     <value>Wododział</value>

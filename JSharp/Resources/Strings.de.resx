@@ -141,9 +141,6 @@
   <data name="EdgeDetection_Hough" xml:space="preserve">
     <value>Kantenerkennung (Hough)</value>
   </data>
-  <data name="EdgePixelsHandling" xml:space="preserve">
-    <value>Umgang mit Kantenpixeln</value>
-  </data>
   <data name="EqualizeHistogram" xml:space="preserve">
     <value>Histogramm äqualisieren</value>
   </data>
@@ -156,11 +153,17 @@
   <data name="Filters" xml:space="preserve">
     <value>Filter</value>
   </data>
+  <data name="Flip" xml:space="preserve">
+    <value>Umdrehen</value>
+  </data>
   <data name="GrabCut" xml:space="preserve">
     <value>GrabCut</value>
   </data>
   <data name="Grayize" xml:space="preserve">
     <value>RGB zu Graustufen</value>
+  </data>
+  <data name="Histogram" xml:space="preserve">
+    <value>Histogramm</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>Bild</value>
@@ -266,6 +269,9 @@
   </data>
   <data name="Thresholding" xml:space="preserve">
     <value>Schwellenwertverfahren</value>
+  </data>
+  <data name="Transform" xml:space="preserve">
+    <value>Transformieren</value>
   </data>
   <data name="Watershed" xml:space="preserve">
     <value>Wasserscheide</value>

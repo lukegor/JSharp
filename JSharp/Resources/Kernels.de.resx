@@ -117,28 +117,101 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Analyze" xml:space="preserve">
-    <value>Analyze</value>
+  <data name="BorderTypeIsolated" xml:space="preserve">
+    <value>Isolieration</value>
   </data>
-  <data name="ProjectStr" xml:space="preserve">
-    <value>Project</value>
+  <data name="BorderTypeReflect" xml:space="preserve">
+    <value>Reflektion</value>
   </data>
-  <data name="SimpleAnalyze" xml:space="preserve">
-    <value>Simple Analyze</value>
+  <data name="BorderTypeReflect101" xml:space="preserve">
+    <value>Reflektion101</value>
   </data>
-  <data name="Thresholding" xml:space="preserve">
-    <value>Thresholding</value>
+  <data name="BorderTypeReplicate" xml:space="preserve">
+    <value>Replikation</value>
   </data>
-  <data name="ThresholdingInverse" xml:space="preserve">
-    <value>Inverse</value>
+  <data name="BorderTypeWrap" xml:space="preserve">
+    <value>Wicklung</value>
   </data>
-  <data name="ThresholdingPreservingGrayscaleLevels" xml:space="preserve">
-    <value>Preserving Grayscale Levels</value>
+  <data name="BoxBlur" xml:space="preserve">
+    <value>Feld-Weichzeichnung</value>
+    <comment>also called Blur</comment>
   </data>
-  <data name="ThresholdingPreservingGrayscaleLevelsNegation" xml:space="preserve">
-    <value>Preserving Grayscale Levels (Negation)</value>
+  <data name="Canny" xml:space="preserve">
+    <value>Canny</value>
   </data>
-  <data name="ThresholdingStandard" xml:space="preserve">
-    <value>Standard</value>
+  <data name="Custom" xml:space="preserve">
+    <value>Benutzerdefiniert</value>
+  </data>
+  <data name="DirectionalEdgeDetection" xml:space="preserve">
+    <value>Richtungskantenerkennung</value>
+  </data>
+  <data name="EdgeDetection" xml:space="preserve">
+    <value>Kantenerkennung</value>
+  </data>
+  <data name="GaussianBlur" xml:space="preserve">
+    <value>Gaußsche Weichzeichner</value>
+  </data>
+  <data name="Identity" xml:space="preserve">
+    <value>Identität</value>
+  </data>
+  <data name="Laplacian" xml:space="preserve">
+    <value>Laplace</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>Andere</value>
+  </data>
+  <data name="Prewitt" xml:space="preserve">
+    <value>Prewitt</value>
+  </data>
+  <data name="PrewittE" xml:space="preserve">
+    <value>E</value>
+  </data>
+  <data name="PrewittN" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="PrewittNE" xml:space="preserve">
+    <value>NE</value>
+  </data>
+  <data name="PrewittNW" xml:space="preserve">
+    <value>NW</value>
+  </data>
+  <data name="PrewittS" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="PrewittSE" xml:space="preserve">
+    <value>SE</value>
+  </data>
+  <data name="PrewittSW" xml:space="preserve">
+    <value>SW</value>
+  </data>
+  <data name="PrewittW" xml:space="preserve">
+    <value>W</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>Ausgewählt</value>
+  </data>
+  <data name="Sharpen" xml:space="preserve">
+    <value>Schärfen</value>
+  </data>
+  <data name="SharpenMask1" xml:space="preserve">
+    <value>Unscharfmaskierung1</value>
+  </data>
+  <data name="SharpenMask2" xml:space="preserve">
+    <value>Unscharfmaskierung2</value>
+  </data>
+  <data name="SharpenMask3" xml:space="preserve">
+    <value>Unscharfmaskierung3</value>
+  </data>
+  <data name="Smoothe" xml:space="preserve">
+    <value>Glätten</value>
+  </data>
+  <data name="Sobel" xml:space="preserve">
+    <value>Sobel</value>
+  </data>
+  <data name="SobelEW" xml:space="preserve">
+    <value>Vertikaler Sobel</value>
+  </data>
+  <data name="SobelNS" xml:space="preserve">
+    <value>Horizontaler Sobel</value>
   </data>
 </root>

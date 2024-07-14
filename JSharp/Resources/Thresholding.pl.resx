@@ -117,31 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
-    <value>O programie</value>
+  <data name="Analyze" xml:space="preserve">
+    <value>Przeprowadź Analizę</value>
   </data>
-  <data name="Apply" xml:space="preserve">
-    <value>Zatwierdź</value>
+  <data name="ProjectStr" xml:space="preserve">
+    <value>Projekt</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Anuluj</value>
+  <data name="SimpleAnalyze" xml:space="preserve">
+    <value>Przeprowadź Prostą Analizę</value>
   </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>Zatwierdź</value>
+  <data name="ThresholdingAdaptive" xml:space="preserve">
+    <value>Adaptacyjne</value>
   </data>
-  <data name="EdgePixelsHandling" xml:space="preserve">
-    <value>Obsługa pikseli brzegowych</value>
+  <data name="ThresholdingInverse" xml:space="preserve">
+    <value>Odwrotne</value>
   </data>
-  <data name="Exit" xml:space="preserve">
-    <value>Zamknij</value>
+  <data name="ThresholdingOtsu" xml:space="preserve">
+    <value>Otsu</value>
   </data>
-  <data name="File" xml:space="preserve">
-    <value>Plik</value>
+  <data name="ThresholdingPreservingGrayscaleLevels" xml:space="preserve">
+    <value>Z zachowanie poziomów szarości</value>
   </data>
-  <data name="Help" xml:space="preserve">
-    <value>Pomoc</value>
+  <data name="ThresholdingPreservingGrayscaleLevelsNegation" xml:space="preserve">
+    <value>Z zachowaniem poziomów szarości (zanegowane)</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Ustawienia</value>
+  <data name="ThresholdingStandard" xml:space="preserve">
+    <value>Standardowe</value>
+  </data>
+  <data name="ThresholdingStr" xml:space="preserve">
+    <value>Progowanie</value>
   </data>
 </root>

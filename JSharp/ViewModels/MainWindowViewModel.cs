@@ -103,6 +103,7 @@ namespace JSharp.ViewModels
         public DelegateCommand DetailedAnalyze_ClickCommand { get; }
         public DelegateCommand OpenSettings_ClickCommand { get; }
         public DelegateCommand Rotate_ClickCommand { get; }
+        public DelegateCommand Flip_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -148,6 +149,7 @@ namespace JSharp.ViewModels
             DetailedAnalyze_ClickCommand = new DelegateCommand(DetailedAnalyze_Click);
             OpenSettings_ClickCommand = new DelegateCommand(OpenSettings_Click);
             Rotate_ClickCommand = new DelegateCommand(Rotate_Click);
+            Flip_ClickCommand = new DelegateCommand(Flip_Click);
             #endregion
         }
 
@@ -1058,7 +1060,18 @@ namespace JSharp.ViewModels
                 return;
             }
 
-            FocusedImage.Rotate();
+            FocusedImage.Rotate(RotateFlags.Rotate90Clockwise);
+        }
+
+        private void Flip_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            FocusedImage.Rotate(RotateFlags.Rotate180);
         }
 
         private void SimpleThreshold_Click()

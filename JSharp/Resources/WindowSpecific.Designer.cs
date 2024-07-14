@@ -104,23 +104,5 @@ namespace JSharp.Resources {
                 return ResourceManager.GetString("TextBlockOperation", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adaptive.
-        /// </summary>
-        public static string ThresholdingAdaptive {
-            get {
-                return ResourceManager.GetString("ThresholdingAdaptive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Otsu.
-        /// </summary>
-        public static string ThresholdingOtsu {
-            get {
-                return ResourceManager.GetString("ThresholdingOtsu", resourceCulture);
-            }
-        }
     }
 }

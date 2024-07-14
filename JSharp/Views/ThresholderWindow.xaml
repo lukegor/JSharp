@@ -74,7 +74,7 @@
 				</Grid.ColumnDefinitions>
 
 				<TextBlock TextAlignment="Center" Grid.Row="0">
-					<Run Text="{x:Static resx:Project.Thresholding}"/>
+					<Run Text="{x:Static resx:Thresholding.ThresholdingStr}"/>
 					<Run Text=":"/>
 				</TextBlock>
 				<ComboBox Grid.Column="1" Grid.Row="0"

@@ -97,6 +97,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edge Pixels Handling.
+        /// </summary>
+        public static string EdgePixelsHandling {
+            get {
+                return ResourceManager.GetString("EdgePixelsHandling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
         public static string Exit {

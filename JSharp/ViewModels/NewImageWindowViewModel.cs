@@ -526,10 +526,10 @@ namespace JSharp.ViewModels
             UpdateWindowSize();
         }
 
-        internal void Rotate()
+        internal void Rotate(RotateFlags rotateFlags)
         {
             Mat image = this.MatImage;
-            CvInvoke.Rotate(image, image, RotateFlags.Rotate90Clockwise);
+            CvInvoke.Rotate(image, image, rotateFlags);
             UpdateImageSource(image);
             UpdateWindowSize();
         }
