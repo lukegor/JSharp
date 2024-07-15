@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JSharp"
+		xmlns:resx="clr-namespace:JSharp.Resources"
 		xmlns:util="clr-namespace:JSharp.Utility"
 		xmlns:properties="clr-namespace:JSharp.Properties"
 		xmlns:viewModels="clr-namespace:JSharp.ViewModels"
@@ -52,6 +53,6 @@
 		<xctk:UIntegerUpDown Maximum="9" Minimum="0" Value="{Binding PngCompressionLevel, Mode=TwoWay}" Grid.Column="1" Grid.Row="3" Padding="10,8" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
 		<ComboBox x:Name="CbFileExtension" ItemsSource="{Binding Source={StaticResource FileExtensionTypesProvider}}" SelectedValue="{Binding SaveFileExtension, Mode=TwoWay}" Grid.Column="1" Grid.Row="4" Padding="10,8" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
 
-		<Button FontSize="20" Grid.ColumnSpan="2" Grid.Row="6" Content="Save" HorizontalAlignment="Center" Margin="0,0,0,25" VerticalAlignment="Bottom" Height="30" Width="50" Command="{Binding SaveSettingsCommand}" Click="Button_Click" />
+		<Button FontSize="20" Grid.ColumnSpan="2" Grid.Row="6" Content="{x:Static resx:UIStrings.Save}" HorizontalAlignment="Center" Margin="0,0,0,25" VerticalAlignment="Bottom" Height="30" Command="{Binding SaveSettingsCommand}" Click="Button_Click" />
 	</Grid>
 </Window>

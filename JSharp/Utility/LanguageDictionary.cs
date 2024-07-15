@@ -14,7 +14,7 @@ namespace JSharp.Utility
         {
             Add("English", new CultureInfo("en"));
             Add("Deutsch", new CultureInfo("de"));
-            Add("Polish", new CultureInfo("pl"));
+            Add("polski", new CultureInfo("pl"));
         }
     }
 }

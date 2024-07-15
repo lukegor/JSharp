@@ -22,14 +22,15 @@ namespace JSharp
         protected override void OnStartup(StartupEventArgs e)
         {
             CultureInfo culture;
-#if DEBUG
-            culture = CultureInfo.InvariantCulture; // Force invariant culture for debugging
-#else
-            if (!string.IsNullOrEmpty(Settings.Default.LanguageVersion))
+//#if DEBUG
+//            culture = CultureInfo.InvariantCulture; // Force invariant culture for debugging
+//#else
+            if (!string.IsNullOrEmpty(Settings.Default.LanguageVersion) && Languages.ContainsKey(Settings.Default.LanguageVersion))
+            {
                 culture = Languages[key: Settings.Default.LanguageVersion];
-            else
-                culture = CultureInfo.CurrentCulture; // Use the current culture in release mode
-#endif
+            }
+            else culture = CultureInfo.CurrentCulture; // Use the current culture in release mode
+//#endif
             // Set default culture for the application - seems unnecessary
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;

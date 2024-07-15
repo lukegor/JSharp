@@ -141,6 +141,9 @@
   <data name="Help" xml:space="preserve">
     <value>Hilfe</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Einstellungen</value>
   </data>

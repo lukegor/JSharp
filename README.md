@@ -17,6 +17,10 @@
 
 This project is a comprehensive image processing application designed to perform a wide range of operations on digital images. It provides a user-friendly interface for opening, manipulating, and analyzing images using various techniques and algorithms. The application is built using C# and WPF, leveraging the MVVM (Model-View-ViewModel) design pattern for clean separation of concerns and maintainability.
 
+## User Interface
+![ui](https://github.com/user-attachments/assets/710ed3d2-7beb-4bbc-a4b1-2eb09a3e218e)
+
+
 ## Features
 
 ### Image Handling
@@ -26,6 +30,7 @@ This project is a comprehensive image processing application designed to perform
   - Load and display color images.
 - **Save Images**: Save processed images to disk.
 - **Duplicate Images**: Create duplicates of loaded images.
+- **Copy Image**: Copy image to clipboard.
 
 ### Image Conversion
 
@@ -35,53 +40,52 @@ This project is a comprehensive image processing application designed to perform
   - Convert RGB to LAB and separate into channels.
 - **Channel Separation**: Separate RGB images into individual channels.
 
-### Histogram Operations
-
-- **Display Histogram**:
-  - Graphically display the image histogram with real-time updates.
-  - Display histogram data in tabular representation.
-- **Histogram Modifications**:
-  - Histogram stretching.
-  - Histogram equalization.
-
-### Image Manipulation
+### Image Processing
 
 - **Basic Operations**:
   - Negation
   - Grayscale level reduction (posterization)
+- **Histogram-based Operations**:
+  - Histogram stretching.
+  - Histogram equalization.
 - **Filtering**:
   - Convolution:
     - Using predefined masks.
     - Using interactively provided masks.
   - Median filtering
-- **Morphological Operations**:
-  - Dilation
-  - Erosion
-  - Morphological opening
-  - Morphological closing
-- **Edge Detection**: Edge detection using the Hough Transform.
-- **Image Pyramids**: Image resizing using pyramids (upscaling and downscaling).
-
-### Mathematical Operations
-
 - **Unary and Binary Operations**:
   - Addition
   - Subtraction
   - Blending
   - Logical operations: AND, OR, NOT, XOR
+- **Thresholding**: Segment images using thresholding.
+- **Morphological Operations**:
+  - Basic:
+    - Dilation
+    - Erosion
+    - Morphological opening
+    - Morphological closing
+  - Advanced:
+    - Skeletonization: Reduce the image to its skeletal form.
+- **Edge Detection**: Edge detection using the Hough Transform.
+- **Image Pyramids**: Image resizing using pyramids (upscaling and downscaling).
+- **Image Transformation**:
+  - Rotate image by 90 degrees clockwise.
+  - Flip image by 180 degrees.
 
 ### Advanced Image Processing
 
-- **Skeletonization**: Reduce the image to its skeletal form.
-- **Profile Line**: Generate and display a profile line of the image.
-- **Thresholding**: Segment images using thresholding.
+- **Watershed**: Perform segmentation with Watershed.
 - **Inpainting**: Restore parts of images using inpainting.
 
 ### Analyze
 
+- **Display Histogram**:
+  - Graphically display the image histogram with real-time updates.
+  - Display histogram data in tabular representation.
+- **Profile Line**: Generate and display a profile line of the image.
 - **Simple Analysis**: Perform simple image analysis.
 - **Detailed Analysis**: Perform detailed image analysis.
-- **Profile Line**: Generate and display a profile line of the image.
 
 ## Getting Started
 

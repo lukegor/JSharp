@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Advanced" xml:space="preserve">
+    <value>Zaawansowane</value>
+  </data>
+  <data name="Analyze" xml:space="preserve">
+    <value>Analiza</value>
+  </data>
   <data name="Author" xml:space="preserve">
     <value>Autor</value>
   </data>
@@ -143,6 +149,9 @@
   </data>
   <data name="EdgePixelsHandling" xml:space="preserve">
     <value>Obsługa pikseli brzegowych</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edycja</value>
   </data>
   <data name="EqualizeHistogram" xml:space="preserve">
     <value>Wyrównaj Histogram</value>
@@ -193,7 +202,7 @@
     <value>Otwarcie Morfologiczne</value>
   </data>
   <data name="MorphologicalOperations" xml:space="preserve">
-    <value>Podstawowe Operacje Morfologiczne</value>
+    <value>Operacje Morfologiczne</value>
   </data>
   <data name="Negate" xml:space="preserve">
     <value>Negacja</value>
@@ -215,6 +224,9 @@
   </data>
   <data name="Posterize" xml:space="preserve">
     <value>Posteryzuj</value>
+  </data>
+  <data name="Process" xml:space="preserve">
+    <value>Przetwarzanie</value>
   </data>
   <data name="PyramidDown" xml:space="preserve">
     <value>Skaluj w Dół</value>

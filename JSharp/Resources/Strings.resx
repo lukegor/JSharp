@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Advanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="Analyze" xml:space="preserve">
+    <value>Analyze</value>
+  </data>
   <data name="Author" xml:space="preserve">
     <value>Author</value>
   </data>
@@ -140,6 +146,9 @@
   </data>
   <data name="EdgeDetection_Hough" xml:space="preserve">
     <value>Edge Detection (Hough)</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="EqualizeHistogram" xml:space="preserve">
     <value>Equalize Histogram</value>
@@ -193,7 +202,7 @@
     <value>Morphological Opening</value>
   </data>
   <data name="MorphologicalOperations" xml:space="preserve">
-    <value>Elementary Morphological Operations</value>
+    <value>Morphological Operations</value>
   </data>
   <data name="Negate" xml:space="preserve">
     <value>Negate</value>
@@ -215,6 +224,9 @@
   </data>
   <data name="Posterize" xml:space="preserve">
     <value>Posterize</value>
+  </data>
+  <data name="Process" xml:space="preserve">
+    <value>Process</value>
   </data>
   <data name="PyramidDown" xml:space="preserve">
     <value>Scale Down</value>

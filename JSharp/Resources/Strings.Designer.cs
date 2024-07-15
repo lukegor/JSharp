@@ -61,6 +61,24 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advanced.
+        /// </summary>
+        public static string Advanced {
+            get {
+                return ResourceManager.GetString("Advanced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analyze.
+        /// </summary>
+        public static string Analyze {
+            get {
+                return ResourceManager.GetString("Analyze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Author.
         /// </summary>
         public static string Author {
@@ -129,6 +147,15 @@ namespace JSharp.Resources {
         public static string EdgeDetection_Hough {
             get {
                 return ResourceManager.GetString("EdgeDetection_Hough", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
@@ -286,7 +313,7 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Elementary Morphological Operations.
+        ///   Looks up a localized string similar to Morphological Operations.
         /// </summary>
         public static string MorphologicalOperations {
             get {
@@ -354,6 +381,15 @@ namespace JSharp.Resources {
         public static string Posterize {
             get {
                 return ResourceManager.GetString("Posterize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process.
+        /// </summary>
+        public static string Process {
+            get {
+                return ResourceManager.GetString("Process", resourceCulture);
             }
         }
         
