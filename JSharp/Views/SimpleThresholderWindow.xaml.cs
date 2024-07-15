@@ -35,13 +35,14 @@ namespace JSharp
         {
             if (sender is ComboBox cb)
             {
-                if (cb.SelectedValue == Thresholding.ThresholdingAdaptive || cb.SelectedValue == Thresholding.ThresholdingOtsu)
+                var vm = this.DataContext as SimpleThresholderWindowViewModel;
+                if (cb.SelectedValue == Thresholding.ThresholdingOtsu)
                 {
-                    SliderContainer.Visibility = Visibility.Collapsed;
+                    //vm.FromValue =
                 }
                 else
                 {
-                    SliderContainer.Visibility = Visibility.Visible;
+                    //
                 }
             }
         }

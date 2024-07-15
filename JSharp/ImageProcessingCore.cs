@@ -575,16 +575,22 @@ namespace JSharp
                     thresholdType = ThresholdType.Binary;
                     CvInvoke.Threshold(image, result, threshold, 255, thresholdType);
                     break;
-                case SimpleThresholdingMethod.Adaptive:
-                    int odd = 11;
-                    int constantSubtracter = 5;
-                    CvInvoke.AdaptiveThreshold(image, result, 255, AdaptiveThresholdType.MeanC, ThresholdType.Binary, odd, constantSubtracter);
-                    break;
                 case SimpleThresholdingMethod.Otsu:
                     thresholdType = ThresholdType.Otsu;
-                    CvInvoke.Threshold(image, result, 0, 255, thresholdType);
+                    double value = CvInvoke.Threshold(image, result, 0, 255, thresholdType);
                     break;
             };
+
+            return result;
+        }
+
+        public static Mat AdaptiveThreshold(Mat image)
+        {
+            Mat result = new Mat();
+
+            int odd = 11;
+            int constantSubtracter = 5;
+            CvInvoke.AdaptiveThreshold(image, result, 255, AdaptiveThresholdType.MeanC, ThresholdType.Binary, odd, constantSubtracter);
 
             return result;
         }

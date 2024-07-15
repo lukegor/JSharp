@@ -61,11 +61,29 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adaptive Thresholding.
+        /// </summary>
+        public static string AdaptiveThresholding {
+            get {
+                return ResourceManager.GetString("AdaptiveThresholding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Analyze.
         /// </summary>
         public static string Analyze {
             get {
                 return ResourceManager.GetString("Analyze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One Threshold.
+        /// </summary>
+        public static string OneThreshold {
+            get {
+                return ResourceManager.GetString("OneThreshold", resourceCulture);
             }
         }
         
@@ -147,6 +165,15 @@ namespace JSharp.Resources {
         public static string ThresholdingStr {
             get {
                 return ResourceManager.GetString("ThresholdingStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Two Thresholds.
+        /// </summary>
+        public static string TwoThresholds {
+            get {
+                return ResourceManager.GetString("TwoThresholds", resourceCulture);
             }
         }
     }

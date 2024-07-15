@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdaptiveThresholding" xml:space="preserve">
+    <value>Adaptive Thresholding</value>
+  </data>
   <data name="Analyze" xml:space="preserve">
     <value>Analyze</value>
+  </data>
+  <data name="OneThreshold" xml:space="preserve">
+    <value>One Threshold</value>
   </data>
   <data name="ProjectStr" xml:space="preserve">
     <value>Project</value>
@@ -146,5 +152,8 @@
   </data>
   <data name="ThresholdingStr" xml:space="preserve">
     <value>Thresholding</value>
+  </data>
+  <data name="TwoThresholds" xml:space="preserve">
+    <value>Two Thresholds</value>
   </data>
 </root>

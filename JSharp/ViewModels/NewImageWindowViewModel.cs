@@ -481,6 +481,13 @@ namespace JSharp.ViewModels
             UpdateImageSource(image);
         }
 
+        public void PerformAdaptiveThresholding()
+        {
+            Mat image = MatImage;
+            image = ImageProcessingCore.AdaptiveThreshold(image);
+            UpdateImageSource(image);
+        }
+
         public void Restore(Mat image)
         {
             UpdateImageSource(image);

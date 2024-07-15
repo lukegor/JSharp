@@ -97,6 +97,7 @@ namespace JSharp.ViewModels
         public DelegateCommand PyramidUp_ClickCommand { get; }
         public DelegateCommand PyramidDown_ClickCommand { get; }
         public DelegateCommand SimpleThreshold_ClickCommand { get; }
+        public DelegateCommand AdaptiveThresholding_ClickCommand { get; }
         public DelegateCommand Watershed_ClickCommand { get; }
         public DelegateCommand Inpaint_ClickCommand { get; }
         public DelegateCommand GrabCut_ClickCommand { get; }
@@ -104,6 +105,7 @@ namespace JSharp.ViewModels
         public DelegateCommand OpenSettings_ClickCommand { get; }
         public DelegateCommand Rotate_ClickCommand { get; }
         public DelegateCommand Flip_ClickCommand { get; }
+        public DelegateCommand CopyToSystem_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -143,6 +145,7 @@ namespace JSharp.ViewModels
             PyramidUp_ClickCommand = new DelegateCommand(PyramidUp_Click);
             PyramidDown_ClickCommand = new DelegateCommand(PyramidDown_Click);
             SimpleThreshold_ClickCommand = new DelegateCommand(SimpleThreshold_Click);
+            AdaptiveThresholding_ClickCommand = new DelegateCommand(AdaptiveThresholding_Click);
             Watershed_ClickCommand = new DelegateCommand(Watershed_Click);
             Inpaint_ClickCommand = new DelegateCommand(Inpaint_Click);
             GrabCut_ClickCommand = new DelegateCommand(GrabCut_Click);
@@ -150,6 +153,7 @@ namespace JSharp.ViewModels
             OpenSettings_ClickCommand = new DelegateCommand(OpenSettings_Click);
             Rotate_ClickCommand = new DelegateCommand(Rotate_Click);
             Flip_ClickCommand = new DelegateCommand(Flip_Click);
+            CopyToSystem_ClickCommand = new DelegateCommand(CopyToSystem_Click);
             #endregion
         }
 
@@ -1095,6 +1099,22 @@ namespace JSharp.ViewModels
             thresholderWindow.Show();
         }
 
+        private void AdaptiveThresholding_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else if (FocusedImage.MatImage.NumberOfChannels != Constants.Grayscale_ChannelCount)
+            {
+                MessageBox.Show(Errors.ImageNotGrayscale, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            FocusedImage.PerformAdaptiveThresholding();
+        }
+
         private void Watershed_Click()
         {
             if (FocusedImage == null)
@@ -1163,7 +1183,7 @@ namespace JSharp.ViewModels
             FocusedImage.UpdateImageSource(image);
         }
 
-        public void OpenSettings_Click()
+        private void OpenSettings_Click()
         {
             SettingsWindow settingsWindow = new SettingsWindow();
             SettingsWindowViewModel settingsWindowViewModel = new SettingsWindowViewModel();
@@ -1174,6 +1194,18 @@ namespace JSharp.ViewModels
             {
 
             }
+        }
+
+        private void CopyToSystem_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            BitmapSource bitmapSource = FocusedImage.MatImage.MatToBitmapSource();
+            Clipboard.SetImage(bitmapSource);
         }
 
         private void DetailedAnalyze_Click()

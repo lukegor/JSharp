@@ -10,7 +10,6 @@ namespace JSharp.Utility
     public enum SimpleThresholdingMethod
     {
         Standard,
-        Adaptive,
         Otsu
     }
 
@@ -19,7 +18,6 @@ namespace JSharp.Utility
         private static readonly Dictionary<string, SimpleThresholdingMethod> thresholdingTypeMapping = new Dictionary<string, SimpleThresholdingMethod>()
         {
             { Thresholding.ThresholdingStandard, SimpleThresholdingMethod.Standard },
-            { Thresholding.ThresholdingAdaptive, SimpleThresholdingMethod.Adaptive },
             { Thresholding.ThresholdingOtsu, SimpleThresholdingMethod.Otsu },
         };
 
