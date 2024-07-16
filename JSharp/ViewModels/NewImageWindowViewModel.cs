@@ -315,7 +315,10 @@ namespace JSharp.ViewModels
         public void EqualizeHistogram()
         {
             Mat image = this.MatImage;
-            image = ImageProcessingCore.EqualizeHistogram(image, this.histogramWindowViewModel.HistogramData.ToList());
+            List<object> histogramData;
+            histogramData = this.histogramWindowViewModel?.HistogramData.ToList()
+                            ?? HistogramWindowViewModel.AggregateTableHistogramData(ImageProcessingCore.CalculateHistogramValues(image).histogramData);
+            image = ImageProcessingCore.EqualizeHistogram(image, histogramData);
             UpdateImageSource(image);
         }
         #endregion

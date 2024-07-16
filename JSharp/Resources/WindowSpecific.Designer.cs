@@ -61,6 +61,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activate contrast mode.
+        /// </summary>
+        public static string ActivateContrastMode {
+            get {
+                return ResourceManager.GetString("ActivateContrastMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create New Window.
         /// </summary>
         public static string ChbNewWindow {

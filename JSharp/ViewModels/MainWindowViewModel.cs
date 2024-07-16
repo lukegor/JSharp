@@ -985,7 +985,9 @@ namespace JSharp.ViewModels
                 MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            var points = FocusedImage.Points.Select(p => p.Value).ToArray();
+
+            var points = FocusedImage.Points.Select(p => p != null && p.HasValue ? p.Value : (System.Windows.Point?)null).ToArray();
+
             if (points[0] == null || points[1] == null)
             {
                 MessageBox.Show("Select 2 points in image", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -997,7 +999,9 @@ namespace JSharp.ViewModels
                 return;
             }
 
-            PlotlineGraphWindowViewModel plotlineGraphWindowViewModel = new PlotlineGraphWindowViewModel(points, FocusedImage.MatImage);
+            Point[] validPoints = points.Cast<System.Windows.Point>().ToArray();
+
+            PlotlineGraphWindowViewModel plotlineGraphWindowViewModel = new PlotlineGraphWindowViewModel(validPoints, FocusedImage.MatImage);
             PlotlineGraphWindow plotlineGraphWindow = new PlotlineGraphWindow();
             plotlineGraphWindow.DataContext = plotlineGraphWindowViewModel;
 
