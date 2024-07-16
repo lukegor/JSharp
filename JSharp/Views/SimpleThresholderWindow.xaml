@@ -10,7 +10,7 @@
 		xmlns:converters="clr-namespace:JSharp.Converters"
 		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="SimpleThresholderWindow" Height="400" Width="360" Closing="Window_Closing">
+        Title="SimpleThresholderWindow" Height="300" Width="360" Closing="Window_Closing">
 	<Window.Resources>
 		<converters:WidthCalculatorConverter x:Key="WidthCalculatorConverter"/>
 		<converters:SimpleThresholdingTypeConverter x:Key="SimpleThresholdingTypeConverter"/>

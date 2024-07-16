@@ -142,10 +142,10 @@
     <value>Otsu</value>
   </data>
   <data name="ThresholdingPreservingGrayscaleLevels" xml:space="preserve">
-    <value>Beibehaltung der Graustufen</value>
+    <value>Erhaltung der Graustufen</value>
   </data>
   <data name="ThresholdingPreservingGrayscaleLevelsNegation" xml:space="preserve">
-    <value>Beibehaltung der Graustufen (Negation)</value>
+    <value>Erhaltung der Graustufen (Negation)</value>
   </data>
   <data name="ThresholdingStandard" xml:space="preserve">
     <value>Standard</value>

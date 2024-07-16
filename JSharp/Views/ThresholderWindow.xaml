@@ -10,7 +10,7 @@
 		xmlns:converters="clr-namespace:JSharp.Converters"
 		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="ThresholderWindow" Height="400" Width="360" Closing="Window_Closing">
+        Title="ThresholderWindow" Height="380" Width="420" Closing="Window_Closing">
 	<Window.Resources>
 		<converters:WidthCalculatorConverter x:Key="WidthCalculatorConverter"/>
 		<converters:ThresholdingTypeConverter x:Key="ThresholdingTypeConverter"/>
@@ -25,12 +25,12 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"
-					Grid.ColumnSpan="2">
+					Grid.ColumnSpan="2" Width="380">
 			<Image x:Name="imageControl" Source="{Binding MySource}" Width="255" Height="100" Stretch="UniformToFill" Margin="-2,0,50,0" />
 			<Canvas>
 				<!-- Rectangle representing the frame -->
 				<Rectangle Canvas.Left="{Binding FromValue}" Canvas.Top="-102"
-						   Height="103" Margin="5,0,0,0"
+						   Height="103" Margin="35,0,0,0"
 						   Stroke="MediumVioletRed" StrokeThickness="2" Opacity="0.8"
 						   HorizontalAlignment="Left" VerticalAlignment="Center">
 					<Rectangle.Width>
@@ -45,7 +45,7 @@
 				</Rectangle>
 
 			</Canvas>
-			<TextBlock Width="Auto">
+			<TextBlock Width="Auto" Margin="20,0,0,0">
 				<Run Text="{Binding SelectedPixelPercentage, StringFormat={}{0}%}" />
 			</TextBlock>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -69,7 +69,7 @@
 					<RowDefinition Height="15*"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="100" />
+					<ColumnDefinition Width="130" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 
@@ -77,12 +77,12 @@
 					<Run Text="{x:Static resx:Thresholding.ThresholdingStr}"/>
 					<Run Text=":"/>
 				</TextBlock>
-				<ComboBox Grid.Column="1" Grid.Row="0"
+				<ComboBox Grid.Column="1" Grid.Row="0" Margin="0,0,30,0"
 						  ItemsSource="{Binding Source={StaticResource LocalizedThresholdingTypesProvider}}" SelectedItem="{Binding Thresholding, Mode=TwoWay, Converter={StaticResource ThresholdingTypeConverter}}"
 					/>
 			</Grid>
 
-			<CheckBox Content="Uaktywnij tryb kontrastu" IsChecked="{Binding EnableContrastMode}"/>
+			<CheckBox Content="{x:Static resx:WindowSpecific.ActivateContrastMode}" IsChecked="{Binding EnableContrastMode}" Margin="20,0,0,0"/>
 
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,20,0,0">
 				<Button Content="{x:Static resx:UIStrings.Confirm}" IsDefault="True" Command="{Binding BtnConfirm_ClickCommand}"/>

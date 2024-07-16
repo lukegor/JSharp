@@ -56,7 +56,7 @@ namespace JSharp.ViewModels
             HistogramData = new ObservableCollection<object>(tableData);
         }
 
-        private List<object> AggregateTableHistogramData(int[] histogramData)
+        public static List<object> AggregateTableHistogramData(int[] histogramData)
         {
             List<object> tableData = new List<object>();
             for (int i = 0; i < 256; i++)

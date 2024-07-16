@@ -7,7 +7,7 @@
 		xmlns:resx="clr-namespace:JSharp.Resources"
 		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="PosterizeWindow" Height="175" Width="250">
+        Title="PosterizeWindow" Height="175" Width="280">
     <Grid>
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0">
 			<TextBlock Text="{x:Static resx:WindowSpecific.ChoosePosterizationLevelsNumber}" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Bottom"/>
