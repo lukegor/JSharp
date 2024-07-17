@@ -27,6 +27,36 @@ namespace JSharp.Utility
             };
         }
 
+        public static string ChooseChannelName(ColorSpaceType colorSpace, int channelNumber)
+        {
+            string channelName = colorSpace switch
+            {
+                ColorSpaceType.HSV => channelNumber switch
+                {
+                    0 => "Hue (H)",
+                    1 => "Saturation (S)",
+                    2 => "Value (V)",
+                    _ => throw new InvalidOperationException()
+                },
+                ColorSpaceType.RGB => channelNumber switch
+                {
+                    0 => "Blue (B)",
+                    1 => "Green (G)",
+                    2 => "Red (R)",
+                    _ => throw new InvalidOperationException()
+                },
+                ColorSpaceType.LAB => channelNumber switch
+                {
+                    0 => "Lightness (L)",
+                    1 => "Green-Red (A)",
+                    2 => "Blue-Yellow (B)",
+                    _ => throw new InvalidOperationException()
+                },
+                _ => throw new NotImplementedException()
+            };
+            return channelName;
+        }
+
         /// <summary>
         /// Gets the corresponding element shape for the given shape type.
         /// </summary>

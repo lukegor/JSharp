@@ -14,5 +14,8 @@
     <Setting Name="pngCompressionLevel" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
+    <Setting Name="ZoomFactor" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0.2</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -126,14 +126,29 @@
   <data name="ChoosePosterizationLevelsNumber" xml:space="preserve">
     <value>Wybierz liczbę poziomów posteryzacji</value>
   </data>
+  <data name="DefaultFileSavingExtension" xml:space="preserve">
+    <value>Domyślne Rozszerzenie Zapisywanego Pliku</value>
+  </data>
+  <data name="JpgQuality" xml:space="preserve">
+    <value>Jakość JPG</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Język</value>
   </data>
   <data name="Length" xml:space="preserve">
     <value>Odległość</value>
   </data>
+  <data name="PngCompressionLevel" xml:space="preserve">
+    <value>Stopień Kompresji PNG</value>
+  </data>
   <data name="Point" xml:space="preserve">
     <value>Punkt</value>
+  </data>
+  <data name="RestoreDefaults" xml:space="preserve">
+    <value>Przywróć Domyślne</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ustawienia</value>
   </data>
   <data name="TextBlockImage1" xml:space="preserve">
     <value>Obraz 1:</value>
@@ -146,5 +161,8 @@
   </data>
   <data name="Theme" xml:space="preserve">
     <value>Motyw</value>
+  </data>
+  <data name="ZoomFactor" xml:space="preserve">
+    <value>Współczynnik Powiększenia</value>
   </data>
 </root>

@@ -28,6 +28,6 @@
 				<ComboBoxItem Content="4"/>
 			</ComboBox>
 		</Grid>
-		<Button Content="Apply" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Command="{Binding BtnConfirm_ClickCommand}"/>
+		<Button Content="Apply" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Command="{Binding BtnConfirm_ClickCommand}" IsDefault="True"/>
 	</Grid>
 </Window>

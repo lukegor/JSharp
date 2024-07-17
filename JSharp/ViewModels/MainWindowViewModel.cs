@@ -3,6 +3,7 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using JSharp.Models;
+using JSharp.Properties;
 using JSharp.Resources;
 using JSharp.Utility;
 using JSharp.Validation.Validators;
@@ -59,7 +60,7 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _selectedButton, value); }
         }
 
-        private static double zoomFactor = 0.2;
+        private static double zoomFactor = Settings.Default.ZoomFactor;
         public static double CumulativeZoomFactor { get => 1.0 + zoomFactor; set => zoomFactor = value; }
 
         #region Commands
@@ -513,41 +514,11 @@ namespace JSharp.ViewModels
 
                 if (channel != null)
                 {
-                    string channelName = ChooseChannelName(colorSpace, i);
+                    string channelName = ImageProcessingUtility.ChooseChannelName(colorSpace, i);
                     string title = $"{channelName} - {originalName}";
                     DisplayImage(channel, title);
                 }
             }
-        }
-
-        private static string ChooseChannelName(ColorSpaceType colorSpace, int channelNumber)
-        {
-            string channelName = colorSpace switch
-            {
-                ColorSpaceType.HSV => channelNumber switch
-                {
-                    0 => "Hue (H)",
-                    1 => "Saturation (S)",
-                    2 => "Value (V)",
-                    _ => throw new InvalidOperationException()
-                },
-                ColorSpaceType.RGB => channelNumber switch
-                {
-                    0 => "Blue (B)",
-                    1 => "Green (G)",
-                    2 => "Red (R)",
-                    _ => throw new InvalidOperationException()
-                },
-                ColorSpaceType.LAB => channelNumber switch
-                {
-                    0 => "Lightness (L)",
-                    1 => "Green-Red (A)",
-                    2 => "Blue-Yellow (B)",
-                    _ => throw new InvalidOperationException()
-                },
-                _ => throw new NotImplementedException()
-            };
-            return channelName;
         }
 
         private void ConvertRgbToLab_Click()

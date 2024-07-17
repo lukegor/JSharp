@@ -88,6 +88,24 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default FileSaving Extension.
+        /// </summary>
+        public static string DefaultFileSavingExtension {
+            get {
+                return ResourceManager.GetString("DefaultFileSavingExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JPG Quality.
+        /// </summary>
+        public static string JpgQuality {
+            get {
+                return ResourceManager.GetString("JpgQuality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language {
@@ -106,11 +124,38 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PNG Compression Level.
+        /// </summary>
+        public static string PngCompressionLevel {
+            get {
+                return ResourceManager.GetString("PngCompressionLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Point.
         /// </summary>
         public static string Point {
             get {
                 return ResourceManager.GetString("Point", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore Defaults.
+        /// </summary>
+        public static string RestoreDefaults {
+            get {
+                return ResourceManager.GetString("RestoreDefaults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         
@@ -147,6 +192,15 @@ namespace JSharp.Resources {
         public static string Theme {
             get {
                 return ResourceManager.GetString("Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom Factor.
+        /// </summary>
+        public static string ZoomFactor {
+            get {
+                return ResourceManager.GetString("ZoomFactor", resourceCulture);
             }
         }
     }

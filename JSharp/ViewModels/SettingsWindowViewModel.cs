@@ -40,15 +40,25 @@ namespace JSharp.ViewModels
             set { SetProperty(ref language, value); }
         }
 
+        public uint _zoomFactor;
+        public uint ZoomFactor
+        {
+            get { return _zoomFactor; }
+            set { SetProperty(ref _zoomFactor, value); }
+        }
+
         public DelegateCommand SaveSettingsCommand { get; }
+        public DelegateCommand RestoreDefaultsCommand { get; }
 
         public SettingsWindowViewModel()
         {
             SaveSettingsCommand = new DelegateCommand(SaveCommand);
+            RestoreDefaultsCommand = new DelegateCommand(RestoreDefaults);
 
             PngCompressionLevel = Settings.Default.pngCompressionLevel;
             JpgSaveQuality = Settings.Default.jpqSaveQuality;
             SaveFileExtension = Settings.Default.saveFileExtension;
+            ZoomFactor = Convert.ToUInt32(Settings.Default.ZoomFactor * 10);
             if (string.IsNullOrEmpty(Settings.Default.LanguageVersion))
                 Language = "English";
             else Language = Settings.Default.LanguageVersion;
@@ -61,13 +71,21 @@ namespace JSharp.ViewModels
             Settings.Default.saveFileExtension = SaveFileExtension;
             var tmp = Settings.Default.LanguageVersion;
             Settings.Default.LanguageVersion = Language;
+            float zoomFactor = (float)(ZoomFactor / 10.0);
+            Settings.Default.ZoomFactor = zoomFactor;
             Settings.Default.Save();
+            MainWindowViewModel.CumulativeZoomFactor = zoomFactor;
 
             if (tmp != Language)
             {
                 App current = (App)App.Current;
                 current.Restart();
             }
+        }
+
+        public void RestoreDefaults()
+        {
+            Settings.Default.Reset();
         }
 
         public IEnumerable<string> GetFileExtensionTypes()

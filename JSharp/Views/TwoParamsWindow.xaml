@@ -31,7 +31,7 @@
 						Minimum="0" Maximum="255" Height="20"/>
 
 			<Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Confirm" Margin="0,20,0,0"
-					Command="{Binding BtnConfirm_ClickCommand}"/>
+					Command="{Binding BtnConfirm_ClickCommand}" IsDefault="True"/>
 		</StackPanel>
 	</Grid>
 </Window>
