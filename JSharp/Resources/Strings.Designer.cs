@@ -88,6 +88,15 @@ namespace JSharp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compression.
+        /// </summary>
+        public static string Compression {
+            get {
+                return ResourceManager.GetString("Compression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Convert.
         /// </summary>
         public static string Convert {
@@ -444,6 +453,15 @@ namespace JSharp.Resources {
         public static string Rhombus {
             get {
                 return ResourceManager.GetString("Rhombus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RLE Compression.
+        /// </summary>
+        public static string RLECompression {
+            get {
+                return ResourceManager.GetString("RLECompression", resourceCulture);
             }
         }
         

@@ -905,6 +905,11 @@ namespace JSharp
 
         public static Mat Watershed(Mat img)
         {
+            if (img.NumberOfChannels == 1)
+            {
+                CvInvoke.CvtColor(img, img, ColorConversion.Gray2Bgr);
+            }
+
             // Convert to grayscale
             Image<Gray, byte> gray = img.ToImage<Gray, byte>();
             Image<Gray, byte> thresh = gray.CopyBlank();
@@ -966,43 +971,36 @@ namespace JSharp
             return result;
         }
 
-        public static Mat GrabCut(Mat inputImage, System.Drawing.Rectangle rectangle)
+        public static Mat GrabCut(Mat inputImage, Rectangle rec)
         {
-            Mat mask = new Mat(inputImage.Size, DepthType.Cv8U, 1);
-            mask.SetTo(new MCvScalar(0));
+            // Ensure the input image is of type CV_8UC3
+            Mat formattedImage = new Mat();
+            if (inputImage.Depth != DepthType.Cv8U || inputImage.NumberOfChannels != 3)
+            {
+                inputImage.ConvertTo(formattedImage, DepthType.Cv8U);
+                CvInvoke.CvtColor(formattedImage, formattedImage, ColorConversion.Bgr2Rgb);
+            }
+            else
+            {
+                formattedImage = inputImage.Clone();
+            }
 
-            // Create backgroundModel and foregroundModel arrays
-            Mat backgroundModel = new Mat(1, 65, DepthType.Cv64F, 1);
-            Mat foregroundModel = new Mat(1, 65, DepthType.Cv64F, 1);
+            // Initialize the mask
+            Mat dst = new Mat(inputImage.Size, DepthType.Cv8U, 1);
+            dst.SetTo(new MCvScalar(2));
 
-            // Fill arrays with zeros
-            backgroundModel.SetTo(new MCvScalar(0));
-            foregroundModel.SetTo(new MCvScalar(0));
+            // Initialize background and foreground models
+            Mat bgModel = new Mat();
+            Mat fgModel = new Mat();
 
-            CvInvoke.GrabCut(inputImage, mask, rectangle, backgroundModel, foregroundModel, 3, GrabcutInitType.InitWithRect);
+            // Perform GrabCut with the rectangle initialization
+            CvInvoke.GrabCut(formattedImage, dst, rec, bgModel, fgModel, 5, GrabcutInitType.InitWithRect);
 
-            // Create Mat objects for comparison
-            Mat value2 = new Mat(mask.Size, DepthType.Cv8U, 1);
-            value2.SetTo(new MCvScalar(2));
-            Mat value0 = new Mat(mask.Size, DepthType.Cv8U, 1);
-            value0.SetTo(new MCvScalar(0));
+            Mat fg = new Mat(formattedImage.Size, DepthType.Cv8U, 3);
+            fg.SetTo(new MCvScalar(255, 255, 255));
+            formattedImage.CopyTo(fg, dst);
 
-            // Create mask2
-            Mat mask2 = new Mat();
-            Mat temp1 = new Mat();
-            Mat temp2 = new Mat();
-            CvInvoke.Compare(mask, value2, dst: temp1, CmpType.Equal);
-            CvInvoke.Compare(mask, value0, dst: temp2, CmpType.Equal);
-            CvInvoke.BitwiseOr(temp1, temp2, mask2);
-
-            // Convert mask2 to uint8
-            mask2.ConvertTo(mask2, DepthType.Cv8U);
-
-            // Create image_segmented
-            Mat image_segmented = new Mat();
-            CvInvoke.Multiply(inputImage, mask2, image_segmented);
-
-            return image_segmented;
+            return fg;
         }
     }
 }

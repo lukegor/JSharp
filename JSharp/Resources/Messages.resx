@@ -117,34 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActivateContrastMode" xml:space="preserve">
-    <value>Uaktywnij tryb kontrastu</value>
+  <data name="CompressedFileSize" xml:space="preserve">
+    <value>Compressed File Size</value>
   </data>
-  <data name="ChbNewWindow" xml:space="preserve">
-    <value>Utwórz nowe okno</value>
+  <data name="CompressionRatio" xml:space="preserve">
+    <value>Compression Ratio</value>
   </data>
-  <data name="ChoosePosterizationLevelsNumber" xml:space="preserve">
-    <value>Wybierz liczbę poziomów posteryzacji</value>
-  </data>
-  <data name="Language" xml:space="preserve">
-    <value>Język</value>
-  </data>
-  <data name="Length" xml:space="preserve">
-    <value>Odległość</value>
-  </data>
-  <data name="Point" xml:space="preserve">
-    <value>Punkt</value>
-  </data>
-  <data name="TextBlockImage1" xml:space="preserve">
-    <value>Obraz 1:</value>
-  </data>
-  <data name="TextBlockImage2" xml:space="preserve">
-    <value>Obraz 2:</value>
-  </data>
-  <data name="TextBlockOperation" xml:space="preserve">
-    <value>Operacja:</value>
-  </data>
-  <data name="Theme" xml:space="preserve">
-    <value>Motyw</value>
+  <data name="OriginalFileSize" xml:space="preserve">
+    <value>Original File Size</value>
   </data>
 </root>

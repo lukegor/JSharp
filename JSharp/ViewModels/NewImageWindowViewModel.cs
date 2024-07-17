@@ -185,9 +185,9 @@ namespace JSharp.ViewModels
         internal void ScaleZoom(bool isZoomIn)
         {
             if (isZoomIn)
-                ZoomScale *= MainWindowViewModel.CumulativeZoomChange;
+                ZoomScale *= MainWindowViewModel.CumulativeZoomFactor;
             else
-                ZoomScale /= MainWindowViewModel.CumulativeZoomChange;
+                ZoomScale /= MainWindowViewModel.CumulativeZoomFactor;
 
             UpdateWindowSize();
         }

@@ -59,8 +59,8 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _selectedButton, value); }
         }
 
-        private static double zoomChange = 0.2;
-        public static double CumulativeZoomChange { get => 1.0 + zoomChange; set => zoomChange = value; }
+        private static double zoomFactor = 0.2;
+        public static double CumulativeZoomFactor { get => 1.0 + zoomFactor; set => zoomFactor = value; }
 
         #region Commands
         public DelegateCommand OpenRgb_ClickCommand { get; }
@@ -106,6 +106,7 @@ namespace JSharp.ViewModels
         public DelegateCommand Rotate_ClickCommand { get; }
         public DelegateCommand Flip_ClickCommand { get; }
         public DelegateCommand CopyToSystem_ClickCommand { get; }
+        public DelegateCommand CompressRLE_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
@@ -154,6 +155,8 @@ namespace JSharp.ViewModels
             Rotate_ClickCommand = new DelegateCommand(Rotate_Click);
             Flip_ClickCommand = new DelegateCommand(Flip_Click);
             CopyToSystem_ClickCommand = new DelegateCommand(CopyToSystem_Click);
+            CompressRLE_ClickCommand = new DelegateCommand(CompressRLE_Click);
+
             #endregion
         }
 
@@ -176,13 +179,13 @@ namespace JSharp.ViewModels
                     System.Windows.Point? point1 = focusedImage.Points[0];
                     if (point1 != null)
                     {
-                        sb.Append($", Point 1: ({focusedImage.Points[0]})");
+                        sb.Append($", {WindowSpecific.Point} 1: ({focusedImage.Points[0]})");
 
                         System.Windows.Point? point2 = focusedImage.Points[1];
                         if (point2 != null)
                         {
-                            sb.Append($", Point 2: ({FocusedImage.Points[1]})");
-                            sb.Append($", Length: {Math.Floor(ImageProcessingUtility.GetDistance((Point)point1, (Point)point2))}");
+                            sb.Append($", {WindowSpecific.Point} 2: ({FocusedImage.Points[1]})");
+                            sb.Append($", {WindowSpecific.Length}: {Math.Floor(ImageProcessingUtility.GetDistance((Point)point1, (Point)point2))}");
                         }
                     }
                 }
@@ -1210,6 +1213,32 @@ namespace JSharp.ViewModels
 
             BitmapSource bitmapSource = FocusedImage.MatImage.MatToBitmapSource();
             Clipboard.SetImage(bitmapSource);
+        }
+
+        private void CompressRLE_Click()
+        {
+            if (FocusedImage == null)
+            {
+                MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string compressedImagePath = "compressed_image.rle";
+
+            Array pixelDataArray = FocusedImage.MatImage.GetData();
+
+            // convert Array to byte[]
+            byte[] pixelData = CompressionCore.ConvertArrayToByteArray(pixelDataArray);
+
+            List<byte> compressedData = CompressionCore.CompressRLE(pixelData);
+
+            File.WriteAllBytes(compressedImagePath, compressedData.ToArray());
+
+            int originalFileSize = FocusedImage.MatImage.Total.ToInt32() * FocusedImage.MatImage.ElementSize;
+            double compressionRatio = CompressionCore.CalculateCompressionRatio(compressedData.Count, originalFileSize);
+            MessageBox.Show($"{Messages.OriginalFileSize}: {FocusedImage.MatImage.Total.ToInt32()}{Environment.NewLine}{Environment.NewLine}" +
+                $"{Messages.CompressedFileSize}: {compressedData.Count}{Environment.NewLine}{Environment.NewLine}" +
+                $"{Messages.CompressionRatio}: {compressionRatio.ToString()}", Strings.Compression, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void DetailedAnalyze_Click()

@@ -126,6 +126,9 @@
   <data name="Author" xml:space="preserve">
     <value>Autor</value>
   </data>
+  <data name="Compression" xml:space="preserve">
+    <value>Kompression</value>
+  </data>
   <data name="Convert" xml:space="preserve">
     <value>Konvertieren</value>
   </data>
@@ -247,6 +250,9 @@
   <data name="Rhombus" xml:space="preserve">
     <value>Rhombus</value>
   </data>
+  <data name="RLECompression" xml:space="preserve">
+    <value>RLE-Kompression</value>
+  </data>
   <data name="Rotate" xml:space="preserve">
     <value>Drehen</value>
   </data>
@@ -257,7 +263,7 @@
     <value>Alles Speichern</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
-    <value>Speichern als...</value>
+    <value>Speichern als</value>
   </data>
   <data name="ShowHistogram" xml:space="preserve">
     <value>Histogramm anzeigen</value>

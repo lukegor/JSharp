@@ -147,9 +147,6 @@
   <data name="EdgeDetection_Hough" xml:space="preserve">
     <value>Wykrywanie Krawędzi (Hough)</value>
   </data>
-  <data name="EdgePixelsHandling" xml:space="preserve">
-    <value>Obsługa pikseli brzegowych</value>
-  </data>
   <data name="Edit" xml:space="preserve">
     <value>Edycja</value>
   </data>
@@ -284,5 +281,17 @@
   </data>
   <data name="Watershed" xml:space="preserve">
     <value>Wododział</value>
+  </data>
+  <data name="Thresholding" xml:space="preserve">
+    <value>Progowanie</value>
+  </data>
+  <data name="GrabCut" xml:space="preserve">
+    <value>GrabCut</value>
+  </data>
+  <data name="Compression" xml:space="preserve">
+    <value>Kompresja</value>
+  </data>
+  <data name="RLECompression" xml:space="preserve">
+    <value>Kompresja RLE</value>
   </data>
 </root>

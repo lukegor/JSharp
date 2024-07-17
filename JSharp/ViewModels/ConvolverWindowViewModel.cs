@@ -169,12 +169,6 @@ namespace JSharp.ViewModels
             }
         }
 
-        //public BorderType[] GetEdgePixelsHandlingOptions()
-        //{
-        //    BorderType[] borderTypes = { BorderType.Isolated, BorderType.Reflect, BorderType.Replicate };
-        //    return borderTypes;
-        //}
-
         public IEnumerable<string> GetEdgePixelsHandlingOptions()
         {
             IEnumerable<BorderType> borderTypes = [BorderType.Isolated, BorderType.Reflect, BorderType.Replicate];

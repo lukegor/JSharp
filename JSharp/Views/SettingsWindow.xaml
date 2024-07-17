@@ -32,8 +32,8 @@
 		</Grid.RowDefinitions>
 
 
-		<Label Content="Language :" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Semibold" Foreground="#FF5E6366"/>
-		<Label Content="Theme :" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Semibold" Foreground="#FF5E6366"/>
+		<Label Content="{x:Static resx:WindowSpecific.Language}" ContentStringFormat="{}{0} :" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Semibold" Foreground="#FF5E6366"/>
+		<Label Content="{x:Static resx:WindowSpecific.Theme}" ContentStringFormat="{}{0} :" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Semibold" Foreground="#FF5E6366"/>
 		<Label Content="JPG Quality :" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Semibold" Foreground="#FF5E6366"/>
 		<Label Content="Png Compression Level :" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Semibold" Foreground="#FF5E6366"/>
 		<Label Content="Default File Saving Extension :" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontSize="18" FontFamily="Segoe UI Semibold" Foreground="#FF5E6366"/>

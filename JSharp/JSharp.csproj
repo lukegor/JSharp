@@ -73,6 +73,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Kernels.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Messages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Thresholding.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -112,6 +117,10 @@
     <EmbeddedResource Update="Resources\Kernels.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Kernels.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Thresholding.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

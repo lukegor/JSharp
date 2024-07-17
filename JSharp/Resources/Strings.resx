@@ -126,6 +126,9 @@
   <data name="Author" xml:space="preserve">
     <value>Author</value>
   </data>
+  <data name="Compression" xml:space="preserve">
+    <value>Compression</value>
+  </data>
   <data name="Convert" xml:space="preserve">
     <value>Convert</value>
   </data>
@@ -245,6 +248,9 @@
   </data>
   <data name="Rhombus" xml:space="preserve">
     <value>Rhombus</value>
+  </data>
+  <data name="RLECompression" xml:space="preserve">
+    <value>RLE Compression</value>
   </data>
   <data name="Rotate" xml:space="preserve">
     <value>Rotate</value>

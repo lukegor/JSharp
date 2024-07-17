@@ -126,6 +126,15 @@
   <data name="ChoosePosterizationLevelsNumber" xml:space="preserve">
     <value>Wählen Sie die Anzahl der Posterisierungsstufen</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="Length" xml:space="preserve">
+    <value>Distanz</value>
+  </data>
+  <data name="Point" xml:space="preserve">
+    <value>Punkt</value>
+  </data>
   <data name="TextBlockImage1" xml:space="preserve">
     <value>Bild 1:</value>
   </data>
@@ -134,5 +143,8 @@
   </data>
   <data name="TextBlockOperation" xml:space="preserve">
     <value>Betrieb:</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Thema</value>
   </data>
 </root>

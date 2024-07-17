@@ -84,11 +84,15 @@
 					<MenuItem Header="{x:Static resx:Strings.Skeletonize}" Command="{Binding Skeletonize_ClickCommand}"/>
 				</MenuItem>
 				<MenuItem Header="{x:Static resx:Strings.EdgeDetection_Hough}" Command="{Binding Hough_ClickCommand}"/>
+				<Separator/>
+				<MenuItem Header="{x:Static resx:Strings.Compression}">
+					<MenuItem Header="{x:Static resx:Strings.RLECompression}" Command="{Binding CompressRLE_ClickCommand}"/>
+				</MenuItem>
 			</MenuItem>
 			<MenuItem Header="{x:Static resx:Strings.Advanced}">
 				<MenuItem Header="{x:Static resx:Strings.Watershed}" Command="{Binding Watershed_ClickCommand}"/>
 				<MenuItem Header="{x:Static resx:Strings.Inpaint}" Command="{Binding Inpaint_ClickCommand}"/>
-				<!--<MenuItem Header="{x:Static resx:Strings.GrabCut}" Command="{Binding GrabCut_ClickCommand}"/>-->
+				<MenuItem Header="{x:Static resx:Strings.GrabCut}" Command="{Binding GrabCut_ClickCommand}"/>
 				<!--<MenuItem Header="Analyze" Command="{Binding DetailedAnalyze_ClickCommand}"/>-->
 			</MenuItem>
 			<MenuItem Header="{x:Static resx:Strings.Analyze}">

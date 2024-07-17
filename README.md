@@ -72,11 +72,14 @@ This project is a comprehensive image processing application designed to perform
 - **Image Transformation**:
   - Rotate image by 90 degrees clockwise.
   - Flip image by 180 degrees.
+- **Compression**:
+  - RLE Compression
 
 ### Advanced Image Processing
 
 - **Watershed**: Perform segmentation with Watershed.
 - **Inpainting**: Restore parts of images using inpainting.
+- **GrabCut**: Extract foreground from selected part of image.
 
 ### Analyze
 
