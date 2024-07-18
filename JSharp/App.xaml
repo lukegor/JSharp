@@ -3,7 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:JSharp"
 			 xmlns:prism="http://prismlibrary.com/">
-    <Application.Resources>
-
-    </Application.Resources>
+	<Application.Resources>
+		<!--<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/Resources/Themes.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>-->
+	</Application.Resources>
 </prism:PrismApplication>

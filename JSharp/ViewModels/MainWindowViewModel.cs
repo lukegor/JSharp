@@ -210,12 +210,12 @@ namespace JSharp.ViewModels
                     System.Windows.Point? startPoint = focusedImage.Points[0];
                     if (startPoint != null)
                     {
-                        sb.Append($", Top-left Point 1: ({focusedImage.Points[0]})");
+                        sb.Append($", Top-left {WindowSpecific.Point} 1: ({focusedImage.Points[0]})");
 
                         System.Windows.Point? endPoint = focusedImage.Points[1];
                         if (endPoint != null)
                         {
-                            sb.Append($", Bottom-right Point 2: ({FocusedImage.Points[1]})");
+                            sb.Append($", Bottom-right {WindowSpecific.Point} 2: ({FocusedImage.Points[1]})");
 
                             // Calculate the width and height of the rectangle
                             double width = Math.Abs(endPoint.Value.X - startPoint.Value.X);

@@ -9,7 +9,7 @@
 		xmlns:prism="http://prismlibrary.com/"
 		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="JSharp.MainWindow"
 		mc:Ignorable="d"
-        Title="JSharp" Height="200" Width="700" ResizeMode="CanMinimize" Closing="Window_Closing" PreviewKeyDown="Window_PreviewKeyDown">
+        Title="JSharp" Height="180" Width="700" ResizeMode="CanMinimize" Closing="Window_Closing" PreviewKeyDown="Window_PreviewKeyDown">
 
 	<Window.DataContext>
 		<viewModel:MainWindowViewModel/>
@@ -99,8 +99,10 @@
 				<MenuItem Header="{x:Static resx:Strings.ShowHistogram}" Command="{Binding ShowHistogram_ClickCommand}"/>
 				<MenuItem Header="{x:Static resx:Strings.PlotProfile}" Command="{Binding PlotProfile_ClickCommand}"/>
 				<Separator/>
-				<MenuItem Header="{x:Static resx:Thresholding.SimpleAnalyze}" Command="{Binding SimpleAnalyze_ClickCommand}"/>
-				<MenuItem Header="{x:Static resx:Thresholding.Analyze}" Command="{Binding Analyze_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.Analyze}">
+					<MenuItem Header="{x:Static resx:Thresholding.SimpleAnalyze}" Command="{Binding SimpleAnalyze_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Thresholding.Analyze}" Command="{Binding Analyze_ClickCommand}"/>
+				</MenuItem>
 			</MenuItem>
 			<MenuItem Header="{x:Static resx:UIStrings.Settings}" Command="{Binding OpenSettings_ClickCommand}"/>
 			<MenuItem Header="{x:Static resx:UIStrings.Help}">
@@ -108,7 +110,7 @@
 			</MenuItem>
 		</Menu>
 		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" Grid.Row="1" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" Height="31" Width="Auto"/>
-		<ToolBar HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="700" Grid.Row="2" ToolBarTray.IsLocked="True">
+		<ToolBar HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="600" Grid.Row="2" ToolBarTray.IsLocked="True">
 			<RadioButton x:Name="RadioBtnNone" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
 				<RadioButton.Background>
 					<ImageBrush ImageSource="/Resources/Icons/ToolBar_Icons/NoneIcon.ico"/>
