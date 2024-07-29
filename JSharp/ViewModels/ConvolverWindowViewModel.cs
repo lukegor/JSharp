@@ -1,7 +1,7 @@
 ﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Flann;
-using JSharp.Models;
+using JSharp.Models.DataModels;
 using JSharp.Resources;
 using JSharp.Utility;
 using Prism.Commands;

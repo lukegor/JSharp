@@ -2,8 +2,8 @@
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using JSharp;
-using JSharp.Models;
-using JSharp.Resources;
+using JSharp.Models.BusinessLogicModels;
+using JSharp.Models.DataModels;
 using JSharp.Utility;
 using LiveChartsCore.Defaults;
 using Microsoft.Win32;
@@ -253,9 +253,11 @@ namespace JSharp.ViewModels
                         CvInvoke.Imwrite(fileName, this.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.TiffCompression, (int)ImwriteFlags.TiffCompression) });
                         break;
                     default:
-                        MessageBox.Show("Invalid file format selected.", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Invalid file format selected.", Resources.Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                 }
+
+                filePath = fileName;
             }
         }
 
@@ -316,8 +318,8 @@ namespace JSharp.ViewModels
         {
             Mat image = this.MatImage;
             List<object> histogramData;
-            histogramData = this.histogramWindowViewModel?.HistogramData.ToList()
-                            ?? HistogramWindowViewModel.AggregateTableHistogramData(ImageProcessingCore.CalculateHistogramValues(image).histogramData);
+            histogramData = this.histogramWindowViewModel?.Histogram.HistogramData.ToList()
+                            ?? Histogram.AggregateTableHistogramData(ImageProcessingCore.CalculateHistogramValues(image).histogramData);
             image = ImageProcessingCore.EqualizeHistogram(image, histogramData);
             UpdateImageSource(image);
         }
@@ -366,12 +368,12 @@ namespace JSharp.ViewModels
         {
             Mat image = this.MatImage;
             BorderType borderType = convolutionInfo.BorderPixelsOption;
-            string[] edgeDetectionCases = { Kernels.SobelEW, Kernels.SobelNS, Kernels.Canny, Kernels.Laplacian };
-            if (currentKernel == Kernels.BoxBlur)
+            string[] edgeDetectionCases = { Resources.Kernels.SobelEW, Resources.Kernels.SobelNS, Resources.Kernels.Canny, Resources.Kernels.Laplacian };
+            if (currentKernel == Resources.Kernels.BoxBlur)
             {
                 image = ImageProcessingCore.ApplyBlur(image, borderType, 3);
             }
-            else if (currentKernel == Kernels.GaussianBlur)
+            else if (currentKernel == Resources.Kernels.GaussianBlur)
             {
                 image = ImageProcessingCore.ApplyGaussianBlur(image, borderType, sigmaX: 1.5, sigmaY: 1.5, 3);
             }

@@ -14,15 +14,15 @@
 		<TabControl>
 			<TabItem Header="{x:Static resx:Histogram.Histogram_Word}">
 				<Grid>
-					<lvc:CartesianChart x:Name="Histogram" Series="{Binding HistogramSeries}"
+					<lvc:CartesianChart x:Name="Histogram" Series="{Binding Histogram.HistogramSeries}"
 										ZoomMode="X"/>
-					<Label x:Name="pixelSum" Content="{Binding PixelSum}" HorizontalAlignment="Left" Margin="212,-25,0,0" VerticalAlignment="Top"/>
+					<Label x:Name="pixelSum" Content="{Binding Histogram.PixelSum}" HorizontalAlignment="Left" Margin="212,-25,0,0" VerticalAlignment="Top"/>
 				</Grid>
 			</TabItem>
 			<TabItem Header="{x:Static resx:Histogram.Table_Histogram}">
 				<Grid Background="#FFE5E5E5">
 					<ScrollViewer VerticalScrollBarVisibility="Auto">
-						<DataGrid x:Name="HistogramDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding HistogramData}">
+						<DataGrid x:Name="HistogramDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Histogram.HistogramData}">
 							<DataGrid.Columns>
 								<DataGridTextColumn Header="{x:Static resx:Strings.PixelIntensity}" Binding="{Binding LightnessLevel}"/>
 								<DataGridTextColumn Header="{x:Static resx:Histogram.Pixel_Count}" Binding="{Binding PixelCount}"/>

@@ -10,8 +10,9 @@
 
 namespace JSharp.Resources {
     using System;
-    
-    
+    using System.Collections.Generic;
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>

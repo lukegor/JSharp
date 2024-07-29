@@ -1,5 +1,5 @@
 ﻿using Emgu.CV;
-using JSharp.Models;
+using JSharp.Models.DataModels;
 using JSharp.Utility;
 using Prism.Commands;
 using Prism.Mvvm;

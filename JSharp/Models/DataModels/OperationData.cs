@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JSharp.Models
+namespace JSharp.Models.DataModels
 {
     public class OperationData
     {

@@ -1,4 +1,4 @@
-﻿using JSharp.Models;
+﻿using JSharp.Models.DataModels;
 using JSharp.Resources;
 using JSharp.Utility;
 using JSharp.ViewModels;

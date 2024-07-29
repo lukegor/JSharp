@@ -4,7 +4,7 @@ using Emgu.CV.ML;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using Emgu.CV.XImgproc;
-using JSharp.Models;
+using JSharp.Models.DataModels;
 using JSharp.Resources;
 using JSharp.Utility;
 using System;
@@ -71,11 +71,12 @@ namespace JSharp
             {
                 for (int x = 0; x < cols; ++x)
                 {
-                    byte pixelValue = Marshal.ReadByte(dataPtr, y * cols + x);
+                    int offset = y * cols + x;
 
+                    byte pixelValue = Marshal.ReadByte(dataPtr, offset);
                     byte negatedValue = (byte)(255 - pixelValue);
 
-                    Marshal.WriteByte(dataPtr, y * cols + x, negatedValue);
+                    Marshal.WriteByte(dataPtr, offset, negatedValue);
                 }
             }
             return gray.Mat;
@@ -314,7 +315,7 @@ namespace JSharp
             }
             else if (currentKernel == Kernels.Canny)
             {
-                CvInvoke.Canny(inputImage, result, (double)convolutionInfo.Min, (double)convolutionInfo.Max);
+                CvInvoke.Canny(inputImage, result, convolutionInfo.Min.Value, convolutionInfo.Max.Value);
             }
             else if (currentKernel == Kernels.Laplacian)
             {

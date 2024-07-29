@@ -1,4 +1,4 @@
-﻿using JSharp.Models;
+﻿using JSharp.Models.DataModels;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;

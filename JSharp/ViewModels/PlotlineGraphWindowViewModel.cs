@@ -44,7 +44,6 @@ namespace JSharp.ViewModels
             return seriesList.ToArray();
         }
 
-        // 24.04 doesn't work entirely correctly, to be fixed
         private List<ObservablePoint> BresenhamLine(Mat image, System.Windows.Point p1, System.Windows.Point p2)
         {
             List<ObservablePoint> linePoints = new List<ObservablePoint>();

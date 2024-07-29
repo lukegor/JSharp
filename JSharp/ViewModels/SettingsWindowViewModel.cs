@@ -58,7 +58,7 @@ namespace JSharp.ViewModels
             PngCompressionLevel = Settings.Default.pngCompressionLevel;
             JpgSaveQuality = Settings.Default.jpqSaveQuality;
             SaveFileExtension = Settings.Default.saveFileExtension;
-            ZoomFactor = Convert.ToUInt32(Settings.Default.ZoomFactor * 10);
+            ZoomFactor = Convert.ToUInt32(Settings.Default.ZoomFactor * 100);
             if (string.IsNullOrEmpty(Settings.Default.LanguageVersion))
                 Language = "English";
             else Language = Settings.Default.LanguageVersion;
