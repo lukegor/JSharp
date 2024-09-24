@@ -1,13 +1,9 @@
 ﻿using Emgu.CV.CvEnum;
+using JSharp.UI.Views;
 using JSharp.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JSharp.Resources;
-using Prism.Mvvm;
+using JSharp.Views;
 using Prism.Commands;
+using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {

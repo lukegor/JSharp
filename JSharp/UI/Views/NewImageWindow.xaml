@@ -1,0 +1,22 @@
+﻿<Window x:Class="JSharp.UI.Views.NewImageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JSharp.UI.Views"
+        d:DataContext="{d:DesignInstance Type=viewModels:NewImageWindowViewModel}"
+		xmlns:prism="http://prismlibrary.com/"
+		xmlns:viewModels="clr-namespace:JSharp.ViewModels"
+		mc:Ignorable="d"
+        Title="{Binding Title}" Height="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="{Binding Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Closing="Window_Closing" KeyDown="Window_KeyDown" PreviewMouseWheel="Window_PreviewMouseWheel" Activated="Window_Activated"
+		>
+
+	<Grid>
+		<Image x:Name="imageControl" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Source}" Stretch="None" MouseLeftButtonDown="imageControl_MouseLeftButtonDown" MouseMove="imageControl_MouseMove">
+			<Image.LayoutTransform>
+				<ScaleTransform ScaleX="{Binding ZoomScale}" ScaleY="{Binding ZoomScale}"/>
+			</Image.LayoutTransform>
+		</Image>
+		<Canvas x:Name="highlightCanvas" />
+	</Grid>
+</Window>

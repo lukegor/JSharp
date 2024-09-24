@@ -1,15 +1,13 @@
-﻿using Emgu.CV.Structure;
+﻿using System.Windows.Media.Imaging;
 using Emgu.CV;
+using Emgu.CV.Structure;
+using JSharp.Models.Services;
+using JSharp.UI.Views;
 using JSharp.Utility;
+using JSharp.Views;
 using Prism.Commands;
-using Prism.Services.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 using Prism.Mvvm;
+using Prism.Services.Dialogs;
 
 namespace JSharp.ViewModels
 {

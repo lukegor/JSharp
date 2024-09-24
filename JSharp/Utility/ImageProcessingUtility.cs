@@ -1,11 +1,6 @@
-﻿using Emgu.CV;
+﻿using System.Runtime.InteropServices;
+using Emgu.CV;
 using Emgu.CV.CvEnum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSharp.Utility
 {
@@ -14,12 +9,12 @@ namespace JSharp.Utility
         /// <summary>
         /// Determines the color space based on the number of channels.
         /// </summary>
-        /// <param name="NumberOfChannels">The number of channels in the image.</param>
+        /// <param name="numberOfChannels">The number of channels in the image.</param>
         /// <returns>The detected color space.</returns>
         /// <exception cref="NotImplementedException"></exception>
-        public static ColorSpaceType OnLoadingDetermineColorspace(int NumberOfChannels)
+        public static ColorSpaceType OnLoadingDetermineColorspace(int numberOfChannels)
         {
-            return NumberOfChannels switch
+            return numberOfChannels switch
             {
                 1 => ColorSpaceType.Grayscale,
                 3 => ColorSpaceType.RGB,

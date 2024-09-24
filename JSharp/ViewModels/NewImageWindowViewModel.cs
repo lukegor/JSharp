@@ -1,28 +1,19 @@
-﻿using Emgu.CV;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Windows;
+using System.Windows.Media.Imaging;
+using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
-using JSharp;
-using JSharp.Models.BusinessLogicModels;
 using JSharp.Models.DataModels;
+using JSharp.Models.Services;
+using JSharp.Models.SimpleDataModels;
+using JSharp.UI.Views;
 using JSharp.Utility;
-using LiveChartsCore.Defaults;
+using JSharp.Views;
 using Microsoft.Win32;
-using Prism.Events;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace JSharp.ViewModels
 {
@@ -238,11 +229,11 @@ namespace JSharp.ViewModels
                     case ".jpg":
                     case ".jpeg":
                         // For JPEG format, save the MatImage with JPEG compression quality
-                        CvInvoke.Imwrite(fileName, this.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.JpegQuality, Properties.Settings.Default.jpqSaveQuality) });
+                        CvInvoke.Imwrite(fileName, this.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.JpegQuality, Views.Properties.Settings.Default.jpqSaveQuality) });
                         break;
                     case ".png":
                         // For PNG format, save the MatImage with PNG compression level
-                        CvInvoke.Imwrite(fileName, this.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.PngCompression, Properties.Settings.Default.pngCompressionLevel) });
+                        CvInvoke.Imwrite(fileName, this.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.PngCompression, Views.Properties.Settings.Default.pngCompressionLevel) });
                         break;
                     case ".gif":
                         // For GIF format, save the MatImage with specified parameters

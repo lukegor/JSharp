@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using JSharp;
+using JSharp.Models.Services;
+using JSharp.UI.Views;
 
 namespace JSharp_Tests.Algorithms_Tests
 {
@@ -42,7 +43,7 @@ namespace JSharp_Tests.Algorithms_Tests
 
         public void TestCompression(byte[] imageData, byte[] expectedCompressed)
         {
-            List<byte> compressedData = CompressionCore.CompressRLE(imageData);
+            List<byte> compressedData = CompressionCore.CompressRle(imageData);
 
             Assert.Equal(expectedCompressed, compressedData);
         }

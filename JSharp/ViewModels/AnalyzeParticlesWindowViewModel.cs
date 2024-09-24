@@ -1,15 +1,12 @@
-﻿using JSharp.Models.DataModels;
+﻿using JSharp.Models.SimpleDataModels;
+using JSharp.UI.Views;
+using JSharp.Views;
 using Prism.Commands;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSharp.ViewModels
 {
-    public class AnalyzeParticlesWindowViewModel : BindableBase
+	public class AnalyzeParticlesWindowViewModel : BindableBase
     {
         private string _sizeText;
         public string SizeText

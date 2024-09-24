@@ -1,0 +1,152 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JSharp.UI.Views"
+        xmlns:prism="http://prismlibrary.com/"
+		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+		xmlns:viewModels="clr-namespace:JSharp.ViewModels"
+		xmlns:resx="clr-namespace:JSharp.Resources"
+		x:Class="JSharp.UI.Views.MainWindow"
+		mc:Ignorable="d"
+        Title="JSharp" Height="180" Width="700" ResizeMode="CanMinimize" Closing="Window_Closing" PreviewKeyDown="Window_PreviewKeyDown">
+
+	<Window.DataContext>
+		<viewModels:MainWindowViewModel/>
+	</Window.DataContext>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Menu Width="Auto" Height="20" VerticalAlignment="Top" Grid.Row="0">
+			<MenuItem Header="{x:Static resx:UIStrings.File}">
+				<MenuItem x:Name="Open" Header="{x:Static resx:Strings.Open}">
+					<MenuItem Header="{x:Static resx:Strings.OpenGray}" Command="{Binding OpenGray_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.OpenRGB}" Command="{Binding OpenRgb_ClickCommand}"/>
+				</MenuItem>
+				<MenuItem Header="{x:Static resx:Strings.Save}" Command="{Binding Save_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.SaveAs}" Command="{Binding SaveAs_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.SaveAll}" Command="{Binding SaveAll_ClickCommand}"/>
+				<Separator/>
+				<MenuItem Header="{x:Static resx:UIStrings.Exit}" Command="{Binding Exit_ClickCommand}"/>
+			</MenuItem>
+			<MenuItem Header="{x:Static resx:Strings.Edit}">
+				<MenuItem Header="Copy to System" Command="{Binding CopyToSystem_ClickCommand}"/>
+				<Separator />
+				<MenuItem Header="{x:Static resx:Strings.Transform}">
+					<MenuItem Header="{x:Static resx:Strings.Rotate}" Command="{Binding Rotate_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.Flip}" Command="{Binding Flip_ClickCommand}"/>
+				</MenuItem>
+			</MenuItem>
+			<MenuItem Header="{x:Static resx:Strings.Image}">
+				<MenuItem Header="{x:Static resx:Strings.Duplicate}" Command="{Binding Duplicate_CommandClick}"/>
+				<MenuItem Header="{x:Static resx:Strings.Convert}">
+					<MenuItem Header="{x:Static resx:Strings.Grayize}"  Command="{Binding Grayize_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.RgbToHsv}" Command="{Binding ConvertRgbToHsv_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.RgbToLab}" Command="{Binding ConvertRgbToLab_ClickCommand}"/>
+				</MenuItem>
+				<Separator/>
+				<MenuItem Header="{x:Static resx:Strings.SplitChannels}" Command="{Binding SplitChannels_ClickCommand}"/>
+				<Separator/>
+				<MenuItem Header="{x:Static resx:Strings.PyramidUp}" Command="{Binding PyramidUp_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.PyramidDown}" Command="{Binding PyramidDown_ClickCommand}"/>
+			</MenuItem>
+			<MenuItem Header="{x:Static resx:Strings.Process}">
+				<MenuItem Header="{x:Static resx:Strings.Negate}" Command="{Binding Negate_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.Posterize}" Command="{Binding Posterize_ClickCommand}"/>
+				<Separator/>
+				<MenuItem Header="{x:Static resx:Strings.StretchHistogram}" Command="{Binding StretchHistogram_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.StretchContrast}" Command="{Binding StretchContrast_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.EqualizeHistogram}" Command="{Binding EqualizeHistogram_ClickCommand}" />
+				<Separator/>
+				<MenuItem Header="{x:Static resx:Strings.Filters}">
+					<MenuItem Header="{x:Static resx:Strings.Convolve}" Command="{Binding Convolve_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.Median}" Command="{Binding Median_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.DoubleConvolve}" Command="{Binding DoubleConvolve_ClickCommand}"/>
+				</MenuItem>
+				<MenuItem Header="{x:Static resx:Strings.ImageCalculator}" Command="{Binding ImageCalculator_ClickCommand}"/>
+				<Separator/>
+				<MenuItem Header="{x:Static resx:Strings.Thresholding}">
+					<MenuItem Header="{x:Static resx:Thresholding.OneThreshold}" Command="{Binding SimpleThreshold_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Thresholding.TwoThresholds}" Command="{Binding Threshold_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Thresholding.AdaptiveThresholding}" Command="{Binding AdaptiveThresholding_ClickCommand}"/>
+				</MenuItem>
+				<MenuItem Header="{x:Static resx:Strings.MorphologicalOperations}">
+					<MenuItem Header="{x:Static resx:Strings.Erode}" Command="{Binding Erode_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.Dilate}" Command="{Binding Dilate_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.MorphologicalOpen}" Command="{Binding MorphologicalOpen_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Strings.MorphologicalClose}" Command="{Binding MorphologicalClose_ClickCommand}"/>
+					<Separator/>
+					<MenuItem Header="{x:Static resx:Strings.Skeletonize}" Command="{Binding Skeletonize_ClickCommand}"/>
+				</MenuItem>
+				<MenuItem Header="{x:Static resx:Strings.EdgeDetection_Hough}" Command="{Binding Hough_ClickCommand}"/>
+				<Separator/>
+				<MenuItem Header="{x:Static resx:Strings.Compression}">
+					<MenuItem Header="{x:Static resx:Strings.RLECompression}" Command="{Binding CompressRLE_ClickCommand}"/>
+				</MenuItem>
+			</MenuItem>
+			<MenuItem Header="{x:Static resx:Strings.Advanced}">
+				<MenuItem Header="{x:Static resx:Strings.Watershed}" Command="{Binding Watershed_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.Inpaint}" Command="{Binding Inpaint_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.GrabCut}" Command="{Binding GrabCut_ClickCommand}"/>
+				<!--<MenuItem Header="Analyze" Command="{Binding DetailedAnalyze_ClickCommand}"/>-->
+			</MenuItem>
+			<MenuItem Header="{x:Static resx:Strings.Analyze}">
+				<MenuItem Header="{x:Static resx:Strings.ShowHistogram}" Command="{Binding ShowHistogram_ClickCommand}"/>
+				<MenuItem Header="{x:Static resx:Strings.PlotProfile}" Command="{Binding PlotProfile_ClickCommand}"/>
+				<Separator/>
+				<MenuItem Header="{x:Static resx:Strings.Analyze}">
+					<MenuItem Header="{x:Static resx:Thresholding.SimpleAnalyze}" Command="{Binding SimpleAnalyze_ClickCommand}"/>
+					<MenuItem Header="{x:Static resx:Thresholding.Analyze}" Command="{Binding Analyze_ClickCommand}"/>
+				</MenuItem>
+			</MenuItem>
+			<MenuItem Header="{x:Static resx:UIStrings.Settings}" Command="{Binding OpenSettings_ClickCommand}"/>
+			<MenuItem Header="{x:Static resx:UIStrings.Help}">
+				<MenuItem Header="{x:Static resx:UIStrings.About}" Click="About_Click"/>
+			</MenuItem>
+		</Menu>
+		<Label x:Name="LblFocusedImage" Content="{Binding LblFocusedImageContent, TargetNullValue=null}" Grid.Row="1" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" Height="31" Width="Auto"/>
+		<ToolBar HorizontalAlignment="Stretch" Height="36" VerticalAlignment="Top" Width="Auto" Grid.Row="2" ToolBarTray.IsLocked="True">
+			<RadioButton x:Name="RadioBtnNone" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
+				<RadioButton.Background>
+					<ImageBrush ImageSource="/Resources/Icons/ToolBar_Icons/NoneIcon.ico"/>
+				</RadioButton.Background>
+				<Grid>
+					<Image Width="16" Height="16"/>
+				</Grid>
+			</RadioButton>
+			<RadioButton x:Name="RadioBtnProfileLine" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
+				<RadioButton.Background>
+					<ImageBrush ImageSource="/Resources/Icons/ToolBar_Icons/LineSegment.ico"/>
+				</RadioButton.Background>
+				<Grid>
+					<Image Width="16" Height="16"/>
+				</Grid>
+			</RadioButton>
+			<RadioButton x:Name="RadioBtnRectangle" GroupName="ToolGroup" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">
+				<RadioButton.Background>
+					<ImageBrush ImageSource="/Resources/Icons/ToolBar_Icons/DrawRectangle.ico"/>
+				</RadioButton.Background>
+				<Grid>
+					<Image Width="16" Height="16"/>
+				</Grid>
+			</RadioButton>
+			<Separator/>
+			<RadioButton Checked="RadioButtonClear_Checked" Unchecked="RadioButton_Unchecked">
+				<RadioButton.Background>
+					<ImageBrush ImageSource="/Resources/Icons/ToolBar_Icons/ClearCanvas.ico"/>
+				</RadioButton.Background>
+				<Grid>
+					<Image Width="16" Height="16"/>
+				</Grid>
+			</RadioButton>
+		</ToolBar>
+		<TextBlock Text="{Binding Descriptor}" Grid.Row="3"/>
+
+	</Grid>
+</Window>

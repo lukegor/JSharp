@@ -1,30 +1,24 @@
-﻿using Emgu.CV;
-using Emgu.CV.CvEnum;
-using Emgu.CV.Structure;
-using Emgu.CV.Util;
-using JSharp.Models.DataModels;
-using JSharp.Properties;
-using JSharp.Resources;
-using JSharp.Utility;
-using JSharp.Validation.Validators;
-using LiveChartsCore.Kernel;
-using Microsoft.Win32;
-using Prism.Commands;
-using Prism.Events;
-using Prism.Mvvm;
-using Prism.Services.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing.Imaging;
+﻿using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Emgu.CV;
+using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
+using Emgu.CV.Util;
+using JSharp.Models.Services;
+using JSharp.Models.SimpleDataModels;
+using JSharp.Resources;
+using JSharp.UI.Views;
+using JSharp.Utility;
+using JSharp.Validation.Validators;
+using JSharp.Views;
+using JSharp.Views.Properties;
+using Microsoft.Win32;
+using Prism.Commands;
+using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
@@ -279,7 +273,7 @@ namespace JSharp.ViewModels
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
-            openFileDialog.DefaultExt = Properties.Settings.Default.saveFileExtension;
+            openFileDialog.DefaultExt = Views.Properties.Settings.Default.saveFileExtension;
             openFileDialog.Filter = Constants.ImageFilterString;
 
             List<Mat> images = new List<Mat>();
@@ -478,7 +472,7 @@ namespace JSharp.ViewModels
                 MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else if (FocusedImage.MatImage.NumberOfChannels != Constants.XYZ_ChannelCount)
+            else if (FocusedImage.MatImage.NumberOfChannels != Constants.Xyz_ChannelCount)
             {
                 MessageBox.Show(Errors.ImageNotColor, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -495,7 +489,7 @@ namespace JSharp.ViewModels
                 MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else if (FocusedImage.MatImage.NumberOfChannels != Constants.XYZ_ChannelCount)
+            else if (FocusedImage.MatImage.NumberOfChannels != Constants.Xyz_ChannelCount)
             {
                 MessageBox.Show(Errors.ImageNotColor, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -528,7 +522,7 @@ namespace JSharp.ViewModels
                 MessageBox.Show(Errors.NoImageFocused, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else if (FocusedImage.MatImage.NumberOfChannels != Constants.XYZ_ChannelCount)
+            else if (FocusedImage.MatImage.NumberOfChannels != Constants.Xyz_ChannelCount)
             {
                 MessageBox.Show(Errors.ImageNotColor, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -1201,7 +1195,7 @@ namespace JSharp.ViewModels
             // convert Array to byte[]
             byte[] pixelData = CompressionCore.ConvertArrayToByteArray(pixelDataArray);
 
-            List<byte> compressedData = CompressionCore.CompressRLE(pixelData);
+            List<byte> compressedData = CompressionCore.CompressRle(pixelData);
 
             File.WriteAllBytes(compressedImagePath, compressedData.ToArray());
 

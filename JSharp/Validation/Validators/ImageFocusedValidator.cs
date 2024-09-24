@@ -1,11 +1,5 @@
-﻿using Emgu.CV;
-using JSharp.Resources;
+﻿using JSharp.Resources;
 using JSharp.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSharp.Validation.Validators
 {

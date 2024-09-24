@@ -1,0 +1,94 @@
+﻿<Window x:Class="JSharp.UI.Views.ThresholderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JSharp.UI.Views"
+		xmlns:prism="http://prismlibrary.com/"
+        d:DataContext="{d:DesignInstance Type=viewModels:ThresholderWindowViewModel}"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:viewModels="clr-namespace:JSharp.ViewModels"
+        xmlns:converters="clr-namespace:JSharp.Converters"
+        xmlns:resx="clr-namespace:JSharp.Resources"
+        mc:Ignorable="d"
+        Title="ThresholderWindow" Height="380" Width="420" Closing="Window_Closing">
+	<Window.Resources>
+		<converters:WidthCalculatorConverter x:Key="WidthCalculatorConverter"/>
+		<converters:ThresholdingTypeConverter x:Key="ThresholdingTypeConverter"/>
+		<ObjectDataProvider x:Key="LocalizedThresholdingTypesProvider"
+							ObjectType="{x:Type viewModels:ThresholderWindowViewModel}"
+							MethodName="GetThresholdingTypes"/>
+	</Window.Resources>
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"
+					Grid.ColumnSpan="2" Width="380">
+			<Image x:Name="imageControl" Source="{Binding MySource}" Width="255" Height="100" Stretch="UniformToFill" Margin="-2,0,50,0" />
+			<Canvas>
+				<!-- Rectangle representing the frame -->
+				<Rectangle Canvas.Left="{Binding FromValue}" Canvas.Top="-102"
+						   Height="103" Margin="35,0,0,0"
+						   Stroke="MediumVioletRed" StrokeThickness="2" Opacity="0.8"
+						   HorizontalAlignment="Left" VerticalAlignment="Center">
+					<Rectangle.Width>
+						<MultiBinding Converter="{StaticResource WidthCalculatorConverter}">
+							<Binding Path="ToValue"/>
+							<Binding Path="FromValue"/>
+						</MultiBinding>
+					</Rectangle.Width>
+					<Rectangle.RenderTransform>
+						<TranslateTransform X="0" />
+					</Rectangle.RenderTransform>
+				</Rectangle>
+
+			</Canvas>
+			<TextBlock Width="Auto" Margin="20,0,0,0">
+				<Run Text="{Binding SelectedPixelPercentage, StringFormat={}{0}%}" />
+			</TextBlock>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<Slider x:Name="fromSlider" Value="{Binding FromValue, Mode=TwoWay}"
+						Minimum="0" Maximum="255" TickFrequency="1"
+						Width="264" Height="18" Margin="1,0,0,0"/>
+				<xctk:IntegerUpDown Text="{Binding FromValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									Margin="10,10,0,0" Minimum="0" Maximum="255" Height="20" Width="45"/>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
+				<Slider x:Name="toSlider" Value="{Binding ToValue, Mode=TwoWay}"
+						Minimum="0" Maximum="255" TickFrequency="1"
+						Width="264" Height="18" Margin="1,0,0,0"/>
+				<xctk:IntegerUpDown Text="{Binding ToValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+								Margin="10,10,0,0" Minimum="0" Maximum="255" Height="20" Width="45"/>
+			</StackPanel>
+
+			<Grid Margin="0,10">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="7*"/>
+					<RowDefinition Height="15*"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="130" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<TextBlock TextAlignment="Center" Grid.Row="0">
+					<Run Text="{x:Static resx:Thresholding.ThresholdingStr}"/>
+					<Run Text=":"/>
+				</TextBlock>
+				<ComboBox Grid.Column="1" Grid.Row="0" Margin="0,0,30,0"
+						  ItemsSource="{Binding Source={StaticResource LocalizedThresholdingTypesProvider}}" SelectedItem="{Binding Thresholding, Mode=TwoWay, Converter={StaticResource ThresholdingTypeConverter}}"
+					/>
+			</Grid>
+
+			<CheckBox Content="{x:Static resx:WindowSpecific.ActivateContrastMode}" IsChecked="{Binding EnableContrastMode}" Margin="20,0,0,0"/>
+
+			<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,20,0,0">
+				<Button Content="{x:Static resx:UIStrings.Confirm}" IsDefault="True" Command="{Binding BtnConfirm_ClickCommand}"/>
+				<Button Content="{x:Static resx:UIStrings.Cancel}" Margin="10,0,0,0" IsCancel="True" Command="{Binding BtnCancel_ClickCommand}"/>
+			</StackPanel>
+		</StackPanel>
+	</Grid>
+</Window>

@@ -1,10 +1,5 @@
 ﻿using JSharp.Resources;
 using JSharp.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSharp.Validation.Validators
 {
@@ -18,7 +13,7 @@ namespace JSharp.Validation.Validators
 
         public string Validate()
         {
-            if (numberOfChannels == Constants.XYZ_ChannelCount)
+            if (numberOfChannels == Constants.Xyz_ChannelCount)
             {
                 return Errors.AlreadyGrayscale_Error;
             }

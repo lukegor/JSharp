@@ -1,0 +1,51 @@
+﻿<Window x:Class="JSharp.UI.Views.MedianWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JSharp.UI.Views"
+        xmlns:viewModels="clr-namespace:JSharp.ViewModels"
+        xmlns:converters="clr-namespace:JSharp.Converters"
+        xmlns:resx="clr-namespace:JSharp.Resources"
+        d:DataContext="{d:DesignInstance Type=viewModels:MedianWindowViewModel}"
+        mc:Ignorable="d"
+        Title="MedianWindow" Height="155" Width="290">
+
+	<Window.Resources>
+		<converters:MatrixSizeConverter x:Key="MatrixSizeConverter"/>
+		<converters:BorderTypeConverter x:Key="BorderTypeConverter"/>
+	</Window.Resources>
+
+	<Grid>
+		<Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5,20,5,0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<!-- First Row -->
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static resx:Strings.KernelMaskSize}" Margin="0,0,0,0"/>
+			<ComboBox Grid.Row="0" Grid.Column="1" Margin="10,0,0,5" Width="100"
+					  SelectedValue="{Binding MatrixSize, Converter={StaticResource MatrixSizeConverter}, Mode=TwoWay}"
+					  SelectedValuePath="Content">
+				<ComboBoxItem Content="3x3"/>
+				<ComboBoxItem Content="5x5"/>
+				<ComboBoxItem Content="7x7"/>
+			</ComboBox>
+
+			<!-- Second Row -->
+			<TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static resx:UIStrings.EdgePixelsHandling}" Margin="0,5,0,0"/>
+			<ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding BorderTypes}" SelectedItem="{Binding BorderPixelsOption, Mode=TwoWay, Converter={StaticResource BorderTypeConverter}}" Margin="10,5,0,5" Width="100"/>
+		</Grid>
+
+
+
+		<DockPanel DockPanel.Dock="Bottom" Margin="0,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+			<Button Content="{x:Static resx:UIStrings.Apply}" Width="100" Command="{Binding BtnApply_ClickCommand}" IsDefault="True"/>
+		</DockPanel>
+	</Grid>
+</Window>

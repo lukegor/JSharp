@@ -1,16 +1,6 @@
 ﻿using Emgu.CV;
-using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using JSharp.Models.DataModels;
 using Prism.Mvvm;
-using Emgu.CV.ML;
-using JSharp.Models.BusinessLogicModels;
 
 namespace JSharp.ViewModels
 {

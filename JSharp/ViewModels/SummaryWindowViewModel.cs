@@ -1,11 +1,7 @@
-﻿using JSharp.Models.DataModels;
+﻿using System.Collections.ObjectModel;
+using JSharp.Models.Services;
+using JSharp.Models.SimpleDataModels;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSharp.ViewModels
 {

@@ -1,9 +1,4 @@
 ﻿using JSharp.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSharp.Utility
 {
@@ -17,7 +12,7 @@ namespace JSharp.Utility
 
     public static class ThresholdingTypeHelper
     {
-        private static readonly Dictionary<string, ThresholdingType> thresholdingTypeMapping = new Dictionary<string, ThresholdingType>()
+        private static readonly Dictionary<string, ThresholdingType> ThresholdingTypeMapping = new Dictionary<string, ThresholdingType>()
         {
             { Thresholding.ThresholdingStandard, ThresholdingType.Standard },
             { Thresholding.ThresholdingInverse, ThresholdingType.Inverse },
@@ -27,17 +22,17 @@ namespace JSharp.Utility
 
         public static ThresholdingType MapLocalStringToThresholdingType(string input)
         {
-            return EnumHelper.MapLocalStringToEnum(input, thresholdingTypeMapping);
+            return EnumHelper.MapLocalStringToEnum(input, ThresholdingTypeMapping);
         }
 
         public static string MapThresholdingTypeToLocalString(ThresholdingType shape)
         {
-            return EnumHelper.MapEnumToLocalString(shape, thresholdingTypeMapping);
+            return EnumHelper.MapEnumToLocalString(shape, ThresholdingTypeMapping);
         }
 
         public static IEnumerable<string> GetLocalizedShapeTypes(IEnumerable<ThresholdingType> thresholdingTypes)
         {
-            return EnumHelper.GetLocalizedOptions(thresholdingTypes, thresholdingTypeMapping);
+            return EnumHelper.GetLocalizedOptions(thresholdingTypes, ThresholdingTypeMapping);
         }
     }
 }

@@ -1,15 +1,14 @@
-﻿using JSharp.Properties;
+﻿using System.Diagnostics;
+using System.Globalization;
+using System.Windows;
+using JSharp.UI.Views;
 using JSharp.Utility;
 using JSharp.ViewModels;
-using Prism;
+using JSharp.Views;
+using JSharp.Views.Properties;
 using Prism.Ioc;
 using Prism.Regions;
 using Prism.Unity;
-using System.Configuration;
-using System.Data;
-using System.Diagnostics;
-using System.Globalization;
-using System.Windows;
 
 namespace JSharp
 {
@@ -60,7 +59,7 @@ namespace JSharp
             // Configure region adapters if necessary
         }
 
-        public void Restart()
+        internal void Restart()
         {
             var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
             Process.Start(currentExecutablePath);

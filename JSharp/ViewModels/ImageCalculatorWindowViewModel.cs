@@ -1,15 +1,8 @@
 ﻿using Emgu.CV;
-using JSharp.Models.DataModels;
-using JSharp.Utility;
-using Prism.Commands;
+using JSharp.Models.SimpleDataModels;
+using JSharp.UI.Views;
+using JSharp.Views;
 using Prism.Mvvm;
-using SkiaSharp;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSharp.ViewModels
 {

@@ -1,19 +1,17 @@
 ﻿using Emgu.CV.CvEnum;
-using JSharp.Resources;
+using JSharp.UI.Views;
+using JSharp.Utility;
+using JSharp.Views;
 using Prism.Commands;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSharp.ViewModels
 {
     internal class MedianWindowViewModel : BindableBase
     {
-        private int _matrixSize = 3;
+        public IList<string> BorderTypes { get; } = GetEdgePixelsHandlingOptions().ToList();
+
+		private int _matrixSize = 3;
         public int MatrixSize
         {
             get => _matrixSize;
@@ -44,5 +42,11 @@ namespace JSharp.ViewModels
             var associatedWindow = App.Current.Windows.OfType<MedianWindow>().First(window => window.DataContext == this);
             associatedWindow.DialogResult = true;
         }
-    }
+
+        private static IEnumerable<string> GetEdgePixelsHandlingOptions()
+        {
+	        IEnumerable<BorderType> borderTypes = [BorderType.Isolated, BorderType.Reflect, BorderType.Replicate];
+	        return BorderTypeHelper.GetLocalizedEdgePixelsHandlingOptions(borderTypes);
+        }
+	}
 }

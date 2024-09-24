@@ -1,18 +1,13 @@
-﻿using Emgu.CV;
+﻿using System.Collections.ObjectModel;
+using Emgu.CV;
 using Emgu.CV.CvEnum;
-using Emgu.CV.Flann;
-using JSharp.Models.DataModels;
+using JSharp.Models.SimpleDataModels;
 using JSharp.Resources;
+using JSharp.UI.Views;
 using JSharp.Utility;
+using JSharp.Views;
 using Prism.Commands;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JSharp.ViewModels
 {
@@ -20,7 +15,9 @@ namespace JSharp.ViewModels
     {
         public event EventHandler<ConvolutionInfo> KernelAppliable;
 
-        private ObservableCollection<int> _textBoxValues;
+        public IList<string> BorderTypes { get; } = GetEdgePixelsHandlingOptions().ToList();
+
+		private ObservableCollection<int> _textBoxValues;
         public ObservableCollection<int> TextBoxValues
         {
             get { return _textBoxValues; }
@@ -169,7 +166,7 @@ namespace JSharp.ViewModels
             }
         }
 
-        public IEnumerable<string> GetEdgePixelsHandlingOptions()
+        private static IEnumerable<string> GetEdgePixelsHandlingOptions()
         {
             IEnumerable<BorderType> borderTypes = [BorderType.Isolated, BorderType.Reflect, BorderType.Replicate];
             return BorderTypeHelper.GetLocalizedEdgePixelsHandlingOptions(borderTypes);
