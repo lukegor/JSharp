@@ -68,7 +68,8 @@
 					-->
 				</xctk:UIntegerUpDown>
 				<xctk:UIntegerUpDown Maximum="9" Minimum="0" Value="{Binding PngCompressionLevel, Mode=TwoWay}" Grid.Column="1" Grid.Row="3" Padding="10,8" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
-				<ComboBox x:Name="CbFileExtension" ItemsSource="{Binding Source={StaticResource FileExtensionTypesProvider}}" SelectedValue="{Binding SaveFileExtension, Mode=TwoWay}" Grid.Column="1" Grid.Row="4" Padding="10,8" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
+				<ComboBox x:Name="CbFileExtension" ItemsSource="{Binding Source={StaticResource FileExtensionTypesProvider}}" SelectedValue="{Binding SaveFileExtension, Mode=TwoWay}"
+                          Grid.Column="1" Grid.Row="4" Padding="10,8" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" Margin="20,0,0,0" FontSize="16" FontFamily="Segoe UI Semibold"/>
 				<xctk:UIntegerUpDown x:Name="integ" Grid.Column="1" Grid.Row="5" Padding="10,8" HorizontalAlignment="Left" Margin="20,0,0,0" Width="200" FontSize="16" FontFamily="Segoe UI Semibold"
                                     Value="{Binding ZoomFactor, Mode=TwoWay}"
                                     Minimum="0" Maximum="40" Increment="10" FormatString="{}{0}%"/>

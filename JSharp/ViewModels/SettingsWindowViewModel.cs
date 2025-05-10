@@ -49,13 +49,18 @@ namespace JSharp.ViewModels
             SaveSettingsCommand = new DelegateCommand(SaveCommand);
             RestoreDefaultsCommand = new DelegateCommand(RestoreDefaults);
 
+            ProcessPropertyValues();
+        }
+
+        private void ProcessPropertyValues()
+        {
             PngCompressionLevel = Settings.Default.pngCompressionLevel;
             JpgSaveQuality = Settings.Default.jpqSaveQuality;
             SaveFileExtension = Settings.Default.saveFileExtension;
             ZoomFactor = Convert.ToUInt32(Settings.Default.ZoomFactor * 100);
-            if (string.IsNullOrEmpty(Settings.Default.LanguageVersion))
-                Language = "English";
-            else Language = Settings.Default.LanguageVersion;
+            Language = string.IsNullOrEmpty(Settings.Default.LanguageVersion)
+                ? "English"
+                : Settings.Default.LanguageVersion;
         }
 
         public void SaveCommand()
@@ -63,14 +68,19 @@ namespace JSharp.ViewModels
             Settings.Default.pngCompressionLevel = PngCompressionLevel;
             Settings.Default.jpqSaveQuality = JpgSaveQuality;
             Settings.Default.saveFileExtension = SaveFileExtension;
-            var tmp = Settings.Default.LanguageVersion;
+
+            var isChangedLanguage = Settings.Default.LanguageVersion != Language;
             Settings.Default.LanguageVersion = Language;
+
             float zoomFactor = (float)(ZoomFactor / 10.0);
+
             Settings.Default.ZoomFactor = zoomFactor;
+
             Settings.Default.Save();
+
             MainWindowViewModel.CumulativeZoomFactor = zoomFactor;
 
-            if (tmp != Language)
+            if (isChangedLanguage)
             {
                 App current = (App)App.Current;
                 current.Restart();
