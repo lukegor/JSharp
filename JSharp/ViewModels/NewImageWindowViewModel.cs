@@ -7,13 +7,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
-using JSharp.Models.DataModels;
-using JSharp.Models.SimpleDataModels;
-using JSharp.Services;
+using JSharp.Domain.Models.SimpleDataModels;
+using JSharp.Domain.Services;
+using JSharp.Domain.Models.DataModels;
 using JSharp.UI.Views;
-using JSharp.Utility;
 using JSharp.Views;
 using Microsoft.Win32;
+using JSharp.Utility.Utility;
 
 namespace JSharp.ViewModels
 {
@@ -244,7 +244,7 @@ namespace JSharp.ViewModels
                         CvInvoke.Imwrite(fileName, this.MatImage, new[] { new KeyValuePair<ImwriteFlags, int>(ImwriteFlags.TiffCompression, (int)ImwriteFlags.TiffCompression) });
                         break;
                     default:
-                        MessageBox.Show("Invalid file format selected.", Resources.Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Invalid file format selected.", JSharp.Shared.Resources.Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                 }
 
@@ -359,12 +359,12 @@ namespace JSharp.ViewModels
         {
             Mat image = this.MatImage;
             BorderType borderType = convolutionInfo.BorderPixelsOption;
-            string[] edgeDetectionCases = { Resources.Kernels.SobelEW, Resources.Kernels.SobelNS, Resources.Kernels.Canny, Resources.Kernels.Laplacian };
-            if (currentKernel == Resources.Kernels.BoxBlur)
+            string[] edgeDetectionCases = { JSharp.Shared.Resources.Kernels.SobelEW, JSharp.Shared.Resources.Kernels.SobelNS, JSharp.Shared.Resources.Kernels.Canny, JSharp.Shared.Resources.Kernels.Laplacian };
+            if (currentKernel == JSharp.Shared.Resources.Kernels.BoxBlur)
             {
                 image = ImageProcessingCore.ApplyBlur(image, borderType, 3);
             }
-            else if (currentKernel == Resources.Kernels.GaussianBlur)
+            else if (currentKernel == JSharp.Shared.Resources.Kernels.GaussianBlur)
             {
                 image = ImageProcessingCore.ApplyGaussianBlur(image, borderType, sigmaX: 1.5, sigmaY: 1.5, 3);
             }

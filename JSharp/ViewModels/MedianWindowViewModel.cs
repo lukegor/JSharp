@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Emgu.CV.CvEnum;
 using JSharp.UI.Views;
-using JSharp.Utility;
+using JSharp.Utility.Utility;
 using JSharp.Views;
 
 namespace JSharp.ViewModels

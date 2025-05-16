@@ -3,10 +3,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
-using JSharp.Models.SimpleDataModels;
-using JSharp.Resources;
+using JSharp.Domain.Models.SimpleDataModels;
+using JSharp.Shared.Resources;
 using JSharp.UI.Views;
-using JSharp.Utility;
+using JSharp.Utility.Utility;
 using JSharp.Views;
 
 namespace JSharp.ViewModels

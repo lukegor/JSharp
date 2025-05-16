@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
 using Emgu.CV.CvEnum;
-using JSharp.Utility;
+using JSharp.Utility.Utility;
 
 namespace JSharp.Converters
 {

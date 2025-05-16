@@ -1,4 +1,4 @@
-﻿using JSharp.Resources;
+﻿using JSharp.Shared.Resources;
 using JSharp.ViewModels;
 
 namespace JSharp.Validation.Validators

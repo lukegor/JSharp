@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows;
 using JSharp.UI.Views;
-using JSharp.Utility;
+using JSharp.Utility.Utility;
 using JSharp.ViewModels;
 using JSharp.Views;
 using JSharp.Views.Properties;

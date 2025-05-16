@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Emgu.CV;
-using JSharp.Models.DataModels;
+using JSharp.Domain.Models.DataModels;
 
 namespace JSharp.ViewModels
 {

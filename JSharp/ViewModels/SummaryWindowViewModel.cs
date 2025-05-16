@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using JSharp.Models.SimpleDataModels;
-using JSharp.Services;
+using JSharp.Domain.Models.SimpleDataModels;
+using JSharp.Domain.Services;
 
 namespace JSharp.ViewModels
 {

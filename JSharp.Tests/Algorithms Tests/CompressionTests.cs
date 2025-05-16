@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using JSharp.Services;
+using JSharp.Domain.Services;
 using JSharp.UI.Views;
 
 namespace JSharp_Tests.Algorithms_Tests

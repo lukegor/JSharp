@@ -2,8 +2,8 @@ using Emgu.CV;
 using Emgu.CV.CvEnum;
 using JSharp.UI.Views;
 using System.Runtime.InteropServices;
-using JSharp.Utility;
-using JSharp.Services;
+using JSharp.Domain.Services;
+using JSharp.Utility.Utility;
 
 namespace JSharp_Tests.Algorithms_Tests
 {

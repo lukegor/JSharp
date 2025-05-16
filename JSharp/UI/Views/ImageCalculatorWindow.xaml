@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JSharp.UI.Views"
         xmlns:viewModels="clr-namespace:JSharp.ViewModels"
-        xmlns:util="clr-namespace:JSharp.Utility"
-        xmlns:resx="clr-namespace:JSharp.Resources"
+        xmlns:util="clr-namespace:JSharp.Utility.Utility;assembly=JSharp.Utility"
+        xmlns:resx="clr-namespace:JSharp.Shared.Resources;assembly=JSharp.Shared"
         d:DataContext="{d:DesignInstance Type=viewModels:ImageCalculatorWindowViewModel}"
         mc:Ignorable="d"
         Title="ImageCalculatorWindow" ResizeMode="CanMinimize"  Height="290" Width="300">

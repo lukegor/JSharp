@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using JSharp.Resources;
+using JSharp.Shared.Resources;
 using JSharp.ViewModels;
 
 namespace JSharp.UI.Views

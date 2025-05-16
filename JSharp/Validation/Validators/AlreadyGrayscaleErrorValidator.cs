@@ -1,5 +1,5 @@
-﻿using JSharp.Resources;
-using JSharp.Utility;
+﻿using JSharp.Shared.Resources;
+using JSharp.Utility.Utility;
 
 namespace JSharp.Validation.Validators
 {

@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using JSharp.Models.SimpleDataModels;
+using JSharp.Domain.Models.SimpleDataModels;
 using JSharp.UI.Views;
 using JSharp.Views;
 

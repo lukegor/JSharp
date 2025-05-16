@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using JSharp.Models.SimpleDataModels;
-using JSharp.Utility;
+using JSharp.Domain.Models.SimpleDataModels;
+using JSharp.Utility.Utility;
 using JSharp.ViewModels;
 
 namespace JSharp.UI.Views

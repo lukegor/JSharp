@@ -7,7 +7,7 @@
         d:DataContext="{d:DesignInstance Type=viewModels:PosterizeWindowViewModel}"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:viewModels="clr-namespace:JSharp.ViewModels"
-        xmlns:resx="clr-namespace:JSharp.Resources"
+        xmlns:resx="clr-namespace:JSharp.Shared.Resources;assembly=JSharp.Shared"
         mc:Ignorable="d"
         Title="PosterizeWindow" Height="175" Width="280">
     <Grid>

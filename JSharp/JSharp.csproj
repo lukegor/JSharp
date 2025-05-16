@@ -19,6 +19,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Resources\Icons\Menu_Icons\**" />
+    <EmbeddedResource Remove="Resources\Icons\Menu_Icons\**" />
+    <None Remove="Resources\Icons\Menu_Icons\**" />
+    <Page Remove="Resources\Icons\Menu_Icons\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Icons\ToolBar_Icons\ClearCanvas.ico" />
     <None Remove="Resources\Icons\ToolBar_Icons\DrawRectangle.ico" />
     <None Remove="Resources\Icons\ToolBar_Icons\LineSegment.ico" />
@@ -45,7 +52,6 @@
     <PackageReference Include="Emgu.CV.Bitmap" Version="4.10.0.5680" />
     <PackageReference Include="Emgu.CV.runtime.windows" Version="4.10.0.5680" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.7.25104.5739" />
-    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
     <PackageReference Include="System.Drawing.Common" Version="9.0.5" />
     <PackageReference Include="System.Text.Json" Version="9.0.5" />
   </ItemGroup>
@@ -153,7 +159,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Icons\Menu_Icons\" />
+    <ProjectReference Include="..\JSharp.Domain\JSharp.Domain.csproj" />
+    <ProjectReference Include="..\JSharp.Shared\JSharp.Shared.csproj" />
+    <ProjectReference Include="..\JSharp.Utility\JSharp.Utility.csproj" />
   </ItemGroup>
 
 </Project>
