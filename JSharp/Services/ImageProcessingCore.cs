@@ -8,7 +8,7 @@ using JSharp.Models.SimpleDataModels;
 using JSharp.Resources;
 using JSharp.Utility;
 
-namespace JSharp.Models.Services
+namespace JSharp.Services
 {
     public static class ImageProcessingCore
     {

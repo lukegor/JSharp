@@ -1,11 +1,11 @@
-﻿using JSharp.UI.Views;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using JSharp.UI.Views;
 using JSharp.Views;
-using Prism.Commands;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-    public class PyramidWindowViewModel : BindableBase
+    public class PyramidWindowViewModel : ObservableObject
     {
         private int _effectSize;
         public int EffectSize
@@ -14,11 +14,11 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _effectSize, value); }
         }
 
-        public DelegateCommand BtnConfirm_ClickCommand { get; }
+        public RelayCommand BtnConfirm_ClickCommand { get; }
 
         public PyramidWindowViewModel()
         {
-            BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirm_Click);
+            BtnConfirm_ClickCommand = new RelayCommand(BtnConfirm_Click);
             EffectSize = 2;
         }
 

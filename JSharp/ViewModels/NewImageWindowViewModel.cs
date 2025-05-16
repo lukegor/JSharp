@@ -3,21 +3,21 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using JSharp.Models.DataModels;
-using JSharp.Models.Services;
 using JSharp.Models.SimpleDataModels;
+using JSharp.Services;
 using JSharp.UI.Views;
 using JSharp.Utility;
 using JSharp.Views;
 using Microsoft.Win32;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-    public class NewImageWindowViewModel : BindableBase
+    public class NewImageWindowViewModel : ObservableObject
     {
         private const int widthAdjustmentConst = 16;
         private const int heightAdjustmentConst = 39;

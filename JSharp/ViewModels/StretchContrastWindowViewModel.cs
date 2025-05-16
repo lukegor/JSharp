@@ -1,10 +1,10 @@
-﻿using System.ComponentModel;
-using Prism.Commands;
-using Prism.Mvvm;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System.ComponentModel;
 
 namespace JSharp.ViewModels
 {
-    internal class StretchContrastWindowViewModel : BindableBase
+    internal class StretchContrastWindowViewModel : ObservableObject
     {
         public event EventHandler ValuesSelected;
 
@@ -50,7 +50,7 @@ namespace JSharp.ViewModels
         }
         #endregion
 
-        public DelegateCommand BtnConfirm_ClickCommand { get; }
+        public RelayCommand BtnConfirm_ClickCommand { get; }
 
         public StretchContrastWindowViewModel()
         {

@@ -5,13 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JSharp.UI.Views"
         d:DataContext="{d:DesignInstance Type=viewModels:StretchContrastWindowViewModel}"
-		xmlns:prism="http://prismlibrary.com/"
 		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 		xmlns:viewModels="clr-namespace:JSharp.ViewModels"
 		xmlns:resx="clr-namespace:JSharp.Resources"
 		mc:Ignorable="d"
-        Title="StretchContrastWindow" Height="200" Width="500"
-		prism:ViewModelLocator.AutoWireViewModel="True">
+        Title="StretchContrastWindow" Height="200" Width="500">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="250"/>

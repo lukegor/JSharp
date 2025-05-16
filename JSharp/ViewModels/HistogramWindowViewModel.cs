@@ -1,10 +1,10 @@
-﻿using Emgu.CV;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Emgu.CV;
 using JSharp.Models.DataModels;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-    internal class HistogramWindowViewModel : BindableBase
+    internal class HistogramWindowViewModel : ObservableObject
     {
         public Histogram Histogram { get; private set; }
 

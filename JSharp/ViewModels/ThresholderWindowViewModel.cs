@@ -1,18 +1,17 @@
 ﻿using System.Drawing;
 using System.Windows.Media.Imaging;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Emgu.CV;
 using Emgu.CV.Structure;
-using JSharp.Models.Services;
+using JSharp.Services;
 using JSharp.UI.Views;
 using JSharp.Utility;
 using JSharp.Views;
-using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Services.Dialogs;
 
 namespace JSharp.ViewModels
 {
-    public class ThresholderWindowViewModel : BindableBase
+    public class ThresholderWindowViewModel : ObservableObject
     {
         private int _fromValue;
         /// <summary>
@@ -109,17 +108,15 @@ namespace JSharp.ViewModels
 
         // window containing image to be modified
         private readonly NewImageWindowViewModel _windowToBeModified;
-        // result of dialog (successful or canceled)
-        private DialogResult dialogResult = new DialogResult(ButtonResult.Cancel);
 
-        public DelegateCommand BtnConfirm_ClickCommand { get; }
-        public DelegateCommand BtnCancel_ClickCommand { get; }
+        public RelayCommand BtnConfirm_ClickCommand { get; }
+        public RelayCommand BtnCancel_ClickCommand { get; }
 
         // parameterless constructor is necessary for ObjectDataProvider
         public ThresholderWindowViewModel()
         {
-            BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirm_Click);
-            BtnCancel_ClickCommand = new DelegateCommand(BtnCancel_Click);
+            BtnConfirm_ClickCommand = new RelayCommand(BtnConfirm_Click);
+            BtnCancel_ClickCommand = new RelayCommand(BtnCancel_Click);
         }
 
         public ThresholderWindowViewModel(Mat image, NewImageWindowViewModel windowToBeModified) : this()
@@ -181,22 +178,23 @@ namespace JSharp.ViewModels
 
         private void BtnConfirm_Click()
         {
-            dialogResult = new DialogResult(ButtonResult.OK);
-            (App.Current.Windows.OfType<ThresholderWindow>().FirstOrDefault(x => x.DataContext == this)).Close();
+            var window = App.Current.Windows.OfType<ThresholderWindow>().FirstOrDefault(x => x.DataContext == this);
+            window.Result = true;
+            window.Close();
         }
 
         private void BtnCancel_Click()
         {
-            (App.Current.Windows.OfType<ThresholderWindow>().FirstOrDefault(x => x.DataContext == this)).Close();
+            App.Current.Windows.OfType<ThresholderWindow>().FirstOrDefault(x => x.DataContext == this).Close();
         }
 
         /// <summary>
         /// Brings back the original input image to its NewImageWindow.
         /// </summary>
         /// <remarks>Used if image isn't closed due to user confirming his choices but for some other reason.</remarks>
-        internal void OnClosing()
+        internal void OnClosing(bool? dialogResult)
         {
-            if (dialogResult.Result == ButtonResult.Cancel)
+            if (dialogResult == false)
             {
                 _windowToBeModified.Restore(Origin);
             }

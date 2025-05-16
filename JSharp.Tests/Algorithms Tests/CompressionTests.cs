@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using JSharp.Models.Services;
+using JSharp.Services;
 using JSharp.UI.Views;
 
 namespace JSharp_Tests.Algorithms_Tests
@@ -40,7 +40,6 @@ namespace JSharp_Tests.Algorithms_Tests
                 0xAA, 0x03, 0xBB, 0x03, 0xAA, 0x01,
                 0x01, 0x01, 0x02, 0x01, 0x03, 0x01, 0x04, 0x01, 0x05, 0x01,
                 0xFF, 0x01, 0x00, 0x01, 0xFF, 0x01, 0x00, 0x01, 0xFF, 0x01 })]
-
         public void TestCompression(byte[] imageData, byte[] expectedCompressed)
         {
             List<byte> compressedData = CompressionCore.CompressRle(imageData);

@@ -1,12 +1,12 @@
-﻿using JSharp.Models.SimpleDataModels;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using JSharp.Models.SimpleDataModels;
 using JSharp.UI.Views;
 using JSharp.Views;
-using Prism.Commands;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-	public class AnalyzeParticlesWindowViewModel : BindableBase
+	public class AnalyzeParticlesWindowViewModel : ObservableObject
     {
         private string _sizeText;
         public string SizeText
@@ -16,10 +16,10 @@ namespace JSharp.ViewModels
         }
         public AnalysisSettings AnalysisSettings { get; set; }
 
-        public DelegateCommand BtnConfirm_ClickCommand { get; }
+        public RelayCommand BtnConfirm_ClickCommand { get; }
         public AnalyzeParticlesWindowViewModel()
         {
-            BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirm_Click);
+            BtnConfirm_ClickCommand = new RelayCommand(BtnConfirm_Click);
             SizeText = "0-inf";
         }
 

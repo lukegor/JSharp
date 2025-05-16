@@ -1,13 +1,13 @@
-﻿using Emgu.CV;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Emgu.CV;
 using JSharp.Models.SimpleDataModels;
 using JSharp.UI.Views;
 using JSharp.Views;
-using Prism.Commands;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-    public class InpaintWindowViewModel : BindableBase
+    public class InpaintWindowViewModel : ObservableObject
     {
         private string _selectedFileName1;
         public string SelectedFileName1
@@ -47,11 +47,11 @@ namespace JSharp.ViewModels
             set { SetProperty(ref isChecked, value); }
         }
 
-        public DelegateCommand BtnConfirm_ClickCommand { get; }
+        public RelayCommand BtnConfirm_ClickCommand { get; }
 
         public InpaintWindowViewModel(List<ImageInfo> images)
         {
-            BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirm_Click);
+            BtnConfirm_ClickCommand = new RelayCommand(BtnConfirm_Click);
 
             this.Images = images;
             IsChecked = true;

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace JSharp.Models.Services
+namespace JSharp.Services
 {
     public static class CompressionCore
     {

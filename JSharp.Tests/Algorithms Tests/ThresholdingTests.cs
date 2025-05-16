@@ -3,7 +3,7 @@ using Emgu.CV.CvEnum;
 using JSharp.UI.Views;
 using System.Runtime.InteropServices;
 using JSharp.Utility;
-using JSharp.Models.Services;
+using JSharp.Services;
 
 namespace JSharp_Tests.Algorithms_Tests
 {

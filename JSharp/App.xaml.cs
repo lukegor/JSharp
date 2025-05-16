@@ -6,16 +6,13 @@ using JSharp.Utility;
 using JSharp.ViewModels;
 using JSharp.Views;
 using JSharp.Views.Properties;
-using Prism.Ioc;
-using Prism.Regions;
-using Prism.Unity;
 
 namespace JSharp
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : PrismApplication
+    public partial class App : Application
     {
         public LanguageDictionary Languages = new LanguageDictionary();
         protected override void OnStartup(StartupEventArgs e)
@@ -39,24 +36,14 @@ namespace JSharp
             System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
 
             base.OnStartup(e);
-        }
-        #region Prism
-        protected override Window CreateShell()
-        {
-            return Container.Resolve<MainWindow>();
+
+            LaunchGUI();
         }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        private void LaunchGUI()
         {
-            containerRegistry.RegisterSingleton<MainWindowViewModel>();
-            containerRegistry.RegisterScoped<NewImageWindowViewModel>();
-            containerRegistry.RegisterInstance(StaticStoreSingleton.Instance);
-        }
-        #endregion
-        protected override void ConfigureRegionAdapterMappings(RegionAdapterMappings regionAdapterMappings)
-        {
-            base.ConfigureRegionAdapterMappings(regionAdapterMappings);
-            // Configure region adapters if necessary
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
         }
 
         internal void Restart()

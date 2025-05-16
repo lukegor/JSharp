@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-using JSharp.Models.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using JSharp.Models.SimpleDataModels;
-using Prism.Mvvm;
+using JSharp.Services;
 
 namespace JSharp.ViewModels
 {
-    public class SummaryWindowViewModel : BindableBase
+    public class SummaryWindowViewModel : ObservableObject
     {
         private ObservableCollection<object> _data;
         public ObservableCollection<object> Data

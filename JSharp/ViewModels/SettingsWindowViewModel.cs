@@ -1,10 +1,10 @@
-﻿using JSharp.Views.Properties;
-using Prism.Commands;
-using Prism.Mvvm;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using JSharp.Views.Properties;
 
 namespace JSharp.ViewModels
 {
-    public class SettingsWindowViewModel : BindableBase
+    public class SettingsWindowViewModel : ObservableObject
     {
         private byte _pngCompressionLevel;
         public byte PngCompressionLevel
@@ -41,13 +41,13 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _zoomFactor, value); }
         }
 
-        public DelegateCommand SaveSettingsCommand { get; }
-        public DelegateCommand RestoreDefaultsCommand { get; }
+        public RelayCommand SaveSettingsCommand { get; }
+        public RelayCommand RestoreDefaultsCommand { get; }
 
         public SettingsWindowViewModel()
         {
-            SaveSettingsCommand = new DelegateCommand(SaveCommand);
-            RestoreDefaultsCommand = new DelegateCommand(RestoreDefaults);
+            SaveSettingsCommand = new RelayCommand(SaveCommand);
+            RestoreDefaultsCommand = new RelayCommand(RestoreDefaults);
 
             ProcessPropertyValues();
         }

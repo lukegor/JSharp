@@ -1,15 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Emgu.CV;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-    public class PlotlineGraphWindowViewModel : BindableBase
+    public class PlotlineGraphWindowViewModel : ObservableObject
     {
         private ISeries[] _values;
         public ISeries[] Values

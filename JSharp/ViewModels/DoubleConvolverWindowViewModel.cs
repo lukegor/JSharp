@@ -1,13 +1,13 @@
 ﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Emgu.CV.CvEnum;
 using JSharp.UI.Views;
 using JSharp.Views;
-using Prism.Commands;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-    public class DoubleConvolverWindowViewModel : BindableBase
+    public class DoubleConvolverWindowViewModel : ObservableObject
     {
         private ObservableCollection<int> _firstMatrix;
         public ObservableCollection<int> FirstMatrix
@@ -51,10 +51,10 @@ namespace JSharp.ViewModels
 
         private bool isInitialized = false;
 
-        public DelegateCommand BtnConfirm_ClickCommand { get; }
+        public RelayCommand BtnConfirm_ClickCommand { get; }
         public DoubleConvolverWindowViewModel()
         {
-            BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirm_Click);
+            BtnConfirm_ClickCommand = new RelayCommand(BtnConfirm_Click);
             List<int> firstList = new List<int>()
             {
                 // Add your values here

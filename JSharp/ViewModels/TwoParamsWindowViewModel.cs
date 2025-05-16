@@ -1,13 +1,13 @@
 ﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using JSharp.Models.SimpleDataModels;
 using JSharp.UI.Views;
 using JSharp.Views;
-using Prism.Commands;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-    public class TwoParamsWindowViewModel : BindableBase
+    public class TwoParamsWindowViewModel : ObservableObject
     {
         public ObservableCollection<SliderProperties> SliderPropertiesCollection { get; set; } = new ObservableCollection<SliderProperties>();
         private string _txbText;
@@ -30,11 +30,11 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _max, value); }
         }
 
-        public DelegateCommand BtnConfirm_ClickCommand { get; }
+        public RelayCommand BtnConfirm_ClickCommand { get; }
 
         public TwoParamsWindowViewModel(TwoParamsVMInfo info)
         {
-            BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirm_Click);
+            BtnConfirm_ClickCommand = new RelayCommand(BtnConfirm_Click);
 
             SliderPropertiesCollection.Add(info.Slider1Properties);
             SliderPropertiesCollection.Add(info.Slider2Properties);

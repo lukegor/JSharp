@@ -1,13 +1,13 @@
-﻿using Emgu.CV.CvEnum;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Emgu.CV.CvEnum;
 using JSharp.UI.Views;
 using JSharp.Utility;
 using JSharp.Views;
-using Prism.Commands;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-    public class StandardMorphologicalWindowViewModel : BindableBase
+    public class StandardMorphologicalWindowViewModel : ObservableObject
     {
         private ShapeType _shape;
         public ShapeType Shape
@@ -37,11 +37,11 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _elementSize, value); }
         }
 
-        public DelegateCommand BtnConfirm_ClickCommand { get; }
+        public RelayCommand BtnConfirm_ClickCommand { get; }
 
         public StandardMorphologicalWindowViewModel()
         {
-            BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirm_Click);
+            BtnConfirm_ClickCommand = new RelayCommand(BtnConfirm_Click);
             Shape = ShapeType.Rhombus;
             BorderPixelsOption = BorderType.Isolated;
             BorderValue = 0;

@@ -1,12 +1,12 @@
-﻿using Emgu.CV;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Emgu.CV;
 using JSharp.Models.SimpleDataModels;
 using JSharp.UI.Views;
 using JSharp.Views;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-    public class ImageCalculatorWindowViewModel : BindableBase
+    public class ImageCalculatorWindowViewModel : ObservableObject
     {
         public event EventHandler<ImageCalculatorInfo> ParametersSelected;
 

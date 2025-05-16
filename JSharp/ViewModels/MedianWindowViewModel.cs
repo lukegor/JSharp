@@ -1,13 +1,13 @@
-﻿using Emgu.CV.CvEnum;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Emgu.CV.CvEnum;
 using JSharp.UI.Views;
 using JSharp.Utility;
 using JSharp.Views;
-using Prism.Commands;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-    internal class MedianWindowViewModel : BindableBase
+    internal class MedianWindowViewModel : ObservableObject
     {
         public IList<string> BorderTypes { get; } = GetEdgePixelsHandlingOptions().ToList();
 
@@ -28,11 +28,11 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _borderPixelsOption, value); }
         }
 
-        public DelegateCommand BtnApply_ClickCommand { get; }
+        public RelayCommand BtnApply_ClickCommand { get; }
 
         public MedianWindowViewModel()
         {
-            BtnApply_ClickCommand = new DelegateCommand(BtnApply_Click);
+            BtnApply_ClickCommand = new RelayCommand(BtnApply_Click);
 
             this.BorderPixelsOption = BorderType.Isolated;
         }

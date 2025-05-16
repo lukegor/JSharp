@@ -8,14 +8,17 @@ namespace JSharp.UI.Views
     /// </summary>
     public partial class ThresholderWindow : Window
     {
+        public bool? Result { get; set; }
+
         public ThresholderWindow()
         {
             InitializeComponent();
+            Result = false;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            (DataContext as ThresholderWindowViewModel)?.OnClosing();
+            (DataContext as ThresholderWindowViewModel)?.OnClosing(this.Result);
         }
     }
 }

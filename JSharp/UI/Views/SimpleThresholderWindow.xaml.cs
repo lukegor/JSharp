@@ -15,9 +15,15 @@ namespace JSharp.UI.Views
             InitializeComponent();
         }
 
+        public new void ShowDialog()
+        {
+            base.ShowDialog();
+            this.DialogResult = false;
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            (DataContext as SimpleThresholderWindowViewModel)?.OnClosing();
+            (DataContext as SimpleThresholderWindowViewModel)?.OnClosing(this.DialogResult);
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

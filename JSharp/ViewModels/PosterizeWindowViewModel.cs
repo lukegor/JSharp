@@ -1,11 +1,11 @@
-﻿using JSharp.UI.Views;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using JSharp.UI.Views;
 using JSharp.Views;
-using Prism.Commands;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-    internal class PosterizeWindowViewModel : BindableBase
+    internal class PosterizeWindowViewModel : ObservableObject
     {
         public event EventHandler ValueSelected;
 
@@ -16,11 +16,11 @@ namespace JSharp.ViewModels
             set { SetProperty(ref _levelsNumber, value); }
         }
 
-        public DelegateCommand BtnConfirm_ClickCommand { get; }
+        public RelayCommand BtnConfirm_ClickCommand { get; }
 
         public PosterizeWindowViewModel()
         {
-            BtnConfirm_ClickCommand = new DelegateCommand(BtnConfirmLogic_Click);
+            BtnConfirm_ClickCommand = new RelayCommand(BtnConfirmLogic_Click);
         }
 
         public void BtnConfirmLogic_Click()

@@ -1,13 +1,13 @@
 ﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Emgu.CV;
-using JSharp.Models.Services;
+using JSharp.Services;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
-using Prism.Mvvm;
 
 namespace JSharp.Models.DataModels
 {
-    internal class Histogram : BindableBase
+    internal class Histogram : ObservableObject
     {
         private ISeries[] _histogramSeries;
         public ISeries[] HistogramSeries

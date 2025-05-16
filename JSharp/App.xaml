@@ -1,8 +1,7 @@
-﻿<prism:PrismApplication x:Class="JSharp.App"
+﻿<Application x:Class="JSharp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:JSharp.Views"
-			 xmlns:prism="http://prismlibrary.com/">
+             xmlns:local="clr-namespace:JSharp">
 	<Application.Resources>
 		<!--<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -10,4 +9,4 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>-->
 	</Application.Resources>
-</prism:PrismApplication>
+</Application>

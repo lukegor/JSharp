@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using JSharp.Models.SimpleDataModels;
@@ -6,12 +8,10 @@ using JSharp.Resources;
 using JSharp.UI.Views;
 using JSharp.Utility;
 using JSharp.Views;
-using Prism.Commands;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-    internal class ConvolverWindowViewModel : BindableBase
+    internal class ConvolverWindowViewModel : ObservableObject
     {
         public event EventHandler<ConvolutionInfo> KernelAppliable;
 
@@ -38,12 +38,12 @@ namespace JSharp.ViewModels
 
         private bool isPredefinedOptionSelected = false;
 
-        public DelegateCommand<string> UpdateKernelTextBoxesCommand { get; private set; }
-        public DelegateCommand BtnApply_ClickCommand { get; private set; }
+        public RelayCommand<string> UpdateKernelTextBoxesCommand { get; private set; }
+        public RelayCommand BtnApply_ClickCommand { get; private set; }
         public ConvolverWindowViewModel()
         {
-            UpdateKernelTextBoxesCommand = new DelegateCommand<string>(UpdateKernelTextBoxes);
-            BtnApply_ClickCommand = new DelegateCommand(BtnApply_Click);
+            UpdateKernelTextBoxesCommand = new RelayCommand<string>(UpdateKernelTextBoxes);
+            BtnApply_ClickCommand = new RelayCommand(BtnApply_Click);
             this.TextBoxValues = new ObservableCollection<int>(KernelMappings.KernelNameToArray[Kernels.Identity]
                                                                         .Cast<int>()
                                                                         .ToArray());

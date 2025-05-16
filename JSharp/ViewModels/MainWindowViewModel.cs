@@ -4,25 +4,25 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
-using JSharp.Models.Services;
 using JSharp.Models.SimpleDataModels;
 using JSharp.Resources;
+using JSharp.Services;
 using JSharp.UI.Views;
 using JSharp.Utility;
 using JSharp.Validation.Validators;
 using JSharp.Views;
 using JSharp.Views.Properties;
 using Microsoft.Win32;
-using Prism.Commands;
-using Prism.Mvvm;
 
 namespace JSharp.ViewModels
 {
-    internal class MainWindowViewModel : BindableBase
+    internal class MainWindowViewModel : ObservableObject
     {
         private ObservableCollection<NewImageWindowViewModel> _openImageWindows = new ObservableCollection<NewImageWindowViewModel>();
         public ObservableCollection<NewImageWindowViewModel> OpenImageWindows
@@ -58,99 +58,99 @@ namespace JSharp.ViewModels
         public static double CumulativeZoomFactor { get => 1.0 + zoomFactor; set => zoomFactor = value; }
 
         #region Commands
-        public DelegateCommand OpenRgb_ClickCommand { get; }
-        public DelegateCommand OpenGray_ClickCommand { get; }
-        public DelegateCommand Duplicate_CommandClick { get; }
-        public DelegateCommand Save_ClickCommand { get; }
-        public DelegateCommand SaveAll_ClickCommand { get; }
-        public DelegateCommand Negate_ClickCommand { get; }
-        public DelegateCommand Grayize_ClickCommand { get; }
-        public DelegateCommand SaveAs_ClickCommand { get; }
-        public DelegateCommand Exit_ClickCommand { get; }
-        public DelegateCommand ShowHistogram_ClickCommand { get; }
-        public DelegateCommand ConvertRgbToHsv_ClickCommand { get; }
-        public DelegateCommand SplitChannels_ClickCommand { get; }
-        public DelegateCommand ConvertRgbToLab_ClickCommand { get; }
-        public DelegateCommand StretchHistogram_ClickCommand { get; }
-        public DelegateCommand StretchContrast_ClickCommand { get; }
-        public DelegateCommand EqualizeHistogram_ClickCommand { get; }
-        public DelegateCommand Posterize_ClickCommand { get; }
-        public DelegateCommand Convolve_ClickCommand { get; }
-        public DelegateCommand ImageCalculator_ClickCommand { get; }
-        public DelegateCommand Median_ClickCommand { get; }
-        public DelegateCommand Erode_ClickCommand { get; }
-        public DelegateCommand Dilate_ClickCommand { get; }
-        public DelegateCommand MorphologicalOpen_ClickCommand { get; }
-        public DelegateCommand MorphologicalClose_ClickCommand { get; }
-        public DelegateCommand DoubleConvolve_ClickCommand { get; }
-        public DelegateCommand Threshold_ClickCommand { get; }
-        public DelegateCommand SimpleAnalyze_ClickCommand { get; }
-        public DelegateCommand Analyze_ClickCommand { get; }
-        public DelegateCommand Hough_ClickCommand { get; }
-        public DelegateCommand Skeletonize_ClickCommand { get; }
-        public DelegateCommand PlotProfile_ClickCommand { get; }
-        public DelegateCommand PyramidUp_ClickCommand { get; }
-        public DelegateCommand PyramidDown_ClickCommand { get; }
-        public DelegateCommand SimpleThreshold_ClickCommand { get; }
-        public DelegateCommand AdaptiveThresholding_ClickCommand { get; }
-        public DelegateCommand Watershed_ClickCommand { get; }
-        public DelegateCommand Inpaint_ClickCommand { get; }
-        public DelegateCommand GrabCut_ClickCommand { get; }
-        public DelegateCommand DetailedAnalyze_ClickCommand { get; }
-        public DelegateCommand OpenSettings_ClickCommand { get; }
-        public DelegateCommand Rotate_ClickCommand { get; }
-        public DelegateCommand Flip_ClickCommand { get; }
-        public DelegateCommand CopyToSystem_ClickCommand { get; }
-        public DelegateCommand CompressRLE_ClickCommand { get; }
+        public RelayCommand OpenRgb_ClickCommand { get; }
+        public RelayCommand OpenGray_ClickCommand { get; }
+        public RelayCommand Duplicate_CommandClick { get; }
+        public RelayCommand Save_ClickCommand { get; }
+        public RelayCommand SaveAll_ClickCommand { get; }
+        public RelayCommand Negate_ClickCommand { get; }
+        public RelayCommand Grayize_ClickCommand { get; }
+        public RelayCommand SaveAs_ClickCommand { get; }
+        public RelayCommand Exit_ClickCommand { get; }
+        public RelayCommand ShowHistogram_ClickCommand { get; }
+        public RelayCommand ConvertRgbToHsv_ClickCommand { get; }
+        public RelayCommand SplitChannels_ClickCommand { get; }
+        public RelayCommand ConvertRgbToLab_ClickCommand { get; }
+        public RelayCommand StretchHistogram_ClickCommand { get; }
+        public RelayCommand StretchContrast_ClickCommand { get; }
+        public RelayCommand EqualizeHistogram_ClickCommand { get; }
+        public RelayCommand Posterize_ClickCommand { get; }
+        public RelayCommand Convolve_ClickCommand { get; }
+        public RelayCommand ImageCalculator_ClickCommand { get; }
+        public RelayCommand Median_ClickCommand { get; }
+        public RelayCommand Erode_ClickCommand { get; }
+        public RelayCommand Dilate_ClickCommand { get; }
+        public RelayCommand MorphologicalOpen_ClickCommand { get; }
+        public RelayCommand MorphologicalClose_ClickCommand { get; }
+        public RelayCommand DoubleConvolve_ClickCommand { get; }
+        public RelayCommand Threshold_ClickCommand { get; }
+        public RelayCommand SimpleAnalyze_ClickCommand { get; }
+        public RelayCommand Analyze_ClickCommand { get; }
+        public RelayCommand Hough_ClickCommand { get; }
+        public RelayCommand Skeletonize_ClickCommand { get; }
+        public RelayCommand PlotProfile_ClickCommand { get; }
+        public RelayCommand PyramidUp_ClickCommand { get; }
+        public RelayCommand PyramidDown_ClickCommand { get; }
+        public RelayCommand SimpleThreshold_ClickCommand { get; }
+        public RelayCommand AdaptiveThresholding_ClickCommand { get; }
+        public RelayCommand Watershed_ClickCommand { get; }
+        public RelayCommand Inpaint_ClickCommand { get; }
+        public RelayCommand GrabCut_ClickCommand { get; }
+        public RelayCommand DetailedAnalyze_ClickCommand { get; }
+        public RelayCommand OpenSettings_ClickCommand { get; }
+        public RelayCommand Rotate_ClickCommand { get; }
+        public RelayCommand Flip_ClickCommand { get; }
+        public RelayCommand CopyToSystem_ClickCommand { get; }
+        public RelayCommand CompressRLE_ClickCommand { get; }
         #endregion
 
         public MainWindowViewModel()
         {
             #region Commands Initialization
-            OpenRgb_ClickCommand = new DelegateCommand(OpenRgb_Click);
-            OpenGray_ClickCommand = new DelegateCommand(OpenGray_Click);
-            Duplicate_CommandClick = new DelegateCommand(Duplicate_Click);
-            Save_ClickCommand = new DelegateCommand(Save);
-            SaveAll_ClickCommand = new DelegateCommand(SaveAll_Click);
-            Negate_ClickCommand = new DelegateCommand(Negate_Click);
-            Grayize_ClickCommand = new DelegateCommand(Grayize_Click);
-            SaveAs_ClickCommand = new DelegateCommand(SaveAs_Click);
-            Exit_ClickCommand = new DelegateCommand(Exit_Click);
-            ShowHistogram_ClickCommand = new DelegateCommand(ShowHistogram_Click);
-            ConvertRgbToHsv_ClickCommand = new DelegateCommand(ConvertRgbToHsv_Click);
-            SplitChannels_ClickCommand = new DelegateCommand(SplitChannels_Click);
-            ConvertRgbToLab_ClickCommand = new DelegateCommand(ConvertRgbToLab_Click);
-            StretchHistogram_ClickCommand = new DelegateCommand(StretchHistogram_Click);
-            StretchContrast_ClickCommand = new DelegateCommand(StretchContrast_Click);
-            EqualizeHistogram_ClickCommand = new DelegateCommand(EqualizeHistogram_Click);
-            Posterize_ClickCommand = new DelegateCommand(Posterize_Click);
-            Convolve_ClickCommand = new DelegateCommand(Convolve_Click);
-            ImageCalculator_ClickCommand = new DelegateCommand(ImageCalculator_Click);
-            Median_ClickCommand = new DelegateCommand(Median_Click);
-            Erode_ClickCommand = new DelegateCommand(Erode_Click);
-            Dilate_ClickCommand = new DelegateCommand(Dilate_Click);
-            MorphologicalOpen_ClickCommand = new DelegateCommand(MorphologicalOpen_Click);
-            MorphologicalClose_ClickCommand = new DelegateCommand(MorphologicalClose_Click);
-            DoubleConvolve_ClickCommand = new DelegateCommand(DoubleConvolve_Click);
-            Threshold_ClickCommand = new DelegateCommand(Threshold_Click);
-            SimpleAnalyze_ClickCommand = new DelegateCommand(SimpleAnalyze_Click);
-            Analyze_ClickCommand = new DelegateCommand(Analyze_Click);
-            Skeletonize_ClickCommand = new DelegateCommand(Skeletonize_Click);
-            Hough_ClickCommand = new DelegateCommand(Hough_Click);
-            PlotProfile_ClickCommand = new DelegateCommand(PlotProfile_Click);
-            PyramidUp_ClickCommand = new DelegateCommand(PyramidUp_Click);
-            PyramidDown_ClickCommand = new DelegateCommand(PyramidDown_Click);
-            SimpleThreshold_ClickCommand = new DelegateCommand(SimpleThreshold_Click);
-            AdaptiveThresholding_ClickCommand = new DelegateCommand(AdaptiveThresholding_Click);
-            Watershed_ClickCommand = new DelegateCommand(Watershed_Click);
-            Inpaint_ClickCommand = new DelegateCommand(Inpaint_Click);
-            GrabCut_ClickCommand = new DelegateCommand(GrabCut_Click);
-            DetailedAnalyze_ClickCommand = new DelegateCommand(DetailedAnalyze_Click);
-            OpenSettings_ClickCommand = new DelegateCommand(OpenSettings_Click);
-            Rotate_ClickCommand = new DelegateCommand(Rotate_Click);
-            Flip_ClickCommand = new DelegateCommand(Flip_Click);
-            CopyToSystem_ClickCommand = new DelegateCommand(CopyToSystem_Click);
-            CompressRLE_ClickCommand = new DelegateCommand(CompressRLE_Click);
+            OpenRgb_ClickCommand = new RelayCommand(OpenRgb_Click);
+            OpenGray_ClickCommand = new RelayCommand(OpenGray_Click);
+            Duplicate_CommandClick = new RelayCommand(Duplicate_Click);
+            Save_ClickCommand = new RelayCommand(Save);
+            SaveAll_ClickCommand = new RelayCommand(SaveAll_Click);
+            Negate_ClickCommand = new RelayCommand(Negate_Click);
+            Grayize_ClickCommand = new RelayCommand(Grayize_Click);
+            SaveAs_ClickCommand = new RelayCommand(SaveAs_Click);
+            Exit_ClickCommand = new RelayCommand(Exit_Click);
+            ShowHistogram_ClickCommand = new RelayCommand(ShowHistogram_Click);
+            ConvertRgbToHsv_ClickCommand = new RelayCommand(ConvertRgbToHsv_Click);
+            SplitChannels_ClickCommand = new RelayCommand(SplitChannels_Click);
+            ConvertRgbToLab_ClickCommand = new RelayCommand(ConvertRgbToLab_Click);
+            StretchHistogram_ClickCommand = new RelayCommand(StretchHistogram_Click);
+            StretchContrast_ClickCommand = new RelayCommand(StretchContrast_Click);
+            EqualizeHistogram_ClickCommand = new RelayCommand(EqualizeHistogram_Click);
+            Posterize_ClickCommand = new RelayCommand(Posterize_Click);
+            Convolve_ClickCommand = new RelayCommand(Convolve_Click);
+            ImageCalculator_ClickCommand = new RelayCommand(ImageCalculator_Click);
+            Median_ClickCommand = new RelayCommand(Median_Click);
+            Erode_ClickCommand = new RelayCommand(Erode_Click);
+            Dilate_ClickCommand = new RelayCommand(Dilate_Click);
+            MorphologicalOpen_ClickCommand = new RelayCommand(MorphologicalOpen_Click);
+            MorphologicalClose_ClickCommand = new RelayCommand(MorphologicalClose_Click);
+            DoubleConvolve_ClickCommand = new RelayCommand(DoubleConvolve_Click);
+            Threshold_ClickCommand = new RelayCommand(Threshold_Click);
+            SimpleAnalyze_ClickCommand = new RelayCommand(SimpleAnalyze_Click);
+            Analyze_ClickCommand = new RelayCommand(Analyze_Click);
+            Skeletonize_ClickCommand = new RelayCommand(Skeletonize_Click);
+            Hough_ClickCommand = new RelayCommand(Hough_Click);
+            PlotProfile_ClickCommand = new RelayCommand(PlotProfile_Click);
+            PyramidUp_ClickCommand = new RelayCommand(PyramidUp_Click);
+            PyramidDown_ClickCommand = new RelayCommand(PyramidDown_Click);
+            SimpleThreshold_ClickCommand = new RelayCommand(SimpleThreshold_Click);
+            AdaptiveThresholding_ClickCommand = new RelayCommand(AdaptiveThresholding_Click);
+            Watershed_ClickCommand = new RelayCommand(Watershed_Click);
+            Inpaint_ClickCommand = new RelayCommand(Inpaint_Click);
+            GrabCut_ClickCommand = new RelayCommand(GrabCut_Click);
+            DetailedAnalyze_ClickCommand = new RelayCommand(DetailedAnalyze_Click);
+            OpenSettings_ClickCommand = new RelayCommand(OpenSettings_Click);
+            Rotate_ClickCommand = new RelayCommand(Rotate_Click);
+            Flip_ClickCommand = new RelayCommand(Flip_Click);
+            CopyToSystem_ClickCommand = new RelayCommand(CopyToSystem_Click);
+            CompressRLE_ClickCommand = new RelayCommand(CompressRLE_Click);
 
             #endregion
         }
