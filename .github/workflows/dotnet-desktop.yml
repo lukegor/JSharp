@@ -22,9 +22,9 @@ name: .NET Core Desktop
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
 
 jobs:
   build:
@@ -67,6 +67,7 @@ jobs:
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.6.2
+      continue-on-error: true
       with:
         name: Build artifacts
         path: |
