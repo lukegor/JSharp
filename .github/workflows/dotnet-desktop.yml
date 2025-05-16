@@ -59,7 +59,7 @@ jobs:
       run: msbuild ${{ env.Solution_Name }} /t:Restore /p:Configuration=${{ matrix.configuration }}
 
     - name: Build the solution
-      run: msbuild ${{ env.Solution_Name }} /p:Configuration=${{ matrix.configuration }}
+      run: msbuild ${{ env.Solution_Name }} /p:Configuration=${{ matrix.configuration }} /p:TreatWarningsAsErrors=false
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
@@ -67,8 +67,7 @@ jobs:
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.6.2
-      continue-on-error: true
       with:
-        name: Build artifacts
+        name: Build artifacts ${{ matrix.configuration }}
         path: |
           **/bin/${{ matrix.configuration }}/*
