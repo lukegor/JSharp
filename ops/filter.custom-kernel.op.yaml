@@ -1,0 +1,27 @@
+{
+  "id": "filter.custom-kernel",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "filter",
+  "displayKey": "Custom Convolution",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Convolves with the given square odd-sized kernel after normalizing it by its element sum (normalization is skipped when the sum is near zero; the normalization lives in the hand-written op body, never in generated code); border pixels are extrapolated per the border mode; deterministic on identical input.",
+  "conformance": ["ops/fixtures/filter.custom-kernel"],
+  "params": [
+    { "key": "kernel", "type": "int-matrix", "default": [[0, 0, 0], [0, 1, 0], [0, 0, 0]], "interpolatable": true, "displayKey": "op.filter.custom-kernel.param.kernel.label" },
+    { "key": "border", "type": "enum", "values": ["Default", "Constant", "Replicate", "Reflect", "Wrap", "Reflect101", "Transparent", "Isolated"], "default": "Default", "interpolatable": true, "displayKey": "op.filter.custom-kernel.param.border.label" },
+    { "key": "delta", "type": "number", "default": 0, "interpolatable": true, "displayKey": "op.filter.custom-kernel.param.delta.label" }
+  ],
+  "constraints": [
+    { "predicate": "square-odd", "field": "kernel" }
+  ],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.filter.custom-kernel.label", "op.filter.custom-kernel.param.kernel.label", "op.filter.custom-kernel.param.border.label", "op.filter.custom-kernel.param.delta.label"],
+  "docs": {
+    "short": "Applies a custom convolution kernel.",
+    "methods": "Images were convolved with a custom kernel with JSharp filter.custom-kernel."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

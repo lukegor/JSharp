@@ -1,0 +1,21 @@
+{
+  "id": "calc.subtract",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "calculator",
+  "displayKey": "Subtract Images",
+  "input": "any",
+  "auxSlots": ["second"],
+  "determinism": "Subtracts the staged aux image in slot 'second' from the image per-pixel with saturating 8-bit arithmetic (Cv2.Subtract / cv2.subtract, floors at zero); the aux Mat is staged at record time and never serialized (the DTO carries only the slot ImageRef). Both runners reject size-mismatched pairs with recipe.calc-size-mismatch; deterministic on identical input. The calculator fan-out dialog (CollectCalculator over the ImageCalculatorWindow) stays hand-written per the spec section 5 multiplex rule - the IDL declares multiplex only.",
+  "conformance": ["ops/fixtures/calc.subtract"],
+  "params": [{ "key": "second", "type": "image-ref", "default": null, "interpolatable": false, "displayKey": "op.calc.subtract.param.second.label" }],
+  "constraints": [],
+  "dialog": { "mode": "multiplex" },
+  "i18nKeys": ["op.calc.subtract.label", "op.calc.subtract.param.second.label"],
+  "docs": {
+    "short": "Subtracts two images per-pixel with saturation.",
+    "methods": "Images were subtracted per-pixel with saturation with JSharp calc.subtract."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid", "recipe.aux-missing", "recipe.calc-size-mismatch"]
+}

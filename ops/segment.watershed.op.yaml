@@ -1,0 +1,21 @@
+{
+  "id": "segment.watershed",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "segmentation",
+  "displayKey": "Watershed",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Segments basins with the project-fixed watershed pipeline: grayscale sources convert to BGR internally (matching historical behavior), Otsu-inverse threshold, 3x3 open (2 iterations), dilate to sure background (3 iterations), L2 distance transform with 0.7-max foreground gate, connected-components markers, watershed, and blue boundaries on -1 markers. Identical stage-for-stage on both runners (Cv2 vs cv2 calls in the same order with the same constants); deterministic on identical input. The router returns NoParams directly (no dialog).",
+  "conformance": ["ops/fixtures/segment.watershed"],
+  "params": [],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.segment.watershed.label"],
+  "docs": {
+    "short": "Segments basins with the watershed transform.",
+    "methods": "Images were segmented with JSharp segment.watershed."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

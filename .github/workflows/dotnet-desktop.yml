@@ -1,0 +1,174 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# This workflow will build and test a WPF desktop application
+# built on .NET Core.
+# To learn how to migrate your existing application to .NET Core,
+# refer to https://docs.microsoft.com/en-us/dotnet/desktop-wpf/migration/convert-project-from-net-framework
+#
+# To configure this workflow:
+#
+# 1. Configure environment variables
+# GitHub sets default environment variables for every workflow run.
+# Replace the variables relative to your project in the "env" section below.
+#
+# For more information on GitHub Actions, refer to https://github.com/features/actions
+# For a complete CI/CD sample to get started with GitHub Action workflows for Desktop Applications,
+# refer to https://github.com/microsoft/github-actions-for-desktop-apps
+
+name: .NET Desktop
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+  schedule:
+    - cron: '0 3 * * 1'
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: windows-latest  # For a list of available runner types, refer to
+                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+
+    env:
+      Test_Project_Path: JSharp.Tests\JSharp.Tests.csproj # Path to your test project
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.2.2
+      with:
+        fetch-depth: 0
+
+    # Install the .NET workload
+    - name: Install .NET
+      uses: actions/setup-dotnet@v4.3.1
+      with:
+        dotnet-version: 10.0.x
+
+    # Restore and build each solution file present in the repo root.
+    # Pro has both JSharp.Pro.slnx and JSharp.slnx; Open has only JSharp.slnx.
+    - name: Restore and build each existing solution
+      shell: pwsh
+      run: |
+        $ErrorActionPreference = 'Stop'
+        $built = $false
+        foreach ($sln in @('JSharp.Pro.slnx','JSharp.slnx')) {
+          if (Test-Path $sln) {
+            dotnet restore $sln
+            if ($LASTEXITCODE -ne 0) { exit 1 }
+            dotnet build $sln --no-restore --configuration ${{ matrix.configuration }}
+            if ($LASTEXITCODE -ne 0) { exit 1 }
+            $built = $true
+          }
+        }
+        if (-not $built) { Write-Error 'No solution file found (expected JSharp.Pro.slnx or JSharp.slnx).'; exit 1 }
+
+    - name: opgen check
+      run: dotnet run --project tools\opgen\JSharp.OpGen.csproj -- check
+
+    # Full verify needs the private conformance/ corpus — Open configs run check only.
+    - name: opgen verify (full solution only)
+      if: ${{ hashFiles('JSharp.Cli/**') != '' }}
+      run: dotnet run --project tools\opgen\JSharp.OpGen.csproj -- verify
+
+    # Execute all unit tests in the solution (Microsoft.Testing.Platform mode, see global.json).
+    # Coverage is collected on the Debug leg only to avoid doubling Release matrix time.
+    # Gated on JSharp.Tests existing — the Open repo has no test project.
+    - name: Execute unit tests
+      if: ${{ hashFiles('JSharp.Tests/**') != '' }}
+      run: >
+        dotnet test --project ${{ env.Test_Project_Path }} --configuration ${{ matrix.configuration }} --no-build
+        ${{ matrix.configuration == 'Debug' && '--coverage --coverage-output-format cobertura --coverage-output coverage.cobertura.xml' || '' }}
+
+    - name: Upload coverage artifact
+      if: ${{ matrix.configuration == 'Debug' && hashFiles('JSharp.Tests/**') != '' }}
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        name: coverage-report
+        path: '**/TestResults/coverage.cobertura.xml'
+        if-no-files-found: warn
+
+    # Smoke-test the headless CLI: list ops as JSON using the just-built bits.
+    # Full-solution only — the Open configuration (JSharp.slnx in the Open repo) has no CLI;
+    # its build with -p:JSharpOpen=true is itself the smoke.
+    - name: Smoke-test jsharp CLI
+      if: ${{ hashFiles('JSharp.Cli/**') != '' }}
+      run: >
+        dotnet JSharp.Cli\bin\${{ matrix.configuration }}\net10.0-windows\JSharp.Cli.dll ops --json
+        | python -c "import json,sys; ops=json.load(sys.stdin); assert any(o['id']=='point.negate' for o in ops), 'ops smoke failed'"
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        name: Build artifacts ${{ matrix.configuration }}
+        path: |
+          **/bin/${{ matrix.configuration }}/*
+  open-guard:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+      - name: Deny Pro blobs in Open-export paths
+        shell: pwsh
+        run: |
+          $pattern = 'JSharp\.Domain/Recipes|JSharp\.Domain/Measurements|JSharp\.Cli|BatchRunner|RecipePlayer|RecipePreflight|RecipeJson|RecipeDocument|RecipeCanonical|Tier1ToPython|PyOpMap|ConformanceRunner|MeasurementCompute|MeasurementSerializers|IjmImporter|MachineKey|Licens(eKey|ing)|MeasurementChart\.(Render|EncodePng)'
+          git grep -n -E -e $pattern -- JSharp.Shared/ JSharp.Domain/Operations/ JSharp.Utility/ schemas/ ops/ ':!LICENSE.txt' ':!ops/*.op.yaml' ':!schemas/*'
+          if ($LASTEXITCODE -eq 0) { Write-Error 'Pro blob in Open-export paths'; exit 1 }
+  full-suite-weekly:
+    # Pro-only: the Open repo has no JSharp.Tests and no python runner.
+    # NOTE: job-level hashFiles evaluates pre-checkout (empty workspace), so
+    # Pro gating lives on the steps below (post-checkout) instead.
+    if: ${{ github.event_name == 'schedule' }}
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.2.2
+      with:
+        fetch-depth: 0
+    - name: Install .NET
+      uses: actions/setup-dotnet@v4.3.1
+      with:
+        dotnet-version: 10.0.x
+    - name: Restore and build each existing solution
+      shell: pwsh
+      run: |
+        $ErrorActionPreference = 'Stop'
+        $built = $false
+        foreach ($sln in @('JSharp.Pro.slnx','JSharp.slnx')) {
+          if (Test-Path $sln) {
+            dotnet restore $sln
+            if ($LASTEXITCODE -ne 0) { exit 1 }
+            dotnet build $sln --no-restore --configuration Debug
+            if ($LASTEXITCODE -ne 0) { exit 1 }
+            $built = $true
+          }
+        }
+        if (-not $built) { Write-Error 'No solution file found (expected JSharp.Pro.slnx or JSharp.slnx).'; exit 1 }
+    - name: Full C# suite
+      if: ${{ hashFiles('JSharp.Tests/**') != '' }}
+      shell: pwsh
+      run: |
+        $exe = Get-ChildItem JSharp.Tests\bin\Debug -Recurse -Filter JSharp.Tests.exe | Select-Object -First 1 -ExpandProperty FullName
+        & $exe
+    - name: Set up Python
+      if: ${{ hashFiles('JSharp.Tests/**') != '' }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Install runner
+      if: ${{ hashFiles('JSharp.Tests/**') != '' }}
+      run: python -m pip install -e ./python
+    - name: Install test deps
+      if: ${{ hashFiles('JSharp.Tests/**') != '' }}
+      run: python -m pip install "pytest>=8" "jsonschema>=4"
+    - name: Run pytest
+      if: ${{ hashFiles('JSharp.Tests/**') != '' }}
+      run: python -m pytest python/tests -q

@@ -1,0 +1,21 @@
+{
+  "id": "point.stretch-histogram",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "point",
+  "displayKey": "Stretch Histogram",
+  "input": "gray",
+  "auxSlots": [],
+  "determinism": "Recomputes the input minimum and maximum and remaps that range to 0..255 via point.stretch-contrast; deterministic on identical input.",
+  "conformance": ["ops/fixtures/point.stretch-histogram"],
+  "params": [],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.point.stretch-histogram.label"],
+  "docs": {
+    "short": "Stretches the histogram to the full 0..255 range.",
+    "methods": "Images were histogram-stretched with JSharp point.stretch-histogram."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

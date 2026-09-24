@@ -1,0 +1,21 @@
+{
+  "id": "segment.hough",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "segmentation",
+  "displayKey": "Hough Lines",
+  "input": "gray",
+  "auxSlots": [],
+  "determinism": "Detects line segments with project-fixed Canny(50, 100) edges fed to HoughLinesP (1px rho, 1-degree theta, 100-vote threshold, 50px minimum length, 10px maximum gap) and draws each segment red (2px) on a BGR canvas (grayscale sources convert GRAY2BGR first so the red scalar survives; the old single-channel path coerced red to black). Project-fixed thresholds are identical on both runners (Cv2.HoughLinesP vs cv2.HoughLinesP); deterministic on identical input. The router returns NoParams directly (no dialog).",
+  "conformance": ["ops/fixtures/segment.hough"],
+  "params": [],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.segment.hough.label"],
+  "docs": {
+    "short": "Draws probabilistic Hough line segments over the image.",
+    "methods": "Line segments were drawn with JSharp segment.hough."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

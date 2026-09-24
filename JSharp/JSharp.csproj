@@ -1,0 +1,101 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Icons\ToolBar_Icons\JSharp.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Icons\ToolBar_Icons\ClearCanvas.ico" />
+    <None Remove="Resources\Icons\ToolBar_Icons\DrawRectangle.ico" />
+    <None Remove="Resources\Icons\ToolBar_Icons\LineSegment.ico" />
+    <None Remove="Resources\Icons\ToolBar_Icons\N-A-icon.ico" />
+    <None Remove="Resources\Icons\ToolBar_Icons\NoneIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\ToolBar_Icons\ClearCanvas.ico" />
+    <Resource Include="Resources\Icons\ToolBar_Icons\DrawRectangle.ico" />
+    <Resource Include="Resources\Icons\ToolBar_Icons\JSharp.ico" />
+    <Resource Include="Resources\Icons\ToolBar_Icons\LineSegment.ico" />
+    <Resource Include="Resources\Icons\ToolBar_Icons\N-A-icon.ico" />
+    <Resource Include="Resources\Icons\ToolBar_Icons\NoneIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Icons\ToolBar_Icons\JSharp.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="OpenCvSharp5" />
+    <PackageReference Include="OpenCvSharp5.runtime.win" />
+    <PackageReference Include="Extended.Wpf.Toolkit" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.Logging" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="Serilog.Extensions.Logging" />
+    <PackageReference Include="Serilog.Sinks.File" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="JSharp.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="shortcuts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JSharp.Domain\JSharp.Domain.csproj" />
+    <ProjectReference Include="..\JSharp.Shared\JSharp.Shared.csproj" />
+    <ProjectReference Include="..\JSharp.Utility\JSharp.Utility.csproj" />
+  </ItemGroup>
+
+  <!-- In JSharp/JSharp.csproj: derive the JSHARP_OPEN define + drop Pro UI files in Open config. -->
+  <ItemGroup Condition="'$(JSharpOpen)' == 'true'">
+    <Compile Remove="Services/RecipeStore.cs" />
+    <Compile Remove="Services/RecipeRecorder.cs" />
+    <Compile Remove="ViewModels/RecipeManagerWindowViewModel.cs" />
+    <Compile Remove="ViewModels/RecipeEditorWindowViewModel.cs" />
+    <Compile Remove="ViewModels/RecipeInputsWindowViewModel.cs" />
+    <Compile Remove="UI/Views/RecipeInputsWindow.xaml.cs" />
+    <Compile Remove="UI/Views/RecipeManagerWindow.xaml" />
+    <Compile Remove="UI/Views/RecipeManagerWindow.xaml.cs" />
+    <Compile Remove="UI/Views/RecipeEditorWindow.xaml" />
+    <Compile Remove="UI/Views/RecipeEditorWindow.xaml.cs" />
+    <Compile Remove="Models/Histogram.cs" />
+    <Compile Remove="ViewModels/HistogramWindowViewModel.cs" />
+    <Compile Remove="UI/Views/HistogramWindow.xaml.cs" />
+    <Compile Remove="ViewModels/PlotlineGraphWindowViewModel.cs" />
+    <Compile Remove="UI/Views/PlotlineGraphWindow.xaml.cs" />
+    <Compile Remove="ViewModels/SummaryWindowViewModel.cs" />
+    <Compile Remove="UI/Views/SummaryWindow.xaml.cs" />
+    <Compile Remove="Services/Validation/Validators/HistogramOpenValidator.cs" />
+    <!-- .xaml files are Page items, not Compile: Compile Remove alone leaves them
+         compiling (and their Export_Click handlers would fail without code-behind). -->
+    <Page Remove="UI/Views/RecipeManagerWindow.xaml" />
+    <Page Remove="UI/Views/RecipeEditorWindow.xaml" />
+    <Page Remove="UI/Views/HistogramWindow.xaml" />
+    <Page Remove="UI/Views/PlotlineGraphWindow.xaml" />
+    <Page Remove="UI/Views/SummaryWindow.xaml" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(JSharpOpen)' == 'true'">
+    <DefineConstants>$(DefineConstants);JSHARP_OPEN</DefineConstants>
+  </PropertyGroup>
+
+</Project>

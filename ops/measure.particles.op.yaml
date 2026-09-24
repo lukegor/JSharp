@@ -1,0 +1,28 @@
+{
+  "id": "measure.particles",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "measure",
+  "displayKey": "Measure Particles",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Measurement-only: Apply returns the source unchanged and the connected-component objects filtered by the nullable area bounds flow to the measurement sink (C# MeasurementCompute.ComputeParticles via the player, Python _SINK particles via m_particles); the sink payload shapes, the sidecar writers, and the exporter m_ defs stay hand-written forever per spec - this wave cuts over only the DTO. Both bounds are optional at the schema (absent binds as null) and nullable in the DTO; negative bounds fail with Particle size bounds must be >= 0. and minArea above maxArea fails with Particle minArea must not exceed maxArea., byte-identical RecipeFormatException guards on both bind paths (converter arms plus preflight validate branches, project-defined bounds with diverse-source agreement). No GUI collector is registered: recipe/CLI-only execution, declared auto with no dialog machinery. Deterministic on identical input.",
+  "conformance": ["ops/fixtures/measure.particles"],
+  "params": [
+    { "key": "minArea", "type": "int", "nullable": true, "optional": true, "default": null, "minimum": 0, "interpolatable": true, "displayKey": "op.measure.particles.param.minArea.label" },
+    { "key": "maxArea", "type": "int", "nullable": true, "optional": true, "default": null, "minimum": 0, "interpolatable": true, "displayKey": "op.measure.particles.param.maxArea.label" }
+  ],
+  "constraints": [
+    { "predicate": "range", "field": "minArea", "min": 0 },
+    { "predicate": "range", "field": "maxArea", "min": 0 },
+    { "predicate": "min-le-max", "field": "minArea", "other": "maxArea" }
+  ],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.measure.particles.label", "op.measure.particles.param.minArea.label", "op.measure.particles.param.maxArea.label"],
+  "docs": {
+    "short": "Records connected particles filtered by area bounds.",
+    "methods": "Particles were recorded within the stated area bounds with JSharp measure.particles."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

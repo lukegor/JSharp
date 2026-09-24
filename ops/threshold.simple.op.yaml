@@ -1,0 +1,24 @@
+{
+  "id": "threshold.simple",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "threshold",
+  "displayKey": "Simple Threshold",
+  "input": "gray",
+  "auxSlots": [],
+  "determinism": "Thresholds at the fixed level with THRESH_BINARY (Standard) or at Otsu's computed level (Otsu); deterministic on identical input. The live-preview dialog stays hand-collected (spec section 5 allowlist: live-preview thresholders) and is declared bespoke; export is uniform.",
+  "conformance": ["ops/fixtures/threshold.simple"],
+  "params": [
+    { "key": "threshold", "type": "int", "default": 0, "minimum": 0, "maximum": 255, "interpolatable": true, "displayKey": "op.threshold.simple.param.threshold.label" },
+    { "key": "method", "type": "enum", "values": ["Standard", "Otsu"], "default": "Standard", "interpolatable": true, "displayKey": "op.threshold.simple.param.method.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "bespoke" },
+  "i18nKeys": ["op.threshold.simple.label", "op.threshold.simple.param.threshold.label", "op.threshold.simple.param.method.label"],
+  "docs": {
+    "short": "Applies simple thresholding.",
+    "methods": "Images were thresholded at the stated level with JSharp threshold.simple."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

@@ -1,0 +1,574 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/lukegor/JSharp/main/schemas/ops-params.json",
+  "$comment": "\u00A9 lukegor, Apache-2.0. Version 1. Defensive publication as prior art.",
+  "$generated": {
+    "catalogHash": "61367afd100bd551968e50262c2c55ef8ead907389cb718e00798f2d0755d3fb",
+    "generator": "0.1.0"
+  },
+  "$defs": {
+    "binaryImage": {
+      "type": "object",
+      "required": [
+        "kind",
+        "second"
+      ],
+      "properties": {
+        "kind": {
+          "const": "binaryImage"
+        },
+        "second": {
+          "type": "object",
+          "required": [
+            "slot",
+            "file",
+            "sha256",
+            "embeddedId"
+          ],
+          "properties": {
+            "slot": {
+              "type": "string"
+            },
+            "file": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "sha256": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "embeddedId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "blend": {
+      "type": "object",
+      "required": [
+        "kind",
+        "second",
+        "weight1"
+      ],
+      "properties": {
+        "kind": {
+          "const": "blend"
+        },
+        "second": {
+          "type": "object",
+          "required": [
+            "slot",
+            "file",
+            "sha256",
+            "embeddedId"
+          ],
+          "properties": {
+            "slot": {
+              "type": "string"
+            },
+            "file": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "sha256": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "embeddedId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "weight1": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "blur": {
+      "type": "object",
+      "required": [
+        "kind",
+        "kernelSize",
+        "border"
+      ],
+      "properties": {
+        "kind": {
+          "const": "blur"
+        },
+        "kernelSize": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "border": {
+          "type": "string"
+        }
+      }
+    },
+    "convertColor": {
+      "type": "object",
+      "required": [
+        "kind",
+        "target"
+      ],
+      "properties": {
+        "kind": {
+          "const": "convertColor"
+        },
+        "target": {
+          "type": "string"
+        }
+      }
+    },
+    "customKernel": {
+      "type": "object",
+      "required": [
+        "kind",
+        "kernel",
+        "border",
+        "delta"
+      ],
+      "properties": {
+        "kind": {
+          "const": "customKernel"
+        },
+        "kernel": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "border": {
+          "type": "string"
+        },
+        "delta": {
+          "type": "number"
+        }
+      }
+    },
+    "doubleConvolution": {
+      "type": "object",
+      "required": [
+        "kind",
+        "kernel1",
+        "kernel2",
+        "delta"
+      ],
+      "properties": {
+        "kind": {
+          "const": "doubleConvolution"
+        },
+        "kernel1": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "kernel2": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "delta": {
+          "type": "number"
+        }
+      }
+    },
+    "dualThreshold": {
+      "type": "object",
+      "required": [
+        "kind",
+        "minThreshold",
+        "maxThreshold",
+        "mode",
+        "enableContrastMode"
+      ],
+      "properties": {
+        "kind": {
+          "const": "dualThreshold"
+        },
+        "minThreshold": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        },
+        "maxThreshold": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        },
+        "mode": {
+          "type": "string"
+        },
+        "enableContrastMode": {
+          "type": "boolean"
+        }
+      }
+    },
+    "edgeDetection": {
+      "type": "object",
+      "required": [
+        "kind",
+        "kernelName",
+        "border",
+        "minThreshold",
+        "maxThreshold"
+      ],
+      "properties": {
+        "kind": {
+          "const": "edgeDetection"
+        },
+        "kernelName": {
+          "type": "string"
+        },
+        "border": {
+          "type": "string"
+        },
+        "minThreshold": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "maxThreshold": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "equalize": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "const": "equalize"
+        }
+      }
+    },
+    "gaussianBlur": {
+      "type": "object",
+      "required": [
+        "kind",
+        "kernelSize",
+        "sigmaX",
+        "sigmaY",
+        "border"
+      ],
+      "properties": {
+        "kind": {
+          "const": "gaussianBlur"
+        },
+        "kernelSize": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sigmaX": {
+          "type": "number"
+        },
+        "sigmaY": {
+          "type": "number"
+        },
+        "border": {
+          "type": "string"
+        }
+      }
+    },
+    "grabCut": {
+      "type": "object",
+      "required": [
+        "kind",
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "kind": {
+          "const": "grabCut"
+        },
+        "x": {
+          "type": "integer"
+        },
+        "y": {
+          "type": "integer"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "inpaint": {
+      "type": "object",
+      "required": [
+        "kind",
+        "mask",
+        "radius"
+      ],
+      "properties": {
+        "kind": {
+          "const": "inpaint"
+        },
+        "mask": {
+          "type": "object",
+          "required": [
+            "slot",
+            "file",
+            "sha256",
+            "embeddedId"
+          ],
+          "properties": {
+            "slot": {
+              "type": "string"
+            },
+            "file": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "sha256": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "embeddedId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "radius": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        }
+      }
+    },
+    "measureHistogram": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "const": "measureHistogram"
+        }
+      }
+    },
+    "measureParticles": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "const": "measureParticles"
+        },
+        "minArea": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "maxArea": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "measureProfile": {
+      "type": "object",
+      "required": [
+        "kind",
+        "x1",
+        "y1",
+        "x2",
+        "y2"
+      ],
+      "properties": {
+        "kind": {
+          "const": "measureProfile"
+        },
+        "x1": {
+          "type": "integer"
+        },
+        "y1": {
+          "type": "integer"
+        },
+        "x2": {
+          "type": "integer"
+        },
+        "y2": {
+          "type": "integer"
+        }
+      }
+    },
+    "median": {
+      "type": "object",
+      "required": [
+        "kind",
+        "kernelSize"
+      ],
+      "properties": {
+        "kind": {
+          "const": "median"
+        },
+        "kernelSize": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "morphology": {
+      "type": "object",
+      "required": [
+        "kind",
+        "shape",
+        "elementSize",
+        "border",
+        "borderValue"
+      ],
+      "properties": {
+        "kind": {
+          "const": "morphology"
+        },
+        "shape": {
+          "type": "string"
+        },
+        "elementSize": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "border": {
+          "type": "string"
+        },
+        "borderValue": {
+          "type": "integer"
+        }
+      }
+    },
+    "none": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "const": "none"
+        }
+      }
+    },
+    "posterize": {
+      "type": "object",
+      "required": [
+        "kind",
+        "levels"
+      ],
+      "properties": {
+        "kind": {
+          "const": "posterize"
+        },
+        "levels": {
+          "type": "integer",
+          "minimum": 2
+        }
+      }
+    },
+    "simpleThreshold": {
+      "type": "object",
+      "required": [
+        "kind",
+        "threshold",
+        "method"
+      ],
+      "properties": {
+        "kind": {
+          "const": "simpleThreshold"
+        },
+        "threshold": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        },
+        "method": {
+          "type": "string"
+        }
+      }
+    },
+    "stretchContrast": {
+      "type": "object",
+      "required": [
+        "kind",
+        "p1",
+        "p2",
+        "q3",
+        "q4"
+      ],
+      "properties": {
+        "kind": {
+          "const": "stretchContrast"
+        },
+        "p1": {
+          "type": "integer"
+        },
+        "p2": {
+          "type": "integer"
+        },
+        "q3": {
+          "type": "integer"
+        },
+        "q4": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

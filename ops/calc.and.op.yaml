@@ -1,0 +1,21 @@
+{
+  "id": "calc.and",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "calculator",
+  "displayKey": "Bitwise AND",
+  "input": "any",
+  "auxSlots": ["second"],
+  "determinism": "Combines the image per-pixel with the staged aux image in slot 'second' via bitwise AND (Cv2.BitwiseAnd / cv2.bitwise_and); the aux Mat is staged at record time and never serialized (the DTO carries only the slot ImageRef). Both runners reject size-mismatched pairs with recipe.calc-size-mismatch; deterministic on identical input. The calculator fan-out dialog (CollectCalculator over the ImageCalculatorWindow) stays hand-written per the spec section 5 multiplex rule - the IDL declares multiplex only.",
+  "conformance": ["ops/fixtures/calc.and"],
+  "params": [{ "key": "second", "type": "image-ref", "default": null, "interpolatable": false, "displayKey": "op.calc.and.param.second.label" }],
+  "constraints": [],
+  "dialog": { "mode": "multiplex" },
+  "i18nKeys": ["op.calc.and.label", "op.calc.and.param.second.label"],
+  "docs": {
+    "short": "Combines two images per-pixel with bitwise AND.",
+    "methods": "Images were combined per-pixel with bitwise AND with JSharp calc.and."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid", "recipe.aux-missing", "recipe.calc-size-mismatch"]
+}

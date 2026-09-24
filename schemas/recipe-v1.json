@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/lukegor/JSharp/main/schemas/recipe-v1.json",
+  "$comment": "© lukegor, Apache-2.0. Version 1. Defensive publication as prior art.",
+  "title": "JSharp Recipe",
+  "description": "Version 1 of the JSharp operation pipeline ('recipe') format. A recipe is a named, ordered chain of image operations with committed parameters. Readers ignore unknown fields (forward tolerance) but reject unknown version values. See docs/business-analysis/recipe-file-format.md for the full reference.",
+  "type": "object",
+  "required": ["version", "name", "createdUtc", "appVersion", "catalogVersion", "steps", "aux"],
+  "properties": {
+    "version": {
+      "description": "Format version. Only 1 is accepted.",
+      "const": 1
+    },
+    "name": { "type": "string", "minLength": 1 },
+    "createdUtc": { "type": "string", "format": "date-time" },
+    "appVersion": { "type": "string" },
+    "catalogVersion": {
+      "description": "Audit info only: truncated hash of the operation-id list that saved the file. Never branches replay.",
+      "type": "string"
+    },
+    "steps": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/step" }
+    },
+    "aux": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/auxEntry" }
+    },
+    "inputs": {
+      "description": "Tier-1 bounded expressions incl. Tier-1.1 allowlisted pure calls (min, max, clamp, abs, round, floor, ceil); grammar enforced by evaluator tests, never by schema. Absent means no declared inputs (old behavior).",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type", "default"],
+        "properties": {
+          "type": { "enum": ["Int", "Number", "String", "Boolean"] },
+          "default": { "description": "Must match declared type." },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "matrix": {
+      "description": "Tier-1 bounded expressions incl. Tier-1.1 allowlisted pure calls (min, max, clamp, abs, round, floor, ceil); grammar enforced by evaluator tests, never by schema. Absent means a single combination (old behavior).",
+      "type": "object",
+      "additionalProperties": { "type": "array", "minItems": 1 }
+    }
+  },
+  "$defs": {
+    "step": {
+      "type": "object",
+      "required": ["id", "operationId", "displayName", "params", "repeat", "newColorSpace", "thenSplitChannels", "enabled"],
+      "properties": {
+        "id": { "type": "string" },
+        "operationId": {
+          "description": "Executable catalog id (see format reference §6). Menu aliases such as filter.convolve or calc.dialog are NOT valid here.",
+          "type": "string"
+        },
+        "displayName": {
+          "description": "Captured at record time; display only, never used for dispatch.",
+          "type": "string"
+        },
+        "params": { "$ref": "#/$defs/params" },
+        "repeat": { "type": "integer", "minimum": 1 },
+        "newColorSpace": { "type": ["string", "null"] },
+        "thenSplitChannels": { "type": "boolean" },
+        "enabled": { "type": "boolean" },
+        "when": {
+          "description": "Tier-1 bounded expressions incl. Tier-1.1 allowlisted pure calls (min, max, clamp, abs, round, floor, ceil); grammar enforced by evaluator tests, never by schema. Absent means the step always runs (old behavior).",
+          "type": "string"
+        }
+      }
+    },
+    "auxEntry": {
+      "type": "object",
+      "required": ["slot", "file", "sha256", "role"],
+      "properties": {
+        "slot": { "type": "string" },
+        "file": { "description": "Path relative to the recipe file.", "type": "string" },
+        "sha256": { "description": "Lowercase hex of the exact file bytes; mismatch fails preflight.", "type": "string" },
+        "role": { "type": "string" }
+      }
+    },
+    "imageRef": {
+      "type": "object",
+      "required": ["slot", "file", "sha256", "embeddedId"],
+      "properties": {
+        "slot": { "type": "string" },
+        "file": { "type": ["string", "null"] },
+        "sha256": { "type": ["string", "null"] },
+        "embeddedId": {
+          "description": "Set instead of file inside .jshrecipe bundles (resolves to aux/<id>.png in the zip).",
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "params": {
+      "description": "Discriminated by kind. Enum-valued strings (target, method, mode, shape, border) are intentionally open strings: new values arrive with new versions, unknown ones fail at preflight, not at parse time.",
+      "oneOf": [
+        { "$ref": "#/$defs/paramsNone" },
+        { "$ref": "#/$defs/paramsConvertColor" },
+        { "$ref": "#/$defs/paramsPosterize" },
+        { "$ref": "#/$defs/paramsStretchContrast" },
+        { "$ref": "#/$defs/paramsEqualize" },
+        { "$ref": "#/$defs/paramsMedian" },
+        { "$ref": "#/$defs/paramsBlur" },
+        { "$ref": "#/$defs/paramsGaussianBlur" },
+        { "$ref": "#/$defs/paramsCustomKernel" },
+        { "$ref": "#/$defs/paramsDoubleConvolution" },
+        { "$ref": "#/$defs/paramsEdgeDetection" },
+        { "$ref": "#/$defs/paramsMorphology" },
+        { "$ref": "#/$defs/paramsSimpleThreshold" },
+        { "$ref": "#/$defs/paramsDualThreshold" },
+        { "$ref": "#/$defs/paramsBinaryImage" },
+        { "$ref": "#/$defs/paramsBlend" },
+        { "$ref": "#/$defs/paramsInpaint" },
+        { "$ref": "#/$defs/paramsGrabCut" },
+        { "$ref": "#/$defs/paramsMeasureHistogram" },
+        { "$ref": "#/$defs/paramsMeasureParticles" },
+        { "$ref": "#/$defs/paramsMeasureProfile" }
+      ]
+    },
+    "paramsNone": { "$ref": "ops-params.json#/$defs/none" },
+    "paramsConvertColor": { "$ref": "ops-params.json#/$defs/convertColor" },
+    "paramsPosterize": { "$ref": "ops-params.json#/$defs/posterize" },
+    "paramsStretchContrast": { "$ref": "ops-params.json#/$defs/stretchContrast" },
+    "paramsEqualize": { "$ref": "ops-params.json#/$defs/equalize" },
+    "paramsMedian": { "$ref": "ops-params.json#/$defs/median" },
+    "paramsBlur": { "$ref": "ops-params.json#/$defs/blur" },
+    "paramsGaussianBlur": { "$ref": "ops-params.json#/$defs/gaussianBlur" },
+    "paramsCustomKernel": { "$ref": "ops-params.json#/$defs/customKernel" },
+    "paramsDoubleConvolution": { "$ref": "ops-params.json#/$defs/doubleConvolution" },
+    "paramsEdgeDetection": { "$ref": "ops-params.json#/$defs/edgeDetection" },
+    "paramsMorphology": { "$ref": "ops-params.json#/$defs/morphology" },
+    "paramsSimpleThreshold": { "$ref": "ops-params.json#/$defs/simpleThreshold" },
+    "paramsDualThreshold": { "$ref": "ops-params.json#/$defs/dualThreshold" },
+    "paramsBinaryImage": { "$ref": "ops-params.json#/$defs/binaryImage" },
+    "paramsBlend": { "$ref": "ops-params.json#/$defs/blend" },
+    "paramsInpaint": { "$ref": "ops-params.json#/$defs/inpaint" },
+    "paramsGrabCut": { "$ref": "ops-params.json#/$defs/grabCut" },
+    "paramsMeasureHistogram": { "$ref": "ops-params.json#/$defs/measureHistogram" },
+    "paramsMeasureParticles": { "$ref": "ops-params.json#/$defs/measureParticles" },
+    "paramsMeasureProfile": { "$ref": "ops-params.json#/$defs/measureProfile" }
+  }
+}

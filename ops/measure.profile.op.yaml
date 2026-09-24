@@ -1,0 +1,26 @@
+{
+  "id": "measure.profile",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "measure",
+  "displayKey": "Measure Profile",
+  "input": "gray",
+  "auxSlots": [],
+  "determinism": "Measurement-only: Apply returns the source unchanged and the Bresenham-sampled line values flow to the measurement sink (C# MeasurementCompute.SampleProfileLine via the player, Python _SINK profiles via m_profile, clipped to the image); the sink payload shapes, the sidecar writers, and the exporter m_ defs stay hand-written forever per spec - this wave cuts over only the DTO. The four endpoints are plain integers with no converter guard (any int binds; sampling clips out-of-image points), so the IDL carries no constraints. The 8-bit-grayscale gate is enforced at preflight and play time on both runners with recipe.params-invalid. No GUI collector is registered: recipe/CLI-only execution, declared auto with no dialog machinery. Deterministic on identical input.",
+  "conformance": ["ops/fixtures/measure.profile"],
+  "params": [
+    { "key": "x1", "type": "int", "default": 0, "interpolatable": true, "displayKey": "op.measure.profile.param.x1.label" },
+    { "key": "y1", "type": "int", "default": 0, "interpolatable": true, "displayKey": "op.measure.profile.param.y1.label" },
+    { "key": "x2", "type": "int", "default": 0, "interpolatable": true, "displayKey": "op.measure.profile.param.x2.label" },
+    { "key": "y2", "type": "int", "default": 0, "interpolatable": true, "displayKey": "op.measure.profile.param.y2.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.measure.profile.label", "op.measure.profile.param.x1.label", "op.measure.profile.param.y1.label", "op.measure.profile.param.x2.label", "op.measure.profile.param.y2.label"],
+  "docs": {
+    "short": "Records gray values sampled along a line.",
+    "methods": "The profile line was sampled with JSharp measure.profile."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

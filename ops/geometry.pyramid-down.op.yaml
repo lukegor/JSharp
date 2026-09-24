@@ -1,0 +1,21 @@
+{
+  "id": "geometry.pyramid-down",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "geometry",
+  "displayKey": "Pyramid Down",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Downsamples by a factor of two with Gaussian pyramid reduction (PyrDown, border Default); deterministic on identical input. The PyramidWindow effect size folds into Repeat at record time (2 to 1, 4 to 2) via the hand CollectPyramid flow, which stays hand-written per the spec section 5 multiplex rule (the Repeat replay side-effect is never serialized per step); export is uniform.",
+  "conformance": ["ops/fixtures/geometry.pyramid-down"],
+  "params": [],
+  "constraints": [],
+  "dialog": { "mode": "bespoke" },
+  "i18nKeys": ["op.geometry.pyramid-down.label"],
+  "docs": {
+    "short": "Downsamples the image with Gaussian pyramid reduction.",
+    "methods": "Images were downsampled with JSharp geometry.pyramid-down."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

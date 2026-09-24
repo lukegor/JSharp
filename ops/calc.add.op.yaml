@@ -1,0 +1,21 @@
+{
+  "id": "calc.add",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "calculator",
+  "displayKey": "Add Images",
+  "input": "any",
+  "auxSlots": ["second"],
+  "determinism": "Adds the image per-pixel to the staged aux image in slot 'second' with saturating 8-bit arithmetic (Cv2.Add / cv2.add); the aux Mat is staged at record time and never serialized (the DTO carries only the slot ImageRef). Both runners reject size-mismatched pairs with recipe.calc-size-mismatch; deterministic on identical input. The calculator fan-out dialog (CollectCalculator over the ImageCalculatorWindow) stays hand-written per the spec section 5 multiplex rule - the IDL declares multiplex only.",
+  "conformance": ["ops/fixtures/calc.add"],
+  "params": [{ "key": "second", "type": "image-ref", "default": null, "interpolatable": false, "displayKey": "op.calc.add.param.second.label" }],
+  "constraints": [],
+  "dialog": { "mode": "multiplex" },
+  "i18nKeys": ["op.calc.add.label", "op.calc.add.param.second.label"],
+  "docs": {
+    "short": "Adds two images per-pixel with saturation.",
+    "methods": "Images were added per-pixel with saturation with JSharp calc.add."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid", "recipe.aux-missing", "recipe.calc-size-mismatch"]
+}

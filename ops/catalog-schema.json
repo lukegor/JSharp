@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/lukegor/JSharp/main/ops/catalog-schema.json",
+  "$comment": "© lukegor, Apache-2.0. Version 1. Defensive publication as prior art.",
+  "title": "JSharp ops catalog",
+  "type": "object",
+  "required": ["$generated", "evaluatorVersion", "ops"],
+  "additionalProperties": false,
+  "properties": {
+    "$id": { "type": "string" },
+    "$comment": { "type": "string" },
+    "$generated": {
+      "type": "object",
+      "required": ["catalogHash", "generatorVersion", "opCount"],
+      "properties": {
+        "catalogHash": { "type": "string" },
+        "generatorVersion": { "type": "string" },
+        "opCount": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "evaluatorVersion": { "type": "integer" },
+    "ops": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "opVersion", "input", "paramsKind", "generated"],
+        "properties": {
+          "id": { "type": "string" },
+          "opVersion": { "type": "integer" },
+          "input": { "type": "string" },
+          "paramsKind": { "type": "string", "enum": ["none", "typed"] },
+          "generated": { "type": "boolean", "default": true }
+        }
+      }
+    }
+  }
+}

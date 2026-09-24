@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenCvSharp5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JSharp.Shared\JSharp.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

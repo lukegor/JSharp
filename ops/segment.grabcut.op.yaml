@@ -1,0 +1,26 @@
+{
+  "id": "segment.grabcut",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "segmentation",
+  "displayKey": "GrabCut",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Cuts the foreground inside the stated rectangle with 5 GrabCut iterations from the rect (GC_INIT_WITH_RECT over sure-background/foreground models, foreground composited over white); the Rect is a surrogate that is never serialized - the IDL carries its 4 ints (x, y, width, height). Rectangles outside the image fail with recipe.grabcut-out-of-bounds on both runners (preflight Check vs check(), plus the export-time def guard); width/height carry the schema minimum-1 boundary pair (no converter guard exists, so the IDL carries no constraints). Expects a color image; the formatted clone preserves the BGR2RGB swap on the non-8UC3 path identically on both runners. Deterministic on identical input for fixed pixel content. Collection from two canvas points stays hand-written in CollectGrabCut (two-points-required error otherwise) per the spec section 5 allowlist - the IDL declares bespoke only; export is uniform.",
+  "conformance": ["ops/fixtures/segment.grabcut"],
+  "params": [
+    { "key": "x", "type": "int", "default": 0, "interpolatable": true, "displayKey": "op.segment.grabcut.param.x.label" },
+    { "key": "y", "type": "int", "default": 0, "interpolatable": true, "displayKey": "op.segment.grabcut.param.y.label" },
+    { "key": "width", "type": "int", "default": 0, "minimum": 1, "interpolatable": true, "displayKey": "op.segment.grabcut.param.width.label" },
+    { "key": "height", "type": "int", "default": 0, "minimum": 1, "interpolatable": true, "displayKey": "op.segment.grabcut.param.height.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "bespoke" },
+  "i18nKeys": ["op.segment.grabcut.label", "op.segment.grabcut.param.x.label", "op.segment.grabcut.param.y.label", "op.segment.grabcut.param.width.label", "op.segment.grabcut.param.height.label"],
+  "docs": {
+    "short": "Cuts the foreground inside the stated rectangle.",
+    "methods": "The foreground was cut inside the stated rectangle with JSharp segment.grabcut."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid", "recipe.grabcut-out-of-bounds"]
+}

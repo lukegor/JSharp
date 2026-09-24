@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="JSharp/JSharp.csproj" />
+  <Project Path="JSharp.Domain/JSharp.Domain.csproj" />
+  <Project Path="JSharp.Shared/JSharp.Shared.csproj" />
+  <Project Path="JSharp.Utility/JSharp.Utility.csproj" />
+</Solution>

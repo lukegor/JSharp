@@ -1,0 +1,21 @@
+{
+  "id": "calc.xor",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "calculator",
+  "displayKey": "Bitwise XOR",
+  "input": "any",
+  "auxSlots": ["second"],
+  "determinism": "Combines the image per-pixel with the staged aux image in slot 'second' via bitwise XOR (Cv2.BitwiseXor / cv2.bitwise_xor); the aux Mat is staged at record time and never serialized (the DTO carries only the slot ImageRef). Both runners reject size-mismatched pairs with recipe.calc-size-mismatch; deterministic on identical input. The calculator fan-out dialog (CollectCalculator over the ImageCalculatorWindow) stays hand-written per the spec section 5 multiplex rule - the IDL declares multiplex only.",
+  "conformance": ["ops/fixtures/calc.xor"],
+  "params": [{ "key": "second", "type": "image-ref", "default": null, "interpolatable": false, "displayKey": "op.calc.xor.param.second.label" }],
+  "constraints": [],
+  "dialog": { "mode": "multiplex" },
+  "i18nKeys": ["op.calc.xor.label", "op.calc.xor.param.second.label"],
+  "docs": {
+    "short": "Combines two images per-pixel with bitwise XOR.",
+    "methods": "Images were combined per-pixel with bitwise XOR with JSharp calc.xor."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid", "recipe.aux-missing", "recipe.calc-size-mismatch"]
+}

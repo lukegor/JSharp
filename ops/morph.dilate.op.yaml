@@ -1,0 +1,26 @@
+{
+  "id": "morph.dilate",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "morphology",
+  "displayKey": "Dilate",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Dilates bright regions with the structuring element rebuilt at play time from shape+size (Rectangle packs an elementSize-by-elementSize square, Rhombus builds a radius-elementSize diamond); the materialized element Mat is never serialized. Border pixels extrapolate per the border mode and border value; deterministic on identical input.",
+  "conformance": ["ops/fixtures/morph.dilate"],
+  "params": [
+    { "key": "shape", "type": "enum", "values": ["Rectangle", "Rhombus"], "default": "Rhombus", "interpolatable": true, "displayKey": "op.morph.dilate.param.shape.label" },
+    { "key": "elementSize", "type": "int", "default": 3, "minimum": 1, "interpolatable": true, "displayKey": "op.morph.dilate.param.elementSize.label" },
+    { "key": "border", "type": "enum", "values": ["Default", "Constant", "Replicate", "Reflect", "Wrap", "Reflect101", "Transparent", "Isolated"], "default": "Isolated", "interpolatable": true, "displayKey": "op.morph.dilate.param.border.label" },
+    { "key": "borderValue", "type": "int", "default": 0, "interpolatable": true, "displayKey": "op.morph.dilate.param.borderValue.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.morph.dilate.label", "op.morph.dilate.param.shape.label", "op.morph.dilate.param.elementSize.label", "op.morph.dilate.param.border.label", "op.morph.dilate.param.borderValue.label"],
+  "docs": {
+    "short": "Dilates bright regions with a shaped structuring element.",
+    "methods": "Images were dilated with JSharp morph.dilate."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

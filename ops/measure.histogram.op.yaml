@@ -1,0 +1,21 @@
+{
+  "id": "measure.histogram",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "measure",
+  "displayKey": "Measure Histogram",
+  "input": "gray",
+  "auxSlots": [],
+  "determinism": "Measurement-only: Apply returns the source unchanged and the 256-bin histogram plus pixel count flows to the measurement sink (C# MeasurementCompute/MeasurementSink via the player, Python _SINK histogram via m_histogram); the sink payload shapes, the sidecar writers (MeasurementSerializers, BatchRunner, exporter _write_measurements), and the exporter m_ defs stay hand-written forever per spec - this wave cuts over only the DTO. The 8-bit-grayscale gate is enforced at preflight and play time on both runners with recipe.params-invalid. No GUI collector is registered (OperationDialogRouter has no measure arms): recipe/CLI-only execution, declared auto with no dialog machinery. Deterministic on identical input.",
+  "conformance": ["ops/fixtures/measure.histogram"],
+  "params": [],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.measure.histogram.label"],
+  "docs": {
+    "short": "Records the 256-bin grayscale histogram.",
+    "methods": "The grayscale histogram was recorded with JSharp measure.histogram."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "morph.erode",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "morphology",
+  "displayKey": "Erode",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Erodes bright regions with the structuring element rebuilt at play time from shape+size (Rectangle packs an elementSize-by-elementSize square, Rhombus builds a radius-elementSize diamond); the materialized element Mat is never serialized. Border pixels extrapolate per the border mode and border value; deterministic on identical input.",
+  "conformance": ["ops/fixtures/morph.erode"],
+  "params": [
+    { "key": "shape", "type": "enum", "values": ["Rectangle", "Rhombus"], "default": "Rhombus", "interpolatable": true, "displayKey": "op.morph.erode.param.shape.label" },
+    { "key": "elementSize", "type": "int", "default": 3, "minimum": 1, "interpolatable": true, "displayKey": "op.morph.erode.param.elementSize.label" },
+    { "key": "border", "type": "enum", "values": ["Default", "Constant", "Replicate", "Reflect", "Wrap", "Reflect101", "Transparent", "Isolated"], "default": "Isolated", "interpolatable": true, "displayKey": "op.morph.erode.param.border.label" },
+    { "key": "borderValue", "type": "int", "default": 0, "interpolatable": true, "displayKey": "op.morph.erode.param.borderValue.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.morph.erode.label", "op.morph.erode.param.shape.label", "op.morph.erode.param.elementSize.label", "op.morph.erode.param.border.label", "op.morph.erode.param.borderValue.label"],
+  "docs": {
+    "short": "Erodes bright regions with a shaped structuring element.",
+    "methods": "Images were eroded with JSharp morph.erode."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

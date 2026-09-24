@@ -1,0 +1,26 @@
+{
+  "id": "filter.edge-detection",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "filter",
+  "displayKey": "Edge Detection",
+  "input": "gray",
+  "auxSlots": [],
+  "determinism": "Detects edges with the named kernel: the Sobel pair applies a 3x3 directional Sobel followed by ConvertScaleAbs, Canny applies Canny with the min/max thresholds (the Canny kernel requires both thresholds; they stay nullable at bind and are enforced at preflight and play time, matching the hand converter arms). Python export branches per kernel value (three static defs plus a dynamic 4th def); the dynamic-emit renderer stays hand-written in PyOpMap.RenderEdge and the dialog stays hand-collected via the convolver multiplex — first exercise of the dynamic-emit carve-out. Deterministic on identical input.",
+  "conformance": ["ops/fixtures/filter.edge-detection"],
+  "params": [
+    { "key": "kernelName", "type": "enum", "values": ["Horizontal Sobel", "Vertical Sobel", "Canny"], "default": "Horizontal Sobel", "interpolatable": true, "displayKey": "op.filter.edge-detection.param.kernelName.label" },
+    { "key": "border", "type": "enum", "values": ["Default", "Constant", "Replicate", "Reflect", "Wrap", "Reflect101", "Transparent", "Isolated"], "default": "Default", "interpolatable": true, "displayKey": "op.filter.edge-detection.param.border.label" },
+    { "key": "minThreshold", "type": "number", "nullable": true, "default": null, "interpolatable": true, "displayKey": "op.filter.edge-detection.param.minThreshold.label" },
+    { "key": "maxThreshold", "type": "number", "nullable": true, "default": null, "interpolatable": true, "displayKey": "op.filter.edge-detection.param.maxThreshold.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "bespoke", "render": "dynamic-emit" },
+  "i18nKeys": ["op.filter.edge-detection.label", "op.filter.edge-detection.param.kernelName.label", "op.filter.edge-detection.param.border.label", "op.filter.edge-detection.param.minThreshold.label", "op.filter.edge-detection.param.maxThreshold.label"],
+  "docs": {
+    "short": "Detects edges with the named kernel.",
+    "methods": "Edges were detected with JSharp filter.edge-detection."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

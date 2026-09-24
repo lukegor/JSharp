@@ -1,0 +1,21 @@
+{
+  "id": "point.negate",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "point",
+  "displayKey": "Negate",
+  "input": "gray",
+  "auxSlots": [],
+  "determinism": "Bitwise NOT of every byte; size-preserving; identical input yields identical output on both runners.",
+  "conformance": ["conformance/negate"],
+  "params": [],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.point.negate.label"],
+  "docs": {
+    "short": "Inverts the image.",
+    "methods": "Images were inverted with JSharp point.negate (bitwise NOT)."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

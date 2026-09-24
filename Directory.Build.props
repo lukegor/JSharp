@@ -1,0 +1,22 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <!-- LiveCharts -> SkiaSharp.Views.WPF -> OpenTK ships netfx-only assets that run fine on modern .NET (NU1701). -->
+    <NoWarn>$(NoWarn);NU1701</NoWarn>
+    <Authors>Łukasz Górski</Authors>
+    <Copyright>Copyright © 2024 Łukasz Górski</Copyright>
+    <RepositoryUrl>https://github.com/lukegor/JSharp</RepositoryUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Derives assembly versions from git tags (see https://github.com/adamralph/minver). -->
+    <PackageReference Include="MinVer" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

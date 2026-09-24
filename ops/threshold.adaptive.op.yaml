@@ -1,0 +1,21 @@
+{
+  "id": "threshold.adaptive",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "threshold",
+  "displayKey": "Adaptive Threshold",
+  "input": "gray",
+  "auxSlots": [],
+  "determinism": "Applies mean-adaptive thresholding over an 11-pixel block with constant 5; deterministic on identical input.",
+  "conformance": ["ops/fixtures/threshold.adaptive"],
+  "params": [],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.threshold.adaptive.label"],
+  "docs": {
+    "short": "Applies adaptive thresholding.",
+    "methods": "Images were adaptively thresholded with JSharp threshold.adaptive."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

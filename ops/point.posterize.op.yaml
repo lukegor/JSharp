@@ -1,0 +1,21 @@
+{
+  "id": "point.posterize",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "point",
+  "displayKey": "Posterize",
+  "input": "gray",
+  "auxSlots": [],
+  "determinism": "Reduces grayscale levels to the given count; deterministic on identical input.",
+  "conformance": ["ops/fixtures/point.posterize"],
+  "params": [{ "key": "levels", "type": "int", "default": 4, "minimum": 2, "interpolatable": true, "displayKey": "op.point.posterize.param.levels.label" }],
+  "constraints": [{ "predicate": "range", "field": "levels", "min": 2 }],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.point.posterize.label", "op.point.posterize.param.levels.label"],
+  "docs": {
+    "short": "Reduces the number of grayscale levels.",
+    "methods": "Images were posterized to the stated level count with JSharp point.posterize."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

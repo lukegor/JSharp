@@ -1,0 +1,24 @@
+{
+  "id": "segment.inpaint",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "segmentation",
+  "displayKey": "Inpaint",
+  "input": "any",
+  "auxSlots": ["mask"],
+  "determinism": "Reconstructs masked regions with Telea inpainting (Cv2.Inpaint / cv2.inpaint with INPAINT_TELEA) at the stated radius; the mask Mat is staged at record time and never serialized (the DTO carries only the slot ImageRef plus the radius). The radius is project-bounded to [1,20] by the dialog guard (Inpaint radius must be between 1 and 20), the recipe-editor clamp, and the JSON schema - no converter guard exists, so the IDL carries no constraints (schema boundary vectors only, same pattern as B4 threshold). Deterministic on identical input. Collection requires two open same-size windows (ShowTwoImagesRequiredError otherwise) and stays hand-written in CollectInpaint per the spec section 5 allowlist - the IDL declares bespoke only.",
+  "conformance": ["ops/fixtures/segment.inpaint"],
+  "params": [
+    { "key": "mask", "type": "image-ref", "default": null, "interpolatable": false, "displayKey": "op.segment.inpaint.param.mask.label" },
+    { "key": "radius", "type": "int", "default": 3, "minimum": 1, "maximum": 20, "interpolatable": true, "displayKey": "op.segment.inpaint.param.radius.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "bespoke" },
+  "i18nKeys": ["op.segment.inpaint.label", "op.segment.inpaint.param.mask.label", "op.segment.inpaint.param.radius.label"],
+  "docs": {
+    "short": "Reconstructs masked regions with Telea inpainting.",
+    "methods": "Masked regions were reconstructed at the stated radius with JSharp segment.inpaint."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid", "recipe.aux-missing"]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "segment.skeletonize",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "segmentation",
+  "displayKey": "Skeletonize",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Thins bright regions to a 1px skeleton by looping open-minus-spikes plus erode with a 3x3 cross element, OR-accumulating spikes until nothing remains (the skeleton is zero-initialized; the F12 uninitialized-memory leak stays fixed). Pure morphology on both runners (Cv2.MorphologyEx/Erode/Substract/BitwiseOr vs cv2 equivalents); deterministic on identical input. The router returns NoParams directly (no dialog).",
+  "conformance": ["ops/fixtures/segment.skeletonize"],
+  "params": [],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.segment.skeletonize.label"],
+  "docs": {
+    "short": "Thins bright regions to a one-pixel skeleton.",
+    "methods": "Images were skeletonized with JSharp segment.skeletonize."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

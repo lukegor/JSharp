@@ -1,0 +1,23 @@
+{
+  "id": "color.convert",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "color",
+  "displayKey": "Convert Color Space",
+  "input": "color",
+  "auxSlots": [],
+  "determinism": "Converts BGR to the named target (Grayscale via BGR2GRAY, RGB via BGR2RGB channel swap, HSV via BGR2HSV, LAB via BGR2Lab); deterministic on identical input. The RGB arm converged after a cross-runner divergence: the C# player had no RGB arm and the Python runner mirrored the failure with recipe.params-invalid; 85dad95 added the BGR2RGB arm to the C# player with parity tests and e5ace41 switched the Python runner to cv2.COLOR_BGR2RGB with parity tests, so both runners convert identically now. The menu-alias to params plus NewColorSpace and ThenSplitChannels mapping and the split-channels terminal effect stay hand-written in the router and player per the spec section 5 multiplex rule (replay side-effects never leave the collector); export is uniform with an export-time unknown-target guard.",
+  "conformance": ["ops/fixtures/color.convert"],
+  "params": [
+    { "key": "target", "type": "enum", "values": ["Grayscale", "RGB", "HSV", "LAB"], "default": "Grayscale", "interpolatable": true, "displayKey": "op.color.convert.param.target.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "bespoke" },
+  "i18nKeys": ["op.color.convert.label", "op.color.convert.param.target.label"],
+  "docs": {
+    "short": "Converts the image to the target color space.",
+    "methods": "Images were converted to the stated color space with JSharp color.convert."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

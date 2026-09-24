@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/lukegor/JSharp/main/ops/meta-schema.json",
+  "$comment": "© lukegor, Apache-2.0. Version 1. Defensive publication as prior art.",
+  "title": "JSharp operation definition",
+  "type": "object",
+  "required": ["id", "opVersion", "metaSchemaVersion", "since", "category", "displayKey", "input", "auxSlots", "determinism", "conformance", "params", "constraints", "dialog", "i18nKeys", "docs", "errorCodes"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+\\.[a-z0-9-]+$" },
+    "opVersion": { "type": "integer", "minimum": 1 },
+    "metaSchemaVersion": { "type": "integer", "minimum": 1 },
+    "since": { "type": "string", "minLength": 1 },
+    "deprecated": { "type": "string" },
+    "category": { "type": "string", "minLength": 1 },
+    "displayKey": { "type": "string", "minLength": 1 },
+    "input": { "enum": ["any", "gray", "color"] },
+    "auxSlots": { "type": "array", "items": { "type": "string" } },
+    "determinism": { "type": "string", "minLength": 1 },
+    "conformance": { "type": "array", "minLength": 1, "items": { "type": "string" } },
+    "params": { "type": "array" },
+    "constraints": { "type": "array" },
+    "dialog": { "type": "object", "required": ["mode"], "properties": { "mode": { "enum": ["auto", "bespoke", "multiplex"] } }, "additionalProperties": true },
+    "i18nKeys": { "type": "array", "minLength": 1, "items": { "type": "string" } },
+    "docs": { "type": "object", "required": ["short", "methods"], "additionalProperties": false, "properties": { "short": { "type": "string" }, "methods": { "type": "string" } } },
+    "errorCodes": { "type": "array", "minLength": 1, "items": { "type": "string" } }
+  }
+}

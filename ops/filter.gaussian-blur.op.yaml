@@ -1,0 +1,26 @@
+{
+  "id": "filter.gaussian-blur",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "filter",
+  "displayKey": "Gaussian Blur",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Convolves with a kernelSize by kernelSize Gaussian (sigmaX, sigmaY); border pixels are extrapolated per the border mode; deterministic on identical input.",
+  "conformance": ["ops/fixtures/filter.gaussian-blur"],
+  "params": [
+    { "key": "kernelSize", "type": "int", "default": 3, "minimum": 1, "interpolatable": true, "displayKey": "op.filter.gaussian-blur.param.kernelSize.label" },
+    { "key": "sigmaX", "type": "number", "default": 1.5, "interpolatable": true, "displayKey": "op.filter.gaussian-blur.param.sigmaX.label" },
+    { "key": "sigmaY", "type": "number", "default": 1.5, "interpolatable": true, "displayKey": "op.filter.gaussian-blur.param.sigmaY.label" },
+    { "key": "border", "type": "enum", "values": ["Default", "Constant", "Replicate", "Reflect", "Wrap", "Reflect101", "Transparent", "Isolated"], "default": "Default", "interpolatable": true, "displayKey": "op.filter.gaussian-blur.param.border.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.filter.gaussian-blur.label", "op.filter.gaussian-blur.param.kernelSize.label", "op.filter.gaussian-blur.param.sigmaX.label", "op.filter.gaussian-blur.param.sigmaY.label", "op.filter.gaussian-blur.param.border.label"],
+  "docs": {
+    "short": "Applies a Gaussian blur.",
+    "methods": "Images were Gaussian-blurred with JSharp filter.gaussian-blur."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

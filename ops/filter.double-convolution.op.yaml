@@ -1,0 +1,28 @@
+{
+  "id": "filter.double-convolution",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "filter",
+  "displayKey": "Double Convolution",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Applies kernel1 then kernel2 with constant-zero padding and a same-size crop back to the source geometry; both kernels must be square with an odd size and are used as given (no normalization, unlike custom-kernel); deterministic on identical input.",
+  "conformance": ["ops/fixtures/filter.double-convolution"],
+  "params": [
+    { "key": "kernel1", "type": "int-matrix", "default": [[1, 1, 1], [1, 1, 1], [1, 1, 1]], "interpolatable": true, "displayKey": "op.filter.double-convolution.param.kernel1.label" },
+    { "key": "kernel2", "type": "int-matrix", "default": [[1, -2, 1], [-2, 4, -2], [1, -2, 1]], "interpolatable": true, "displayKey": "op.filter.double-convolution.param.kernel2.label" },
+    { "key": "delta", "type": "number", "default": 0, "interpolatable": true, "displayKey": "op.filter.double-convolution.param.delta.label" }
+  ],
+  "constraints": [
+    { "predicate": "square-odd", "field": "kernel1" },
+    { "predicate": "square-odd", "field": "kernel2" }
+  ],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.filter.double-convolution.label", "op.filter.double-convolution.param.kernel1.label", "op.filter.double-convolution.param.kernel2.label", "op.filter.double-convolution.param.delta.label"],
+  "docs": {
+    "short": "Applies two successive convolutions.",
+    "methods": "Images were double-convolved with JSharp filter.double-convolution."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

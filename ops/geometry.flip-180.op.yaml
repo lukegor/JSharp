@@ -1,0 +1,21 @@
+{
+  "id": "geometry.flip-180",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "geometry",
+  "displayKey": "Flip 180",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Rotates the image 180 degrees (a 180-degree rotation, not an axis flip; the name stays per the Python runner comment); dimensions unchanged; identical input yields identical output on both runners.",
+  "conformance": ["ops/fixtures/geometry.flip-180"],
+  "params": [],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.geometry.flip-180.label"],
+  "docs": {
+    "short": "Rotates the image 180 degrees.",
+    "methods": "Images were rotated 180 degrees with JSharp geometry.flip-180."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

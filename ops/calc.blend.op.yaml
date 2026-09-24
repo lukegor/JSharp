@@ -1,0 +1,24 @@
+{
+  "id": "calc.blend",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "calculator",
+  "displayKey": "Blend Images",
+  "input": "any",
+  "auxSlots": ["second"],
+  "determinism": "Blends the image with the staged aux image in slot 'second' via weighted addition (Cv2.AddWeighted / cv2.addWeighted with weight1 on the image and 1 - weight1 on the aux, gamma 0); the aux Mat is staged at record time and never serialized (the DTO carries only the slot ImageRef). The weight is project-bounded to [0,1] and rejected identically by both runners with recipe.params-invalid (converter guard, preflight validate branch, export-time def guard, play-time body guard); size-mismatched pairs fail with recipe.calc-size-mismatch on both runners; deterministic on identical input. The calculator fan-out dialog (CollectCalculator over the ImageCalculatorWindow, which defaults an unset blend factor to 0.5) stays hand-written per the spec section 5 multiplex rule - the IDL declares multiplex only.",
+  "conformance": ["ops/fixtures/calc.blend"],
+  "params": [
+    { "key": "second", "type": "image-ref", "default": null, "interpolatable": false, "displayKey": "op.calc.blend.param.second.label" },
+    { "key": "weight1", "type": "number", "default": 0.5, "minimum": 0, "maximum": 1, "interpolatable": true, "displayKey": "op.calc.blend.param.weight1.label" }
+  ],
+  "constraints": [{ "predicate": "range", "field": "weight1", "min": 0, "max": 1 }],
+  "dialog": { "mode": "multiplex" },
+  "i18nKeys": ["op.calc.blend.label", "op.calc.blend.param.second.label", "op.calc.blend.param.weight1.label"],
+  "docs": {
+    "short": "Blends two images with a stated weight.",
+    "methods": "Images were blended at the stated weight with JSharp calc.blend."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid", "recipe.aux-missing", "recipe.calc-size-mismatch"]
+}

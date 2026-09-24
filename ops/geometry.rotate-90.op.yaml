@@ -1,0 +1,21 @@
+{
+  "id": "geometry.rotate-90",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "geometry",
+  "displayKey": "Rotate 90 CW",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Rotates the image 90 degrees clockwise; dimensions transpose; identical input yields identical output on both runners.",
+  "conformance": ["ops/fixtures/geometry.rotate-90"],
+  "params": [],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.geometry.rotate-90.label"],
+  "docs": {
+    "short": "Rotates the image 90 degrees clockwise.",
+    "methods": "Images were rotated 90 degrees clockwise with JSharp geometry.rotate-90."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

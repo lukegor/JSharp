@@ -1,0 +1,26 @@
+{
+  "id": "morph.open",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "morphology",
+  "displayKey": "Morphological Opening",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Applies morphological opening (erosion followed by dilation) with the structuring element rebuilt at play time from shape+size (Rectangle packs an elementSize-by-elementSize square, Rhombus builds a radius-elementSize diamond); the materialized element Mat is never serialized. Border pixels extrapolate per the border mode and border value; deterministic on identical input.",
+  "conformance": ["ops/fixtures/morph.open"],
+  "params": [
+    { "key": "shape", "type": "enum", "values": ["Rectangle", "Rhombus"], "default": "Rhombus", "interpolatable": true, "displayKey": "op.morph.open.param.shape.label" },
+    { "key": "elementSize", "type": "int", "default": 3, "minimum": 1, "interpolatable": true, "displayKey": "op.morph.open.param.elementSize.label" },
+    { "key": "border", "type": "enum", "values": ["Default", "Constant", "Replicate", "Reflect", "Wrap", "Reflect101", "Transparent", "Isolated"], "default": "Isolated", "interpolatable": true, "displayKey": "op.morph.open.param.border.label" },
+    { "key": "borderValue", "type": "int", "default": 0, "interpolatable": true, "displayKey": "op.morph.open.param.borderValue.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.morph.open.label", "op.morph.open.param.shape.label", "op.morph.open.param.elementSize.label", "op.morph.open.param.border.label", "op.morph.open.param.borderValue.label"],
+  "docs": {
+    "short": "Applies morphological opening with a shaped structuring element.",
+    "methods": "Images were morphologically opened with JSharp morph.open."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "point.stretch-contrast",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "point",
+  "displayKey": "Stretch Contrast",
+  "input": "gray",
+  "auxSlots": [],
+  "determinism": "Linearly remaps pixels within [p1,p2] to [q3,q4] using the observed in-range min and max; pixels outside [p1,p2] pass through unchanged; an empty or constant in-range selection returns the input unchanged; deterministic on identical input.",
+  "conformance": ["ops/fixtures/point.stretch-contrast"],
+  "params": [
+    { "key": "p1", "type": "int", "default": 0, "interpolatable": true, "displayKey": "op.point.stretch-contrast.param.p1.label" },
+    { "key": "p2", "type": "int", "default": 255, "interpolatable": true, "displayKey": "op.point.stretch-contrast.param.p2.label" },
+    { "key": "q3", "type": "int", "default": 0, "interpolatable": true, "displayKey": "op.point.stretch-contrast.param.q3.label" },
+    { "key": "q4", "type": "int", "default": 255, "interpolatable": true, "displayKey": "op.point.stretch-contrast.param.q4.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.point.stretch-contrast.label", "op.point.stretch-contrast.param.p1.label", "op.point.stretch-contrast.param.p2.label", "op.point.stretch-contrast.param.q3.label", "op.point.stretch-contrast.param.q4.label"],
+  "docs": {
+    "short": "Stretches contrast from one range to another.",
+    "methods": "Images were contrast-stretched with JSharp point.stretch-contrast."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

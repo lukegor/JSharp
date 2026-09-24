@@ -1,0 +1,21 @@
+{
+  "id": "point.equalize-histogram",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "point",
+  "displayKey": "Equalize Histogram",
+  "input": "gray",
+  "auxSlots": [],
+  "determinism": "Histogram data is derived, never serialized: the 256-bin histogram is recomputed from the replay source at play time and equalized via a cumulative LUT; deterministic on identical input.",
+  "conformance": ["ops/fixtures/point.equalize-histogram"],
+  "params": [],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.point.equalize-histogram.label"],
+  "docs": {
+    "short": "Equalizes the histogram.",
+    "methods": "Images were histogram-equalized with JSharp point.equalize-histogram (histogram recomputed from the replay source)."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

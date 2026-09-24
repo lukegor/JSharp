@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="OpenCvSharp5" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JSharp.Utility\JSharp.Utility.csproj" />
+  </ItemGroup>
+
+  <!-- Open-only compile: drop orchestration sources when building the Open solution. -->
+  <ItemGroup Condition="'$(JSharpOpen)' == 'true'">
+    <Compile Remove="Recipes/**/*.cs" />
+    <Compile Remove="Measurements/**/*.cs" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(JSharpOpen)' == 'true'">
+    <DefineConstants>$(DefineConstants);JSHARP_OPEN</DefineConstants>
+  </PropertyGroup>
+
+</Project>

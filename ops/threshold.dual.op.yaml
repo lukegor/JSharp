@@ -1,0 +1,26 @@
+{
+  "id": "threshold.dual",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "threshold",
+  "displayKey": "Dual Threshold",
+  "input": "gray",
+  "auxSlots": [],
+  "determinism": "Maps each pixel by the min/max band and mode (Standard, Inverse, PreservingGrayscaleLevelsIdentity, PreservingGrayscaleLevelsNegation), with the contrast-mode variant emitting mid-gray bands; deterministic on identical input. The live-preview dialog stays hand-collected (spec section 5 allowlist: live-preview thresholders) and is declared bespoke; export is uniform.",
+  "conformance": ["ops/fixtures/threshold.dual"],
+  "params": [
+    { "key": "minThreshold", "type": "int", "default": 0, "minimum": 0, "maximum": 255, "interpolatable": true, "displayKey": "op.threshold.dual.param.minThreshold.label" },
+    { "key": "maxThreshold", "type": "int", "default": 255, "minimum": 0, "maximum": 255, "interpolatable": true, "displayKey": "op.threshold.dual.param.maxThreshold.label" },
+    { "key": "mode", "type": "enum", "values": ["Standard", "Inverse", "PreservingGrayscaleLevelsIdentity", "PreservingGrayscaleLevelsNegation"], "default": "Standard", "interpolatable": true, "displayKey": "op.threshold.dual.param.mode.label" },
+    { "key": "enableContrastMode", "type": "boolean", "default": false, "interpolatable": true, "displayKey": "op.threshold.dual.param.enableContrastMode.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "bespoke" },
+  "i18nKeys": ["op.threshold.dual.label", "op.threshold.dual.param.minThreshold.label", "op.threshold.dual.param.maxThreshold.label", "op.threshold.dual.param.mode.label", "op.threshold.dual.param.enableContrastMode.label"],
+  "docs": {
+    "short": "Applies dual thresholding.",
+    "methods": "Images were dual-thresholded to the stated band with JSharp threshold.dual."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

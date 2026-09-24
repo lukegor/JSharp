@@ -1,0 +1,24 @@
+{
+  "id": "filter.blur",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "filter",
+  "displayKey": "Box Blur",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Convolves with a normalized kernelSize by kernelSize box; border pixels are extrapolated per the border mode; deterministic on identical input.",
+  "conformance": ["ops/fixtures/filter.blur"],
+  "params": [
+    { "key": "kernelSize", "type": "int", "default": 3, "minimum": 1, "interpolatable": true, "displayKey": "op.filter.blur.param.kernelSize.label" },
+    { "key": "border", "type": "enum", "values": ["Default", "Constant", "Replicate", "Reflect", "Wrap", "Reflect101", "Transparent", "Isolated"], "default": "Default", "interpolatable": true, "displayKey": "op.filter.blur.param.border.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.filter.blur.label", "op.filter.blur.param.kernelSize.label", "op.filter.blur.param.border.label"],
+  "docs": {
+    "short": "Applies a normalized box blur.",
+    "methods": "Images were box-blurred with JSharp filter.blur."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

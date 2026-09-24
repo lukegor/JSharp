@@ -1,0 +1,23 @@
+{
+  "id": "filter.median",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "filter",
+  "displayKey": "Median Filter",
+  "input": "gray",
+  "auxSlots": [],
+  "determinism": "Replaces each pixel with the median of its kernelSize by kernelSize neighborhood; grayscale only; deterministic on identical input.",
+  "conformance": ["ops/fixtures/filter.median"],
+  "params": [
+    { "key": "kernelSize", "type": "int", "default": 3, "minimum": 1, "interpolatable": true, "displayKey": "op.filter.median.param.kernelSize.label" }
+  ],
+  "constraints": [],
+  "dialog": { "mode": "auto" },
+  "i18nKeys": ["op.filter.median.label", "op.filter.median.param.kernelSize.label"],
+  "docs": {
+    "short": "Applies a median filter.",
+    "methods": "Images were median-filtered with JSharp filter.median."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

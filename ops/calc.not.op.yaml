@@ -1,0 +1,21 @@
+{
+  "id": "calc.not",
+  "opVersion": 1,
+  "metaSchemaVersion": 1,
+  "since": "v1",
+  "category": "calculator",
+  "displayKey": "Bitwise NOT",
+  "input": "any",
+  "auxSlots": [],
+  "determinism": "Inverts the image per-pixel (Cv2.BitwiseNot / cv2.bitwise_not); single-input op with no aux slot, sharing NoneParamsDto/NoParams with the pilots. Deterministic on identical input. The calculator fan-out dialog (CollectCalculator over the ImageCalculatorWindow) stays hand-written per the spec section 5 multiplex rule - the IDL declares multiplex only.",
+  "conformance": ["ops/fixtures/calc.not"],
+  "params": [],
+  "constraints": [],
+  "dialog": { "mode": "multiplex" },
+  "i18nKeys": ["op.calc.not.label"],
+  "docs": {
+    "short": "Inverts the image per-pixel.",
+    "methods": "Images were inverted per-pixel with JSharp calc.not."
+  },
+  "errorCodes": ["recipe.unknown-operation", "recipe.params-invalid"]
+}

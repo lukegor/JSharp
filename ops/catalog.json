@@ -1,0 +1,278 @@
+{
+  "$id": "https://raw.githubusercontent.com/lukegor/JSharp/main/ops/catalog.json",
+  "$comment": "\u00A9 lukegor, Apache-2.0. Version 1. Defensive publication as prior art.",
+  "$generated": {
+    "catalogHash": "61367afd100bd551968e50262c2c55ef8ead907389cb718e00798f2d0755d3fb",
+    "generatorVersion": "0.1.0",
+    "opCount": 38
+  },
+  "evaluatorVersion": 1,
+  "ops": [
+    {
+      "id": "calc.add",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "calc.and",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "calc.blend",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "calc.not",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "none",
+      "generated": true
+    },
+    {
+      "id": "calc.or",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "calc.subtract",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "calc.xor",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "color.convert",
+      "opVersion": 1,
+      "input": "color",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "filter.blur",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "filter.custom-kernel",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "filter.double-convolution",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "filter.edge-detection",
+      "opVersion": 1,
+      "input": "gray",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "filter.gaussian-blur",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "filter.median",
+      "opVersion": 1,
+      "input": "gray",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "geometry.flip-180",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "none",
+      "generated": true
+    },
+    {
+      "id": "geometry.pyramid-down",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "none",
+      "generated": true
+    },
+    {
+      "id": "geometry.pyramid-up",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "none",
+      "generated": true
+    },
+    {
+      "id": "geometry.rotate-90",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "none",
+      "generated": true
+    },
+    {
+      "id": "measure.histogram",
+      "opVersion": 1,
+      "input": "gray",
+      "paramsKind": "none",
+      "generated": true
+    },
+    {
+      "id": "measure.particles",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "measure.profile",
+      "opVersion": 1,
+      "input": "gray",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "morph.close",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "morph.dilate",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "morph.erode",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "morph.open",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "point.equalize-histogram",
+      "opVersion": 1,
+      "input": "gray",
+      "paramsKind": "none",
+      "generated": true
+    },
+    {
+      "id": "point.negate",
+      "opVersion": 1,
+      "input": "gray",
+      "paramsKind": "none",
+      "generated": true
+    },
+    {
+      "id": "point.posterize",
+      "opVersion": 1,
+      "input": "gray",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "point.stretch-contrast",
+      "opVersion": 1,
+      "input": "gray",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "point.stretch-histogram",
+      "opVersion": 1,
+      "input": "gray",
+      "paramsKind": "none",
+      "generated": true
+    },
+    {
+      "id": "segment.grabcut",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "segment.hough",
+      "opVersion": 1,
+      "input": "gray",
+      "paramsKind": "none",
+      "generated": true
+    },
+    {
+      "id": "segment.inpaint",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "segment.skeletonize",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "none",
+      "generated": true
+    },
+    {
+      "id": "segment.watershed",
+      "opVersion": 1,
+      "input": "any",
+      "paramsKind": "none",
+      "generated": true
+    },
+    {
+      "id": "threshold.adaptive",
+      "opVersion": 1,
+      "input": "gray",
+      "paramsKind": "none",
+      "generated": true
+    },
+    {
+      "id": "threshold.dual",
+      "opVersion": 1,
+      "input": "gray",
+      "paramsKind": "typed",
+      "generated": true
+    },
+    {
+      "id": "threshold.simple",
+      "opVersion": 1,
+      "input": "gray",
+      "paramsKind": "typed",
+      "generated": true
+    }
+  ]
+}
